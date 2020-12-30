@@ -4,6 +4,31 @@
   
   
   <entry>
+    <title>Hexo集成Valine评论系统</title>
+    <link href="/2020/12/30/Hexo%E9%9B%86%E6%88%90Valine%E8%AF%84%E8%AE%BA%E7%B3%BB%E7%BB%9F/"/>
+    <url>/2020/12/30/Hexo%E9%9B%86%E6%88%90Valine%E8%AF%84%E8%AE%BA%E7%B3%BB%E7%BB%9F/</url>
+    
+    <content type="html"><![CDATA[<h2 id="注册Leancloud"><a href="#注册Leancloud" class="headerlink" title="注册Leancloud"></a>注册Leancloud</h2><p>评论系统其实是放在Leancloud上的，因此首先需要去注册一个账号</p><p>官网：<a href="https://leancloud.cn/">https://leancloud.cn/</a></p><p>认证完成后创建应用</p><p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20201230150742969.png" alt="image-20201230150742969"></p><p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20201230150811967.png" alt="image-20201230150811967"></p><p>点击设置获取appid 和 appkey</p><p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20201230150940084.png" alt="image-20201230150940084"></p><h2 id="修改配置文件"><a href="#修改配置文件" class="headerlink" title="修改配置文件"></a>修改配置文件</h2><p>打开主题配置文件 搜索 valine，填入appid 和 appkey</p><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs yaml"><span class="hljs-attr">valine:</span><br>  <span class="hljs-attr">appid:</span>   <span class="hljs-comment">#填上刚才获取到的</span><br>  <span class="hljs-attr">appkey:</span>  <span class="hljs-comment">#填上刚才获取到的</span><br>  <span class="hljs-attr">placeholder:</span> <span class="hljs-string">说点什么</span><br>  <span class="hljs-attr">path:</span> <span class="hljs-string">window.location.pathname</span><br>  <span class="hljs-attr">avatar:</span> <span class="hljs-string">retro</span><br>  <span class="hljs-attr">meta:</span> [<span class="hljs-string">&#x27;nick&#x27;</span>, <span class="hljs-string">&#x27;mail&#x27;</span>, <span class="hljs-string">&#x27;link&#x27;</span>]<br>  <span class="hljs-attr">pageSize:</span> <span class="hljs-number">10</span><br>  <span class="hljs-attr">lang:</span> <span class="hljs-string">zh-CN</span><br>  <span class="hljs-attr">highlight:</span> <span class="hljs-literal">false</span><br>  <span class="hljs-attr">recordIP:</span> <span class="hljs-literal">false</span><br>  <span class="hljs-attr">serverURLs:</span><br></code></pre></td></tr></table></figure><p>并修改评论插件为valine</p><figure class="highlight coq"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs coq">comments:<br>  enable: true<br>  # 指定的插件，需要同时设置对应插件的必要参数<br>  # The specified plugin needs to <span class="hljs-built_in">set</span> the necessary parameters <span class="hljs-built_in">at</span> the same <span class="hljs-built_in">time</span><br>  # <span class="hljs-keyword">Options</span>: utterances | <span class="hljs-type">disqus</span> | <span class="hljs-type">gitalk</span> | <span class="hljs-type">valine</span> | <span class="hljs-type">waline</span> | <span class="hljs-type">changyan</span> | <span class="hljs-type">livere</span> | <span class="hljs-type">remark42</span> | <span class="hljs-type">twikoo</span><br>  type: valine<br></code></pre></td></tr></table></figure>]]></content>
+    
+    
+    <categories>
+      
+      <category>Hexo</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>Hexo</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>Hexo自定义域名</title>
     <link href="/2020/12/30/Hexo%E8%87%AA%E5%AE%9A%E4%B9%89%E5%9F%9F%E5%90%8D/"/>
     <url>/2020/12/30/Hexo%E8%87%AA%E5%AE%9A%E4%B9%89%E5%9F%9F%E5%90%8D/</url>
