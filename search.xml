@@ -40,6 +40,62 @@
       </tags>
   </entry>
   <entry>
+    <title>Hexo自定义域名</title>
+    <url>/2020/12/30/Hexo%E8%87%AA%E5%AE%9A%E4%B9%89%E5%9F%9F%E5%90%8D/</url>
+    <content><![CDATA[<h2 id="阿里云购买域名"><a href="#阿里云购买域名" class="headerlink" title="阿里云购买域名"></a>阿里云购买域名</h2><p>购买地址: <a href="https://wanwang.aliyun.com/domain/searchresult/#/?keyword=&amp;suffix=com">https://wanwang.aliyun.com/domain/searchresult/#/?keyword=&amp;suffix=com</a></p>
+<h3 id="通过CNAME解析"><a href="#通过CNAME解析" class="headerlink" title="通过CNAME解析"></a>通过CNAME解析</h3><p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20201230094445258.png" alt="image-20201230094445258"></p>
+<p>登录github仓库，在根目录下创建CNAME文件</p>
+<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20201230094345833.png" alt="image-20201230094345833"></p>
+<h2 id="Github配置HTTPS"><a href="#Github配置HTTPS" class="headerlink" title="Github配置HTTPS"></a>Github配置HTTPS</h2><p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20201230091906008.png" alt="image-20201230091906008"></p>
+<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20201230094113159.png" alt="image-20201230094113159"></p>
+<h3 id="登录域名界面"><a href="#登录域名界面" class="headerlink" title="登录域名界面"></a>登录域名界面</h3><p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20201230095210959.png" alt="image-20201230095210959"></p>
+<p>修改网站标题blog/_config.yml</p>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>title</code></td>
+<td>网站标题</td>
+</tr>
+<tr>
+<td><code>subtitle</code></td>
+<td>网站副标题</td>
+</tr>
+<tr>
+<td><code>description</code></td>
+<td>网站描述</td>
+</tr>
+<tr>
+<td><code>keywords</code></td>
+<td>网站的关键词。支援多个关键词。</td>
+</tr>
+<tr>
+<td><code>author</code></td>
+<td>您的名字</td>
+</tr>
+<tr>
+<td><code>language</code></td>
+<td>网站使用的语言。对于简体中文用户来说，使用不同的主题可能需要设置成不同的值，请参考你的主题的文档自行设置，常见的有 <code>zh-Hans</code>和 <code>zh-CN</code>。</td>
+</tr>
+<tr>
+<td><code>timezone</code></td>
+<td>网站时区。Hexo 默认使用您电脑的时区。请参考 <a href="https://en.wikipedia.org/wiki/List_of_tz_database_time_zones">时区列表</a> 进行设置，如 <code>America/New_York</code>, <code>Japan</code>, 和 <code>UTC</code> 。一般的，对于中国大陆地区可以使用 <code>Asia/Shanghai</code>。</td>
+</tr>
+</tbody></table>
+<h3 id="部署到github"><a href="#部署到github" class="headerlink" title="部署到github"></a>部署到github</h3><p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20201230111015211.png" alt="image-20201230111015211"></p>
+]]></content>
+      <categories>
+        <category>Hexo</category>
+      </categories>
+      <tags>
+        <tag>Hexo</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>安装Hexo个人博客</title>
     <url>/2020/12/30/%E5%AE%89%E8%A3%85Hexo%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/</url>
     <content><![CDATA[<h2 id="需要的工具"><a href="#需要的工具" class="headerlink" title="需要的工具"></a>需要的工具</h2><p>nodejs: 包含俩个命令 node<code> </code>npm</p>
