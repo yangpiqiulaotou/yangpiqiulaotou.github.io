@@ -17,7 +17,7 @@
   <meta name="description" content="">
   <meta name="author" content="羊皮裘老头">
   <meta name="keywords" content="">
-  <title>Hexo集成Valine评论系统 - 羊皮裘老头</title>
+  <title>rancher:v2.3安装创建K8s集群 - 羊皮裘老头</title>
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
 
@@ -201,7 +201,7 @@
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
           <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="Hexo集成Valine评论系统">
+            <span class="h2" id="subtitle" title="rancher:v2.3安装创建K8s集群">
               
             </span>
 
@@ -211,8 +211,8 @@
   
     <span class="post-meta">
       <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-      <time datetime="2020-12-30 15:19" pubdate>
-        2020年12月30日 下午
+      <time datetime="2021-01-04 10:31" pubdate>
+        2021年1月4日 上午
       </time>
     </span>
   
@@ -223,7 +223,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      250 字
+      557 字
     </span>
   
 
@@ -233,7 +233,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      3
+      6
        分钟
     </span>
   
@@ -271,20 +271,63 @@
         <div class="py-5" id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">Hexo集成Valine评论系统</h1>
+            <h1 style="display: none">rancher:v2.3安装创建K8s集群</h1>
             
             <div class="markdown-body">
-              <h2 id="注册Leancloud"><a href="#注册Leancloud" class="headerlink" title="注册Leancloud"></a>注册Leancloud</h2><p>评论系统其实是放在Leancloud上的，因此首先需要去注册一个账号</p>
-<p>官网：<a target="_blank" rel="noopener" href="https://leancloud.cn/">https://leancloud.cn/</a></p>
-<p>认证完成后创建应用</p>
-<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20201230150742969.png" srcset="/img/loading.gif" alt="image-20201230150742969"></p>
-<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20201230150811967.png" srcset="/img/loading.gif" alt="image-20201230150811967"></p>
-<p>点击设置获取appid 和 appkey</p>
-<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20201230150940084.png" srcset="/img/loading.gif" alt="image-20201230150940084"></p>
-<h2 id="修改配置文件"><a href="#修改配置文件" class="headerlink" title="修改配置文件"></a>修改配置文件</h2><p>打开主题配置文件 搜索 valine，填入appid 和 appkey</p>
-<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs yaml"><span class="hljs-attr">valine:</span><br>  <span class="hljs-attr">appid:</span>  <span class="hljs-comment"># 从 LeanCloud 的应用中得到的 appId</span><br>  <span class="hljs-attr">appkey:</span>  <span class="hljs-comment"># 从 LeanCloud 的应用中得到的 APP Key</span><br>  <span class="hljs-attr">placeholder:</span> <span class="hljs-string">吐槽</span> <span class="hljs-comment"># 评论框占位提示符</span><br>  <span class="hljs-attr">path:</span> <span class="hljs-string">window.location.pathname</span> <span class="hljs-comment"># 当前文章页路径，用于区分不同的文章页，以保证正确读取该文章页下的评论列表</span><br>  <span class="hljs-attr">avatar:</span> <span class="hljs-string">retro</span> <span class="hljs-comment"># Gravatar 头像展示方式</span><br>  <span class="hljs-attr">meta:</span> [<span class="hljs-string">&#x27;nick&#x27;</span>, <span class="hljs-string">&#x27;mail&#x27;</span>, <span class="hljs-string">&#x27;link&#x27;</span>]  <span class="hljs-comment"># 评论者相关属性</span><br>  <span class="hljs-attr">pageSize:</span> <span class="hljs-number">10</span> <span class="hljs-comment"># 评论列表分页，每页条数</span><br>  <span class="hljs-attr">lang:</span> <span class="hljs-string">zh-CN</span> <span class="hljs-comment"># zh-CN | zh-TW | en | ja</span><br>  <span class="hljs-attr">highlight:</span> <span class="hljs-literal">false</span> <span class="hljs-comment"># 代码高亮</span><br>  <span class="hljs-attr">recordIP:</span> <span class="hljs-literal">false</span> <span class="hljs-comment"># 是否记录评论者IP</span><br>  <span class="hljs-attr">serverURLs:</span>  <span class="hljs-comment"># REST API 服务器地址，国际版不填</span><br></code></pre></td></tr></table></figure>
-<p>并修改评论插件为valine</p>
-<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs yaml"><span class="hljs-attr">comments:</span>  <span class="hljs-comment"># 评论</span><br>  <span class="hljs-attr">enable:</span> <span class="hljs-literal">true</span>  <span class="hljs-comment"># 开启评论</span><br>  <span class="hljs-attr">type:</span> <span class="hljs-string">valine</span>  <span class="hljs-comment"># 指定使用的评论模块</span><br></code></pre></td></tr></table></figure>
+              <h3 id="1、rancher介绍"><a href="#1、rancher介绍" class="headerlink" title="1、rancher介绍"></a>1、rancher介绍</h3><p>每个团队都可以在他们选择的公共云或私有云上部署应用程序，Rancher 在 IT 和 DevOps 组织中扮演的角色如下：</p>
+<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20191125105835491.png" srcset="/img/loading.gif" alt="image-20191125105835491"></p>
+<p>同时具备多种功能：</p>
+<ul>
+<li>内置 CI/CD 流水线</li>
+<li>告警和日志收集功能</li>
+<li>多集群管理功能</li>
+<li>集成 Rancher Kubernetes Engine (RKE)</li>
+<li>与各云 Kubernetes 服务(如 GKE、EKS、AKS) 集成</li>
+</ul>
+<h3 id="2、安装要求"><a href="#2、安装要求" class="headerlink" title="2、安装要求"></a>2、安装要求</h3><h4 id="2-1操作系统和Docker要求"><a href="#2-1操作系统和Docker要求" class="headerlink" title="2.1操作系统和Docker要求"></a>2.1操作系统和Docker要求</h4><p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20191125104210860.png" srcset="/img/loading.gif" alt="image-20191125104210860"></p>
+<h4 id="2-2硬件需求"><a href="#2-2硬件需求" class="headerlink" title="2.2硬件需求"></a>2.2硬件需求</h4><p>HA集群</p>
+<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20191125104545019.png" srcset="/img/loading.gif" alt="image-20191125104545019"></p>
+<p>单节点</p>
+<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20191125104610584.png" srcset="/img/loading.gif" alt="image-20191125104610584"></p>
+<h4 id="2-3Rancher与用户群集通信的端口要求"><a href="#2-3Rancher与用户群集通信的端口要求" class="headerlink" title="2.3Rancher与用户群集通信的端口要求"></a>2.3Rancher与用户群集通信的端口要求</h4><p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20191125104812067.png" srcset="/img/loading.gif" alt="image-20191125104812067"></p>
+<h3 id="3、单节点安装"><a href="#3、单节点安装" class="headerlink" title="3、单节点安装"></a>3、单节点安装</h3><figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs awk">docker run -d --restart=unless-stopped \<br>  -p <span class="hljs-number">80</span>:<span class="hljs-number">80</span> -p <span class="hljs-number">443</span>:<span class="hljs-number">443</span> \<br>  -v <span class="hljs-regexp">/usr/</span>local<span class="hljs-regexp">/rancher:/u</span>sr<span class="hljs-regexp">/local/</span>rancher \<br>  rancher/rancher:latest<br></code></pre></td></tr></table></figure>
+<h3 id="4、rancher的web界面"><a href="#4、rancher的web界面" class="headerlink" title="4、rancher的web界面"></a>4、rancher的web界面</h3><h4 id="4-1自定义集群"><a href="#4-1自定义集群" class="headerlink" title="4.1自定义集群"></a>4.1自定义集群</h4><p>通过宿主机的IP登录</p>
+<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20191125110853326.png" srcset="/img/loading.gif" alt="image-20191125110853326"></p>
+<p>设置需要访问的URL地址</p>
+<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20191125110956934.png" srcset="/img/loading.gif" alt="image-20191125110956934"></p>
+<p>设置中文字体</p>
+<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20191125111044885.png" srcset="/img/loading.gif" alt="image-20191125111044885"></p>
+<p>添加集群</p>
+<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20191125111137103.png" srcset="/img/loading.gif" alt="image-20191125111137103"></p>
+<p>生成自己的集群</p>
+<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20191125111225387.png" srcset="/img/loading.gif" alt="image-20191125111225387"></p>
+<p>可以自定义RKE集群，也可以导入自己已经建好的集群。</p>
+<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20191125111408862.png" srcset="/img/loading.gif" alt="image-20191125111408862"></p>
+<p>设置自定义集群的名字 ，选择需要安装的集群的版本。</p>
+<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20191125111607904.png" srcset="/img/loading.gif" alt="image-20191125111607904"></p>
+<p>选择需要的网络策略。</p>
+<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20191125111641275.png" srcset="/img/loading.gif" alt="image-20191125111641275"></p>
+<p>自己私有仓库地址，以及账密。</p>
+<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20191125111756334.png" srcset="/img/loading.gif" alt="image-20191125111756334"></p>
+<p>根据自己需求设置。</p>
+<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20191125111943481.png" srcset="/img/loading.gif" alt="image-20191125111943481"></p>
+<p>master节点选择后在你需要安装成master节点运行下面的命令</p>
+<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20191125112055397.png" srcset="/img/loading.gif" alt="image-20191125112055397"></p>
+<p>在工作节点运行以下命令。</p>
+<p>运行过程会去拉取所需镜像，时间视自己网络情况而定。</p>
+<p>所有容器运行好之后可以看到以下界面，表示你的集群已经好了</p>
+<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20191125112358230.png" srcset="/img/loading.gif" alt="image-20191125112358230"></p>
+<p>复制kubeconfig文件在master节点下执行</p>
+<figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs elixir"><span class="hljs-comment"># 添加Kubernetes的yum源</span><br><span class="hljs-variable">$ </span>cat &gt;&gt; <span class="hljs-regexp">/etc/yum</span>.repos.d/kubernetes.repo &lt;&lt;EOF<br>[kubernetes]<br>name=Kubernetes<br>baseurl=<span class="hljs-symbol">https:</span>/<span class="hljs-regexp">/mirrors.aliyun.com/kubernetes</span><span class="hljs-regexp">/yum/repos</span><span class="hljs-regexp">/kubernetes-el7-x86_64/</span><br>enabled=<span class="hljs-number">1</span><br>gpgcheck=0<br>EOF<br><br><span class="hljs-comment"># 查看可安装的版本</span><br><span class="hljs-variable">$ </span>yum list kubectl –showduplicates<br><br><span class="hljs-comment"># yum方式安装kubectl</span><br><span class="hljs-variable">$ </span>yum install -y kubectl.x86_64<br><br>[root<span class="hljs-variable">@node1</span> ~]<span class="hljs-comment"># mkdir -p .kube</span><br>[root<span class="hljs-variable">@node1</span> ~]<span class="hljs-comment"># vim .kube/config</span><br></code></pre></td></tr></table></figure>
+<p>即可在master节点通过命令行查看整个集群信息。</p>
+<h4 id="4-2导入集群"><a href="#4-2导入集群" class="headerlink" title="4.2导入集群"></a>4.2导入集群</h4><p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20191125113210838.png" srcset="/img/loading.gif" alt="image-20191125113210838"></p>
+<p>随便定义一个集群名。</p>
+<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20191125113405043.png" srcset="/img/loading.gif" alt="image-20191125113405043"></p>
+<p>复制下面两条命令在master节点运行，运行第一条命令时，由于是自签证书会报x509错误，在执行下面一条命令跳过错误就好。</p>
+<p>当在master节点看到</p>
+<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20191125113631090.png" srcset="/img/loading.gif" alt="image-20191125113631090"></p>
+<p>则表示集群导入成功，如果pod状态报错，根据报错信息处理即可。</p>
+
             </div>
             <hr>
             <div>
@@ -293,7 +336,7 @@
                   <div class="post-meta mr-3">
                     <i class="iconfont icon-category"></i>
                     
-                      <a class="hover-with-bg" href="/categories/Hexo/">Hexo</a>
+                      <a class="hover-with-bg" href="/categories/rancher/">rancher</a>
                     
                   </div>
                 
@@ -301,7 +344,7 @@
                   <div class="post-meta">
                     <i class="iconfont icon-tags"></i>
                     
-                      <a class="hover-with-bg" href="/tags/Hexo/">Hexo</a>
+                      <a class="hover-with-bg" href="/tags/rancher/">rancher</a>
                     
                   </div>
                 
@@ -314,9 +357,9 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2021/01/04/rancher-v2-3%E5%AE%89%E8%A3%85%E5%88%9B%E5%BB%BAK8s%E9%9B%86%E7%BE%A4/">
+                      <a href="/2021/01/04/rancher%E6%B5%81%E6%B0%B4%E7%BA%BF-%E5%90%8E%E7%AB%AF/">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">rancher:v2.3安装创建K8s集群</span>
+                        <span class="hidden-mobile">rancher流水线<后端></span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -324,8 +367,8 @@
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2020/12/30/Hexo%E8%87%AA%E5%AE%9A%E4%B9%89%E5%9F%9F%E5%90%8D/">
-                        <span class="hidden-mobile">Hexo自定义域名</span>
+                      <a href="/2020/12/30/Hexo%E9%9B%86%E6%88%90Valine%E8%AF%84%E8%AE%BA%E7%B3%BB%E7%BB%9F/">
+                        <span class="hidden-mobile">Hexo集成Valine评论系统</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
