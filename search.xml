@@ -35,27 +35,6 @@
       </tags>
   </entry>
   <entry>
-    <title>Hexo集成Valine评论系统</title>
-    <url>/2020/12/30/Hexo%E9%9B%86%E6%88%90Valine%E8%AF%84%E8%AE%BA%E7%B3%BB%E7%BB%9F/</url>
-    <content><![CDATA[<h2 id="注册Leancloud"><a href="#注册Leancloud" class="headerlink" title="注册Leancloud"></a>注册Leancloud</h2><p>评论系统其实是放在Leancloud上的，因此首先需要去注册一个账号</p>
-<p>官网：<a href="https://leancloud.cn/">https://leancloud.cn/</a></p>
-<p>认证完成后创建应用</p>
-<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20201230150742969.png" alt="image-20201230150742969"></p>
-<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20201230150811967.png" alt="image-20201230150811967"></p>
-<p>点击设置获取appid 和 appkey</p>
-<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20201230150940084.png" alt="image-20201230150940084"></p>
-<h2 id="修改配置文件"><a href="#修改配置文件" class="headerlink" title="修改配置文件"></a>修改配置文件</h2><p>打开主题配置文件 搜索 valine，填入appid 和 appkey</p>
-<figure class="highlight yaml"><table><tr><td class="code"><pre><code class="hljs yaml"><span class="hljs-attr">valine:</span><br>  <span class="hljs-attr">appid:</span>  <span class="hljs-comment"># 从 LeanCloud 的应用中得到的 appId</span><br>  <span class="hljs-attr">appkey:</span>  <span class="hljs-comment"># 从 LeanCloud 的应用中得到的 APP Key</span><br>  <span class="hljs-attr">placeholder:</span> <span class="hljs-string">吐槽</span> <span class="hljs-comment"># 评论框占位提示符</span><br>  <span class="hljs-attr">path:</span> <span class="hljs-string">window.location.pathname</span> <span class="hljs-comment"># 当前文章页路径，用于区分不同的文章页，以保证正确读取该文章页下的评论列表</span><br>  <span class="hljs-attr">avatar:</span> <span class="hljs-string">retro</span> <span class="hljs-comment"># Gravatar 头像展示方式</span><br>  <span class="hljs-attr">meta:</span> [<span class="hljs-string">&#x27;nick&#x27;</span>, <span class="hljs-string">&#x27;mail&#x27;</span>, <span class="hljs-string">&#x27;link&#x27;</span>]  <span class="hljs-comment"># 评论者相关属性</span><br>  <span class="hljs-attr">pageSize:</span> <span class="hljs-number">10</span> <span class="hljs-comment"># 评论列表分页，每页条数</span><br>  <span class="hljs-attr">lang:</span> <span class="hljs-string">zh-CN</span> <span class="hljs-comment"># zh-CN | zh-TW | en | ja</span><br>  <span class="hljs-attr">highlight:</span> <span class="hljs-literal">false</span> <span class="hljs-comment"># 代码高亮</span><br>  <span class="hljs-attr">recordIP:</span> <span class="hljs-literal">false</span> <span class="hljs-comment"># 是否记录评论者IP</span><br>  <span class="hljs-attr">serverURLs:</span>  <span class="hljs-comment"># REST API 服务器地址，国际版不填</span><br></code></pre></td></tr></table></figure>
-<p>并修改评论插件为valine</p>
-<figure class="highlight yaml"><table><tr><td class="code"><pre><code class="hljs yaml"><span class="hljs-attr">comments:</span>  <span class="hljs-comment"># 评论</span><br>  <span class="hljs-attr">enable:</span> <span class="hljs-literal">true</span>  <span class="hljs-comment"># 开启评论</span><br>  <span class="hljs-attr">type:</span> <span class="hljs-string">valine</span>  <span class="hljs-comment"># 指定使用的评论模块</span><br></code></pre></td></tr></table></figure>]]></content>
-      <categories>
-        <category>Hexo</category>
-      </categories>
-      <tags>
-        <tag>Hexo</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Hexo自定义域名</title>
     <url>/2020/12/30/Hexo%E8%87%AA%E5%AE%9A%E4%B9%89%E5%9F%9F%E5%90%8D/</url>
     <content><![CDATA[<h2 id="阿里云购买域名"><a href="#阿里云购买域名" class="headerlink" title="阿里云购买域名"></a>阿里云购买域名</h2><p>购买地址: <a href="https://wanwang.aliyun.com/domain/searchresult/#/?keyword=&amp;suffix=com">https://wanwang.aliyun.com/domain/searchresult/#/?keyword=&amp;suffix=com</a></p>
@@ -112,6 +91,27 @@
       </tags>
   </entry>
   <entry>
+    <title>Hexo集成Valine评论系统</title>
+    <url>/2020/12/30/Hexo%E9%9B%86%E6%88%90Valine%E8%AF%84%E8%AE%BA%E7%B3%BB%E7%BB%9F/</url>
+    <content><![CDATA[<h2 id="注册Leancloud"><a href="#注册Leancloud" class="headerlink" title="注册Leancloud"></a>注册Leancloud</h2><p>评论系统其实是放在Leancloud上的，因此首先需要去注册一个账号</p>
+<p>官网：<a href="https://leancloud.cn/">https://leancloud.cn/</a></p>
+<p>认证完成后创建应用</p>
+<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20201230150742969.png" alt="image-20201230150742969"></p>
+<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20201230150811967.png" alt="image-20201230150811967"></p>
+<p>点击设置获取appid 和 appkey</p>
+<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20201230150940084.png" alt="image-20201230150940084"></p>
+<h2 id="修改配置文件"><a href="#修改配置文件" class="headerlink" title="修改配置文件"></a>修改配置文件</h2><p>打开主题配置文件 搜索 valine，填入appid 和 appkey</p>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><code class="hljs yaml"><span class="hljs-attr">valine:</span><br>  <span class="hljs-attr">appid:</span>  <span class="hljs-comment"># 从 LeanCloud 的应用中得到的 appId</span><br>  <span class="hljs-attr">appkey:</span>  <span class="hljs-comment"># 从 LeanCloud 的应用中得到的 APP Key</span><br>  <span class="hljs-attr">placeholder:</span> <span class="hljs-string">吐槽</span> <span class="hljs-comment"># 评论框占位提示符</span><br>  <span class="hljs-attr">path:</span> <span class="hljs-string">window.location.pathname</span> <span class="hljs-comment"># 当前文章页路径，用于区分不同的文章页，以保证正确读取该文章页下的评论列表</span><br>  <span class="hljs-attr">avatar:</span> <span class="hljs-string">retro</span> <span class="hljs-comment"># Gravatar 头像展示方式</span><br>  <span class="hljs-attr">meta:</span> [<span class="hljs-string">&#x27;nick&#x27;</span>, <span class="hljs-string">&#x27;mail&#x27;</span>, <span class="hljs-string">&#x27;link&#x27;</span>]  <span class="hljs-comment"># 评论者相关属性</span><br>  <span class="hljs-attr">pageSize:</span> <span class="hljs-number">10</span> <span class="hljs-comment"># 评论列表分页，每页条数</span><br>  <span class="hljs-attr">lang:</span> <span class="hljs-string">zh-CN</span> <span class="hljs-comment"># zh-CN | zh-TW | en | ja</span><br>  <span class="hljs-attr">highlight:</span> <span class="hljs-literal">false</span> <span class="hljs-comment"># 代码高亮</span><br>  <span class="hljs-attr">recordIP:</span> <span class="hljs-literal">false</span> <span class="hljs-comment"># 是否记录评论者IP</span><br>  <span class="hljs-attr">serverURLs:</span>  <span class="hljs-comment"># REST API 服务器地址，国际版不填</span><br></code></pre></td></tr></table></figure>
+<p>并修改评论插件为valine</p>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><code class="hljs yaml"><span class="hljs-attr">comments:</span>  <span class="hljs-comment"># 评论</span><br>  <span class="hljs-attr">enable:</span> <span class="hljs-literal">true</span>  <span class="hljs-comment"># 开启评论</span><br>  <span class="hljs-attr">type:</span> <span class="hljs-string">valine</span>  <span class="hljs-comment"># 指定使用的评论模块</span><br></code></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>Hexo</category>
+      </categories>
+      <tags>
+        <tag>Hexo</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Jenkins主机之上部署SonarQube Scanner</title>
     <url>/2021/01/05/Jenkins%E4%B8%BB%E6%9C%BA%E4%B9%8B%E4%B8%8A%E9%83%A8%E7%BD%B2SonarQube-Scanner/</url>
     <content><![CDATA[<h3 id="1、在jenkins中安装插件：SonarQube-Scanner"><a href="#1、在jenkins中安装插件：SonarQube-Scanner" class="headerlink" title="1、在jenkins中安装插件：SonarQube Scanner"></a>1、在jenkins中安装插件：SonarQube Scanner</h3><p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20200303154952665.png" alt="image-20200303154952665"></p>
@@ -151,45 +151,6 @@
       <tags>
         <tag>Jenkins</tag>
         <tag>SonarQube</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Typora+PicGo+Gitee写博客和个人博客图床</title>
-    <url>/2020/12/30/Typora-PicGo-Gitee%E5%86%99%E5%8D%9A%E5%AE%A2%E5%92%8C%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2%E5%9B%BE%E5%BA%8A/</url>
-    <content><![CDATA[<h2 id="图床简介"><a href="#图床简介" class="headerlink" title="图床简介"></a>图床简介</h2><p>​        在写博客的过程中，我们都会遇到<strong>插入图片</strong>的情况，图片存在本地的话，我们把博客上传到网站后，会没有办法显示，而且存放在本地移植性也不太好，我们就需要图床辅助我们。</p>
-<p>​        图床就是一个便于在博文中插入在线图片连接的个人图片仓库。设置图床之后，在自己博客中插入的图片链接就可以随时随地在线预览了，并且不会因为任何意外原因无法查看，除非自己亲自删除。</p>
-<p>备注：需要nodejs环境</p>
-<h3 id="工具介绍"><a href="#工具介绍" class="headerlink" title="工具介绍"></a>工具介绍</h3><ul>
-<li><code>Typora</code>: Markdown工具，写Markdown文件的神器，简洁、方便、免费</li>
-<li><code>PicGo</code> 开源的图片管理工具，可以自己上传图片到各种图床</li>
-<li><code>gitee-uploader</code>: PicGo依赖这个插件进行上传到<code>gitee</code> 仓库</li>
-<li><code>gitee码云</code>: 借助<code>gitee</code> 码云建立自己的仓库，构建<strong>免费</strong>图床，国内速度快</li>
-</ul>
-<h3 id="Picgo-介绍"><a href="#Picgo-介绍" class="headerlink" title="Picgo 介绍"></a>Picgo 介绍</h3><p>详情请看github地址： <a href="https://github.com/Molunerfinn/">https://github.com/Molunerfinn/</a></p>
-<p>安装完成后打开，选择插件安装gitee</p>
-<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20201229153454132.png" alt="image-20201229153454132"></p>
-<h2 id="gitee-建立自己的图片仓库"><a href="#gitee-建立自己的图片仓库" class="headerlink" title="gitee 建立自己的图片仓库"></a>gitee 建立自己的图片仓库</h2><p>官网：<a href="https://gitee.com/login">https://gitee.com/login</a></p>
-<p>创建存放图片的库</p>
-<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20201229154329807.png" alt="image-20201229154329807"></p>
-<p>获取私人令牌</p>
-<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20201229154433314.png" alt="image-20201229154433314"></p>
-<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20201229154601830.png" alt="image-20201229154601830"></p>
-<p>token令牌，进行复制后面会PicGo会用到，路径直接写名称就好，不用加/号</p>
-<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20201229155712389.png" alt="image-20201229155712389"></p>
-<p>测试上传</p>
-<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20201229155810273.png" alt="image-20201229155810273"></p>
-<p>在gitee查看</p>
-<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20201229155830364.png" alt="image-20201229155830364"></p>
-<h2 id="Typora-设置支持PicGo"><a href="#Typora-设置支持PicGo" class="headerlink" title="Typora 设置支持PicGo"></a>Typora 设置支持PicGo</h2><blockquote>
-<p>设置Typora工具，当插入图片的时候，触发上传图片操作，然后上传服务选择PicGo.app来支持</p>
-</blockquote>
-<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master//img/image-20201229160054210.png" alt="image-20201229160054210"></p>
-]]></content>
-      <categories>
-        <category>Hexo</category>
-      </categories>
-      <tags>
-        <tag>Hexo</tag>
       </tags>
   </entry>
   <entry>
@@ -314,29 +275,42 @@
       </tags>
   </entry>
   <entry>
-    <title>sonarqube使用钉钉告警</title>
-    <url>/2021/01/05/sonarqube%E4%BD%BF%E7%94%A8%E9%92%89%E9%92%89%E5%91%8A%E8%AD%A6/</url>
-    <content><![CDATA[<p>说明：因项目需求，创建的是一个Jenkins自由项目，需要sonar代码扫描通过再继续maven构建、并且不发送钉钉告警，扫描不通过则停止构建、并发送钉钉告警。</p>
-<h3 id="1、安装告警插件"><a href="#1、安装告警插件" class="headerlink" title="1、安装告警插件"></a>1、安装告警插件</h3><p>#下载release包 /releases/dingding-sonar-1.0-SNAPSHOT.jar</p>
-<figure class="highlight awk"><table><tr><td class="code"><pre><code class="hljs awk">wget https:<span class="hljs-regexp">//gi</span>tee.com<span class="hljs-regexp">/chejiangyi/</span>dingding-sonar<span class="hljs-regexp">/repository/</span>archive/master.zip<br><br>unzip master.zip<br></code></pre></td></tr></table></figure>
-<p>#运行jar包 sonar.url为sonar安装地址</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">cd</span> dingding-sonar/releases<br></code></pre></td></tr></table></figure>
-<p>#启动服务</p>
-<figure class="highlight apache"><table><tr><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">nohup</span> java -jar dingding-sonar-<span class="hljs-number">1</span>.<span class="hljs-number">0</span>-SNAPSHOT.jar \ --server.port=<span class="hljs-number">8082</span> \ --sonar.url=http://<span class="hljs-number">192.168.0.129:9000</span> \ &gt; /dev/null <span class="hljs-number">2</span> &gt;&amp; <span class="hljs-number">1</span> &amp;<br></code></pre></td></tr></table></figure>
-<p>#检查部署成功 sonar-project-id 为sonar的项目id:task-dev</p>
-<figure class="highlight groovy"><table><tr><td class="code"><pre><code class="hljs groovy">curl <span class="hljs-attr">http:</span><span class="hljs-comment">//&lt;your dingding-sonar-server IP&gt;:8082/?projectname=&#123;sonar-project-id&#125;</span><br></code></pre></td></tr></table></figure>
-<p>#返回结果</p>
-<p>bug:0,漏洞:0,坏味道:58,覆盖率:0.0,重复:0.0,状态:OK</p>
-<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20200305135649539.png" alt="image-20200305135649539"></p>
-<h3 id="2、发送告警通知"><a href="#2、发送告警通知" class="headerlink" title="2、发送告警通知"></a>2、发送告警通知</h3><p>钉钉通知发布脚本内容示例：</p>
-<figure class="highlight powershell"><table><tr><td class="code"><pre><code class="hljs powershell"><span class="hljs-comment">#!/bin/bash</span><br>projectName=task<span class="hljs-literal">-dev</span><br>projectId=task<span class="hljs-literal">-dev</span><br>dingdingToken=a9c7f0dff01a01cefda6af09e5d0ec068a55d755008c2f559ec2598e9f377djl    <span class="hljs-comment">#钉钉群组创建一个自由的webhook的token</span><br>sonarreport=<span class="hljs-variable">$</span>(<span class="hljs-built_in">curl</span> <span class="hljs-literal">-s</span> http://<span class="hljs-number">192.168</span>.<span class="hljs-number">0.121</span>:<span class="hljs-number">8082</span>/?projectname=<span class="hljs-variable">$</span>&#123;projectName&#125;)<br>sonar=<span class="hljs-variable">$</span>(<span class="hljs-built_in">curl</span> <span class="hljs-literal">-s</span> http://<span class="hljs-number">192.168</span>.<span class="hljs-number">0.121</span>:<span class="hljs-number">8082</span>/?projectname=task<span class="hljs-literal">-dev</span> |awk <span class="hljs-operator">-F</span> <span class="hljs-string">&quot;:&quot;</span> <span class="hljs-string">&#x27;&#123;print $7&#125;&#x27;</span>|<span class="hljs-built_in">tee</span> dev.txt)<br><span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;<span class="hljs-variable">$sonar</span>&quot;</span><br><span class="hljs-keyword">if</span> [[ <span class="hljs-string">&quot;<span class="hljs-variable">$sonar</span>&quot;</span> == <span class="hljs-string">&quot;ERROR&quot;</span> ]]<br>then<br>  <span class="hljs-built_in">echo</span> <span class="hljs-variable">$</span>&#123;sonarreport&#125;<br>  <span class="hljs-built_in">curl</span> <span class="hljs-literal">-s</span> <span class="hljs-string">&quot;https://oapi.dingtalk.com/robot/send?access_token=<span class="hljs-variable">$</span>&#123;dingdingToken&#125;&quot;</span> <span class="hljs-literal">-H</span> <span class="hljs-string">&quot;Content-Type: application/json&quot;</span>  <span class="hljs-literal">-d</span> <span class="hljs-string">&quot;&#123; \&quot;</span>msgtype\<span class="hljs-string">&quot;: \&quot;</span>markdown\<span class="hljs-string">&quot;, \&quot;</span>markdown\<span class="hljs-string">&quot;: &#123; \&quot;</span>title\<span class="hljs-string">&quot;:\&quot;</span>sonar代码<br>质量\<span class="hljs-string">&quot;, \&quot;</span>text\<span class="hljs-string">&quot;: \&quot;</span><span class="hljs-comment">## Sonar代码质量报告 \n</span><br>&gt;<span class="hljs-variable">$</span>&#123;projectName&#125; \n<br>&gt; [<span class="hljs-type">sonar</span>地址](http://<span class="hljs-number">192.168</span>.<span class="hljs-number">0.129</span>:<span class="hljs-number">9000</span>/dashboard?id=<span class="hljs-variable">$</span>&#123;projectId&#125;) \n<br>&gt; <span class="hljs-variable">$</span>&#123;sonarreport&#125; \n\<span class="hljs-string">&quot;</span><br><span class="hljs-string">&#125;</span><br><span class="hljs-string">&#125;&quot;</span><br>  <span class="hljs-keyword">exit</span> <span class="hljs-number">1</span><br><span class="hljs-keyword">else</span><br>  <span class="hljs-built_in">echo</span> <span class="hljs-variable">$</span>&#123;sonarreport&#125;<br>fi<br></code></pre></td></tr></table></figure>
-<p>参考文章：<a href="https://www.cnblogs.com/chejiangyi/p/10844232.html">https://www.cnblogs.com/chejiangyi/p/10844232.html</a></p>
+    <title>Typora+PicGo+Gitee写博客和个人博客图床</title>
+    <url>/2020/12/30/Typora-PicGo-Gitee%E5%86%99%E5%8D%9A%E5%AE%A2%E5%92%8C%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2%E5%9B%BE%E5%BA%8A/</url>
+    <content><![CDATA[<h2 id="图床简介"><a href="#图床简介" class="headerlink" title="图床简介"></a>图床简介</h2><p>​        在写博客的过程中，我们都会遇到<strong>插入图片</strong>的情况，图片存在本地的话，我们把博客上传到网站后，会没有办法显示，而且存放在本地移植性也不太好，我们就需要图床辅助我们。</p>
+<p>​        图床就是一个便于在博文中插入在线图片连接的个人图片仓库。设置图床之后，在自己博客中插入的图片链接就可以随时随地在线预览了，并且不会因为任何意外原因无法查看，除非自己亲自删除。</p>
+<p>备注：需要nodejs环境</p>
+<h3 id="工具介绍"><a href="#工具介绍" class="headerlink" title="工具介绍"></a>工具介绍</h3><ul>
+<li><code>Typora</code>: Markdown工具，写Markdown文件的神器，简洁、方便、免费</li>
+<li><code>PicGo</code> 开源的图片管理工具，可以自己上传图片到各种图床</li>
+<li><code>gitee-uploader</code>: PicGo依赖这个插件进行上传到<code>gitee</code> 仓库</li>
+<li><code>gitee码云</code>: 借助<code>gitee</code> 码云建立自己的仓库，构建<strong>免费</strong>图床，国内速度快</li>
+</ul>
+<h3 id="Picgo-介绍"><a href="#Picgo-介绍" class="headerlink" title="Picgo 介绍"></a>Picgo 介绍</h3><p>详情请看github地址： <a href="https://github.com/Molunerfinn/">https://github.com/Molunerfinn/</a></p>
+<p>安装完成后打开，选择插件安装gitee</p>
+<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20201229153454132.png" alt="image-20201229153454132"></p>
+<h2 id="gitee-建立自己的图片仓库"><a href="#gitee-建立自己的图片仓库" class="headerlink" title="gitee 建立自己的图片仓库"></a>gitee 建立自己的图片仓库</h2><p>官网：<a href="https://gitee.com/login">https://gitee.com/login</a></p>
+<p>创建存放图片的库</p>
+<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20201229154329807.png" alt="image-20201229154329807"></p>
+<p>获取私人令牌</p>
+<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20201229154433314.png" alt="image-20201229154433314"></p>
+<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20201229154601830.png" alt="image-20201229154601830"></p>
+<p>token令牌，进行复制后面会PicGo会用到，路径直接写名称就好，不用加/号</p>
+<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20201229155712389.png" alt="image-20201229155712389"></p>
+<p>测试上传</p>
+<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20201229155810273.png" alt="image-20201229155810273"></p>
+<p>在gitee查看</p>
+<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20201229155830364.png" alt="image-20201229155830364"></p>
+<h2 id="Typora-设置支持PicGo"><a href="#Typora-设置支持PicGo" class="headerlink" title="Typora 设置支持PicGo"></a>Typora 设置支持PicGo</h2><blockquote>
+<p>设置Typora工具，当插入图片的时候，触发上传图片操作，然后上传服务选择PicGo.app来支持</p>
+</blockquote>
+<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master//img/image-20201229160054210.png" alt="image-20201229160054210"></p>
 ]]></content>
       <categories>
-        <category>Linux</category>
+        <category>Hexo</category>
       </categories>
       <tags>
-        <tag>SonarQube</tag>
+        <tag>Hexo</tag>
       </tags>
   </entry>
   <entry>
@@ -382,6 +356,40 @@
       </categories>
       <tags>
         <tag>rancher</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>sonar</title>
+    <url>/2021/01/05/sonar/</url>
+    <content><![CDATA[]]></content>
+      <tags>
+        <tag>sonarqube</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>sonarqube使用钉钉告警</title>
+    <url>/2021/01/05/sonarqube%E4%BD%BF%E7%94%A8%E9%92%89%E9%92%89%E5%91%8A%E8%AD%A6/</url>
+    <content><![CDATA[<p>说明：因项目需求，创建的是一个Jenkins自由项目，需要sonar代码扫描通过再继续maven构建、并且不发送钉钉告警，扫描不通过则停止构建、并发送钉钉告警。</p>
+<h3 id="1、安装告警插件"><a href="#1、安装告警插件" class="headerlink" title="1、安装告警插件"></a>1、安装告警插件</h3><p>#下载release包 /releases/dingding-sonar-1.0-SNAPSHOT.jar</p>
+<figure class="highlight awk"><table><tr><td class="code"><pre><code class="hljs awk">wget https:<span class="hljs-regexp">//gi</span>tee.com<span class="hljs-regexp">/chejiangyi/</span>dingding-sonar<span class="hljs-regexp">/repository/</span>archive/master.zip<br><br>unzip master.zip<br></code></pre></td></tr></table></figure>
+<p>#运行jar包 sonar.url为sonar安装地址</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">cd</span> dingding-sonar/releases<br></code></pre></td></tr></table></figure>
+<p>#启动服务</p>
+<figure class="highlight apache"><table><tr><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">nohup</span> java -jar dingding-sonar-<span class="hljs-number">1</span>.<span class="hljs-number">0</span>-SNAPSHOT.jar \ --server.port=<span class="hljs-number">8082</span> \ --sonar.url=http://<span class="hljs-number">192.168.0.129:9000</span> \ &gt; /dev/null <span class="hljs-number">2</span> &gt;&amp; <span class="hljs-number">1</span> &amp;<br></code></pre></td></tr></table></figure>
+<p>#检查部署成功 sonar-project-id 为sonar的项目id:task-dev</p>
+<figure class="highlight groovy"><table><tr><td class="code"><pre><code class="hljs groovy">curl <span class="hljs-attr">http:</span><span class="hljs-comment">//&lt;your dingding-sonar-server IP&gt;:8082/?projectname=&#123;sonar-project-id&#125;</span><br></code></pre></td></tr></table></figure>
+<p>#返回结果</p>
+<p>bug:0,漏洞:0,坏味道:58,覆盖率:0.0,重复:0.0,状态:OK</p>
+<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20200305135649539.png" alt="image-20200305135649539"></p>
+<h3 id="2、发送告警通知"><a href="#2、发送告警通知" class="headerlink" title="2、发送告警通知"></a>2、发送告警通知</h3><p>钉钉通知发布脚本内容示例：</p>
+<figure class="highlight powershell"><table><tr><td class="code"><pre><code class="hljs powershell"><span class="hljs-comment">#!/bin/bash</span><br>projectName=task<span class="hljs-literal">-dev</span><br>projectId=task<span class="hljs-literal">-dev</span><br>dingdingToken=a9c7f0dff01a01cefda6af09e5d0ec068a55d755008c2f559ec2598e9f377djl    <span class="hljs-comment">#钉钉群组创建一个自由的webhook的token</span><br>sonarreport=<span class="hljs-variable">$</span>(<span class="hljs-built_in">curl</span> <span class="hljs-literal">-s</span> http://<span class="hljs-number">192.168</span>.<span class="hljs-number">0.121</span>:<span class="hljs-number">8082</span>/?projectname=<span class="hljs-variable">$</span>&#123;projectName&#125;)<br>sonar=<span class="hljs-variable">$</span>(<span class="hljs-built_in">curl</span> <span class="hljs-literal">-s</span> http://<span class="hljs-number">192.168</span>.<span class="hljs-number">0.121</span>:<span class="hljs-number">8082</span>/?projectname=task<span class="hljs-literal">-dev</span> |awk <span class="hljs-operator">-F</span> <span class="hljs-string">&quot;:&quot;</span> <span class="hljs-string">&#x27;&#123;print $7&#125;&#x27;</span>|<span class="hljs-built_in">tee</span> dev.txt)<br><span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;<span class="hljs-variable">$sonar</span>&quot;</span><br><span class="hljs-keyword">if</span> [[ <span class="hljs-string">&quot;<span class="hljs-variable">$sonar</span>&quot;</span> == <span class="hljs-string">&quot;ERROR&quot;</span> ]]<br>then<br>  <span class="hljs-built_in">echo</span> <span class="hljs-variable">$</span>&#123;sonarreport&#125;<br>  <span class="hljs-built_in">curl</span> <span class="hljs-literal">-s</span> <span class="hljs-string">&quot;https://oapi.dingtalk.com/robot/send?access_token=<span class="hljs-variable">$</span>&#123;dingdingToken&#125;&quot;</span> <span class="hljs-literal">-H</span> <span class="hljs-string">&quot;Content-Type: application/json&quot;</span>  <span class="hljs-literal">-d</span> <span class="hljs-string">&quot;&#123; \&quot;</span>msgtype\<span class="hljs-string">&quot;: \&quot;</span>markdown\<span class="hljs-string">&quot;, \&quot;</span>markdown\<span class="hljs-string">&quot;: &#123; \&quot;</span>title\<span class="hljs-string">&quot;:\&quot;</span>sonar代码<br>质量\<span class="hljs-string">&quot;, \&quot;</span>text\<span class="hljs-string">&quot;: \&quot;</span><span class="hljs-comment">## Sonar代码质量报告 \n</span><br>&gt;<span class="hljs-variable">$</span>&#123;projectName&#125; \n<br>&gt; [<span class="hljs-type">sonar</span>地址](http://<span class="hljs-number">192.168</span>.<span class="hljs-number">0.129</span>:<span class="hljs-number">9000</span>/dashboard?id=<span class="hljs-variable">$</span>&#123;projectId&#125;) \n<br>&gt; <span class="hljs-variable">$</span>&#123;sonarreport&#125; \n\<span class="hljs-string">&quot;</span><br><span class="hljs-string">&#125;</span><br><span class="hljs-string">&#125;&quot;</span><br>  <span class="hljs-keyword">exit</span> <span class="hljs-number">1</span><br><span class="hljs-keyword">else</span><br>  <span class="hljs-built_in">echo</span> <span class="hljs-variable">$</span>&#123;sonarreport&#125;<br>fi<br></code></pre></td></tr></table></figure>
+<p>参考文章：<a href="https://www.cnblogs.com/chejiangyi/p/10844232.html">https://www.cnblogs.com/chejiangyi/p/10844232.html</a></p>
+]]></content>
+      <categories>
+        <category>Linux</category>
+      </categories>
+      <tags>
+        <tag>SonarQube</tag>
       </tags>
   </entry>
   <entry>
