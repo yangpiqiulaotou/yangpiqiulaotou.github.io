@@ -17,7 +17,7 @@
   <meta name="description" content="">
   <meta name="author" content="羊皮裘老头">
   <meta name="keywords" content="">
-  <title>rancher流水线&lt;后端&gt; - 羊皮裘老头</title>
+  <title>sonarqube使用钉钉告警 - 羊皮裘老头</title>
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
 
@@ -201,7 +201,7 @@
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
           <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="rancher流水线<后端>">
+            <span class="h2" id="subtitle" title="sonarqube使用钉钉告警">
               
             </span>
 
@@ -211,8 +211,8 @@
   
     <span class="post-meta">
       <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-      <time datetime="2021-01-04 10:34" pubdate>
-        2021年1月4日 上午
+      <time datetime="2021-01-05 09:48" pubdate>
+        2021年1月5日 上午
       </time>
     </span>
   
@@ -223,7 +223,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      505 字
+      391 字
     </span>
   
 
@@ -233,7 +233,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      5
+      6
        分钟
     </span>
   
@@ -271,43 +271,24 @@
         <div class="py-5" id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">rancher流水线&lt;后端&gt;</h1>
+            <h1 style="display: none">sonarqube使用钉钉告警</h1>
             
             <div class="markdown-body">
-              <h3 id="1、Pipeline授权设置"><a href="#1、Pipeline授权设置" class="headerlink" title="1、Pipeline授权设置"></a>1、Pipeline授权设置</h3><p>Gitlab版本需要在9以上，授权账号必须是项目的Maintainer（gitlab 8 里面是master）,在gitlab中创建application，callbackurl在rancher上复制</p>
-<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20191214193027408.png" srcset="/img/loading.gif" alt="image-20191214193027408"></p>
-<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20191214193138485.png" srcset="/img/loading.gif" alt="image-20191214193138485"></p>
-<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20191214193217867.png" srcset="/img/loading.gif" alt="image-20191214193217867"></p>
-<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20191214193509071.png" srcset="/img/loading.gif" alt="image-20191214193509071"></p>
-<p>生成需要的ID和Key</p>
-<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20191214193835277.png" srcset="/img/loading.gif" alt="image-20191214193835277"></p>
-<p>将刚才生成的ID和Key填入，地址输入自己gitlab的URL</p>
-<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20191214193949412.png" srcset="/img/loading.gif" alt="image-20191214193949412"></p>
-<p>授权完成后，给流水线的运行设置资源限制</p>
-<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20191214194027442.png" srcset="/img/loading.gif" alt="image-20191214194027442"></p>
-<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20191214194108099.png" srcset="/img/loading.gif" alt="image-20191214194108099"></p>
-<h3 id="2、配置流水线"><a href="#2、配置流水线" class="headerlink" title="2、配置流水线"></a>2、配置流水线</h3><p>现在就可以开始设置流水线了，先设置代码库，开启需要运行的代码库</p>
-<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20191214194230120.png" srcset="/img/loading.gif" alt="image-20191214194230120"></p>
-<p>设置什么条件可以触发流水线</p>
-<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20191214194305401.png" srcset="/img/loading.gif" alt="image-20191214194305401"></p>
-<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20191214194325948.png" srcset="/img/loading.gif" alt="image-20191214194325948"></p>
-<p>开始配置流水线流程，选择你需要配置的分支</p>
-<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20191214194356585.png" srcset="/img/loading.gif" alt="image-20191214194356585"></p>
-<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20191214194421735.png" srcset="/img/loading.gif" alt="image-20191214194421735"></p>
-<h3 id="3、流水线配置"><a href="#3、流水线配置" class="headerlink" title="3、流水线配置"></a>3、流水线配置</h3><p>第一步是系统已经设定好的，我们只需要根据自己的需要设置后面的步骤</p>
-<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20191214194540875.png" srcset="/img/loading.gif" alt="image-20191214194540875"></p>
-<p>第二步 build，选择的类型是运行脚本，执行mvn clean package命令，选用的镜像是我自己打包maven3.6镜像。  公司有自己的maven私服，那么打包maven镜像的时候，可以设置好setting.xml文件，上传到前面配置的harbor仓库就可以了。如果不知道setting文件放到mvn镜像中的位置，就先运行 mvn  -X查看mvn读取配置文件的顺序，再把setting文件copy进去即可</p>
-<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20191214194705581.png" srcset="/img/loading.gif" alt="image-20191214194705581"></p>
-<p>这一步主要是用build构建后的包，根据代码中的Dockerfile打包成镜像，当前目录依然是git  clone后的目录，指定Dockerfile的相对位置，并命名打包后的惊醒名，其中镜像名中的:${CICD_GIT_COMMIT}是rancher提供的变量。这里Dockerfile路径和构建上下文路径是gitlab库中的dockerfile文件的路径。</p>
-<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20191214194801709.png" srcset="/img/loading.gif" alt="image-20191214194801709"></p>
-<p>下面讲下dockerfile的配置：</p>
-<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs css"><span class="hljs-selector-tag">FROM</span> <span class="hljs-selector-tag">registry</span><span class="hljs-selector-class">.hello</span><span class="hljs-selector-class">.com</span>/<span class="hljs-selector-tag">jdk</span><span class="hljs-selector-pseudo">:1.8_232</span>    #这里是我私仓自己的<span class="hljs-selector-tag">jdk</span>镜像<br><br><span class="hljs-selector-tag">ADD</span> ./<span class="hljs-selector-tag">target</span>/<span class="hljs-selector-tag">app</span><span class="hljs-selector-class">.jar</span>  <span class="hljs-selector-tag">app</span><span class="hljs-selector-class">.jar</span><br><br><span class="hljs-selector-tag">CMD</span>  <span class="hljs-selector-attr">[<span class="hljs-string">&quot;java  -jar app.jar  -XX:+UnlockExperimentalVMOptions -XX:+UseCGroupMemoryLimitForHeap&quot;</span>]</span><br></code></pre></td></tr></table></figure>
-<p>最后一步部署Deployment.yaml文件，yaml路径是你gitlab仓库中项目下的路径</p>
-<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20191214194824641.png" srcset="/img/loading.gif" alt="image-20191214194824641"></p>
-<p>保存完成后就可以看到正在构建了</p>
-<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20191214195024989.png" srcset="/img/loading.gif" alt="image-20191214195024989"></p>
-<p>全部运行成功后，就可以在工作负载看到pod的运行状态</p>
-<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20191214195120170.png" srcset="/img/loading.gif" alt="image-20191214195120170"></p>
+              <p>说明：因项目需求，创建的是一个Jenkins自由项目，需要sonar代码扫描通过再继续maven构建、并且不发送钉钉告警，扫描不通过则停止构建、并发送钉钉告警。</p>
+<h3 id="1、安装告警插件"><a href="#1、安装告警插件" class="headerlink" title="1、安装告警插件"></a>1、安装告警插件</h3><p>#下载release包 /releases/dingding-sonar-1.0-SNAPSHOT.jar</p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs awk">wget https:<span class="hljs-regexp">//gi</span>tee.com<span class="hljs-regexp">/chejiangyi/</span>dingding-sonar<span class="hljs-regexp">/repository/</span>archive/master.zip<br><br>unzip master.zip<br></code></pre></td></tr></table></figure>
+<p>#运行jar包 sonar.url为sonar安装地址</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">cd</span> dingding-sonar/releases<br></code></pre></td></tr></table></figure>
+<p>#启动服务</p>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">nohup</span> java -jar dingding-sonar-<span class="hljs-number">1</span>.<span class="hljs-number">0</span>-SNAPSHOT.jar \ --server.port=<span class="hljs-number">8082</span> \ --sonar.url=http://<span class="hljs-number">192.168.0.129:9000</span> \ &gt; /dev/null <span class="hljs-number">2</span> &gt;&amp; <span class="hljs-number">1</span> &amp;<br></code></pre></td></tr></table></figure>
+<p>#检查部署成功 sonar-project-id 为sonar的项目id:task-dev</p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs groovy">curl <span class="hljs-attr">http:</span><span class="hljs-comment">//&lt;your dingding-sonar-server IP&gt;:8082/?projectname=&#123;sonar-project-id&#125;</span><br></code></pre></td></tr></table></figure>
+<p>#返回结果</p>
+<p>bug:0,漏洞:0,坏味道:58,覆盖率:0.0,重复:0.0,状态:OK</p>
+<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20200305135649539.png" srcset="/img/loading.gif" alt="image-20200305135649539"></p>
+<h3 id="2、发送告警通知"><a href="#2、发送告警通知" class="headerlink" title="2、发送告警通知"></a>2、发送告警通知</h3><p>钉钉通知发布脚本内容示例：</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><code class="hljs powershell"><span class="hljs-comment">#!/bin/bash</span><br>projectName=task<span class="hljs-literal">-dev</span><br>projectId=task<span class="hljs-literal">-dev</span><br>dingdingToken=a9c7f0dff01a01cefda6af09e5d0ec068a55d755008c2f559ec2598e9f377djl    <span class="hljs-comment">#钉钉群组创建一个自由的webhook的token</span><br>sonarreport=<span class="hljs-variable">$</span>(<span class="hljs-built_in">curl</span> <span class="hljs-literal">-s</span> http://<span class="hljs-number">192.168</span>.<span class="hljs-number">0.121</span>:<span class="hljs-number">8082</span>/?projectname=<span class="hljs-variable">$</span>&#123;projectName&#125;)<br>sonar=<span class="hljs-variable">$</span>(<span class="hljs-built_in">curl</span> <span class="hljs-literal">-s</span> http://<span class="hljs-number">192.168</span>.<span class="hljs-number">0.121</span>:<span class="hljs-number">8082</span>/?projectname=task<span class="hljs-literal">-dev</span> |awk <span class="hljs-operator">-F</span> <span class="hljs-string">&quot;:&quot;</span> <span class="hljs-string">&#x27;&#123;print $7&#125;&#x27;</span>|<span class="hljs-built_in">tee</span> dev.txt)<br><span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;<span class="hljs-variable">$sonar</span>&quot;</span><br><span class="hljs-keyword">if</span> [[ <span class="hljs-string">&quot;<span class="hljs-variable">$sonar</span>&quot;</span> == <span class="hljs-string">&quot;ERROR&quot;</span> ]]<br>then<br>  <span class="hljs-built_in">echo</span> <span class="hljs-variable">$</span>&#123;sonarreport&#125;<br>  <span class="hljs-built_in">curl</span> <span class="hljs-literal">-s</span> <span class="hljs-string">&quot;https://oapi.dingtalk.com/robot/send?access_token=<span class="hljs-variable">$</span>&#123;dingdingToken&#125;&quot;</span> <span class="hljs-literal">-H</span> <span class="hljs-string">&quot;Content-Type: application/json&quot;</span>  <span class="hljs-literal">-d</span> <span class="hljs-string">&quot;&#123; \&quot;</span>msgtype\<span class="hljs-string">&quot;: \&quot;</span>markdown\<span class="hljs-string">&quot;, \&quot;</span>markdown\<span class="hljs-string">&quot;: &#123; \&quot;</span>title\<span class="hljs-string">&quot;:\&quot;</span>sonar代码<br>质量\<span class="hljs-string">&quot;, \&quot;</span>text\<span class="hljs-string">&quot;: \&quot;</span><span class="hljs-comment">## Sonar代码质量报告 \n</span><br>&gt;<span class="hljs-variable">$</span>&#123;projectName&#125; \n<br>&gt; [<span class="hljs-type">sonar</span>地址](http://<span class="hljs-number">192.168</span>.<span class="hljs-number">0.129</span>:<span class="hljs-number">9000</span>/dashboard?id=<span class="hljs-variable">$</span>&#123;projectId&#125;) \n<br>&gt; <span class="hljs-variable">$</span>&#123;sonarreport&#125; \n\<span class="hljs-string">&quot;</span><br><span class="hljs-string">&#125;</span><br><span class="hljs-string">&#125;&quot;</span><br>  <span class="hljs-keyword">exit</span> <span class="hljs-number">1</span><br><span class="hljs-keyword">else</span><br>  <span class="hljs-built_in">echo</span> <span class="hljs-variable">$</span>&#123;sonarreport&#125;<br>fi<br></code></pre></td></tr></table></figure>
+<p>参考文章：<a target="_blank" rel="noopener" href="https://www.cnblogs.com/chejiangyi/p/10844232.html">https://www.cnblogs.com/chejiangyi/p/10844232.html</a></p>
 
             </div>
             <hr>
@@ -317,7 +298,7 @@
                   <div class="post-meta mr-3">
                     <i class="iconfont icon-category"></i>
                     
-                      <a class="hover-with-bg" href="/categories/rancher/">rancher</a>
+                      <a class="hover-with-bg" href="/categories/Linux/">Linux</a>
                     
                   </div>
                 
@@ -325,7 +306,7 @@
                   <div class="post-meta">
                     <i class="iconfont icon-tags"></i>
                     
-                      <a class="hover-with-bg" href="/tags/rancher/">rancher</a>
+                      <a class="hover-with-bg" href="/tags/sonarqube/">sonarqube</a>
                     
                   </div>
                 
@@ -338,9 +319,9 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2021/01/05/CentOS7%E5%AE%89%E8%A3%85PostgreSQL12/">
+                      <a href="/2021/01/05/Jenkins%E4%B8%BB%E6%9C%BA%E4%B9%8B%E4%B8%8A%E9%83%A8%E7%BD%B2SonarQube-Scanner/">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">CentOS7安装PostgreSQL12</span>
+                        <span class="hidden-mobile">Jenkins主机之上部署SonarQube Scanner</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -348,8 +329,8 @@
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2021/01/04/rancher-v2-3%E5%AE%89%E8%A3%85%E5%88%9B%E5%BB%BAK8s%E9%9B%86%E7%BE%A4/">
-                        <span class="hidden-mobile">rancher:v2.3安装创建K8s集群</span>
+                      <a href="/2021/01/05/Linux%E5%AE%89%E8%A3%85sonarqube8-2/">
+                        <span class="hidden-mobile">Linux安装sonarqube8.2</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>

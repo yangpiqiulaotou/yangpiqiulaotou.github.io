@@ -1,6 +1,61 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>CentOS7安装PostgreSQL12</title>
+    <url>/2021/01/05/CentOS7%E5%AE%89%E8%A3%85PostgreSQL12/</url>
+    <content><![CDATA[<h3 id="1、进入官网下载所需版本"><a href="#1、进入官网下载所需版本" class="headerlink" title="1、进入官网下载所需版本"></a>1、进入官网下载所需版本</h3><p><a href="https://www.postgresql.org/download/linux/redhat/">https://www.postgresql.org/download/linux/redhat/</a></p>
+<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20200303095053134.png" alt="image-20200303095053134"></p>
+<h3 id="2、开始安装"><a href="#2、开始安装" class="headerlink" title="2、开始安装"></a>2、开始安装</h3><figure class="highlight awk"><table><tr><td class="code"><pre><code class="hljs awk">yum install https:<span class="hljs-regexp">//</span>download.postgresql.org<span class="hljs-regexp">/pub/</span>repos<span class="hljs-regexp">/yum/</span>reporpms<span class="hljs-regexp">/EL-7-x86_64/</span>pgdg-redhat-repo-latest.noarch.rpm -y<br></code></pre></td></tr></table></figure>
+<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20200303095233768.png" alt="image-20200303095233768"></p>
+<figure class="highlight apache"><table><tr><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">yum</span> install postgresql<span class="hljs-number">12</span> -y<br><span class="hljs-attribute">yum</span> install postgresql<span class="hljs-number">12</span>-server -y<br></code></pre></td></tr></table></figure>
+<h3 id="3、数据库初始化与设置自启动"><a href="#3、数据库初始化与设置自启动" class="headerlink" title="3、数据库初始化与设置自启动"></a>3、数据库初始化与设置自启动</h3><figure class="highlight awk"><table><tr><td class="code"><pre><code class="hljs awk"><span class="hljs-regexp">/usr/</span>pgsql-<span class="hljs-number">12</span><span class="hljs-regexp">/bin/</span>postgresql-<span class="hljs-number">12</span>-setup initdb<br>systemctl enable postgresql-<span class="hljs-number">12</span><br>systemctl start postgresql-<span class="hljs-number">12</span><br></code></pre></td></tr></table></figure>
+<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20200303100416097.png" alt="image-20200303100416097"></p>
+<p>​        这一步初始化数据库命令会在 /var/lib/pgsql 目录下创建名称为12文件夹，12为数据库版本。这里如果已经有对应版本的文件夹了，初始化这一步会报错，需要你自行去删除对应的文件夹，再去初始化。</p>
+<h3 id="4、默认会创建一个名为postgres的linux登录用户，这里进行密码修改"><a href="#4、默认会创建一个名为postgres的linux登录用户，这里进行密码修改" class="headerlink" title="4、默认会创建一个名为postgres的linux登录用户，这里进行密码修改"></a>4、默认会创建一个名为postgres的linux登录用户，这里进行密码修改</h3><p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20200303100954704.png" alt="image-20200303100954704"></p>
+<h3 id="5、修改配置文件"><a href="#5、修改配置文件" class="headerlink" title="5、修改配置文件"></a>5、修改配置文件</h3><p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20200303102201925.png" alt="image-20200303102201925"></p>
+<h4 id="5-1修改postgresql-conf"><a href="#5-1修改postgresql-conf" class="headerlink" title="5.1修改postgresql.conf"></a>5.1修改postgresql.conf</h4><figure class="highlight autoit"><table><tr><td class="code"><pre><code class="hljs autoit">修改：<span class="hljs-meta">#listen_addresses = <span class="hljs-string">&#x27;localhost&#x27;</span>为listen_addresses = <span class="hljs-string">&#x27;*&#x27;</span></span><br></code></pre></td></tr></table></figure>
+<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20200303102710321.png" alt="image-20200303102710321"></p>
+<h4 id="5-2修改pg-hba-conf"><a href="#5-2修改pg-hba-conf" class="headerlink" title="5.2修改pg_hba.conf"></a>5.2修改pg_hba.conf</h4><p>修改前</p>
+<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20200303103002192.png" alt="image-20200303103002192"></p>
+<p>修改后</p>
+<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20200303103124544.png" alt="image-20200303103124544"></p>
+<p>并重新启动</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><code class="hljs undefined">systemctl restart postgresql-12<br></code></pre></td></tr></table></figure>
+<h3 id="6、设置登录数据库账密"><a href="#6、设置登录数据库账密" class="headerlink" title="6、设置登录数据库账密"></a>6、设置登录数据库账密</h3><figure class="highlight csharp"><table><tr><td class="code"><pre><code class="hljs csharp">su postgres              <span class="hljs-meta">#不能使用root用户登录，切换到普通用户</span><br>psql -U postgres<br>\password                <span class="hljs-meta">#设置用户密码</span><br><span class="hljs-function"><span class="hljs-keyword">select</span> <span class="hljs-title">version</span>(<span class="hljs-params"></span>)</span>;        <span class="hljs-meta">#查看版本</span><br></code></pre></td></tr></table></figure>
+<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20200303104354374.png" alt="image-20200303104354374"></p>
+<h3 id="7、登录并测试数据库连接"><a href="#7、登录并测试数据库连接" class="headerlink" title="7、登录并测试数据库连接"></a>7、登录并测试数据库连接</h3><p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20200303105037116.png" alt="image-20200303105037116"></p>
+<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20200303105103983.png" alt="image-20200303105103983"></p>
+<p>参考文章：<a href="https://www.jianshu.com/p/b4a759c2208f">https://www.jianshu.com/p/b4a759c2208f</a></p>
+]]></content>
+      <categories>
+        <category>关系型数据库</category>
+      </categories>
+      <tags>
+        <tag>PostgreSQL</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Hexo集成Valine评论系统</title>
+    <url>/2020/12/30/Hexo%E9%9B%86%E6%88%90Valine%E8%AF%84%E8%AE%BA%E7%B3%BB%E7%BB%9F/</url>
+    <content><![CDATA[<h2 id="注册Leancloud"><a href="#注册Leancloud" class="headerlink" title="注册Leancloud"></a>注册Leancloud</h2><p>评论系统其实是放在Leancloud上的，因此首先需要去注册一个账号</p>
+<p>官网：<a href="https://leancloud.cn/">https://leancloud.cn/</a></p>
+<p>认证完成后创建应用</p>
+<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20201230150742969.png" alt="image-20201230150742969"></p>
+<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20201230150811967.png" alt="image-20201230150811967"></p>
+<p>点击设置获取appid 和 appkey</p>
+<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20201230150940084.png" alt="image-20201230150940084"></p>
+<h2 id="修改配置文件"><a href="#修改配置文件" class="headerlink" title="修改配置文件"></a>修改配置文件</h2><p>打开主题配置文件 搜索 valine，填入appid 和 appkey</p>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><code class="hljs yaml"><span class="hljs-attr">valine:</span><br>  <span class="hljs-attr">appid:</span>  <span class="hljs-comment"># 从 LeanCloud 的应用中得到的 appId</span><br>  <span class="hljs-attr">appkey:</span>  <span class="hljs-comment"># 从 LeanCloud 的应用中得到的 APP Key</span><br>  <span class="hljs-attr">placeholder:</span> <span class="hljs-string">吐槽</span> <span class="hljs-comment"># 评论框占位提示符</span><br>  <span class="hljs-attr">path:</span> <span class="hljs-string">window.location.pathname</span> <span class="hljs-comment"># 当前文章页路径，用于区分不同的文章页，以保证正确读取该文章页下的评论列表</span><br>  <span class="hljs-attr">avatar:</span> <span class="hljs-string">retro</span> <span class="hljs-comment"># Gravatar 头像展示方式</span><br>  <span class="hljs-attr">meta:</span> [<span class="hljs-string">&#x27;nick&#x27;</span>, <span class="hljs-string">&#x27;mail&#x27;</span>, <span class="hljs-string">&#x27;link&#x27;</span>]  <span class="hljs-comment"># 评论者相关属性</span><br>  <span class="hljs-attr">pageSize:</span> <span class="hljs-number">10</span> <span class="hljs-comment"># 评论列表分页，每页条数</span><br>  <span class="hljs-attr">lang:</span> <span class="hljs-string">zh-CN</span> <span class="hljs-comment"># zh-CN | zh-TW | en | ja</span><br>  <span class="hljs-attr">highlight:</span> <span class="hljs-literal">false</span> <span class="hljs-comment"># 代码高亮</span><br>  <span class="hljs-attr">recordIP:</span> <span class="hljs-literal">false</span> <span class="hljs-comment"># 是否记录评论者IP</span><br>  <span class="hljs-attr">serverURLs:</span>  <span class="hljs-comment"># REST API 服务器地址，国际版不填</span><br></code></pre></td></tr></table></figure>
+<p>并修改评论插件为valine</p>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><code class="hljs yaml"><span class="hljs-attr">comments:</span>  <span class="hljs-comment"># 评论</span><br>  <span class="hljs-attr">enable:</span> <span class="hljs-literal">true</span>  <span class="hljs-comment"># 开启评论</span><br>  <span class="hljs-attr">type:</span> <span class="hljs-string">valine</span>  <span class="hljs-comment"># 指定使用的评论模块</span><br></code></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>Hexo</category>
+      </categories>
+      <tags>
+        <tag>Hexo</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Hexo自定义域名</title>
     <url>/2020/12/30/Hexo%E8%87%AA%E5%AE%9A%E4%B9%89%E5%9F%9F%E5%90%8D/</url>
     <content><![CDATA[<h2 id="阿里云购买域名"><a href="#阿里云购买域名" class="headerlink" title="阿里云购买域名"></a>阿里云购买域名</h2><p>购买地址: <a href="https://wanwang.aliyun.com/domain/searchresult/#/?keyword=&amp;suffix=com">https://wanwang.aliyun.com/domain/searchresult/#/?keyword=&amp;suffix=com</a></p>
@@ -57,24 +112,102 @@
       </tags>
   </entry>
   <entry>
-    <title>Hexo集成Valine评论系统</title>
-    <url>/2020/12/30/Hexo%E9%9B%86%E6%88%90Valine%E8%AF%84%E8%AE%BA%E7%B3%BB%E7%BB%9F/</url>
-    <content><![CDATA[<h2 id="注册Leancloud"><a href="#注册Leancloud" class="headerlink" title="注册Leancloud"></a>注册Leancloud</h2><p>评论系统其实是放在Leancloud上的，因此首先需要去注册一个账号</p>
-<p>官网：<a href="https://leancloud.cn/">https://leancloud.cn/</a></p>
-<p>认证完成后创建应用</p>
-<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20201230150742969.png" alt="image-20201230150742969"></p>
-<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20201230150811967.png" alt="image-20201230150811967"></p>
-<p>点击设置获取appid 和 appkey</p>
-<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20201230150940084.png" alt="image-20201230150940084"></p>
-<h2 id="修改配置文件"><a href="#修改配置文件" class="headerlink" title="修改配置文件"></a>修改配置文件</h2><p>打开主题配置文件 搜索 valine，填入appid 和 appkey</p>
-<figure class="highlight yaml"><table><tr><td class="code"><pre><code class="hljs yaml"><span class="hljs-attr">valine:</span><br>  <span class="hljs-attr">appid:</span>  <span class="hljs-comment"># 从 LeanCloud 的应用中得到的 appId</span><br>  <span class="hljs-attr">appkey:</span>  <span class="hljs-comment"># 从 LeanCloud 的应用中得到的 APP Key</span><br>  <span class="hljs-attr">placeholder:</span> <span class="hljs-string">吐槽</span> <span class="hljs-comment"># 评论框占位提示符</span><br>  <span class="hljs-attr">path:</span> <span class="hljs-string">window.location.pathname</span> <span class="hljs-comment"># 当前文章页路径，用于区分不同的文章页，以保证正确读取该文章页下的评论列表</span><br>  <span class="hljs-attr">avatar:</span> <span class="hljs-string">retro</span> <span class="hljs-comment"># Gravatar 头像展示方式</span><br>  <span class="hljs-attr">meta:</span> [<span class="hljs-string">&#x27;nick&#x27;</span>, <span class="hljs-string">&#x27;mail&#x27;</span>, <span class="hljs-string">&#x27;link&#x27;</span>]  <span class="hljs-comment"># 评论者相关属性</span><br>  <span class="hljs-attr">pageSize:</span> <span class="hljs-number">10</span> <span class="hljs-comment"># 评论列表分页，每页条数</span><br>  <span class="hljs-attr">lang:</span> <span class="hljs-string">zh-CN</span> <span class="hljs-comment"># zh-CN | zh-TW | en | ja</span><br>  <span class="hljs-attr">highlight:</span> <span class="hljs-literal">false</span> <span class="hljs-comment"># 代码高亮</span><br>  <span class="hljs-attr">recordIP:</span> <span class="hljs-literal">false</span> <span class="hljs-comment"># 是否记录评论者IP</span><br>  <span class="hljs-attr">serverURLs:</span>  <span class="hljs-comment"># REST API 服务器地址，国际版不填</span><br></code></pre></td></tr></table></figure>
-<p>并修改评论插件为valine</p>
-<figure class="highlight yaml"><table><tr><td class="code"><pre><code class="hljs yaml"><span class="hljs-attr">comments:</span>  <span class="hljs-comment"># 评论</span><br>  <span class="hljs-attr">enable:</span> <span class="hljs-literal">true</span>  <span class="hljs-comment"># 开启评论</span><br>  <span class="hljs-attr">type:</span> <span class="hljs-string">valine</span>  <span class="hljs-comment"># 指定使用的评论模块</span><br></code></pre></td></tr></table></figure>]]></content>
+    <title>Jenkins主机之上部署SonarQube Scanner</title>
+    <url>/2021/01/05/Jenkins%E4%B8%BB%E6%9C%BA%E4%B9%8B%E4%B8%8A%E9%83%A8%E7%BD%B2SonarQube-Scanner/</url>
+    <content><![CDATA[<h3 id="1、在jenkins中安装插件：SonarQube-Scanner"><a href="#1、在jenkins中安装插件：SonarQube-Scanner" class="headerlink" title="1、在jenkins中安装插件：SonarQube Scanner"></a>1、在jenkins中安装插件：SonarQube Scanner</h3><p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20200303154952665.png" alt="image-20200303154952665"></p>
+<h3 id="2、在jenkins主机之上安装-SonarQube-Scanner-部件，将其安装到jenkins用户之下"><a href="#2、在jenkins主机之上安装-SonarQube-Scanner-部件，将其安装到jenkins用户之下" class="headerlink" title="2、在jenkins主机之上安装 SonarQube Scanner 部件，将其安装到jenkins用户之下"></a>2、在jenkins主机之上安装 SonarQube Scanner 部件，将其安装到jenkins用户之下</h3><figure class="highlight vim"><table><tr><td class="code"><pre><code class="hljs vim"><span class="hljs-keyword">cd</span>  /usr/local<br>unzip sonar-scanner-cli-<span class="hljs-number">4.2</span>.<span class="hljs-number">0.1873</span>-linux.zip<br><span class="hljs-keyword">ln</span> -s sonar-scanner-<span class="hljs-number">4.2</span>.<span class="hljs-number">0.1873</span>-linux sonar-scanner<br>chown -R jenkin<span class="hljs-variable">s:</span> sonar-scanner-<span class="hljs-number">4.2</span>.<span class="hljs-number">0.1873</span>-linux<br><br><span class="hljs-keyword">echo</span> <span class="hljs-string">&#x27;export SONAR_SCANNER_HOME=/usr/local/sonar-scanner&#x27;</span>&gt;&gt;/etc/<span class="hljs-keyword">profile</span><br><span class="hljs-keyword">echo</span> <span class="hljs-string">&#x27;export PATH=$SONAR_SCANNER_HOME/bin:$PATH&#x27;</span>&gt;&gt;/etc/<span class="hljs-keyword">profile</span><br><span class="hljs-keyword">source</span> /etc/<span class="hljs-keyword">profile</span><br><br><span class="hljs-keyword">vim</span> <span class="hljs-keyword">conf</span>/sonar-scanner.properties<br></code></pre></td></tr></table></figure>
+<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20200303155825904.png" alt="image-20200303155825904"></p>
+<figure class="highlight ebnf"><table><tr><td class="code"><pre><code class="hljs ebnf"><span class="hljs-attribute">sonar-scanner -h</span><br></code></pre></td></tr></table></figure>
+<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20200303155945854.png" alt="image-20200303155945854"></p>
+<h3 id="3、整合Jenkins和SonarQube："><a href="#3、整合Jenkins和SonarQube：" class="headerlink" title="3、整合Jenkins和SonarQube："></a>3、整合Jenkins和SonarQube：</h3><p>网页登录jenkins，系统管理，全局工具配置，SonarQube Scanner，将安装的sonar-scanner配置上去</p>
+<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20200303170347797.png" alt="image-20200303170347797"></p>
+<p>网页登录sonar创建token</p>
+<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20200303170456840.png" alt="image-20200303170456840"></p>
+<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20200303170548345.png" alt="image-20200303170548345"></p>
+<p>网页登录jenkins，凭据，jenkins，全局凭据，添加凭据，Secret text类型，将上一步的token填入</p>
+<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/20191119155139175.png" alt="在这里插入图片描述"></p>
+<p>网页登录jenkins，系统管理，系统设置，SonarQube servers，配置名字和url，选择上一步添加的凭据</p>
+<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20200303171838307.png" alt="image-20200303171838307"></p>
+<p>4、配置Jenkins任务</p>
+<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20200305133622078.png" alt="image-20200305133622078"></p>
+<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20200305133650304.png" alt="image-20200305133650304"></p>
+<ul>
+<li>Task to run: 输入 scan，即分析代码；</li>
+<li>JDK :选择 SonarQube Scanner 使用的 JDK（注意这里必须是 JDK 不能是 JRE）；</li>
+<li>Path to project properties : 这里可以指定一个sonar-project.properties 文件，如果不指定的话会使用项目默认的 properties文件；</li>
+<li>Analysis properties: 这里需要输入一些配置参数用来传递给 SonarQube，这里的参数优先级高于sonar-project.properties文件里面的参数，所以可以在这里来配置所有的参数以替代sonar-project.properties文件，下面列出了一些参数，sonar.language指定了要分析的开发语言（特定的开发语言对应了特定的规则），sonar.sources定义了需要分析的源代码位置（示例中的.所指示的是当前 Jenkins项目的目录），</li>
+<li>sonar.java.binaries 定义了需要分析代码的编译后文件位置；</li>
+<li>Additional arguments 输入框中可以输入一些附加的参数，示例中的-X 意思是进入SonarQube Scanner的Debug 模式，这样会输出更多的日志信息；</li>
+<li>JVM Options 可以输入在执行 SonarQube Scanner是需要的JVM参数。</li>
+</ul>
+<p>5、测试构建</p>
+<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20200305134512002.png" alt="image-20200305134512002"></p>
+<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20200305134441603.png" alt="image-20200305134441603"></p>
+<p>构建项目时错误信息：Caused by: Please provide compiled classes of your project with sonar.java.binaries property，这个问题是sonar扫描的项目工程中没有找到相应的class文件</p>
+<p>解决办法：在Analysis properties一项中，增加sonar.java.binaries的配置，这个路径是项目工程中，编译的.class文件的路径。</p>
+<p>6、登录sonarqube查看</p>
+<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20200305134927195.png" alt="image-20200305134927195"></p>
+]]></content>
+      <tags>
+        <tag>Jenkins</tag>
+        <tag>SonarQube</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Linux安装sonarqube8.2</title>
+    <url>/2021/01/05/Linux%E5%AE%89%E8%A3%85sonarqube8-2/</url>
+    <content><![CDATA[<p>社区版下载地址：<a href="https://www.sonarqube.org/downloads/">https://www.sonarqube.org/downloads/</a></p>
+<p>环境介绍：（本文使用Oracle jdk 11.0.6，postgreSQL 12）</p>
+<h3 id="1、解压缩包"><a href="#1、解压缩包" class="headerlink" title="1、解压缩包"></a>1、解压缩包</h3><figure class="highlight apache"><table><tr><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">unzip</span> sonarqube-<span class="hljs-number">8.2.0.329</span><span class="hljs-number">29</span>.zip<br></code></pre></td></tr></table></figure>
+<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20200303112854371.png" alt="image-20200303112854371"></p>
+<h3 id="2、创建postgreSQL用户"><a href="#2、创建postgreSQL用户" class="headerlink" title="2、创建postgreSQL用户"></a>2、创建postgreSQL用户</h3><p>安装完后会自动创建postgres用户 su - postgres切换进去</p>
+<figure class="highlight pgsql"><table><tr><td class="code"><pre><code class="hljs pgsql">psql                     #进入命令行模式<br><span class="hljs-keyword">create</span> <span class="hljs-keyword">database</span> sonar；	#创建sonar数据库<br><span class="hljs-keyword">create</span> <span class="hljs-keyword">user</span> sonar；	    #创建sonar用户<br><span class="hljs-keyword">alter</span> <span class="hljs-keyword">user</span> sonar <span class="hljs-keyword">with</span> <span class="hljs-keyword">password</span> <span class="hljs-string">&#x27;postgres&#x27;</span>;           #设置sonar用户密码(否则会导致连不上数据库)<br><span class="hljs-keyword">alter</span> <span class="hljs-keyword">role</span> sonar <span class="hljs-keyword">createdb</span>;<span class="hljs-keyword">alter</span> <span class="hljs-keyword">role</span> sonar <span class="hljs-keyword">superuser</span>;<span class="hljs-keyword">alter</span> <span class="hljs-keyword">role</span> sonar <span class="hljs-keyword">createrole</span>;    #给sonar授权<br><span class="hljs-keyword">alter</span> <span class="hljs-keyword">database</span> sonar <span class="hljs-keyword">owner</span> <span class="hljs-keyword">to</span> sonar；      #更改sonar数据库拥有者(这一步是必须的，否则会sonarqube会连接失败)<br><br>psql进入命令行模式 <br>\l查看数据库 <br>\du 查看用户<br></code></pre></td></tr></table></figure>
+<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20200303115321618.png" alt="image-20200303115321618"></p>
+<h3 id="3、修改系统配置"><a href="#3、修改系统配置" class="headerlink" title="3、修改系统配置"></a>3、修改系统配置</h3><figure class="highlight stata"><table><tr><td class="code"><pre><code class="hljs stata">1.不能用root起！<br>2.切换用户必须 <span class="hljs-keyword">su</span> - username <br>3.切换好用户千万别忘记给这个用户授权你的sonarQube根目录<br>4.更改一些系统配置<br></code></pre></td></tr></table></figure>
+<p>根据需要执行下述命令以使内核参数符合sonar安装需求</p>
+<p>#可以使用以下命令查看这些值：</p>
+<figure class="highlight vim"><table><tr><td class="code"><pre><code class="hljs vim">sysctl <span class="hljs-keyword">vm</span>.max_map_count <br>sysctl fs.<span class="hljs-keyword">file</span>-<span class="hljs-built_in">max</span> <br>ulimit -n <br></code></pre></td></tr></table></figure>
+<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20200303120223176.png" alt="image-20200303120223176"></p>
+<p>#可以通过以root身份运行以下命令来为当前会话动态设置：</p>
+<figure class="highlight routeros"><table><tr><td class="code"><pre><code class="hljs routeros">sysctl -w vm.<span class="hljs-attribute">max_map_count</span>=262144<br>sysctl -w fs.<span class="hljs-attribute">file-max</span>=65536<br>ulimit -n 65536<br></code></pre></td></tr></table></figure>
+<p>#为了更永久设置这些值，则必须修改/etc/sysctl.d/99-sonarqube.conf（或/etc/sysctl.conf文件）#文件末尾添加下述两行</p>
+<figure class="highlight vim"><table><tr><td class="code"><pre><code class="hljs vim"><span class="hljs-keyword">vi</span> /etc/sysctl.<span class="hljs-keyword">conf</span><br><br><span class="hljs-keyword">vm</span>.max_map_count=<span class="hljs-number">262144</span><br>fs.<span class="hljs-keyword">file</span>-<span class="hljs-built_in">max</span>=<span class="hljs-number">65536</span><br></code></pre></td></tr></table></figure>
+<p>#在/etc/profile文件末尾添加ulimit -n 65536</p>
+<figure class="highlight gradle"><table><tr><td class="code"><pre><code class="hljs gradle">vi <span class="hljs-regexp">/etc/</span>profile<br><br>ulimit -n <span class="hljs-number">65536</span>           #保存后运行#<span class="hljs-keyword">source</span> <span class="hljs-regexp">/etc/</span>profile 使其生效<br><br><span class="hljs-keyword">source</span> <span class="hljs-regexp">/etc/</span>profile<br></code></pre></td></tr></table></figure>
+<p>创建sonar用户</p>
+<figure class="highlight ebnf"><table><tr><td class="code"><pre><code class="hljs ebnf"><span class="hljs-attribute">useradd sonar</span><br><span class="hljs-attribute">passwd sonar</span><br></code></pre></td></tr></table></figure>
+<p>密码自己设置。</p>
+<p>目录授权</p>
+<figure class="highlight awk"><table><tr><td class="code"><pre><code class="hljs awk">chown -R sonar:sonar <span class="hljs-regexp">/usr/</span>local<span class="hljs-regexp">/sonarqube-8.2.0.32929/</span><br></code></pre></td></tr></table></figure>
+<h3 id="4、设置对数据库的访问"><a href="#4、设置对数据库的访问" class="headerlink" title="4、设置对数据库的访问"></a>4、设置对数据库的访问</h3><figure class="highlight awk"><table><tr><td class="code"><pre><code class="hljs awk">vim  <span class="hljs-regexp">/usr/</span>local<span class="hljs-regexp">/sonarqube-8.2.0.32929/</span>conf/sonar.properties<br></code></pre></td></tr></table></figure>
+<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20200303134739877.png" alt="image-20200303134739877"></p>
+<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20200303151110546.png" alt="image-20200303151110546"></p>
+<p>配置自己机器的IP跟端口，保存退出即可</p>
+<h3 id="5、配置Elasticsearch存储路径"><a href="#5、配置Elasticsearch存储路径" class="headerlink" title="5、配置Elasticsearch存储路径"></a>5、配置Elasticsearch存储路径</h3><p>默认情况下，Elasticsearch数据存储在*$ SONARQUBE-HOME / data中*，但不建议将其用于生产实例。相反，您应该将此数据存储在其他位置，最好是在具有快速I / O的专用卷中。除了保持可接受的性能外，这样做还可以简化SonarQube的升级</p>
+<figure class="highlight awk"><table><tr><td class="code"><pre><code class="hljs awk">vim <span class="hljs-regexp">/usr/</span>local<span class="hljs-regexp">/sonarqube-8.2.0.32929/</span>conf/sonar.properties<br></code></pre></td></tr></table></figure>
+<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20200303141448981.png" alt="image-20200303141448981"></p>
+<p>用于启动SonarQube的用户必须具有对这些目录的读写权限</p>
+<figure class="highlight haskell"><table><tr><td class="code"><pre><code class="hljs haskell"><span class="hljs-title">mkdir</span> -p /<span class="hljs-class"><span class="hljs-keyword">data</span>/sonarqube/<span class="hljs-keyword">data</span></span><br><span class="hljs-title">mkdir</span> -p /<span class="hljs-class"><span class="hljs-keyword">data</span>/sonarqube/temp</span><br><span class="hljs-title">chown</span> -<span class="hljs-type">R</span> sonar:sonar /<span class="hljs-class"><span class="hljs-keyword">data</span>/</span><br></code></pre></td></tr></table></figure>
+<h3 id="6、Sonar-Scanner扫描器安装及使用方法"><a href="#6、Sonar-Scanner扫描器安装及使用方法" class="headerlink" title="6、Sonar-Scanner扫描器安装及使用方法"></a>6、Sonar-Scanner扫描器安装及使用方法</h3><p>光弄SonarQube是没法扫描项目的，所以还需要装一下sonar-scanner</p>
+<p>官方下载地址：<a href="https://docs.sonarqube.org/latest/analysis/scan/sonarscanner/">https://docs.sonarqube.org/latest/analysis/scan/sonarscanner/</a></p>
+<figure class="highlight apache"><table><tr><td class="code"><pre><code class="hljs apache"><span class="hljs-comment">#丢到/usr/local/下面解压</span><br><span class="hljs-attribute">unzip</span> sonar-scanner-cli-<span class="hljs-number">4.2.0.187</span><span class="hljs-number">3</span>-linux.zip<br><span class="hljs-attribute">cd</span> sonar-scanner-<span class="hljs-number">4.2.0.187</span><span class="hljs-number">3</span>-linux/<br><br><span class="hljs-attribute">vim</span> conf/sonar-scanner.propertie          #改下配置<br></code></pre></td></tr></table></figure>
+<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20200303135545387.png" alt="image-20200303135545387"></p>
+<p>保存退出后，创建软连接，将sonar-scanner改为全局即可使用</p>
+<figure class="highlight awk"><table><tr><td class="code"><pre><code class="hljs awk">ln -s <span class="hljs-regexp">/usr/</span>local<span class="hljs-regexp">/sonar-scanner-4.2.0.1873-linux/</span>bin<span class="hljs-regexp">/sonar-scanner /u</span>sr<span class="hljs-regexp">/bin/</span>sonar-scanner<br></code></pre></td></tr></table></figure>
+<h3 id="7、启动服务"><a href="#7、启动服务" class="headerlink" title="7、启动服务"></a>7、启动服务</h3><figure class="highlight awk"><table><tr><td class="code"><pre><code class="hljs awk">su - sonar 别忘了切用户<br><br>cd <span class="hljs-regexp">/usr/</span>local<span class="hljs-regexp">/sonarqube-8.2.0.32929/</span> <br>bin<span class="hljs-regexp">/linux-x86-64/</span>sonar.sh<br></code></pre></td></tr></table></figure>
+<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20200303140123972.png" alt="image-20200303140123972"></p>
+<p>访问web界面</p>
+<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20200303151227710.png" alt="image-20200303151227710"></p>
+<p>账户密码：admin/admin</p>
+<p>安装中文版，然后点击从新启动</p>
+<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/20191119153859725.png" alt="在这里插入图片描述"></p>
+<p>参考文章：<a href="https://blog.csdn.net/qq_42207325/article/details/100998453">https://blog.csdn.net/qq_42207325/article/details/100998453</a></p>
+]]></content>
       <categories>
-        <category>Hexo</category>
+        <category>Linux</category>
       </categories>
       <tags>
-        <tag>Hexo</tag>
+        <tag>sonarqube</tag>
       </tags>
   </entry>
   <entry>
@@ -178,6 +311,32 @@
       </categories>
       <tags>
         <tag>rancher</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>sonarqube使用钉钉告警</title>
+    <url>/2021/01/05/sonarqube%E4%BD%BF%E7%94%A8%E9%92%89%E9%92%89%E5%91%8A%E8%AD%A6/</url>
+    <content><![CDATA[<p>说明：因项目需求，创建的是一个Jenkins自由项目，需要sonar代码扫描通过再继续maven构建、并且不发送钉钉告警，扫描不通过则停止构建、并发送钉钉告警。</p>
+<h3 id="1、安装告警插件"><a href="#1、安装告警插件" class="headerlink" title="1、安装告警插件"></a>1、安装告警插件</h3><p>#下载release包 /releases/dingding-sonar-1.0-SNAPSHOT.jar</p>
+<figure class="highlight awk"><table><tr><td class="code"><pre><code class="hljs awk">wget https:<span class="hljs-regexp">//gi</span>tee.com<span class="hljs-regexp">/chejiangyi/</span>dingding-sonar<span class="hljs-regexp">/repository/</span>archive/master.zip<br><br>unzip master.zip<br></code></pre></td></tr></table></figure>
+<p>#运行jar包 sonar.url为sonar安装地址</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">cd</span> dingding-sonar/releases<br></code></pre></td></tr></table></figure>
+<p>#启动服务</p>
+<figure class="highlight apache"><table><tr><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">nohup</span> java -jar dingding-sonar-<span class="hljs-number">1</span>.<span class="hljs-number">0</span>-SNAPSHOT.jar \ --server.port=<span class="hljs-number">8082</span> \ --sonar.url=http://<span class="hljs-number">192.168.0.129:9000</span> \ &gt; /dev/null <span class="hljs-number">2</span> &gt;&amp; <span class="hljs-number">1</span> &amp;<br></code></pre></td></tr></table></figure>
+<p>#检查部署成功 sonar-project-id 为sonar的项目id:task-dev</p>
+<figure class="highlight groovy"><table><tr><td class="code"><pre><code class="hljs groovy">curl <span class="hljs-attr">http:</span><span class="hljs-comment">//&lt;your dingding-sonar-server IP&gt;:8082/?projectname=&#123;sonar-project-id&#125;</span><br></code></pre></td></tr></table></figure>
+<p>#返回结果</p>
+<p>bug:0,漏洞:0,坏味道:58,覆盖率:0.0,重复:0.0,状态:OK</p>
+<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20200305135649539.png" alt="image-20200305135649539"></p>
+<h3 id="2、发送告警通知"><a href="#2、发送告警通知" class="headerlink" title="2、发送告警通知"></a>2、发送告警通知</h3><p>钉钉通知发布脚本内容示例：</p>
+<figure class="highlight powershell"><table><tr><td class="code"><pre><code class="hljs powershell"><span class="hljs-comment">#!/bin/bash</span><br>projectName=task<span class="hljs-literal">-dev</span><br>projectId=task<span class="hljs-literal">-dev</span><br>dingdingToken=a9c7f0dff01a01cefda6af09e5d0ec068a55d755008c2f559ec2598e9f377djl    <span class="hljs-comment">#钉钉群组创建一个自由的webhook的token</span><br>sonarreport=<span class="hljs-variable">$</span>(<span class="hljs-built_in">curl</span> <span class="hljs-literal">-s</span> http://<span class="hljs-number">192.168</span>.<span class="hljs-number">0.121</span>:<span class="hljs-number">8082</span>/?projectname=<span class="hljs-variable">$</span>&#123;projectName&#125;)<br>sonar=<span class="hljs-variable">$</span>(<span class="hljs-built_in">curl</span> <span class="hljs-literal">-s</span> http://<span class="hljs-number">192.168</span>.<span class="hljs-number">0.121</span>:<span class="hljs-number">8082</span>/?projectname=task<span class="hljs-literal">-dev</span> |awk <span class="hljs-operator">-F</span> <span class="hljs-string">&quot;:&quot;</span> <span class="hljs-string">&#x27;&#123;print $7&#125;&#x27;</span>|<span class="hljs-built_in">tee</span> dev.txt)<br><span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;<span class="hljs-variable">$sonar</span>&quot;</span><br><span class="hljs-keyword">if</span> [[ <span class="hljs-string">&quot;<span class="hljs-variable">$sonar</span>&quot;</span> == <span class="hljs-string">&quot;ERROR&quot;</span> ]]<br>then<br>  <span class="hljs-built_in">echo</span> <span class="hljs-variable">$</span>&#123;sonarreport&#125;<br>  <span class="hljs-built_in">curl</span> <span class="hljs-literal">-s</span> <span class="hljs-string">&quot;https://oapi.dingtalk.com/robot/send?access_token=<span class="hljs-variable">$</span>&#123;dingdingToken&#125;&quot;</span> <span class="hljs-literal">-H</span> <span class="hljs-string">&quot;Content-Type: application/json&quot;</span>  <span class="hljs-literal">-d</span> <span class="hljs-string">&quot;&#123; \&quot;</span>msgtype\<span class="hljs-string">&quot;: \&quot;</span>markdown\<span class="hljs-string">&quot;, \&quot;</span>markdown\<span class="hljs-string">&quot;: &#123; \&quot;</span>title\<span class="hljs-string">&quot;:\&quot;</span>sonar代码<br>质量\<span class="hljs-string">&quot;, \&quot;</span>text\<span class="hljs-string">&quot;: \&quot;</span><span class="hljs-comment">## Sonar代码质量报告 \n</span><br>&gt;<span class="hljs-variable">$</span>&#123;projectName&#125; \n<br>&gt; [<span class="hljs-type">sonar</span>地址](http://<span class="hljs-number">192.168</span>.<span class="hljs-number">0.129</span>:<span class="hljs-number">9000</span>/dashboard?id=<span class="hljs-variable">$</span>&#123;projectId&#125;) \n<br>&gt; <span class="hljs-variable">$</span>&#123;sonarreport&#125; \n\<span class="hljs-string">&quot;</span><br><span class="hljs-string">&#125;</span><br><span class="hljs-string">&#125;&quot;</span><br>  <span class="hljs-keyword">exit</span> <span class="hljs-number">1</span><br><span class="hljs-keyword">else</span><br>  <span class="hljs-built_in">echo</span> <span class="hljs-variable">$</span>&#123;sonarreport&#125;<br>fi<br></code></pre></td></tr></table></figure>
+<p>参考文章：<a href="https://www.cnblogs.com/chejiangyi/p/10844232.html">https://www.cnblogs.com/chejiangyi/p/10844232.html</a></p>
+]]></content>
+      <categories>
+        <category>Linux</category>
+      </categories>
+      <tags>
+        <tag>sonarqube</tag>
       </tags>
   </entry>
   <entry>
