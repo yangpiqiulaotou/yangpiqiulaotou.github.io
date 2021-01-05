@@ -35,27 +35,6 @@
       </tags>
   </entry>
   <entry>
-    <title>Hexo集成Valine评论系统</title>
-    <url>/2020/12/30/Hexo%E9%9B%86%E6%88%90Valine%E8%AF%84%E8%AE%BA%E7%B3%BB%E7%BB%9F/</url>
-    <content><![CDATA[<h2 id="注册Leancloud"><a href="#注册Leancloud" class="headerlink" title="注册Leancloud"></a>注册Leancloud</h2><p>评论系统其实是放在Leancloud上的，因此首先需要去注册一个账号</p>
-<p>官网：<a href="https://leancloud.cn/">https://leancloud.cn/</a></p>
-<p>认证完成后创建应用</p>
-<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20201230150742969.png" alt="image-20201230150742969"></p>
-<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20201230150811967.png" alt="image-20201230150811967"></p>
-<p>点击设置获取appid 和 appkey</p>
-<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20201230150940084.png" alt="image-20201230150940084"></p>
-<h2 id="修改配置文件"><a href="#修改配置文件" class="headerlink" title="修改配置文件"></a>修改配置文件</h2><p>打开主题配置文件 搜索 valine，填入appid 和 appkey</p>
-<figure class="highlight yaml"><table><tr><td class="code"><pre><code class="hljs yaml"><span class="hljs-attr">valine:</span><br>  <span class="hljs-attr">appid:</span>  <span class="hljs-comment"># 从 LeanCloud 的应用中得到的 appId</span><br>  <span class="hljs-attr">appkey:</span>  <span class="hljs-comment"># 从 LeanCloud 的应用中得到的 APP Key</span><br>  <span class="hljs-attr">placeholder:</span> <span class="hljs-string">吐槽</span> <span class="hljs-comment"># 评论框占位提示符</span><br>  <span class="hljs-attr">path:</span> <span class="hljs-string">window.location.pathname</span> <span class="hljs-comment"># 当前文章页路径，用于区分不同的文章页，以保证正确读取该文章页下的评论列表</span><br>  <span class="hljs-attr">avatar:</span> <span class="hljs-string">retro</span> <span class="hljs-comment"># Gravatar 头像展示方式</span><br>  <span class="hljs-attr">meta:</span> [<span class="hljs-string">&#x27;nick&#x27;</span>, <span class="hljs-string">&#x27;mail&#x27;</span>, <span class="hljs-string">&#x27;link&#x27;</span>]  <span class="hljs-comment"># 评论者相关属性</span><br>  <span class="hljs-attr">pageSize:</span> <span class="hljs-number">10</span> <span class="hljs-comment"># 评论列表分页，每页条数</span><br>  <span class="hljs-attr">lang:</span> <span class="hljs-string">zh-CN</span> <span class="hljs-comment"># zh-CN | zh-TW | en | ja</span><br>  <span class="hljs-attr">highlight:</span> <span class="hljs-literal">false</span> <span class="hljs-comment"># 代码高亮</span><br>  <span class="hljs-attr">recordIP:</span> <span class="hljs-literal">false</span> <span class="hljs-comment"># 是否记录评论者IP</span><br>  <span class="hljs-attr">serverURLs:</span>  <span class="hljs-comment"># REST API 服务器地址，国际版不填</span><br></code></pre></td></tr></table></figure>
-<p>并修改评论插件为valine</p>
-<figure class="highlight yaml"><table><tr><td class="code"><pre><code class="hljs yaml"><span class="hljs-attr">comments:</span>  <span class="hljs-comment"># 评论</span><br>  <span class="hljs-attr">enable:</span> <span class="hljs-literal">true</span>  <span class="hljs-comment"># 开启评论</span><br>  <span class="hljs-attr">type:</span> <span class="hljs-string">valine</span>  <span class="hljs-comment"># 指定使用的评论模块</span><br></code></pre></td></tr></table></figure>]]></content>
-      <categories>
-        <category>Hexo</category>
-      </categories>
-      <tags>
-        <tag>Hexo</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Hexo自定义域名</title>
     <url>/2020/12/30/Hexo%E8%87%AA%E5%AE%9A%E4%B9%89%E5%9F%9F%E5%90%8D/</url>
     <content><![CDATA[<h2 id="阿里云购买域名"><a href="#阿里云购买域名" class="headerlink" title="阿里云购买域名"></a>阿里云购买域名</h2><p>购买地址: <a href="https://wanwang.aliyun.com/domain/searchresult/#/?keyword=&amp;suffix=com">https://wanwang.aliyun.com/domain/searchresult/#/?keyword=&amp;suffix=com</a></p>
@@ -104,6 +83,27 @@
 </tbody></table>
 <h3 id="部署到github"><a href="#部署到github" class="headerlink" title="部署到github"></a>部署到github</h3><p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20201230111015211.png" alt="image-20201230111015211"></p>
 ]]></content>
+      <categories>
+        <category>Hexo</category>
+      </categories>
+      <tags>
+        <tag>Hexo</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Hexo集成Valine评论系统</title>
+    <url>/2020/12/30/Hexo%E9%9B%86%E6%88%90Valine%E8%AF%84%E8%AE%BA%E7%B3%BB%E7%BB%9F/</url>
+    <content><![CDATA[<h2 id="注册Leancloud"><a href="#注册Leancloud" class="headerlink" title="注册Leancloud"></a>注册Leancloud</h2><p>评论系统其实是放在Leancloud上的，因此首先需要去注册一个账号</p>
+<p>官网：<a href="https://leancloud.cn/">https://leancloud.cn/</a></p>
+<p>认证完成后创建应用</p>
+<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20201230150742969.png" alt="image-20201230150742969"></p>
+<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20201230150811967.png" alt="image-20201230150811967"></p>
+<p>点击设置获取appid 和 appkey</p>
+<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20201230150940084.png" alt="image-20201230150940084"></p>
+<h2 id="修改配置文件"><a href="#修改配置文件" class="headerlink" title="修改配置文件"></a>修改配置文件</h2><p>打开主题配置文件 搜索 valine，填入appid 和 appkey</p>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><code class="hljs yaml"><span class="hljs-attr">valine:</span><br>  <span class="hljs-attr">appid:</span>  <span class="hljs-comment"># 从 LeanCloud 的应用中得到的 appId</span><br>  <span class="hljs-attr">appkey:</span>  <span class="hljs-comment"># 从 LeanCloud 的应用中得到的 APP Key</span><br>  <span class="hljs-attr">placeholder:</span> <span class="hljs-string">吐槽</span> <span class="hljs-comment"># 评论框占位提示符</span><br>  <span class="hljs-attr">path:</span> <span class="hljs-string">window.location.pathname</span> <span class="hljs-comment"># 当前文章页路径，用于区分不同的文章页，以保证正确读取该文章页下的评论列表</span><br>  <span class="hljs-attr">avatar:</span> <span class="hljs-string">retro</span> <span class="hljs-comment"># Gravatar 头像展示方式</span><br>  <span class="hljs-attr">meta:</span> [<span class="hljs-string">&#x27;nick&#x27;</span>, <span class="hljs-string">&#x27;mail&#x27;</span>, <span class="hljs-string">&#x27;link&#x27;</span>]  <span class="hljs-comment"># 评论者相关属性</span><br>  <span class="hljs-attr">pageSize:</span> <span class="hljs-number">10</span> <span class="hljs-comment"># 评论列表分页，每页条数</span><br>  <span class="hljs-attr">lang:</span> <span class="hljs-string">zh-CN</span> <span class="hljs-comment"># zh-CN | zh-TW | en | ja</span><br>  <span class="hljs-attr">highlight:</span> <span class="hljs-literal">false</span> <span class="hljs-comment"># 代码高亮</span><br>  <span class="hljs-attr">recordIP:</span> <span class="hljs-literal">false</span> <span class="hljs-comment"># 是否记录评论者IP</span><br>  <span class="hljs-attr">serverURLs:</span>  <span class="hljs-comment"># REST API 服务器地址，国际版不填</span><br></code></pre></td></tr></table></figure>
+<p>并修改评论插件为valine</p>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><code class="hljs yaml"><span class="hljs-attr">comments:</span>  <span class="hljs-comment"># 评论</span><br>  <span class="hljs-attr">enable:</span> <span class="hljs-literal">true</span>  <span class="hljs-comment"># 开启评论</span><br>  <span class="hljs-attr">type:</span> <span class="hljs-string">valine</span>  <span class="hljs-comment"># 指定使用的评论模块</span><br></code></pre></td></tr></table></figure>]]></content>
       <categories>
         <category>Hexo</category>
       </categories>
@@ -266,6 +266,20 @@
       <tags>
         <tag>Mysql</tag>
         <tag>Linux</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>MySQL自动备份脚本</title>
+    <url>/2021/01/05/MySQL%E8%87%AA%E5%8A%A8%E5%A4%87%E4%BB%BD%E8%84%9A%E6%9C%AC/</url>
+    <content><![CDATA[<h2 id="1、备份脚本"><a href="#1、备份脚本" class="headerlink" title="1、备份脚本"></a>1、备份脚本</h2><figure class="highlight awk"><table><tr><td class="code"><pre><code class="hljs awk">mkdir -p <span class="hljs-regexp">/data/my</span>sqlbak/&#123;data,logs,scripts&#125;<br><br>cd <span class="hljs-regexp">/data/my</span>sqlbak/scripts<br><br>cat &gt; backup.sh &lt;&lt; EOF<br><span class="hljs-comment">#!/bin/bash</span><br><br>DATE=$(date +%Y%m%d)<br>BACKUP_ROOT=<span class="hljs-regexp">/data/my</span>sqlbak<br>BACKUP_FILEDIR=<span class="hljs-variable">$BACKUP_ROOT</span><span class="hljs-regexp">/data/</span><span class="hljs-variable">$DATE</span><br><br>mkdir -p <span class="hljs-variable">$BACKUP_ROOT</span><span class="hljs-regexp">/data/</span><span class="hljs-variable">$DATE</span><br>source <span class="hljs-regexp">/etc/</span>profile.d/mysql<br><br>DATABASES=$(mysql -uroot -peconage123 -e <span class="hljs-string">&quot;show databases&quot;</span> | grep -Ev <span class="hljs-string">&quot;Database|sys|information_schema|performance_schema|mysql&quot;</span>)<br><br><span class="hljs-keyword">for</span> db <span class="hljs-keyword">in</span> <span class="hljs-variable">$DATABASES</span><br><span class="hljs-keyword">do</span><br>echo<br>echo ----------<span class="hljs-variable">$BACKUP_FILEDIR</span>/<span class="hljs-variable">$&#123;db&#125;</span>_<span class="hljs-variable">$DATE</span>.sql.gz <span class="hljs-keyword">BEGIN</span>----------<br>mysqldump -uroot -phello123 --default-character-set=utf8 -q -n --lock-all-tables --flush-logs -E -R --triggers -B <span class="hljs-variable">$&#123;db&#125;</span> | gzip &gt; <span class="hljs-variable">$BACKUP_FILEDIR</span>/<span class="hljs-variable">$&#123;db&#125;</span>_<span class="hljs-variable">$DATE</span>.sql.gz<br>echo ----------<span class="hljs-variable">$BACKUP_FILEDIR</span>/<span class="hljs-variable">$&#123;db&#125;</span>_<span class="hljs-variable">$DATE</span>.sql.gz COMPLETE-------<br>echo<br>done<br><br>echo <span class="hljs-string">&quot;done&quot;</span><br>EOF<br></code></pre></td></tr></table></figure>
+<h2 id="2、清理脚本"><a href="#2、清理脚本" class="headerlink" title="2、清理脚本"></a>2、清理脚本</h2><figure class="highlight jboss-cli"><table><tr><td class="code"><pre><code class="hljs jboss-cli">cat &gt; backup_clean.sh &lt;&lt; EOF<br><span class="hljs-comment">#!/bin/bash</span><br><span class="hljs-keyword">echo</span> <span class="hljs-params">----------CLEAN</span> BEGIN<span class="hljs-params">----------</span><br>find <span class="hljs-string">/data/mysqlbak/data/</span> -mtime +14  -exec rm -rf &#123;&#125; \;<br><span class="hljs-keyword">echo</span> <span class="hljs-params">----------CLEAN</span> COMPLETE<span class="hljs-params">-------</span><br>EOF<br></code></pre></td></tr></table></figure>
+<h2 id="3、给脚本执行权限"><a href="#3、给脚本执行权限" class="headerlink" title="3、给脚本执行权限"></a>3、给脚本执行权限</h2><figure class="highlight css"><table><tr><td class="code"><pre><code class="hljs css"><span class="hljs-selector-tag">chmod</span> +<span class="hljs-selector-tag">x</span> <span class="hljs-selector-tag">backup</span><span class="hljs-selector-class">.sh</span><br><span class="hljs-selector-tag">chmod</span> +<span class="hljs-selector-tag">x</span> <span class="hljs-selector-tag">backup_clean</span><span class="hljs-selector-class">.sh</span><br></code></pre></td></tr></table></figure>
+<h2 id="4、设置定时任务"><a href="#4、设置定时任务" class="headerlink" title="4、设置定时任务"></a>4、设置定时任务</h2><figure class="highlight awk"><table><tr><td class="code"><pre><code class="hljs awk">crontab -e<br><span class="hljs-number">00</span> <span class="hljs-number">1</span> * * <span class="hljs-number">5</span> <span class="hljs-regexp">/data/my</span>sqlbak<span class="hljs-regexp">/scripts/</span>backup.sh<br><span class="hljs-number">00</span> <span class="hljs-number">1</span> * * <span class="hljs-number">5</span> <span class="hljs-regexp">/data/my</span>sqlbak<span class="hljs-regexp">/scripts/</span>backup_clean.sh &gt; <span class="hljs-regexp">/data/my</span>sqlbak<span class="hljs-regexp">/logs/</span>backup_full_clean.log <span class="hljs-number">2</span>&gt;&amp;<span class="hljs-number">1</span><br></code></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>关系型数据库</category>
+      </categories>
+      <tags>
+        <tag>Mysql</tag>
       </tags>
   </entry>
   <entry>
