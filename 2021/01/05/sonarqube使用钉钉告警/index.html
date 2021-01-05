@@ -17,7 +17,7 @@
   <meta name="description" content="">
   <meta name="author" content="羊皮裘老头">
   <meta name="keywords" content="">
-  <title>Jenkins主机之上部署SonarQube Scanner - 羊皮裘老头</title>
+  <title>sonarqube使用钉钉告警 - 羊皮裘老头</title>
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
 
@@ -201,7 +201,7 @@
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
           <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="Jenkins主机之上部署SonarQube Scanner">
+            <span class="h2" id="subtitle" title="sonarqube使用钉钉告警">
               
             </span>
 
@@ -211,7 +211,7 @@
   
     <span class="post-meta">
       <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-      <time datetime="2021-01-05 09:50" pubdate>
+      <time datetime="2021-01-05 10:45" pubdate>
         2021年1月5日 上午
       </time>
     </span>
@@ -223,7 +223,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      573 字
+      391 字
     </span>
   
 
@@ -233,7 +233,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      7
+      6
        分钟
     </span>
   
@@ -271,53 +271,40 @@
         <div class="py-5" id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">Jenkins主机之上部署SonarQube Scanner</h1>
+            <h1 style="display: none">sonarqube使用钉钉告警</h1>
             
             <div class="markdown-body">
-              <h3 id="1、在jenkins中安装插件：SonarQube-Scanner"><a href="#1、在jenkins中安装插件：SonarQube-Scanner" class="headerlink" title="1、在jenkins中安装插件：SonarQube Scanner"></a>1、在jenkins中安装插件：SonarQube Scanner</h3><p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20200303154952665.png" srcset="/img/loading.gif" alt="image-20200303154952665"></p>
-<h3 id="2、在jenkins主机之上安装-SonarQube-Scanner-部件，将其安装到jenkins用户之下"><a href="#2、在jenkins主机之上安装-SonarQube-Scanner-部件，将其安装到jenkins用户之下" class="headerlink" title="2、在jenkins主机之上安装 SonarQube Scanner 部件，将其安装到jenkins用户之下"></a>2、在jenkins主机之上安装 SonarQube Scanner 部件，将其安装到jenkins用户之下</h3><figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs vim"><span class="hljs-keyword">cd</span>  /usr/local<br>unzip sonar-scanner-cli-<span class="hljs-number">4.2</span>.<span class="hljs-number">0.1873</span>-linux.zip<br><span class="hljs-keyword">ln</span> -s sonar-scanner-<span class="hljs-number">4.2</span>.<span class="hljs-number">0.1873</span>-linux sonar-scanner<br>chown -R jenkin<span class="hljs-variable">s:</span> sonar-scanner-<span class="hljs-number">4.2</span>.<span class="hljs-number">0.1873</span>-linux<br><br><span class="hljs-keyword">echo</span> <span class="hljs-string">&#x27;export SONAR_SCANNER_HOME=/usr/local/sonar-scanner&#x27;</span>&gt;&gt;/etc/<span class="hljs-keyword">profile</span><br><span class="hljs-keyword">echo</span> <span class="hljs-string">&#x27;export PATH=$SONAR_SCANNER_HOME/bin:$PATH&#x27;</span>&gt;&gt;/etc/<span class="hljs-keyword">profile</span><br><span class="hljs-keyword">source</span> /etc/<span class="hljs-keyword">profile</span><br><br><span class="hljs-keyword">vim</span> <span class="hljs-keyword">conf</span>/sonar-scanner.properties<br></code></pre></td></tr></table></figure>
-<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20200303155825904.png" srcset="/img/loading.gif" alt="image-20200303155825904"></p>
-<figure class="highlight ebnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs ebnf"><span class="hljs-attribute">sonar-scanner -h</span><br></code></pre></td></tr></table></figure>
-<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20200303155945854.png" srcset="/img/loading.gif" alt="image-20200303155945854"></p>
-<h3 id="3、整合Jenkins和SonarQube："><a href="#3、整合Jenkins和SonarQube：" class="headerlink" title="3、整合Jenkins和SonarQube："></a>3、整合Jenkins和SonarQube：</h3><p>网页登录jenkins，系统管理，全局工具配置，SonarQube Scanner，将安装的sonar-scanner配置上去</p>
-<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20200303170347797.png" srcset="/img/loading.gif" alt="image-20200303170347797"></p>
-<p>网页登录sonar创建token</p>
-<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20200303170456840.png" srcset="/img/loading.gif" alt="image-20200303170456840"></p>
-<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20200303170548345.png" srcset="/img/loading.gif" alt="image-20200303170548345"></p>
-<p>网页登录jenkins，凭据，jenkins，全局凭据，添加凭据，Secret text类型，将上一步的token填入</p>
-<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/20191119155139175.png" srcset="/img/loading.gif" alt="在这里插入图片描述"></p>
-<p>网页登录jenkins，系统管理，系统设置，SonarQube servers，配置名字和url，选择上一步添加的凭据</p>
-<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20200303171838307.png" srcset="/img/loading.gif" alt="image-20200303171838307"></p>
-<p>4、配置Jenkins任务</p>
-<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20200305133622078.png" srcset="/img/loading.gif" alt="image-20200305133622078"></p>
-<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20200305133650304.png" srcset="/img/loading.gif" alt="image-20200305133650304"></p>
-<ul>
-<li>Task to run: 输入 scan，即分析代码；</li>
-<li>JDK :选择 SonarQube Scanner 使用的 JDK（注意这里必须是 JDK 不能是 JRE）；</li>
-<li>Path to project properties : 这里可以指定一个sonar-project.properties 文件，如果不指定的话会使用项目默认的 properties文件；</li>
-<li>Analysis properties: 这里需要输入一些配置参数用来传递给 SonarQube，这里的参数优先级高于sonar-project.properties文件里面的参数，所以可以在这里来配置所有的参数以替代sonar-project.properties文件，下面列出了一些参数，sonar.language指定了要分析的开发语言（特定的开发语言对应了特定的规则），sonar.sources定义了需要分析的源代码位置（示例中的.所指示的是当前 Jenkins项目的目录），</li>
-<li>sonar.java.binaries 定义了需要分析代码的编译后文件位置；</li>
-<li>Additional arguments 输入框中可以输入一些附加的参数，示例中的-X 意思是进入SonarQube Scanner的Debug 模式，这样会输出更多的日志信息；</li>
-<li>JVM Options 可以输入在执行 SonarQube Scanner是需要的JVM参数。</li>
-</ul>
-<p>5、测试构建</p>
-<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20200305134512002.png" srcset="/img/loading.gif" alt="image-20200305134512002"></p>
-<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20200305134441603.png" srcset="/img/loading.gif" alt="image-20200305134441603"></p>
-<p>构建项目时错误信息：Caused by: Please provide compiled classes of your project with sonar.java.binaries property，这个问题是sonar扫描的项目工程中没有找到相应的class文件</p>
-<p>解决办法：在Analysis properties一项中，增加sonar.java.binaries的配置，这个路径是项目工程中，编译的.class文件的路径。</p>
-<p>6、登录sonarqube查看</p>
-<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20200305134927195.png" srcset="/img/loading.gif" alt="image-20200305134927195"></p>
+              <p>说明：因项目需求，创建的是一个Jenkins自由项目，需要sonar代码扫描通过再继续maven构建、并且不发送钉钉告警，扫描不通过则停止构建、并发送钉钉告警。</p>
+<h3 id="1、安装告警插件"><a href="#1、安装告警插件" class="headerlink" title="1、安装告警插件"></a>1、安装告警插件</h3><p>#下载release包 /releases/dingding-sonar-1.0-SNAPSHOT.jar</p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs awk">wget https:<span class="hljs-regexp">//gi</span>tee.com<span class="hljs-regexp">/chejiangyi/</span>dingding-sonar<span class="hljs-regexp">/repository/</span>archive/master.zip<br><br>unzip master.zip<br></code></pre></td></tr></table></figure>
+<p>#运行jar包 sonar.url为sonar安装地址</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">cd</span> dingding-sonar/releases<br></code></pre></td></tr></table></figure>
+<p>#启动服务</p>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">nohup</span> java -jar dingding-sonar-<span class="hljs-number">1</span>.<span class="hljs-number">0</span>-SNAPSHOT.jar \ --server.port=<span class="hljs-number">8082</span> \ --sonar.url=http://<span class="hljs-number">192.168.0.129:9000</span> \ &gt; /dev/null <span class="hljs-number">2</span> &gt;&amp; <span class="hljs-number">1</span> &amp;<br></code></pre></td></tr></table></figure>
+<p>#检查部署成功 sonar-project-id 为sonar的项目id:task-dev</p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs groovy">curl <span class="hljs-attr">http:</span><span class="hljs-comment">//&lt;your dingding-sonar-server IP&gt;:8082/?projectname=&#123;sonar-project-id&#125;</span><br></code></pre></td></tr></table></figure>
+<p>#返回结果</p>
+<p>bug:0,漏洞:0,坏味道:58,覆盖率:0.0,重复:0.0,状态:OK</p>
+<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20200305135649539.png" srcset="/img/loading.gif" alt="image-20200305135649539"></p>
+<h3 id="2、发送告警通知"><a href="#2、发送告警通知" class="headerlink" title="2、发送告警通知"></a>2、发送告警通知</h3><p>钉钉通知发布脚本内容示例：</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><code class="hljs powershell"><span class="hljs-comment">#!/bin/bash</span><br>projectName=task<span class="hljs-literal">-dev</span><br>projectId=task<span class="hljs-literal">-dev</span><br>dingdingToken=a9c7f0dff01a01cefda6af09e5d0ec068a55d755008c2f559ec2598e9f377djl    <span class="hljs-comment">#钉钉群组创建一个自由的webhook的token</span><br>sonarreport=<span class="hljs-variable">$</span>(<span class="hljs-built_in">curl</span> <span class="hljs-literal">-s</span> http://<span class="hljs-number">192.168</span>.<span class="hljs-number">0.121</span>:<span class="hljs-number">8082</span>/?projectname=<span class="hljs-variable">$</span>&#123;projectName&#125;)<br>sonar=<span class="hljs-variable">$</span>(<span class="hljs-built_in">curl</span> <span class="hljs-literal">-s</span> http://<span class="hljs-number">192.168</span>.<span class="hljs-number">0.121</span>:<span class="hljs-number">8082</span>/?projectname=task<span class="hljs-literal">-dev</span> |awk <span class="hljs-operator">-F</span> <span class="hljs-string">&quot;:&quot;</span> <span class="hljs-string">&#x27;&#123;print $7&#125;&#x27;</span>|<span class="hljs-built_in">tee</span> dev.txt)<br><span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;<span class="hljs-variable">$sonar</span>&quot;</span><br><span class="hljs-keyword">if</span> [[ <span class="hljs-string">&quot;<span class="hljs-variable">$sonar</span>&quot;</span> == <span class="hljs-string">&quot;ERROR&quot;</span> ]]<br>then<br>  <span class="hljs-built_in">echo</span> <span class="hljs-variable">$</span>&#123;sonarreport&#125;<br>  <span class="hljs-built_in">curl</span> <span class="hljs-literal">-s</span> <span class="hljs-string">&quot;https://oapi.dingtalk.com/robot/send?access_token=<span class="hljs-variable">$</span>&#123;dingdingToken&#125;&quot;</span> <span class="hljs-literal">-H</span> <span class="hljs-string">&quot;Content-Type: application/json&quot;</span>  <span class="hljs-literal">-d</span> <span class="hljs-string">&quot;&#123; \&quot;</span>msgtype\<span class="hljs-string">&quot;: \&quot;</span>markdown\<span class="hljs-string">&quot;, \&quot;</span>markdown\<span class="hljs-string">&quot;: &#123; \&quot;</span>title\<span class="hljs-string">&quot;:\&quot;</span>sonar代码<br>质量\<span class="hljs-string">&quot;, \&quot;</span>text\<span class="hljs-string">&quot;: \&quot;</span><span class="hljs-comment">## Sonar代码质量报告 \n</span><br>&gt;<span class="hljs-variable">$</span>&#123;projectName&#125; \n<br>&gt; [<span class="hljs-type">sonar</span>地址](http://<span class="hljs-number">192.168</span>.<span class="hljs-number">0.129</span>:<span class="hljs-number">9000</span>/dashboard?id=<span class="hljs-variable">$</span>&#123;projectId&#125;) \n<br>&gt; <span class="hljs-variable">$</span>&#123;sonarreport&#125; \n\<span class="hljs-string">&quot;</span><br><span class="hljs-string">&#125;</span><br><span class="hljs-string">&#125;&quot;</span><br>  <span class="hljs-keyword">exit</span> <span class="hljs-number">1</span><br><span class="hljs-keyword">else</span><br>  <span class="hljs-built_in">echo</span> <span class="hljs-variable">$</span>&#123;sonarreport&#125;<br>fi<br></code></pre></td></tr></table></figure>
+<p>参考文章：<a target="_blank" rel="noopener" href="https://www.cnblogs.com/chejiangyi/p/10844232.html">https://www.cnblogs.com/chejiangyi/p/10844232.html</a></p>
 
             </div>
             <hr>
             <div>
               <div class="post-metas mb-3">
                 
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/Linux/">Linux</a>
+                    
+                  </div>
+                
                 
                   <div class="post-meta">
                     <i class="iconfont icon-tags"></i>
-                    
-                      <a class="hover-with-bg" href="/tags/Jenkins/">Jenkins</a>
                     
                       <a class="hover-with-bg" href="/tags/SonarQube/">SonarQube</a>
                     
@@ -332,18 +319,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2021/01/05/sonarqube%E4%BD%BF%E7%94%A8%E9%92%89%E9%92%89%E5%91%8A%E8%AD%A6/">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">sonarqube使用钉钉告警</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2021/01/05/Linux%E5%AE%89%E8%A3%85sonarqube8-2/">
-                        <span class="hidden-mobile">Linux安装sonarqube8.2</span>
+                      <a href="/2021/01/05/Jenkins%E4%B8%BB%E6%9C%BA%E4%B9%8B%E4%B8%8A%E9%83%A8%E7%BD%B2SonarQube-Scanner/">
+                        <span class="hidden-mobile">Jenkins主机之上部署SonarQube Scanner</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
