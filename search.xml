@@ -250,51 +250,6 @@
       </tags>
   </entry>
   <entry>
-    <title>rancher流水线&lt;后端&gt;</title>
-    <url>/2021/01/04/rancher%E6%B5%81%E6%B0%B4%E7%BA%BF-%E5%90%8E%E7%AB%AF/</url>
-    <content><![CDATA[<h3 id="1、Pipeline授权设置"><a href="#1、Pipeline授权设置" class="headerlink" title="1、Pipeline授权设置"></a>1、Pipeline授权设置</h3><p>Gitlab版本需要在9以上，授权账号必须是项目的Maintainer（gitlab 8 里面是master）,在gitlab中创建application，callbackurl在rancher上复制</p>
-<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20191214193027408.png" alt="image-20191214193027408"></p>
-<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20191214193138485.png" alt="image-20191214193138485"></p>
-<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20191214193217867.png" alt="image-20191214193217867"></p>
-<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20191214193509071.png" alt="image-20191214193509071"></p>
-<p>生成需要的ID和Key</p>
-<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20191214193835277.png" alt="image-20191214193835277"></p>
-<p>将刚才生成的ID和Key填入，地址输入自己gitlab的URL</p>
-<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20191214193949412.png" alt="image-20191214193949412"></p>
-<p>授权完成后，给流水线的运行设置资源限制</p>
-<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20191214194027442.png" alt="image-20191214194027442"></p>
-<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20191214194108099.png" alt="image-20191214194108099"></p>
-<h3 id="2、配置流水线"><a href="#2、配置流水线" class="headerlink" title="2、配置流水线"></a>2、配置流水线</h3><p>现在就可以开始设置流水线了，先设置代码库，开启需要运行的代码库</p>
-<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20191214194230120.png" alt="image-20191214194230120"></p>
-<p>设置什么条件可以触发流水线</p>
-<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20191214194305401.png" alt="image-20191214194305401"></p>
-<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20191214194325948.png" alt="image-20191214194325948"></p>
-<p>开始配置流水线流程，选择你需要配置的分支</p>
-<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20191214194356585.png" alt="image-20191214194356585"></p>
-<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20191214194421735.png" alt="image-20191214194421735"></p>
-<h3 id="3、流水线配置"><a href="#3、流水线配置" class="headerlink" title="3、流水线配置"></a>3、流水线配置</h3><p>第一步是系统已经设定好的，我们只需要根据自己的需要设置后面的步骤</p>
-<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20191214194540875.png" alt="image-20191214194540875"></p>
-<p>第二步 build，选择的类型是运行脚本，执行mvn clean package命令，选用的镜像是我自己打包maven3.6镜像。  公司有自己的maven私服，那么打包maven镜像的时候，可以设置好setting.xml文件，上传到前面配置的harbor仓库就可以了。如果不知道setting文件放到mvn镜像中的位置，就先运行 mvn  -X查看mvn读取配置文件的顺序，再把setting文件copy进去即可</p>
-<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20191214194705581.png" alt="image-20191214194705581"></p>
-<p>这一步主要是用build构建后的包，根据代码中的Dockerfile打包成镜像，当前目录依然是git  clone后的目录，指定Dockerfile的相对位置，并命名打包后的惊醒名，其中镜像名中的:${CICD_GIT_COMMIT}是rancher提供的变量。这里Dockerfile路径和构建上下文路径是gitlab库中的dockerfile文件的路径。</p>
-<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20191214194801709.png" alt="image-20191214194801709"></p>
-<p>下面讲下dockerfile的配置：</p>
-<figure class="highlight css"><table><tr><td class="code"><pre><code class="hljs css"><span class="hljs-selector-tag">FROM</span> <span class="hljs-selector-tag">registry</span><span class="hljs-selector-class">.hello</span><span class="hljs-selector-class">.com</span>/<span class="hljs-selector-tag">jdk</span><span class="hljs-selector-pseudo">:1.8_232</span>    #这里是我私仓自己的<span class="hljs-selector-tag">jdk</span>镜像<br><br><span class="hljs-selector-tag">ADD</span> ./<span class="hljs-selector-tag">target</span>/<span class="hljs-selector-tag">app</span><span class="hljs-selector-class">.jar</span>  <span class="hljs-selector-tag">app</span><span class="hljs-selector-class">.jar</span><br><br><span class="hljs-selector-tag">CMD</span>  <span class="hljs-selector-attr">[<span class="hljs-string">&quot;java  -jar app.jar  -XX:+UnlockExperimentalVMOptions -XX:+UseCGroupMemoryLimitForHeap&quot;</span>]</span><br></code></pre></td></tr></table></figure>
-<p>最后一步部署Deployment.yaml文件，yaml路径是你gitlab仓库中项目下的路径</p>
-<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20191214194824641.png" alt="image-20191214194824641"></p>
-<p>保存完成后就可以看到正在构建了</p>
-<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20191214195024989.png" alt="image-20191214195024989"></p>
-<p>全部运行成功后，就可以在工作负载看到pod的运行状态</p>
-<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20191214195120170.png" alt="image-20191214195120170"></p>
-]]></content>
-      <categories>
-        <category>rancher</category>
-      </categories>
-      <tags>
-        <tag>rancher</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>rancher:v2.3安装创建K8s集群</title>
     <url>/2021/01/04/rancher-v2-3%E5%AE%89%E8%A3%85%E5%88%9B%E5%BB%BAK8s%E9%9B%86%E7%BE%A4/</url>
     <content><![CDATA[<h3 id="1、rancher介绍"><a href="#1、rancher介绍" class="headerlink" title="1、rancher介绍"></a>1、rancher介绍</h3><p>每个团队都可以在他们选择的公共云或私有云上部署应用程序，Rancher 在 IT 和 DevOps 组织中扮演的角色如下：</p>
@@ -350,6 +305,51 @@
 <p>当在master节点看到</p>
 <p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20191125113631090.png" alt="image-20191125113631090"></p>
 <p>则表示集群导入成功，如果pod状态报错，根据报错信息处理即可。</p>
+]]></content>
+      <categories>
+        <category>rancher</category>
+      </categories>
+      <tags>
+        <tag>rancher</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>rancher流水线&lt;后端&gt;</title>
+    <url>/2021/01/04/rancher%E6%B5%81%E6%B0%B4%E7%BA%BF-%E5%90%8E%E7%AB%AF/</url>
+    <content><![CDATA[<h3 id="1、Pipeline授权设置"><a href="#1、Pipeline授权设置" class="headerlink" title="1、Pipeline授权设置"></a>1、Pipeline授权设置</h3><p>Gitlab版本需要在9以上，授权账号必须是项目的Maintainer（gitlab 8 里面是master）,在gitlab中创建application，callbackurl在rancher上复制</p>
+<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20191214193027408.png" alt="image-20191214193027408"></p>
+<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20191214193138485.png" alt="image-20191214193138485"></p>
+<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20191214193217867.png" alt="image-20191214193217867"></p>
+<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20191214193509071.png" alt="image-20191214193509071"></p>
+<p>生成需要的ID和Key</p>
+<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20191214193835277.png" alt="image-20191214193835277"></p>
+<p>将刚才生成的ID和Key填入，地址输入自己gitlab的URL</p>
+<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20191214193949412.png" alt="image-20191214193949412"></p>
+<p>授权完成后，给流水线的运行设置资源限制</p>
+<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20191214194027442.png" alt="image-20191214194027442"></p>
+<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20191214194108099.png" alt="image-20191214194108099"></p>
+<h3 id="2、配置流水线"><a href="#2、配置流水线" class="headerlink" title="2、配置流水线"></a>2、配置流水线</h3><p>现在就可以开始设置流水线了，先设置代码库，开启需要运行的代码库</p>
+<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20191214194230120.png" alt="image-20191214194230120"></p>
+<p>设置什么条件可以触发流水线</p>
+<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20191214194305401.png" alt="image-20191214194305401"></p>
+<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20191214194325948.png" alt="image-20191214194325948"></p>
+<p>开始配置流水线流程，选择你需要配置的分支</p>
+<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20191214194356585.png" alt="image-20191214194356585"></p>
+<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20191214194421735.png" alt="image-20191214194421735"></p>
+<h3 id="3、流水线配置"><a href="#3、流水线配置" class="headerlink" title="3、流水线配置"></a>3、流水线配置</h3><p>第一步是系统已经设定好的，我们只需要根据自己的需要设置后面的步骤</p>
+<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20191214194540875.png" alt="image-20191214194540875"></p>
+<p>第二步 build，选择的类型是运行脚本，执行mvn clean package命令，选用的镜像是我自己打包maven3.6镜像。  公司有自己的maven私服，那么打包maven镜像的时候，可以设置好setting.xml文件，上传到前面配置的harbor仓库就可以了。如果不知道setting文件放到mvn镜像中的位置，就先运行 mvn  -X查看mvn读取配置文件的顺序，再把setting文件copy进去即可</p>
+<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20191214194705581.png" alt="image-20191214194705581"></p>
+<p>这一步主要是用build构建后的包，根据代码中的Dockerfile打包成镜像，当前目录依然是git  clone后的目录，指定Dockerfile的相对位置，并命名打包后的惊醒名，其中镜像名中的:${CICD_GIT_COMMIT}是rancher提供的变量。这里Dockerfile路径和构建上下文路径是gitlab库中的dockerfile文件的路径。</p>
+<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20191214194801709.png" alt="image-20191214194801709"></p>
+<p>下面讲下dockerfile的配置：</p>
+<figure class="highlight css"><table><tr><td class="code"><pre><code class="hljs css"><span class="hljs-selector-tag">FROM</span> <span class="hljs-selector-tag">registry</span><span class="hljs-selector-class">.hello</span><span class="hljs-selector-class">.com</span>/<span class="hljs-selector-tag">jdk</span><span class="hljs-selector-pseudo">:1.8_232</span>    #这里是我私仓自己的<span class="hljs-selector-tag">jdk</span>镜像<br><br><span class="hljs-selector-tag">ADD</span> ./<span class="hljs-selector-tag">target</span>/<span class="hljs-selector-tag">app</span><span class="hljs-selector-class">.jar</span>  <span class="hljs-selector-tag">app</span><span class="hljs-selector-class">.jar</span><br><br><span class="hljs-selector-tag">CMD</span>  <span class="hljs-selector-attr">[<span class="hljs-string">&quot;java  -jar app.jar  -XX:+UnlockExperimentalVMOptions -XX:+UseCGroupMemoryLimitForHeap&quot;</span>]</span><br></code></pre></td></tr></table></figure>
+<p>最后一步部署Deployment.yaml文件，yaml路径是你gitlab仓库中项目下的路径</p>
+<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20191214194824641.png" alt="image-20191214194824641"></p>
+<p>保存完成后就可以看到正在构建了</p>
+<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20191214195024989.png" alt="image-20191214195024989"></p>
+<p>全部运行成功后，就可以在工作负载看到pod的运行状态</p>
+<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20191214195120170.png" alt="image-20191214195120170"></p>
 ]]></content>
       <categories>
         <category>rancher</category>
