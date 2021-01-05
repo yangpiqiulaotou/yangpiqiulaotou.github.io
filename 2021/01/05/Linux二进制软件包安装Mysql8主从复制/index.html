@@ -17,7 +17,7 @@
   <meta name="description" content="">
   <meta name="author" content="羊皮裘老头">
   <meta name="keywords" content="">
-  <title>sonarqube使用钉钉告警 - 羊皮裘老头</title>
+  <title>Linux二进制软件包安装Mysql8主从复制 - 羊皮裘老头</title>
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
 
@@ -201,7 +201,7 @@
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
           <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="sonarqube使用钉钉告警">
+            <span class="h2" id="subtitle" title="Linux二进制软件包安装Mysql8主从复制">
               
             </span>
 
@@ -211,8 +211,8 @@
   
     <span class="post-meta">
       <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-      <time datetime="2021-01-05 10:45" pubdate>
-        2021年1月5日 上午
+      <time datetime="2021-01-05 11:40" pubdate>
+        2021年1月5日 中午
       </time>
     </span>
   
@@ -223,7 +223,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      391 字
+      540 字
     </span>
   
 
@@ -233,7 +233,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      6
+      8
        分钟
     </span>
   
@@ -271,24 +271,31 @@
         <div class="py-5" id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">sonarqube使用钉钉告警</h1>
+            <h1 style="display: none">Linux二进制软件包安装Mysql8主从复制</h1>
             
             <div class="markdown-body">
-              <p>说明：因项目需求，创建的是一个Jenkins自由项目，需要sonar代码扫描通过再继续maven构建、并且不发送钉钉告警，扫描不通过则停止构建、并发送钉钉告警。</p>
-<h3 id="1、安装告警插件"><a href="#1、安装告警插件" class="headerlink" title="1、安装告警插件"></a>1、安装告警插件</h3><p>#下载release包 /releases/dingding-sonar-1.0-SNAPSHOT.jar</p>
-<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs awk">wget https:<span class="hljs-regexp">//gi</span>tee.com<span class="hljs-regexp">/chejiangyi/</span>dingding-sonar<span class="hljs-regexp">/repository/</span>archive/master.zip<br><br>unzip master.zip<br></code></pre></td></tr></table></figure>
-<p>#运行jar包 sonar.url为sonar安装地址</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">cd</span> dingding-sonar/releases<br></code></pre></td></tr></table></figure>
-<p>#启动服务</p>
-<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">nohup</span> java -jar dingding-sonar-<span class="hljs-number">1</span>.<span class="hljs-number">0</span>-SNAPSHOT.jar \ --server.port=<span class="hljs-number">8082</span> \ --sonar.url=http://<span class="hljs-number">192.168.0.129:9000</span> \ &gt; /dev/null <span class="hljs-number">2</span> &gt;&amp; <span class="hljs-number">1</span> &amp;<br></code></pre></td></tr></table></figure>
-<p>#检查部署成功 sonar-project-id 为sonar的项目id:task-dev</p>
-<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs groovy">curl <span class="hljs-attr">http:</span><span class="hljs-comment">//&lt;your dingding-sonar-server IP&gt;:8082/?projectname=&#123;sonar-project-id&#125;</span><br></code></pre></td></tr></table></figure>
-<p>#返回结果</p>
-<p>bug:0,漏洞:0,坏味道:58,覆盖率:0.0,重复:0.0,状态:OK</p>
-<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20200305135649539.png" srcset="/img/loading.gif" alt="image-20200305135649539"></p>
-<h3 id="2、发送告警通知"><a href="#2、发送告警通知" class="headerlink" title="2、发送告警通知"></a>2、发送告警通知</h3><p>钉钉通知发布脚本内容示例：</p>
-<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><code class="hljs powershell"><span class="hljs-comment">#!/bin/bash</span><br>projectName=task<span class="hljs-literal">-dev</span><br>projectId=task<span class="hljs-literal">-dev</span><br>dingdingToken=a9c7f0dff01a01cefda6af09e5d0ec068a55d755008c2f559ec2598e9f377djl    <span class="hljs-comment">#钉钉群组创建一个自由的webhook的token</span><br>sonarreport=<span class="hljs-variable">$</span>(<span class="hljs-built_in">curl</span> <span class="hljs-literal">-s</span> http://<span class="hljs-number">192.168</span>.<span class="hljs-number">0.121</span>:<span class="hljs-number">8082</span>/?projectname=<span class="hljs-variable">$</span>&#123;projectName&#125;)<br>sonar=<span class="hljs-variable">$</span>(<span class="hljs-built_in">curl</span> <span class="hljs-literal">-s</span> http://<span class="hljs-number">192.168</span>.<span class="hljs-number">0.121</span>:<span class="hljs-number">8082</span>/?projectname=task<span class="hljs-literal">-dev</span> |awk <span class="hljs-operator">-F</span> <span class="hljs-string">&quot;:&quot;</span> <span class="hljs-string">&#x27;&#123;print $7&#125;&#x27;</span>|<span class="hljs-built_in">tee</span> dev.txt)<br><span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;<span class="hljs-variable">$sonar</span>&quot;</span><br><span class="hljs-keyword">if</span> [[ <span class="hljs-string">&quot;<span class="hljs-variable">$sonar</span>&quot;</span> == <span class="hljs-string">&quot;ERROR&quot;</span> ]]<br>then<br>  <span class="hljs-built_in">echo</span> <span class="hljs-variable">$</span>&#123;sonarreport&#125;<br>  <span class="hljs-built_in">curl</span> <span class="hljs-literal">-s</span> <span class="hljs-string">&quot;https://oapi.dingtalk.com/robot/send?access_token=<span class="hljs-variable">$</span>&#123;dingdingToken&#125;&quot;</span> <span class="hljs-literal">-H</span> <span class="hljs-string">&quot;Content-Type: application/json&quot;</span>  <span class="hljs-literal">-d</span> <span class="hljs-string">&quot;&#123; \&quot;</span>msgtype\<span class="hljs-string">&quot;: \&quot;</span>markdown\<span class="hljs-string">&quot;, \&quot;</span>markdown\<span class="hljs-string">&quot;: &#123; \&quot;</span>title\<span class="hljs-string">&quot;:\&quot;</span>sonar代码<br>质量\<span class="hljs-string">&quot;, \&quot;</span>text\<span class="hljs-string">&quot;: \&quot;</span><span class="hljs-comment">## Sonar代码质量报告 \n</span><br>&gt;<span class="hljs-variable">$</span>&#123;projectName&#125; \n<br>&gt; [<span class="hljs-type">sonar</span>地址](http://<span class="hljs-number">192.168</span>.<span class="hljs-number">0.129</span>:<span class="hljs-number">9000</span>/dashboard?id=<span class="hljs-variable">$</span>&#123;projectId&#125;) \n<br>&gt; <span class="hljs-variable">$</span>&#123;sonarreport&#125; \n\<span class="hljs-string">&quot;</span><br><span class="hljs-string">&#125;</span><br><span class="hljs-string">&#125;&quot;</span><br>  <span class="hljs-keyword">exit</span> <span class="hljs-number">1</span><br><span class="hljs-keyword">else</span><br>  <span class="hljs-built_in">echo</span> <span class="hljs-variable">$</span>&#123;sonarreport&#125;<br>fi<br></code></pre></td></tr></table></figure>
-<p>参考文章：<a target="_blank" rel="noopener" href="https://www.cnblogs.com/chejiangyi/p/10844232.html">https://www.cnblogs.com/chejiangyi/p/10844232.html</a></p>
+              <h3 id="1、下载安装包"><a href="#1、下载安装包" class="headerlink" title="1、下载安装包"></a>1、下载安装包</h3><p>wget  <a target="_blank" rel="noopener" href="https://cdn.mysql.com//Downloads/MySQL-8.0/mysql-8.0.18-el7-x86_64.tar.gz">https://cdn.mysql.com//Downloads/MySQL-8.0/mysql-8.0.18-el7-x86_64.tar.gz</a></p>
+<h3 id="2、删除系统自带"><a href="#2、删除系统自带" class="headerlink" title="2、删除系统自带"></a>2、删除系统自带</h3><figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">rpm</span> -qa |grep  mysql<br><span class="hljs-attribute">rpm</span> -qa |grep mariadb<br><span class="hljs-attribute">rpm</span> -e --nodeps mariadb-libs-<span class="hljs-number">5</span>.<span class="hljs-number">5</span>.<span class="hljs-number">60</span>-<span class="hljs-number">1</span>.el<span class="hljs-number">7</span>_<span class="hljs-number">5</span>.x<span class="hljs-number">86</span>_<span class="hljs-number">64</span><br></code></pre></td></tr></table></figure>
+<h3 id="3、初始化数据库"><a href="#3、初始化数据库" class="headerlink" title="3、初始化数据库"></a>3、初始化数据库</h3><figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">groupadd</span> mysql<br><span class="hljs-attribute">useradd</span> -r -g mysql -s /bin/false mysql<br><span class="hljs-attribute">cd</span> /usr/local<br><span class="hljs-attribute">tar</span> xvf mysql-<span class="hljs-number">8</span>.<span class="hljs-number">0</span>.<span class="hljs-number">18</span>-el<span class="hljs-number">7</span>-x<span class="hljs-number">86</span>_<span class="hljs-number">64</span>.tar.gz<br><span class="hljs-attribute">ln</span> -s mysql-<span class="hljs-number">8</span>.<span class="hljs-number">0</span>.<span class="hljs-number">18</span>-el<span class="hljs-number">7</span>-x<span class="hljs-number">86</span>_<span class="hljs-number">64</span> mysql<br><span class="hljs-attribute">cd</span> mysql<br><span class="hljs-attribute">mkdir</span> mysql-files<br><span class="hljs-attribute">chown</span> mysql:mysql mysql-files<br><span class="hljs-attribute">chmod</span> <span class="hljs-number">750</span> mysql-files<br><span class="hljs-attribute">bin</span>/mysqld --initialize --user=mysql<br><span class="hljs-attribute">bin</span>/mysql_ssl_rsa_setup<br><span class="hljs-attribute">bin</span>/mysqld_safe --user=mysql &amp;<br><span class="hljs-attribute">cp</span> support-files/mysql.server /etc/init.d/mysql.server<br></code></pre></td></tr></table></figure>
+<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20191226160516781.png" srcset="/img/loading.gif" alt="image-20191226160516781"></p>
+<p>记住数据库的密码</p>
+<h3 id="4、修改配置文件"><a href="#4、修改配置文件" class="headerlink" title="4、修改配置文件"></a>4、修改配置文件</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs python">cat /etc/my.cnf<br><br>[mysqld]<br>log-<span class="hljs-built_in">bin</span>=master-<span class="hljs-built_in">bin</span>    <span class="hljs-comment">#master是master-bin，slave的是slave-bin</span><br>server-<span class="hljs-built_in">id</span>=<span class="hljs-number">1</span>           <span class="hljs-comment">#master为1，slave2</span><br><br><span class="hljs-comment">#关闭命令</span><br><span class="hljs-built_in">bin</span>/mysqladmin -u root -p  shutdown<br><span class="hljs-comment">#启动命令</span><br><span class="hljs-built_in">bin</span>/mysqld_safe --user=mysql &amp;<br></code></pre></td></tr></table></figure>
+<h3 id="5、设置环境变量："><a href="#5、设置环境变量：" class="headerlink" title="5、设置环境变量："></a>5、设置环境变量：</h3><figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs awk">cat  <span class="hljs-regexp">/etc/</span>profile.d/msyql.sh<br><br>MYSQL_HOME=<span class="hljs-regexp">/usr/</span>local<span class="hljs-regexp">/mysql/</span><br>export PATH=<span class="hljs-variable">$PATH</span>:<span class="hljs-variable">$MYSQL_HOME</span>/bin<br></code></pre></td></tr></table></figure>
+<h3 id="6、修改随机密码："><a href="#6、修改随机密码：" class="headerlink" title="6、修改随机密码："></a>6、修改随机密码：</h3><figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs crmsh">mysql  -u root  -p    <span class="hljs-comment">#输入初始化随机生成的密码</span><br>ALTER <span class="hljs-keyword">USER</span> <span class="hljs-title">&#x27;root</span>&#x27;@&#x27;localhost&#x27; IDENTIFIED BY &#x27;hello123&#x27;;<br>show <span class="hljs-keyword">master</span> <span class="hljs-title">status</span>;      <span class="hljs-comment">#查看master状态</span><br></code></pre></td></tr></table></figure>
+<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20191226161712968.png" srcset="/img/loading.gif" alt="image-20191226161712968"></p>
+<h3 id="7、为主从复制创建用户"><a href="#7、为主从复制创建用户" class="headerlink" title="7、为主从复制创建用户"></a>7、为主从复制创建用户</h3><figure class="highlight pgsql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs pgsql"><span class="hljs-keyword">CREATE</span> <span class="hljs-keyword">USER</span> <span class="hljs-string">&#x27;econage&#x27;</span>@<span class="hljs-string">&#x27;%&#x27;</span> IDENTIFIED <span class="hljs-keyword">BY</span> <span class="hljs-string">&#x27;hello123&#x27;</span>;<br><span class="hljs-keyword">GRANT</span> <span class="hljs-keyword">REPLICATION</span> SLAVE <span class="hljs-keyword">ON</span> *.* <span class="hljs-keyword">TO</span> econage@<span class="hljs-string">&#x27;%&#x27;</span>;<br></code></pre></td></tr></table></figure>
+<figure class="highlight pgsql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs pgsql">mysql8 之前的版本中加密规则是mysql_native_password,而在mysql8之后,加密规则是caching_sha2_password,把mysql用户登录密码加密规则还原成mysql_native_password. 不然会报错如下<br><br>error connecting <span class="hljs-keyword">to</span> master <span class="hljs-string">&#x27;econage@192.168.0.56:3306&#x27;</span> - retry-<span class="hljs-type">time</span>: <span class="hljs-number">60</span> retries: <span class="hljs-number">1</span> message: Authentication plugin <span class="hljs-string">&#x27;caching_sha2_password&#x27;</span> reported error: Authentication requires secure <span class="hljs-keyword">connection</span>.<br><br><span class="hljs-keyword">ALTER</span> <span class="hljs-keyword">USER</span> <span class="hljs-string">&#x27;econage&#x27;</span>@<span class="hljs-string">&#x27;%&#x27;</span> IDENTIFIED <span class="hljs-keyword">WITH</span> mysql_native_password <span class="hljs-keyword">BY</span> <span class="hljs-string">&#x27;hello123&#x27;</span>;    #添加这一条命令即可<br><br>FLUSH <span class="hljs-keyword">PRIVILEGES</span>;<br></code></pre></td></tr></table></figure>
+<p>如果禁用了二进制日志记录，请在创建用户后立即通过发出以下语句再次启用它：</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs routeros"><span class="hljs-builtin-name">SET</span> <span class="hljs-attribute">SQL_LOG_BIN</span>=1;<br></code></pre></td></tr></table></figure>
+<h3 id="8、查看连接是否正确："><a href="#8、查看连接是否正确：" class="headerlink" title="8、查看连接是否正确："></a>8、查看连接是否正确：</h3><figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">mysql</span>   -ueconage   -phello<span class="hljs-number">123</span>  -h<span class="hljs-number">192.168.0.56</span>   -e   &#x27;status;&#x27;<br></code></pre></td></tr></table></figure>
+<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20191226172818003.png" srcset="/img/loading.gif" alt="image-20191226172818003"></p>
+<h3 id="9、在slave进行连接master："><a href="#9、在slave进行连接master：" class="headerlink" title="9、在slave进行连接master："></a>9、在slave进行连接master：</h3><figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs routeros">CHANGE MASTER <span class="hljs-keyword">TO</span><br>  <span class="hljs-attribute">MASTER_HOST</span>=<span class="hljs-string">&#x27;192.168.0.56&#x27;</span>,           #master主机ip<br>  <span class="hljs-attribute">MASTER_USER</span>=<span class="hljs-string">&#x27;econage&#x27;</span>,  				#上面创建的用户<br>  <span class="hljs-attribute">MASTER_PASSWORD</span>=<span class="hljs-string">&#x27;hello123&#x27;</span>,			#用户密码<br>  <span class="hljs-attribute">MASTER_LOG_FILE</span>=<span class="hljs-string">&#x27;master-bin.000002&#x27;</span>,	#master的file文件名<br>  <span class="hljs-attribute">MASTER_LOG_POS</span>=474;					# master的Position号<br></code></pre></td></tr></table></figure>
+<p>查看</p>
+<figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs crmsh">show  <span class="hljs-literal">slave</span>  status\G      <span class="hljs-comment">#可能会状态不对，执行下面命令</span><br><span class="hljs-literal">stop</span>  <span class="hljs-literal">slave</span>；<br><span class="hljs-literal">start</span>  <span class="hljs-literal">slave</span>；<br></code></pre></td></tr></table></figure>
+<p>再查看</p>
+<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20191226201513037.png" srcset="/img/loading.gif" alt="image-20191226201513037"></p>
+<p>显示两个yes则正确。</p>
+<h3 id="9、验证"><a href="#9、验证" class="headerlink" title="9、验证"></a>9、验证</h3><figure class="highlight gauss"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs gauss"><span class="hljs-keyword">show</span>   databases；      <span class="hljs-meta">#分别在master和slave查看</span><br><span class="hljs-meta">#在master去创建一个库</span><br><span class="hljs-keyword">create</span>  database  hello   <span class="hljs-meta">#会发现slave上也有一个hello的库</span><br></code></pre></td></tr></table></figure>
 
             </div>
             <hr>
@@ -298,7 +305,7 @@
                   <div class="post-meta mr-3">
                     <i class="iconfont icon-category"></i>
                     
-                      <a class="hover-with-bg" href="/categories/Linux/">Linux</a>
+                      <a class="hover-with-bg" href="/categories/%E5%85%B3%E7%B3%BB%E5%9E%8B%E6%95%B0%E6%8D%AE%E5%BA%93/">关系型数据库</a>
                     
                   </div>
                 
@@ -306,7 +313,7 @@
                   <div class="post-meta">
                     <i class="iconfont icon-tags"></i>
                     
-                      <a class="hover-with-bg" href="/tags/SonarQube/">SonarQube</a>
+                      <a class="hover-with-bg" href="/tags/Mysql/">Mysql</a>
                     
                   </div>
                 
@@ -319,9 +326,9 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2021/01/05/Linux%E4%BA%8C%E8%BF%9B%E5%88%B6%E8%BD%AF%E4%BB%B6%E5%8C%85%E5%AE%89%E8%A3%85Mysql8%E4%B8%BB%E4%BB%8E%E5%A4%8D%E5%88%B6/">
+                      <a href="/2021/01/05/%E4%BA%8C%E8%BF%9B%E5%88%B6%E5%AE%89%E8%A3%85mariadb%E4%B8%BB%E4%BB%8E%E5%A4%8D%E5%88%B6/">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">Linux二进制软件包安装Mysql8主从复制</span>
+                        <span class="hidden-mobile">二进制安装mariadb主从复制</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -329,8 +336,8 @@
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2021/01/05/Jenkins%E4%B8%BB%E6%9C%BA%E4%B9%8B%E4%B8%8A%E9%83%A8%E7%BD%B2SonarQube-Scanner/">
-                        <span class="hidden-mobile">Jenkins主机之上部署SonarQube Scanner</span>
+                      <a href="/2021/01/05/sonarqube%E4%BD%BF%E7%94%A8%E9%92%89%E9%92%89%E5%91%8A%E8%AD%A6/">
+                        <span class="hidden-mobile">sonarqube使用钉钉告警</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
