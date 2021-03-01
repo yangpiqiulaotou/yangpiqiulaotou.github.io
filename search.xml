@@ -168,6 +168,9 @@
 <p>6、登录sonarqube查看</p>
 <p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20200305134927195.png" alt="image-20200305134927195"></p>
 ]]></content>
+      <categories>
+        <category>Linux</category>
+      </categories>
       <tags>
         <tag>Jenkins</tag>
         <tag>SonarQube</tag>
