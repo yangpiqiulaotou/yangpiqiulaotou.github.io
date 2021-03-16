@@ -220,6 +220,158 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
+        <a href="/2021/03/16/k8s%E4%BD%BF%E7%94%A8Jenkins%E5%8F%91%E5%B8%83%E7%89%88%E6%9C%AC/">k8s使用Jenkins发布版本</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2021/03/16/k8s%E4%BD%BF%E7%94%A8Jenkins%E5%8F%91%E5%B8%83%E7%89%88%E6%9C%AC/">
+          
+          
+            
+          
+          1、安装Jenkins1234567891011#准备Java环境tar xvf  jdk-8u231-linux-x64.tar.gz -C /usr/local/cd /usr/local/ln -s jdk1.8.0_231 javacat  /etc/profile.d/javaexport JAVA_HOME=/usr/local/javaexport PATH=$PATH:$JAVA_
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-03-16 17:29" pubdate>
+              2021-03-16
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/Kubernetes/">Kubernetes</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/Jenkins/">Jenkins</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2021/03/16/Jenkins%E4%B8%BB%E4%BB%8E%E9%85%8D%E7%BD%AE/">Jenkins主从配置</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2021/03/16/Jenkins%E4%B8%BB%E4%BB%8E%E9%85%8D%E7%BD%AE/">
+          
+          
+            
+          
+          1、环境介绍12master        192.168.0.121slave         192.168.0.76
+2、生成密钥部署jenkins master –slave 需要在master 服务器下 生成一个 秘钥文件
+1ssh-keygen  -t   rsa
+什么都不用填，一直敲回车就可以，生成的秘钥会在用户目录下， root 用户生成的 在~./ssh/中
+有两个文件 id_r
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-03-16 17:24" pubdate>
+              2021-03-16
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/Linux/">Linux</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/Jenkins/">Jenkins</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2021/03/16/EFK%E6%94%B6%E9%9B%86K8s%E6%97%A5%E5%BF%97/">EFK收集K8s日志</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2021/03/16/EFK%E6%94%B6%E9%9B%86K8s%E6%97%A5%E5%BF%97/">
+          
+          
+            
+          
+          备注：所需镜像都会去外网拉取，所以镜像需要自己想办法！！！
+环境介绍：
+
+
+一、下载elasticsearch安装包123helm pull stable/elasticsearchtar xvf elasticsearch-1.32.4.tgz      #可以根据自己需求修改elasticsearch/values.yaml文件helm install elasticsearch -n efk
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-03-16 17:21" pubdate>
+              2021-03-16
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/Kubernetes/">Kubernetes</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/Elasticsearch/">Elasticsearch</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
         <a href="/2021/03/16/K8s%E5%81%A5%E5%BA%B7%E6%A3%80%E6%B5%8B/">K8s健康检测</a>
       </h1>
 
@@ -591,153 +743,6 @@ Centos7.6
             <i class="iconfont icon-tags"></i>
             
               <a href="/tags/Elasticsearch/">Elasticsearch</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2021/01/20/Linux%E5%AE%89%E8%A3%85elasticsearch/">Linux安装elasticsearch</a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2021/01/20/Linux%E5%AE%89%E8%A3%85elasticsearch/">
-          
-          
-            
-          
-          1、准备Java环境123456789tar xvf jdk-8u231-linux-x64.tar.gz -C /usr/local/mv jdk1.8.0_231 javavim /etc/profile.d/javaexport JAVA_HOME=/usr/local/javaexport PATH=$JAVA_HOME/bin:$PATHsource /etc/profile.d/jav
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2021-01-20 10:55" pubdate>
-              2021-01-20
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/Linux/">Linux</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/Elasticsearch/">Elasticsearch</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2021/01/20/logstash%E5%AD%97%E7%AC%A6%E8%BD%AC%E6%8D%A2/">logstash字符转换</a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2021/01/20/logstash%E5%AD%97%E7%AC%A6%E8%BD%AC%E6%8D%A2/">
-          
-          
-            
-          
-          项目需求
-request_time， upstream_response_time 等的数据类型需要改为float
-1、nginx配置json格式日志123456789101112131415161718192021222324252627http &#123;    log_format json &#x27;&#123;&quot;@timestamp&quot;:&quot;$time_is
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2021-01-20 10:53" pubdate>
-              2021-01-20
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/Linux/">Linux</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/Logstash/">Logstash</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2021/01/20/no-module-named-yum%E6%9C%89%E6%95%88%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/">no module named yum有效解决办法</a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2021/01/20/no-module-named-yum%E6%9C%89%E6%95%88%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/">
-          
-          
-            
-          
-          1、事件描述​        因误删系统python环境，导致yum不能使用，报错如下
-12345678910111213141516There was a problem importing one of the Python modulesrequired to run yum. The error leading to this problem was:   No module named 
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2021-01-20 10:50" pubdate>
-              2021-01-20
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/Linux/">Linux</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/Linux/">Linux</a>
             
           </div>
         
