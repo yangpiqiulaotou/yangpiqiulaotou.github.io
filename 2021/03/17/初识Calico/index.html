@@ -1,0 +1,620 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" type="image/png" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="羊皮裘老头">
+  <meta name="keywords" content="">
+  <title>初识Calico - 羊皮裘老头</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.4.0/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.8.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"onlypost":false},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}}};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.3.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>羊皮裘老头</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="iconfont icon-books"></i>
+                文档
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" target="_blank" rel="noopener" href="https://hexo.fluid-dev.com/">
+                    
+                    主题博客
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" target="_blank" rel="noopener" href="https://hexo.fluid-dev.com/docs/guide/">
+                    
+                    配置指南
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" target="_blank" rel="noopener" href="https://hexo.fluid-dev.com/docs/icon/">
+                    
+                    图标用法
+                  </a>
+                
+              </div>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" href="javascript:">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/ss.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="初识Calico">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2021-03-17 16:52" pubdate>
+        2021年3月17日 下午
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      2.8k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      30
+       分钟
+    </span>
+  
+
+  
+  
+    
+      <!-- LeanCloud 统计文章PV -->
+      <span id="leancloud-page-views-container" class="post-meta" style="display: none">
+        <i class="iconfont icon-eye" aria-hidden="true"></i>
+        <span id="leancloud-page-views"></span> 次
+      </span>
+    
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">初识Calico</h1>
+            
+            <div class="markdown-body">
+              <h2 id="1、简介"><a href="#1、简介" class="headerlink" title="1、简介"></a>1、简介</h2><p>​        Calico是针对容器，虚拟机和基于主机的本机工作负载的开源网络和网络安全解决方案。Calico支持广泛的平台，包括Kubernetes，OpenShift，Docker EE，OpenStack和裸机服务。</p>
+<p>​        Calico将灵活的网络功能与无处不在的安全性实施相结合，以提供具有本地Linux内核性能和真正的云原生可扩展性的解决方案。Calico为开发人员和集群运营商提供一致的体验和功能集，无论是在公共云中还是本地运行，在单个节点上还是在数千个节点集群中运行。</p>
+<h2 id="2、关于Calico"><a href="#2、关于Calico" class="headerlink" title="2、关于Calico"></a>2、关于Calico</h2><p>​        Calico为容器和虚拟机工作负载提供一个安全的<a target="_blank" rel="noopener" href="https://www.kubernetes.org.cn/tags/%E7%BD%91%E7%BB%9C">网络</a>连接。</p>
+<p>​        Calico可以创建并管理一个3层平面网络，为每个工作负载分配一个完全可路由的IP地址。  工作负载可以在没有IP封装或网络地址转换的情况下进行通信，以实现裸机性能，简化故障排除和提供更好的互操作性。  在需要使用overlay网络的环境中，Calico提供了IP-in-IP隧道技术，或者也可以与flannel等其他overlay网络配合使用。</p>
+<p>​        Calico还提供网络安全规则的动态配置。 使用Calico的简单策略语言，就可以实现对容器、虚拟机工作负载和裸机主机各节点之间通信的细粒度控制。</p>
+<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master//img/Calico1.png" srcset="/img/loading.gif" alt="https://www.kubernetes.org.cn/img/2018/12/Calico1.png"></p>
+<h2 id="3、Calico-主要组件"><a href="#3、Calico-主要组件" class="headerlink" title="3、Calico 主要组件"></a>3、Calico 主要组件</h2><p>​        <a target="_blank" rel="noopener" href="https://www.kubernetes.org.cn/tags/Calico">Calico</a>利用了Linux内核原生的路由和iptables防火墙功能。 进出各个容器、虚拟机和物理主机的所有流量都会在路由到目标之前遍历这些内核规则。</p>
+<ul>
+<li>Felix：主要的Calico代理agent，运行每台计算机上管理endpoints资源。</li>
+<li>calicoctl：允许从命令行界面配置实现高级策略和网络。</li>
+<li>orchestrator plugins：提供与各种流行的云计算编排工具的紧密集成和同步支持。</li>
+<li>key/value store：存储Calico的策略配置和网络状态信息，目前主要使用etcdv3或k8s api。</li>
+<li>calico/node：在每个主机上运行，从key/value存储中读取相关的策略和网络配置信息，并在Linux内核中实现它。</li>
+<li>Dikastes/Envoy：可选的Kubernetes sidecars，可以通过相互TLS身份验证保护工作负载到工作负载的通信，并增加应用层控制策略。</li>
+</ul>
+<h3 id="3-1-Felix"><a href="#3-1-Felix" class="headerlink" title="3.1 Felix"></a>3.1 Felix</h3><p>​        Felix是一个守护程序，它在每个提供endpoints资源的计算机上运行。在大多数情况下，这意味着它需要在托管容器或VM的宿主机节点上运行。 Felix 负责编制路由和ACL规则以及在该主机上所需的任何其他内容，以便为该主机上的endpoints资源正常运行提供所需的网络连接。</p>
+<p>根据特定的编排环境，Felix负责以下任务：</p>
+<ul>
+<li>管理网络接口，Felix将有关接口的一些信息编程到内核中，以使内核能够正确处理该endpoint发出的流量。  特别是，它将确保主机正确响应来自每个工作负载的ARP请求，并将为其管理的接口启用IP转发支持。它还监视网络接口的出现和消失，以便确保针对这些接口的编程得到了正确的应用。</li>
+<li>编写路由，Felix负责将到其主机上endpoints的路由编写到Linux内核FIB（转发信息库）中。 这可以确保那些发往目标主机的endpoints的数据包被正确地转发。</li>
+<li>编写ACLs，Felix还负责将ACLs编程到Linux内核中。 这些ACLs用于确保只能在endpoints之间发送有效的网络流量，并确保endpoints无法绕过Calico的安全措施。</li>
+<li>报告状态，Felix负责提供有关网络健康状况的数据。 特别是，它将报告配置其主机时发生的错误和问题。 该数据会被写入etcd，以使其对网络中的其他组件和操作才可见。</li>
+</ul>
+<h3 id="3-2-Orchestrator-Plugin"><a href="#3-2-Orchestrator-Plugin" class="headerlink" title="3.2 Orchestrator Plugin"></a>3.2 Orchestrator Plugin</h3><p>​        每个主要的云编排平台都有单独的Calico网络插件（例如OpenStack，Kubernetes）。 这些插件的目的是将Calico更紧密地绑定到编排工具中，允许用户管理Calico网络，就像他们管理编排工具中内置的网络工具一样。</p>
+<p>​        一个好的Orchestrator插件示例是Calico Neutron ML2 驱动程序。 该插件与Neutron的ML2插件集成，允许用户通过Neutron API调用来配置Calico网络，实现了与Neutron的无缝集成。</p>
+<p>Orchestrator插件负责以下任务：</p>
+<ul>
+<li>API Translation，每个云编排工具都不可避免地拥有自己的一套用于管理网络的API接口规范，  Orchestrator插件的主要工作就是将这些API转换为Calico的数据模型，然后将其存储在Calico的数据存储区中。这种转换中的一些工作将非常简单，其他一部分可能更复杂，以便将单个复杂操作（例如，实时迁移）转换为Calico网络期望的一系列更简单的操作。</li>
+<li>Feedback，如有需要，orchestrator插件将从Calico网络向编排器提供管理命令的反馈信息。 包括提供有关Felix存活的信息，以及如果网络配置失败则将某些endpoints标记为失败。</li>
+</ul>
+<h3 id="3-3-etcd"><a href="#3-3-etcd" class="headerlink" title="3.3 etcd"></a>3.3 etcd</h3><p>​        <a target="_blank" rel="noopener" href="https://www.kubernetes.org.cn/tags/etcd">etcd</a>是一个分布式键值存储数据库，专注于实现数据存储一致性。 Calico使用etcd提供组件之间的数据通信，并作为可以保证一致性的数据存储，以确保Calico始终可以构建出一个准确的网络。</p>
+<p>​        根据orchestrator插件的不同，etcd既可以是作为主数据存储使用，也可以是一个单独数据存储的轻量级镜像。例如，在OpenStack部署中，OpenStack数据库被认为是“真实配置信息的来源”，而etcd用于镜像其中有关网络配置的信息，并用于服务其他Calico组件。</p>
+<p>etcd组件穿插在整个部署中。它可以被分为两组主机节点：核心集群和代理。</p>
+<p>​        对于小型部署，核心集群可以是一个节点的etcd集群（通常与orchestrator插件组件位于同一节点上）。这种部署模型很简单但没有为etcd提供冗余。在etcd失败的情况下，orchstrator插件必须重建数据库，例如OpenStack，它需要插件从OpenStack数据库重新同步状态到etcd。</p>
+<p>在较大的部署中，核心群集可以根据<a target="_blank" rel="noopener" href="https://www.kubernetes.org.cn/4960.html#optimal-cluster-size">etcd管理指南</a>进行扩展。</p>
+<p>​        此外，在运行Felix或orchstrator插件的每台计算机上，会运行一个etcd代理服务。这减少了etcd核心集群上的负载，并为主机节点屏蔽了etcd服务集群的细节。在etcd集群与orchstrator插件在同一台机器上都有成员的情况下，可以放弃在该机器上使用etcd代理。</p>
+<p>etcd负责执行以下任务：</p>
+<ul>
+<li>Data Storage，etcd以分布式、一致和容错的方式存储Calico网络的数据（对于至少三个etcd节点的cluster大小）。  这确保Calico网络始终处于已知良好状态，同时允许运行etcd的个别机器节点失败或无法访问。Calico网络数据的这种分布式存储提高了Calico组件从数据库读取的能力。</li>
+<li>Communication，etcd也用作组件之间的通信服务。 我们通过让非etcd组件监视键值空间中的某些点来确保他们看到已经做出的任何更改，从而允许他们及时响应这些更改。 该功能允许将状态信息提交到数据库，然后触发基于该状态数据的进一步网络配置管理。</li>
+</ul>
+<h2 id="4、Calico的IPIP与BGP模式"><a href="#4、Calico的IPIP与BGP模式" class="headerlink" title="4、Calico的IPIP与BGP模式"></a>4、Calico的IPIP与BGP模式</h2><ul>
+<li>IPIP是一种将各Node的路由之间做一个tunnel，再把两个网络连接起来的模式。启用IPIP模式时，Calico将在各Node上创建一个名为”tunl0″的虚拟网络接口。如下图所示。</li>
+<li>BGP模式则直接使用物理机作为虚拟路由路（vRouter），不再创建额外的tunnel。</li>
+</ul>
+<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master//img/Calico2.png" srcset="/img/loading.gif" alt="img"></p>
+<h2 id="5、Calico的部署规模"><a href="#5、Calico的部署规模" class="headerlink" title="5、Calico的部署规模"></a>5、Calico的部署规模</h2><p>Calico BGP模式在小规模集群中可以直接互联，在大规模集群中可以通过额外的BGP route reflector来完成。</p>
+<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master//img/Calico3.png" srcset="/img/loading.gif" alt="img"></p>
+<h3 id="5-1-BGP-Client-BIRD"><a href="#5-1-BGP-Client-BIRD" class="headerlink" title="5.1 BGP Client (BIRD)"></a>5.1 BGP Client (BIRD)</h3><p>Calico在每个运行Felix服务的节点上都部署一个BGP客户端。 BGP客户端的作用是读取Felix程序编写到内核中并在数据中心内分发的路由信息。</p>
+<p>BGP客户端负责执行以下任务：</p>
+<ul>
+<li>路由信息分发，当Felix将路由插入Linux内核FIB时，BGP客户端将接收它们并将它们分发到集群中的其他工作节点。</li>
+</ul>
+<h3 id="5-2-BGP-Route-Reflector-BIRD"><a href="#5-2-BGP-Route-Reflector-BIRD" class="headerlink" title="5.2 BGP Route Reflector (BIRD)"></a>5.2 BGP Route Reflector (BIRD)</h3><p>对于较大规模的部署，简单的BGP可能成为限制因素，因为它要求每个BGP客户端连接到网状拓扑中的每一个其他BGP客户端。这需要越来越多的连接，迅速变得难以维护，甚至会让一些设备的路由表撑满。</p>
+<p>因此，在较大规模的部署中，Calico建议部署BGP Route  Reflector。通常是在Internet中使用这样的组件充当BGP客户端连接的中心点，从而防止它们需要与群集中的每个BGP客户端进行通信。为了实现冗余，也可以同时部署多个BGP Route Reflector服务。Route Reflector仅仅是协助管理BGP网络，并没有endpoint数据会通过它们。</p>
+<p>在Calico中，此BGP组件也是使用的最常见的BIRD，配置为Route Reflector运行，而不是标准BGP客户端。</p>
+<p>BGP Route Reflector负责以下任务：</p>
+<ul>
+<li>集中式的路由信息分发，当Calico BGP客户端将路由从其FIB通告到Route Reflector时，Route Reflector会将这些路由通告给部署集群中的其他节点。</li>
+</ul>
+<h3 id="5-3-BIRD是什么"><a href="#5-3-BIRD是什么" class="headerlink" title="5.3 BIRD是什么"></a>5.3 BIRD是什么</h3><p>BIRD是布拉格查理大学数学与物理学院的一个学校项目，项目名是BIRD Internet Routing Daemon的缩写。 目前，它由CZ.NIC实验室开发和支持。</p>
+<p>BIRD项目旨在开发一个功能齐全的动态IP路由守护进程，主要针对（但不限于）Linux，FreeBSD和其他类UNIX系统，并在GNU通用公共许可证下分发。详细信息参照官网<a target="_blank" rel="noopener" href="https://bird.network.cz/%E3%80%82">https://bird.network.cz/。</a></p>
+<p>作为一个开源的网络路由守护进程项目，BRID设计并支持了以下功能：</p>
+<ul>
+<li>both IPv4 and IPv6 protocols</li>
+<li>multiple routing tables</li>
+<li>the Border Gateway Protocol (BGPv4)</li>
+<li>the Routing Information Protocol (RIPv2, RIPng)</li>
+<li>the Open Shortest Path First protocol (OSPFv2, OSPFv3)</li>
+<li>the Babel Routing Protocol</li>
+<li>the Router Advertisements for IPv6 hosts</li>
+<li>a virtual protocol for exchange of routes between different routing tables on a single host</li>
+<li>a command-line interface allowing on-line control and inspection of status of the daemon</li>
+<li>soft reconfiguration (no need to use complex online commands to  change the configuration, just edit the configuration file and notify  BIRD to re-read it and it will smoothly switch itself to the new  configuration, not disturbing routing protocols unless they are affected by the configuration changes)</li>
+<li>a powerful language for route filtering</li>
+</ul>
+<p>参考文章：<a target="_blank" rel="noopener" href="https://www.kubernetes.org.cn/4960.html">https://www.kubernetes.org.cn/4960.html</a></p>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/Calico/">Calico</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/Calico/">Calico</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2021/03/17/%E5%AE%89%E8%A3%85Calicoctl/">
+                        <span class="hidden-mobile">安装Calicoctl</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <article class="comments" id="comments">
+                
+                
+  <div id="vcomments"></div>
+  <script type="text/javascript">
+    Fluid.utils.waitElementVisible('vcomments', function() {
+      Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js', function () {
+        new Valine({
+          el: "#vcomments",
+          app_id: "hPHtsN0Gt7U2zB2AllYqbucc-9Nh9j0Va",
+          app_key: "TVUER8rWijR8cD1STqzd2d4E",
+          placeholder: "你有故事，我有酒，我们一起勇闯天涯。。。",
+          path: window.location.pathname,
+          avatar: "retro",
+          meta: ["nick","mail","link"],
+          pageSize: "10",
+          lang: "zh-CN",
+          highlight: false,
+          recordIP: false,
+          serverURLs: "",
+        });
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the
+    <a target="_blank" href="https://valine.js.org" rel="nofollow noopener noopener">comments powered by Valine.</a>
+  </noscript>
+
+
+              </article>
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- 不蒜子统计PV -->
+        <span id="busuanzi_container_site_pv" style="display: none">
+            总访问量 
+            <span id="busuanzi_value_site_pv"></span>
+             次
+          </span>
+      
+      
+        <!-- 不蒜子统计UV -->
+        <span id="busuanzi_container_site_uv" style="display: none">
+            总访客数 
+            <span id="busuanzi_value_site_uv"></span>
+             人
+          </span>
+      
+    
+  </div>
+
+
+  
+
+  
+</footer>
+
+<!-- SCRIPTS -->
+
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.0/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.0/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js" ></script>
+
+
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    (function () {
+      var path = "/local-search.xml";
+      var inputArea = document.querySelector("#local-search-input");
+      inputArea.onclick = function () {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+        this.onclick = null
+      }
+    })()
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+
+</body>
+</html>

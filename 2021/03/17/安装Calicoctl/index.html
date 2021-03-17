@@ -17,9 +17,25 @@
   <meta name="description" content="">
   <meta name="author" content="羊皮裘老头">
   <meta name="keywords" content="">
-  <title>标签 - 羊皮裘老头</title>
+  <title>安装Calicoctl - 羊皮裘老头</title>
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.4.0/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
 
 
 
@@ -47,7 +63,7 @@
 
 
 <body>
-  <header style="height: 80vh;">
+  <header style="height: 70vh;">
     <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
   <div class="container">
     <a class="navbar-brand"
@@ -185,17 +201,58 @@
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
           <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="标签">
+            <span class="h2" id="subtitle" title="安装Calicoctl">
               
             </span>
 
             
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2021-03-17 16:50" pubdate>
+        2021年3月17日 下午
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      183 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      2
+       分钟
+    </span>
+  
+
+  
+  
+    
+      <!-- LeanCloud 统计文章PV -->
+      <span id="leancloud-page-views-container" class="post-meta" style="display: none">
+        <i class="iconfont icon-eye" aria-hidden="true"></i>
+        <span id="leancloud-page-views"></span> 次
+      </span>
+    
+  
+</div>
+
+            
           </div>
 
-          
-            <div class="scroll-down-bar">
-              <i class="iconfont icon-arrowdown"></i>
-            </div>
           
         </div>
       </div>
@@ -204,24 +261,133 @@
 
   <main>
     
-      <div class="container nopadding-x-md">
-        <div class="py-5" id="board"
-          >
-          
-          <div class="container">
-            <div class="row">
-              <div class="col-12 col-md-10 m-auto">
-                
+      
 
-<div class="text-center tagcloud">
-  <a href="/tags/Calico/" style="font-size: 30px; color: #337ab7">Calico</a> <a href="/tags/Drone/" style="font-size: 15px; color: #bbe">Drone</a> <a href="/tags/Elasticsearch/" style="font-size: 22.5px; color: #779bd3">Elasticsearch</a> <a href="/tags/Filebeat/" style="font-size: 15px; color: #bbe">Filebeat</a> <a href="/tags/Hexo/" style="font-size: 26.25px; color: #558ac5">Hexo</a> <a href="/tags/Jenkins/" style="font-size: 22.5px; color: #779bd3">Jenkins</a> <a href="/tags/Kubernetes/" style="font-size: 26.25px; color: #558ac5">Kubernetes</a> <a href="/tags/Linux/" style="font-size: 22.5px; color: #779bd3">Linux</a> <a href="/tags/Logstash/" style="font-size: 15px; color: #bbe">Logstash</a> <a href="/tags/Mariadb/" style="font-size: 15px; color: #bbe">Mariadb</a> <a href="/tags/Mysql/" style="font-size: 22.5px; color: #779bd3">Mysql</a> <a href="/tags/PostgreSQL/" style="font-size: 15px; color: #bbe">PostgreSQL</a> <a href="/tags/SonarQube/" style="font-size: 22.5px; color: #779bd3">SonarQube</a> <a href="/tags/rancher/" style="font-size: 18.75px; color: #99abe0">rancher</a>
-</div>
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">安装Calicoctl</h1>
+            
+            <div class="markdown-body">
+              <h2 id="1、二进制安装calicoctl"><a href="#1、二进制安装calicoctl" class="headerlink" title="1、二进制安装calicoctl"></a>1、二进制安装calicoctl</h2><figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs awk">curl -O -L  https:<span class="hljs-regexp">//gi</span>thub.com<span class="hljs-regexp">/projectcalico/</span>calicoctl<span class="hljs-regexp">/releases/</span>download<span class="hljs-regexp">/v3.13.3/</span>calicoctl<br>mv calicoctl <span class="hljs-regexp">/usr/</span>local<span class="hljs-regexp">/bin/</span><br>chmod +x calicoctl<br></code></pre></td></tr></table></figure>
+<h2 id="2、配置文件"><a href="#2、配置文件" class="headerlink" title="2、配置文件"></a>2、配置文件</h2><p>​        默认情况下，<code>calicoctl</code>将在上查找配置文件<code>/etc/calico/calicoctl.cfg</code>。您可以使用<code>--config</code>带有需要数据存储访问权限的命令的选项来覆盖此选项。</p>
+<p>​        如果<code>calicoctl</code>无法找到，读取或访问配置文件，它将检查一组特定的环境变量</p>
+<h2 id="3、配置calicoctl以连接到Kubernetes-API数据存储"><a href="#3、配置calicoctl以连接到Kubernetes-API数据存储" class="headerlink" title="3、配置calicoctl以连接到Kubernetes API数据存储"></a>3、配置calicoctl以连接到Kubernetes API数据存储</h2><p>Kubernetes API连接配置的完整列表，请查看官网：</p>
+<p><a target="_blank" rel="noopener" href="https://docs.projectcalico.org/getting-started/calicoctl/configure/kdd">https://docs.projectcalico.org/getting-started/calicoctl/configure/kdd</a></p>
+<p>通过命令行设置calicoctl所需的环境变量</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs routeros"><span class="hljs-attribute">DATASTORE_TYPE</span>=kubernetes <span class="hljs-attribute">KUBECONFIG</span>=~/.kube/config calicoctl <span class="hljs-builtin-name">get</span> nodes<br><span class="hljs-builtin-name">export</span> <span class="hljs-attribute">CALICO_DATASTORE_TYPE</span>=kubernetes<br><span class="hljs-builtin-name">export</span> <span class="hljs-attribute">CALICO_KUBECONFIG</span>=~/.kube/config<br>calicoctl <span class="hljs-builtin-name">get</span> workloadendpoints<br></code></pre></td></tr></table></figure>
+<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master//img/image-20200506112145074.png" srcset="/img/loading.gif" alt="image-20200506112145074"></p>
+<p>命令使用</p>
+<figure class="highlight ebnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs ebnf"><span class="hljs-attribute">calicoctl  -h</span><br></code></pre></td></tr></table></figure>
+<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master//img/image-20200507143342250.png" srcset="/img/loading.gif" alt="image-20200507143342250"></p>
 
-              </div>
             </div>
-          </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/Calico/">Calico</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/Calico/">Calico</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2021/03/17/%E5%88%9D%E8%AF%86Calico/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">初识Calico</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2021/03/17/Calico%E7%AD%96%E7%95%A5%E6%BC%94%E7%A4%BA/">
+                        <span class="hidden-mobile">Calico策略演示</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <article class="comments" id="comments">
+                
+                
+  <div id="vcomments"></div>
+  <script type="text/javascript">
+    Fluid.utils.waitElementVisible('vcomments', function() {
+      Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js', function () {
+        new Valine({
+          el: "#vcomments",
+          app_id: "hPHtsN0Gt7U2zB2AllYqbucc-9Nh9j0Va",
+          app_key: "TVUER8rWijR8cD1STqzd2d4E",
+          placeholder: "你有故事，我有酒，我们一起勇闯天涯。。。",
+          path: window.location.pathname,
+          avatar: "retro",
+          meta: ["nick","mail","link"],
+          pageSize: "10",
+          lang: "zh-CN",
+          highlight: false,
+          recordIP: false,
+          serverURLs: "",
+        });
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the
+    <a target="_blank" href="https://valine.js.org" rel="nofollow noopener noopener">comments powered by Valine.</a>
+  </noscript>
+
+
+              </article>
+            
+          </article>
         </div>
       </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
     
 
     
@@ -325,9 +491,15 @@
 
 
 
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.0/dist/tocbot.min.js" ></script>
 
 
 
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.0/anchor.min.js" ></script>
 
 
 
