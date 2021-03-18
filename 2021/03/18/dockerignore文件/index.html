@@ -17,7 +17,7 @@
   <meta name="description" content="">
   <meta name="author" content="羊皮裘老头">
   <meta name="keywords" content="">
-  <title>初识Calico - 羊皮裘老头</title>
+  <title>dockerignore文件 - 羊皮裘老头</title>
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
 
@@ -201,7 +201,7 @@
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
           <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="初识Calico">
+            <span class="h2" id="subtitle" title="dockerignore文件">
               
             </span>
 
@@ -211,8 +211,8 @@
   
     <span class="post-meta">
       <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-      <time datetime="2021-03-17 16:52" pubdate>
-        2021年3月17日 下午
+      <time datetime="2021-03-18 17:27" pubdate>
+        2021年3月18日 下午
       </time>
     </span>
   
@@ -223,7 +223,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      2.8k 字
+      619 字
     </span>
   
 
@@ -233,7 +233,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      30
+      7
        分钟
     </span>
   
@@ -271,86 +271,20 @@
         <div class="py-5" id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">初识Calico</h1>
+            <h1 style="display: none">dockerignore文件</h1>
             
             <div class="markdown-body">
-              <h2 id="1、简介"><a href="#1、简介" class="headerlink" title="1、简介"></a>1、简介</h2><p>​        Calico是针对容器，虚拟机和基于主机的本机工作负载的开源网络和网络安全解决方案。Calico支持广泛的平台，包括Kubernetes，OpenShift，Docker EE，OpenStack和裸机服务。</p>
-<p>​        Calico将灵活的网络功能与无处不在的安全性实施相结合，以提供具有本地Linux内核性能和真正的云原生可扩展性的解决方案。Calico为开发人员和集群运营商提供一致的体验和功能集，无论是在公共云中还是本地运行，在单个节点上还是在数千个节点集群中运行。</p>
-<h2 id="2、关于Calico"><a href="#2、关于Calico" class="headerlink" title="2、关于Calico"></a>2、关于Calico</h2><p>​        Calico为容器和虚拟机工作负载提供一个安全的<a target="_blank" rel="noopener" href="https://www.kubernetes.org.cn/tags/%E7%BD%91%E7%BB%9C">网络</a>连接。</p>
-<p>​        Calico可以创建并管理一个3层平面网络，为每个工作负载分配一个完全可路由的IP地址。  工作负载可以在没有IP封装或网络地址转换的情况下进行通信，以实现裸机性能，简化故障排除和提供更好的互操作性。  在需要使用overlay网络的环境中，Calico提供了IP-in-IP隧道技术，或者也可以与flannel等其他overlay网络配合使用。</p>
-<p>​        Calico还提供网络安全规则的动态配置。 使用Calico的简单策略语言，就可以实现对容器、虚拟机工作负载和裸机主机各节点之间通信的细粒度控制。</p>
-<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master//img/Calico1.png" srcset="/img/loading.gif" alt="https://www.kubernetes.org.cn/img/2018/12/Calico1.png"></p>
-<h2 id="3、Calico-主要组件"><a href="#3、Calico-主要组件" class="headerlink" title="3、Calico 主要组件"></a>3、Calico 主要组件</h2><p>​        <a target="_blank" rel="noopener" href="https://www.kubernetes.org.cn/tags/Calico">Calico</a>利用了Linux内核原生的路由和iptables防火墙功能。 进出各个容器、虚拟机和物理主机的所有流量都会在路由到目标之前遍历这些内核规则。</p>
-<ul>
-<li>Felix：主要的Calico代理agent，运行每台计算机上管理endpoints资源。</li>
-<li>calicoctl：允许从命令行界面配置实现高级策略和网络。</li>
-<li>orchestrator plugins：提供与各种流行的云计算编排工具的紧密集成和同步支持。</li>
-<li>key/value store：存储Calico的策略配置和网络状态信息，目前主要使用etcdv3或k8s api。</li>
-<li>calico/node：在每个主机上运行，从key/value存储中读取相关的策略和网络配置信息，并在Linux内核中实现它。</li>
-<li>Dikastes/Envoy：可选的Kubernetes sidecars，可以通过相互TLS身份验证保护工作负载到工作负载的通信，并增加应用层控制策略。</li>
-</ul>
-<h3 id="3-1-Felix"><a href="#3-1-Felix" class="headerlink" title="3.1 Felix"></a>3.1 Felix</h3><p>​        Felix是一个守护程序，它在每个提供endpoints资源的计算机上运行。在大多数情况下，这意味着它需要在托管容器或VM的宿主机节点上运行。 Felix 负责编制路由和ACL规则以及在该主机上所需的任何其他内容，以便为该主机上的endpoints资源正常运行提供所需的网络连接。</p>
-<p>根据特定的编排环境，Felix负责以下任务：</p>
-<ul>
-<li>管理网络接口，Felix将有关接口的一些信息编程到内核中，以使内核能够正确处理该endpoint发出的流量。  特别是，它将确保主机正确响应来自每个工作负载的ARP请求，并将为其管理的接口启用IP转发支持。它还监视网络接口的出现和消失，以便确保针对这些接口的编程得到了正确的应用。</li>
-<li>编写路由，Felix负责将到其主机上endpoints的路由编写到Linux内核FIB（转发信息库）中。 这可以确保那些发往目标主机的endpoints的数据包被正确地转发。</li>
-<li>编写ACLs，Felix还负责将ACLs编程到Linux内核中。 这些ACLs用于确保只能在endpoints之间发送有效的网络流量，并确保endpoints无法绕过Calico的安全措施。</li>
-<li>报告状态，Felix负责提供有关网络健康状况的数据。 特别是，它将报告配置其主机时发生的错误和问题。 该数据会被写入etcd，以使其对网络中的其他组件和操作才可见。</li>
-</ul>
-<h3 id="3-2-Orchestrator-Plugin"><a href="#3-2-Orchestrator-Plugin" class="headerlink" title="3.2 Orchestrator Plugin"></a>3.2 Orchestrator Plugin</h3><p>​        每个主要的云编排平台都有单独的Calico网络插件（例如OpenStack，Kubernetes）。 这些插件的目的是将Calico更紧密地绑定到编排工具中，允许用户管理Calico网络，就像他们管理编排工具中内置的网络工具一样。</p>
-<p>​        一个好的Orchestrator插件示例是Calico Neutron ML2 驱动程序。 该插件与Neutron的ML2插件集成，允许用户通过Neutron API调用来配置Calico网络，实现了与Neutron的无缝集成。</p>
-<p>Orchestrator插件负责以下任务：</p>
-<ul>
-<li>API Translation，每个云编排工具都不可避免地拥有自己的一套用于管理网络的API接口规范，  Orchestrator插件的主要工作就是将这些API转换为Calico的数据模型，然后将其存储在Calico的数据存储区中。这种转换中的一些工作将非常简单，其他一部分可能更复杂，以便将单个复杂操作（例如，实时迁移）转换为Calico网络期望的一系列更简单的操作。</li>
-<li>Feedback，如有需要，orchestrator插件将从Calico网络向编排器提供管理命令的反馈信息。 包括提供有关Felix存活的信息，以及如果网络配置失败则将某些endpoints标记为失败。</li>
-</ul>
-<h3 id="3-3-etcd"><a href="#3-3-etcd" class="headerlink" title="3.3 etcd"></a>3.3 etcd</h3><p>​        <a target="_blank" rel="noopener" href="https://www.kubernetes.org.cn/tags/etcd">etcd</a>是一个分布式键值存储数据库，专注于实现数据存储一致性。 Calico使用etcd提供组件之间的数据通信，并作为可以保证一致性的数据存储，以确保Calico始终可以构建出一个准确的网络。</p>
-<p>​        根据orchestrator插件的不同，etcd既可以是作为主数据存储使用，也可以是一个单独数据存储的轻量级镜像。例如，在OpenStack部署中，OpenStack数据库被认为是“真实配置信息的来源”，而etcd用于镜像其中有关网络配置的信息，并用于服务其他Calico组件。</p>
-<p>etcd组件穿插在整个部署中。它可以被分为两组主机节点：核心集群和代理。</p>
-<p>​        对于小型部署，核心集群可以是一个节点的etcd集群（通常与orchestrator插件组件位于同一节点上）。这种部署模型很简单但没有为etcd提供冗余。在etcd失败的情况下，orchstrator插件必须重建数据库，例如OpenStack，它需要插件从OpenStack数据库重新同步状态到etcd。</p>
-<p>在较大的部署中，核心群集可以根据<a target="_blank" rel="noopener" href="https://www.kubernetes.org.cn/4960.html#optimal-cluster-size">etcd管理指南</a>进行扩展。</p>
-<p>​        此外，在运行Felix或orchstrator插件的每台计算机上，会运行一个etcd代理服务。这减少了etcd核心集群上的负载，并为主机节点屏蔽了etcd服务集群的细节。在etcd集群与orchstrator插件在同一台机器上都有成员的情况下，可以放弃在该机器上使用etcd代理。</p>
-<p>etcd负责执行以下任务：</p>
-<ul>
-<li>Data Storage，etcd以分布式、一致和容错的方式存储Calico网络的数据（对于至少三个etcd节点的cluster大小）。  这确保Calico网络始终处于已知良好状态，同时允许运行etcd的个别机器节点失败或无法访问。Calico网络数据的这种分布式存储提高了Calico组件从数据库读取的能力。</li>
-<li>Communication，etcd也用作组件之间的通信服务。 我们通过让非etcd组件监视键值空间中的某些点来确保他们看到已经做出的任何更改，从而允许他们及时响应这些更改。 该功能允许将状态信息提交到数据库，然后触发基于该状态数据的进一步网络配置管理。</li>
-</ul>
-<h2 id="4、Calico的IPIP与BGP模式"><a href="#4、Calico的IPIP与BGP模式" class="headerlink" title="4、Calico的IPIP与BGP模式"></a>4、Calico的IPIP与BGP模式</h2><ul>
-<li>IPIP是一种将各Node的路由之间做一个tunnel，再把两个网络连接起来的模式。启用IPIP模式时，Calico将在各Node上创建一个名为”tunl0″的虚拟网络接口。如下图所示。</li>
-<li>BGP模式则直接使用物理机作为虚拟路由路（vRouter），不再创建额外的tunnel。</li>
-</ul>
-<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master//img/Calico2.png" srcset="/img/loading.gif" alt="img"></p>
-<h2 id="5、Calico的部署规模"><a href="#5、Calico的部署规模" class="headerlink" title="5、Calico的部署规模"></a>5、Calico的部署规模</h2><p>Calico BGP模式在小规模集群中可以直接互联，在大规模集群中可以通过额外的BGP route reflector来完成。</p>
-<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master//img/Calico3.png" srcset="/img/loading.gif" alt="img"></p>
-<h3 id="5-1-BGP-Client-BIRD"><a href="#5-1-BGP-Client-BIRD" class="headerlink" title="5.1 BGP Client (BIRD)"></a>5.1 BGP Client (BIRD)</h3><p>Calico在每个运行Felix服务的节点上都部署一个BGP客户端。 BGP客户端的作用是读取Felix程序编写到内核中并在数据中心内分发的路由信息。</p>
-<p>BGP客户端负责执行以下任务：</p>
-<ul>
-<li>路由信息分发，当Felix将路由插入Linux内核FIB时，BGP客户端将接收它们并将它们分发到集群中的其他工作节点。</li>
-</ul>
-<h3 id="5-2-BGP-Route-Reflector-BIRD"><a href="#5-2-BGP-Route-Reflector-BIRD" class="headerlink" title="5.2 BGP Route Reflector (BIRD)"></a>5.2 BGP Route Reflector (BIRD)</h3><p>对于较大规模的部署，简单的BGP可能成为限制因素，因为它要求每个BGP客户端连接到网状拓扑中的每一个其他BGP客户端。这需要越来越多的连接，迅速变得难以维护，甚至会让一些设备的路由表撑满。</p>
-<p>因此，在较大规模的部署中，Calico建议部署BGP Route  Reflector。通常是在Internet中使用这样的组件充当BGP客户端连接的中心点，从而防止它们需要与群集中的每个BGP客户端进行通信。为了实现冗余，也可以同时部署多个BGP Route Reflector服务。Route Reflector仅仅是协助管理BGP网络，并没有endpoint数据会通过它们。</p>
-<p>在Calico中，此BGP组件也是使用的最常见的BIRD，配置为Route Reflector运行，而不是标准BGP客户端。</p>
-<p>BGP Route Reflector负责以下任务：</p>
-<ul>
-<li>集中式的路由信息分发，当Calico BGP客户端将路由从其FIB通告到Route Reflector时，Route Reflector会将这些路由通告给部署集群中的其他节点。</li>
-</ul>
-<h3 id="5-3-BIRD是什么"><a href="#5-3-BIRD是什么" class="headerlink" title="5.3 BIRD是什么"></a>5.3 BIRD是什么</h3><p>BIRD是布拉格查理大学数学与物理学院的一个学校项目，项目名是BIRD Internet Routing Daemon的缩写。 目前，它由CZ.NIC实验室开发和支持。</p>
-<p>BIRD项目旨在开发一个功能齐全的动态IP路由守护进程，主要针对（但不限于）Linux，FreeBSD和其他类UNIX系统，并在GNU通用公共许可证下分发。详细信息参照官网<a target="_blank" rel="noopener" href="https://bird.network.cz/%E3%80%82">https://bird.network.cz/。</a></p>
-<p>作为一个开源的网络路由守护进程项目，BRID设计并支持了以下功能：</p>
-<ul>
-<li>both IPv4 and IPv6 protocols</li>
-<li>multiple routing tables</li>
-<li>the Border Gateway Protocol (BGPv4)</li>
-<li>the Routing Information Protocol (RIPv2, RIPng)</li>
-<li>the Open Shortest Path First protocol (OSPFv2, OSPFv3)</li>
-<li>the Babel Routing Protocol</li>
-<li>the Router Advertisements for IPv6 hosts</li>
-<li>a virtual protocol for exchange of routes between different routing tables on a single host</li>
-<li>a command-line interface allowing on-line control and inspection of status of the daemon</li>
-<li>soft reconfiguration (no need to use complex online commands to  change the configuration, just edit the configuration file and notify  BIRD to re-read it and it will smoothly switch itself to the new  configuration, not disturbing routing protocols unless they are affected by the configuration changes)</li>
-<li>a powerful language for route filtering</li>
-</ul>
-<p>参考文章：<a target="_blank" rel="noopener" href="https://www.kubernetes.org.cn/4960.html">https://www.kubernetes.org.cn/4960.html</a></p>
+              <p>​    该.dockerignore文件是隐藏文件也是一个工具，可以帮助你定义你真正需要的Docker构建上下文。使用此文件，你可以为这些文件和文件夹规则指定忽略规则和异常，这些规则和异常将不包含在构建上下文中，因此不会打包到存档中并上载到Docker服务器。</p>
+<h2 id="1、dockerignore语法"><a href="#1、dockerignore语法" class="headerlink" title="1、dockerignore语法"></a>1、dockerignore语法</h2><p>​    该.dockerignore文件类似于gitignore该git工具使用的文件。与.gitignore文件类似，它允许你为生成构建上下文时Docker客户端应忽略的文件和文件夹指定模式。虽然.dockerignore用于描述忽略模式的文件语法类似于.gitignore，但它并不相同。<br>​    该.dockerignore模式匹配的语法是基于filepath.Match()和filepath.clean的功能，包括一些补充。如：</p>
+<figure class="highlight jboss-cli"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs jboss-cli">Docker还支持一个**匹配任意数量目录（包括零）的特殊通配符字符串。例如，**/*<span class="hljs-string">.go</span>将排除<span class="hljs-string">.go</span> 在所有目录中找到的以该结尾的所有文件，包括构建上下文的根。<br></code></pre></td></tr></table></figure>
+<h2 id="2、以下是完整的语法-dockerignore："><a href="#2、以下是完整的语法-dockerignore：" class="headerlink" title="2、以下是完整的语法.dockerignore："></a>2、以下是完整的语法.dockerignore：</h2><figure class="highlight gams"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs gams">pattern:<br>&#123;term&#125;<br>术语：<br><span class="hljs-string">&#x27;*&#x27;</span>      匹配任何非分隔符字符序列<br><span class="hljs-string">&#x27;？&#x27;</span>     匹配任何单个非分隔符<br><span class="hljs-string">&#x27;[&#x27;</span>[<span class="hljs-string">&#x27;^&#x27;</span>] &#123;character-range&#125;<span class="hljs-string">&#x27;]&#x27;</span><br>字符类（必须是非空的）<br>c匹配字符c  （c！=<span class="hljs-string">&#x27;*&#x27;</span>，<span class="hljs-string">&#x27;？&#x27;</span>，<span class="hljs-string">&#x27;\\&#x27;</span>，<span class="hljs-string">&#x27;[&#x27;</span>）<br><span class="hljs-string">&#x27;\\&#x27;</span>    c匹配字符c<br><br>字符范围：<br>c匹配字符c  （c！=<span class="hljs-string">&#x27;\\&#x27;</span>，<span class="hljs-string">&#x27; - &#x27;</span>，<span class="hljs-string">&#x27;]&#x27;</span>）<br><span class="hljs-string">&#x27;\\&#x27;</span>    c匹配字符c<br>lo<span class="hljs-string">&#x27; - &#x27;</span>hi匹配字符c <span class="hljs-keyword">for</span> lo＆<span class="hljs-keyword">lt</span>; = c＆<span class="hljs-keyword">lt</span>; = hi<br><br>补充：<br><span class="hljs-string">&#x27;**&#x27;</span>    匹配任意数量的目录（包括零）<br><span class="hljs-string">&#x27;！&#x27;</span>     行开头！ （感叹号）可用于排除例外情况<br>以此字符开头的<span class="hljs-string">&#x27;＃&#x27;</span>行将被忽略：将其用于评论<br></code></pre></td></tr></table></figure>
+<h2 id="3、示例"><a href="#3、示例" class="headerlink" title="3、示例"></a>3、示例</h2><figure class="highlight dos"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs dos">＃ignore除了README-secret.<span class="hljs-built_in">md</span>以外的所有README*.<span class="hljs-built_in">md</span>和旁边的所有markdown文件（<span class="hljs-built_in">md</span>）格式的都不要<br>*.<span class="hljs-built_in">MD</span><br>！README*.<span class="hljs-built_in">MD</span><br>README-secret.<span class="hljs-built_in">md</span><br></code></pre></td></tr></table></figure>
+<figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs applescript">＃ignore所有文件夹中的所有*.<span class="hljs-built_in">class</span>文件，包括构建根目录<br>**/*.<span class="hljs-built_in">class</span><br></code></pre></td></tr></table></figure>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs css">＃<span class="hljs-selector-tag">ignore</span> <span class="hljs-selector-class">.git</span>和<span class="hljs-selector-class">.cache</span>文件夹<br><span class="hljs-selector-class">.git</span><br><span class="hljs-selector-class">.cache</span><br></code></pre></td></tr></table></figure>
+<figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs gradle"># 排除名称以temp根目录的任何直接子目录开头的文件或者目录，如<span class="hljs-regexp">/somedir/</span>tempfile.txt,录<span class="hljs-regexp">/somedir/</span>temp/<br>*/temp*<br></code></pre></td></tr></table></figure>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs awk"><span class="hljs-comment"># temp从以下两级以下的任何子目录开始排除文件和目录。例如，/somedir/subdir/temporary.txt被排除在外。</span><br>*<span class="hljs-regexp">/*/</span>temp*<br></code></pre></td></tr></table></figure>
+<figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs gradle"># 排除根目录中的文件和目录，其名称是单字符扩展名temp。例如，<span class="hljs-regexp">/tempa与/</span>tempb被排除在外<br>temp?<br></code></pre></td></tr></table></figure>
+<p>参考文章：<a target="_blank" rel="noopener" href="https://www.linuxea.com/2297.html">https://www.linuxea.com/2297.html</a></p>
 
             </div>
             <hr>
@@ -360,7 +294,7 @@
                   <div class="post-meta mr-3">
                     <i class="iconfont icon-category"></i>
                     
-                      <a class="hover-with-bg" href="/categories/Calico/">Calico</a>
+                      <a class="hover-with-bg" href="/categories/Docker/">Docker</a>
                     
                   </div>
                 
@@ -368,7 +302,7 @@
                   <div class="post-meta">
                     <i class="iconfont icon-tags"></i>
                     
-                      <a class="hover-with-bg" href="/tags/Calico/">Calico</a>
+                      <a class="hover-with-bg" href="/tags/Docker/">Docker</a>
                     
                   </div>
                 
@@ -381,18 +315,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2021/03/18/Calico-IPIP%E6%A8%A1%E5%BC%8F/">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">Calico  IPIP模式</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2021/03/17/%E5%AE%89%E8%A3%85Calicoctl/">
-                        <span class="hidden-mobile">安装Calicoctl</span>
+                      <a href="/2021/03/18/Kubernetes%E5%AE%89%E8%A3%85Ingress/">
+                        <span class="hidden-mobile">Kubernetes安装Ingress</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
