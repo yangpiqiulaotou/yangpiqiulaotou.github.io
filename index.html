@@ -229,9 +229,9 @@
           
             
           
-          **1、redis持久化 **redis提供了两种持久化的方式，分别是RDB（Redis DataBase）和AOF（Append Only File）。
+          1、redis持久化redis提供了两种持久化的方式，分别是RDB（Redis DataBase）和AOF（Append Only File）。
 RDB，简而言之，就是在不同的时间点，将redis存储的数据生成快照并存储到磁盘等介质上；
-AOF，则是换了一个角度来实现持久化，那就是将redis执行过的所有写指令记录下来，在下次redis重新启动时，只要把这些写指令从前到后再重复执行一遍，
+AOF，则是换了一个角度来实现持久化，那就是将redis执行过的所有写指令记录下来，在下次redis重新启动时，只要把这些写指令从前到后再重复执行一遍，就可以实现
         </a>
       </p>
 
