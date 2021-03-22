@@ -220,20 +220,17 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
-        <a href="/2021/03/16/Jenkins%E4%B8%BB%E4%BB%8E%E9%85%8D%E7%BD%AE/">Jenkins主从配置</a>
+        <a href="/2021/03/18/dockerignore%E6%96%87%E4%BB%B6/">dockerignore文件</a>
       </h1>
 
       <p class="index-excerpt">
-        <a href="/2021/03/16/Jenkins%E4%B8%BB%E4%BB%8E%E9%85%8D%E7%BD%AE/">
+        <a href="/2021/03/18/dockerignore%E6%96%87%E4%BB%B6/">
           
           
             
           
-          1、环境介绍12master        192.168.0.121slave         192.168.0.76
-2、生成密钥部署jenkins master –slave 需要在master 服务器下 生成一个 秘钥文件
-1ssh-keygen  -t   rsa
-什么都不用填，一直敲回车就可以，生成的秘钥会在用户目录下， root 用户生成的 在~./ssh/中
-有两个文件 id_r
+          ​    该.dockerignore文件是隐藏文件也是一个工具，可以帮助你定义你真正需要的Docker构建上下文。使用此文件，你可以为这些文件和文件夹规则指定忽略规则和异常，这些规则和异常将不包含在构建上下文中，因此不会打包到存档中并上载到Docker服务器。
+1、dockerignore语法​    该.dockerignore文件类似于gitignore该git工具使用的文件。与.gitig
         </a>
       </p>
 
@@ -241,7 +238,460 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2021-03-16 17:24" pubdate>
+            <time datetime="2021-03-18 17:27" pubdate>
+              2021-03-18
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/Docker/">Docker</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/Docker/">Docker</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2021/03/18/Kubernetes%E5%AE%89%E8%A3%85Ingress/">Kubernetes安装Ingress</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2021/03/18/Kubernetes%E5%AE%89%E8%A3%85Ingress/">
+          
+          
+            
+          
+          1、Ingress 介绍​    ingress是一个kubernetes资源，可让你为运行在kubernetes上的应用程序（由一个或多个Services表示）配置HTTP负载平衡器。这样的负载平衡器对于将这些应用程序交付给Kubernetes集群之外的客户端是必需的
+ingress支持以下的路由：
+​    基于主机域名的路由
+​    基于服务路径的路由
+2、Ingress Controll
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-03-18 17:25" pubdate>
+              2021-03-18
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/Kubernetes/">Kubernetes</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/Kubernetes/">Kubernetes</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2021/03/18/Calico-IPIP%E6%A8%A1%E5%BC%8F/">Calico  IPIP模式</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2021/03/18/Calico-IPIP%E6%A8%A1%E5%BC%8F/">
+          
+          
+            
+          
+          1、IPIP模式简介​    IPIP模式是一种将各Node的路由之间做一个tunnel，再把网络连接起来的模式：
+
+​    从字面上说，就是将一个IP数据包套在另一个IP包里，使用到了Linux提供的隧道技术。可以理解为一个基于IP层的网桥，将两个本不通的网络通过点对点连接起来。
+2、准备环境​    准备一套k8s环境，并安装好IPIP模式的calico网络
+
+master节点去污点，所以工
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-03-18 17:22" pubdate>
+              2021-03-18
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/Calico/">Calico</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/Calico/">Calico</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2021/03/17/%E5%88%9D%E8%AF%86Calico/">初识Calico</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2021/03/17/%E5%88%9D%E8%AF%86Calico/">
+          
+          
+            
+          
+          1、简介​        Calico是针对容器，虚拟机和基于主机的本机工作负载的开源网络和网络安全解决方案。Calico支持广泛的平台，包括Kubernetes，OpenShift，Docker EE，OpenStack和裸机服务。
+​        Calico将灵活的网络功能与无处不在的安全性实施相结合，以提供具有本地Linux内核性能和真正的云原生可扩展性的解决方案。Calico为开发人员
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-03-17 16:52" pubdate>
+              2021-03-17
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/Calico/">Calico</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/Calico/">Calico</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2021/03/17/%E5%AE%89%E8%A3%85Calicoctl/">安装Calicoctl</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2021/03/17/%E5%AE%89%E8%A3%85Calicoctl/">
+          
+          
+            
+          
+          1、二进制安装calicoctl123curl -O -L  https://github.com/projectcalico/calicoctl/releases/download/v3.13.3/calicoctlmv calicoctl /usr/local/bin/chmod +x calicoctl
+2、配置文件​        默认情况下，calicoctl将在上查找配置文件/etc/
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-03-17 16:50" pubdate>
+              2021-03-17
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/Calico/">Calico</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/Calico/">Calico</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2021/03/17/Calico%E7%AD%96%E7%95%A5%E6%BC%94%E7%A4%BA/">Calico策略演示</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2021/03/17/Calico%E7%AD%96%E7%95%A5%E6%BC%94%E7%A4%BA/">
+          
+          
+            
+          
+          1、创建前端，后端，客户端和管理用户界面应用程序12345kubectl create -f https://docs.projectcalico.org/security/tutorials/kubernetes-policy-demo/manifests/00-namespace.yamlkubectl create -f https://docs.projectcalico.org/secu
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-03-17 16:49" pubdate>
+              2021-03-17
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/Calico/">Calico</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/Calico/">Calico</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2021/03/17/Calico%E7%BD%91%E7%BB%9C%E8%BF%9B%E9%98%B6/">Calico网络进阶</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2021/03/17/Calico%E7%BD%91%E7%BB%9C%E8%BF%9B%E9%98%B6/">
+          
+          
+            
+          
+          1、创建服务1kubectl create ns advanced-policy-demo
+由于k8s的v1.18.2版本启用了replicas命令，使用yaml文件创建nginx服务
+1234567891011121314151617181920212223242526vim nginx-deployment.yamlapiVersion: apps/v1kind: Deploymentmeta
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-03-17 16:47" pubdate>
+              2021-03-17
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/Calico/">Calico</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/Calico/">Calico</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2021/03/17/Calico%E7%BD%91%E7%BB%9C%E7%AD%96%E7%95%A5%E5%9F%BA%E7%A1%80/">Calico网络策略基础</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2021/03/17/Calico%E7%BD%91%E7%BB%9C%E7%AD%96%E7%95%A5%E5%9F%BA%E7%A1%80/">
+          
+          
+            
+          
+          1、创建服务创建名称空间
+1kubectl create ns policy-demo
+在policy-demo命名空间中创建两个副本的Nginx Pod
+1kubectl run --namespace=policy-demo nginx --replicas=2 --image=nginx
+如果你和我反馈一样：
+1Flag --replicas has been deprecated, has
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-03-17 16:46" pubdate>
+              2021-03-17
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/Calico/">Calico</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/Calico/">Calico</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2021/03/17/Kubernetes%E4%B8%8A%E5%AE%89%E8%A3%85Calico/">Kubernetes上安装Calico</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2021/03/17/Kubernetes%E4%B8%8A%E5%AE%89%E8%A3%85Calico/">
+          
+          
+            
+          
+          1、使用以下命令初始化主机1kubeadm init --pod-network-cidr=192.168.0.0/16
+初始化成功截图如下：
+
+2、执行以下命令来配置kubectl123mkdir -p $HOME/.kubesudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/configsudo chown $(id -u):$(id -g) $
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-03-17 16:44" pubdate>
+              2021-03-17
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/Calico/">Calico</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/Calico/">Calico</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2021/03/16/k8s%E4%BD%BF%E7%94%A8Jenkins%E5%8F%91%E5%B8%83%E7%89%88%E6%9C%AC/">k8s使用Jenkins发布版本</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2021/03/16/k8s%E4%BD%BF%E7%94%A8Jenkins%E5%8F%91%E5%B8%83%E7%89%88%E6%9C%AC/">
+          
+          
+            
+          
+          1、安装Jenkins1234567891011#准备Java环境tar xvf  jdk-8u231-linux-x64.tar.gz -C /usr/local/cd /usr/local/ln -s jdk1.8.0_231 javacat  /etc/profile.d/javaexport JAVA_HOME=/usr/local/javaexport PATH=$PATH:$JAVA_
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-03-16 17:29" pubdate>
               2021-03-16
             </time>
           </div>
@@ -250,7 +700,7 @@
           <div class="post-meta mr-3">
             <i class="iconfont icon-category"></i>
             
-              <a href="/categories/Linux/">Linux</a>
+              <a href="/categories/Kubernetes/">Kubernetes</a>
             
           </div>
         
@@ -266,495 +716,11 @@
     </article>
   </div>
 
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2021/03/16/EFK%E6%94%B6%E9%9B%86K8s%E6%97%A5%E5%BF%97/">EFK收集K8s日志</a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2021/03/16/EFK%E6%94%B6%E9%9B%86K8s%E6%97%A5%E5%BF%97/">
-          
-          
-            
-          
-          备注：所需镜像都会去外网拉取，所以镜像需要自己想办法！！！
-环境介绍：
-
-
-一、下载elasticsearch安装包123helm pull stable/elasticsearchtar xvf elasticsearch-1.32.4.tgz      #可以根据自己需求修改elasticsearch/values.yaml文件helm install elasticsearch -n efk
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2021-03-16 17:21" pubdate>
-              2021-03-16
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/Kubernetes/">Kubernetes</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/Elasticsearch/">Elasticsearch</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2021/03/16/K8s%E5%81%A5%E5%BA%B7%E6%A3%80%E6%B5%8B/">K8s健康检测</a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2021/03/16/K8s%E5%81%A5%E5%BA%B7%E6%A3%80%E6%B5%8B/">
-          
-          
-            
-          
-          
-健康检测的探测方式有哪些
-健康检测的探针有哪些
-如何选择探测方式
-探测实例
-
-1.健康检测的探测方式
-LivenessProbe存活探测：用于判断容器是否存活，即Pod是否为running状态，如果LivenessProbe探针探测到容器不健康，则kubelet将kill掉容器，并根据容器的重启策略是否重启，如果一个容器不包含LivenessProbe探针，则Kubelet认为容器的Livene
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2021-03-16 10:41" pubdate>
-              2021-03-16
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/Kubernetes/">Kubernetes</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/Kubernetes/">Kubernetes</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2021/03/16/%E6%97%A0%E4%BA%BA%E6%9C%BADrone%E8%BF%90%E8%A1%8Cpipeline/">无人机Drone运行pipeline</a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2021/03/16/%E6%97%A0%E4%BA%BA%E6%9C%BADrone%E8%BF%90%E8%A1%8Cpipeline/">
-          
-          
-            
-          
-          1、pipeline类型​        无人机支持不同类型的管道执行环境，其中每种类型都有自己的自定义yaml规范。kind和type属性定义管道的类型和目标执行环境。
-1.1  Docker管道​        在隔离的Docker容器内执行管道命令。一个docker管道是一个管道来执行壳Docker容器内部的命令。Docker容器提供隔离，可在同一台机器上安全地执行并发管道。容器管道的主要好
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2021-03-16 10:24" pubdate>
-              2021-03-16
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/Linux/">Linux</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/Drone/">Drone</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2021/03/16/K8s%E4%B8%ADPod%E6%97%B6%E9%97%B4%E8%AE%BE%E7%BD%AE/">K8s中Pod时间设置</a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2021/03/16/K8s%E4%B8%ADPod%E6%97%B6%E9%97%B4%E8%AE%BE%E7%BD%AE/">
-          
-          
-            
-          
-          1、 时间介绍1.1    GMT​    格林威治时间。即格林威治所在地的标准时间。
-1.2    UTC​    世界标准时间（即 GMT）。即：UTC = GMT + 0。容器中的时间就是 UTC。
-1.3    CST​    中国标准时间。CST = GMT + 8。
-1.4    EST​    东部时间。EST = GMT - 5。如果当前机子所在时区是纽约，那么日期显示就是 EST
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2021-03-16 10:20" pubdate>
-              2021-03-16
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/Kubernetes/">Kubernetes</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/Kubernetes/">Kubernetes</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2021/03/16/filebeat%E6%94%B6%E9%9B%86K8s%E6%97%A5%E5%BF%97/">filebeat收集K8s日志</a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2021/03/16/filebeat%E6%94%B6%E9%9B%86K8s%E6%97%A5%E5%BF%97/">
-          
-          
-            
-          
-          https://www.elastic.co/guide/en/beats/filebeat/current/configuration-filebeat-options.html
-1、Filebeat概述​        Filebeat是用于转发和集中日志数据的轻量级传送程序。作为服务器上的代理安装，Filebeat监视您指定的日
-志文件或位置，收集日志事件，并将其转发给Elasticsear
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2021-03-16 10:17" pubdate>
-              2021-03-16
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/Kubernetes/">Kubernetes</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/Filebeat/">Filebeat</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2021/03/16/K8s%E8%BF%9E%E6%8E%A5harbor%E7%A7%81%E6%9C%89%E4%BB%93%E5%BA%93/">K8s连接harbor私有仓库</a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2021/03/16/K8s%E8%BF%9E%E6%8E%A5harbor%E7%A7%81%E6%9C%89%E4%BB%93%E5%BA%93/">
-          
-          
-            
-          
-          1、登录Docker通过注册表进行身份验证才能提取私有映像：
-1docker login  registry.hello.com
-
-出现提示时，输入您的Docker用户名和密码。登录过程将创建或更新config.json包含授权令牌的文件。
-查看config.json文件：
-1234567891011cat ~/.docker/config.json&#123;        &quot;auth
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2021-03-16 10:07" pubdate>
-              2021-03-16
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/Kubernetes/">Kubernetes</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/Kubernetes/">Kubernetes</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2021/03/16/Kubeadm%E9%83%A8%E7%BD%B2Kubernetes1-14-1%E9%9B%86%E7%BE%A4/">Kubeadm部署Kubernetes1.14.1集群</a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2021/03/16/Kubeadm%E9%83%A8%E7%BD%B2Kubernetes1-14-1%E9%9B%86%E7%BE%A4/">
-          
-          
-            
-          
-          一、环境说明
-
-
-主机名
-IP地址
-角色
-系统
-
-
-
-k8s-node-1
-192.168.120.128
-k8s-master
-Centos7.6
-
-
-k8s-node-2
-192.168.120.129
-k8s-node
-Centos7.6
-
-
-k8s-node-3
-192.168.120.130
-k8s-node
-Centos7.6
-
-
-注意：官方建议每台机器至少双核2G内存，同时需确保MA
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2021-03-16 10:03" pubdate>
-              2021-03-16
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/Kubernetes/">Kubernetes</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/Kubernetes/">Kubernetes</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2021/01/20/elasticsearch%E6%80%A7%E8%83%BD%E6%B5%8B%E8%AF%95%E5%B7%A5%E5%85%B7rally/">elasticsearch性能测试工具rally</a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2021/01/20/elasticsearch%E6%80%A7%E8%83%BD%E6%B5%8B%E8%AF%95%E5%B7%A5%E5%85%B7rally/">
-          
-          
-            
-          
-          1、esrally功能：es的性能测试工具esrally不支持windows版本，目前只支持Linux和Mac OS。
-1.1 依赖环境Install Python 3.8+ including pip3, git 1.9+ and an appropriate JDK to run ElasticsearchBe sure that JAVA_HOME points to that JDK
-1.
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2021-01-20 11:01" pubdate>
-              2021-01-20
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/Linux/">Linux</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/Elasticsearch/">Elasticsearch</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2021/01/20/Linux%E5%AE%89%E8%A3%85elasticsearch/">Linux安装elasticsearch</a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2021/01/20/Linux%E5%AE%89%E8%A3%85elasticsearch/">
-          
-          
-            
-          
-          1、准备Java环境123456789tar xvf jdk-8u231-linux-x64.tar.gz -C /usr/local/mv jdk1.8.0_231 javavim /etc/profile.d/javaexport JAVA_HOME=/usr/local/javaexport PATH=$JAVA_HOME/bin:$PATHsource /etc/profile.d/jav
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2021-01-20 10:55" pubdate>
-              2021-01-20
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/Linux/">Linux</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/Elasticsearch/">Elasticsearch</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
 
 
   <nav aria-label="navigation">
     <span class="pagination" id="pagination">
-      <a class="extend prev" rel="prev" href="/"><i class="iconfont icon-arrowleft"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/3/"><i class="iconfont icon-arrowright"></i></a>
+      <a class="extend prev" rel="prev" href="/"><i class="iconfont icon-arrowleft"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/3/"><i class="iconfont icon-arrowright"></i></a>
     </span>
   </nav>
   
