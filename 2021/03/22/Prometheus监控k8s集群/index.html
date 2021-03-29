@@ -223,7 +223,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      1.3k 字
+      1.6k 字
     </span>
   
 
@@ -233,7 +233,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      18
+      21
        分钟
     </span>
   
@@ -296,7 +296,10 @@
 <p>大多数Prometheus组件都是用<a target="_blank" rel="noopener" href="https://golang.org/">Go</a>编写的，因此易于构建和部署为静态二进制文件。</p>
 <h3 id="3、架构"><a href="#3、架构" class="headerlink" title="3、架构"></a>3、架构</h3><p>下图说明了Prometheus的体系结构及其某些生态系统组件：</p>
 <p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/architecture.png" srcset="/img/loading.gif" alt="普罗米修斯建筑"></p>
-<p>​    Prometheus直接或通过中介推送网关从已检测作业中删除指标，以用于短期作业。它在本地存储所有报废的样本，并对这些数据运行规则，以汇总和记录现有数据中的新时间序列，或生成警报。<a target="_blank" rel="noopener" href="https://grafana.com/">Grafana</a>或其他API使用者可以用来可视化收集的数据。</p>
+<p>​        从上图可以看出，Prometheus 的主要模块包括：Prometheus server, exporters, Pushgateway, PromQL, Alertmanager 以及图形界面。Prometheus的基本原理是通过HTTP协议周期性抓取被监控组件的状态，任意组件只要提供对应的HTTP接口就可以接入监控。不需要任何SDK或者其他的集成过程。这样做非常适合做虚拟化环境监控系统，比如VM、Docker、Kubernetes等。输出被监控组件信息的HTTP接口被叫做exporter 。目前互联网公司常用的组件大部分都有exporter可以直接使用，比如Varnish、Haproxy、Nginx、MySQL、Linux系统信息(包括磁盘、内存、CPU、网络等等)。</p>
+<h4 id="Prometheus工作流程"><a href="#Prometheus工作流程" class="headerlink" title="Prometheus工作流程"></a>Prometheus工作流程</h4><p>​        1.Prometheus server 定期从配置好的 jobs 或者 exporters 中拉取 metrics，或者从Pushgateway 拉取metrics，或者从其他的 Prometheus server 中拉 metrics。</p>
+<p>​        2.Prometheus server 在本地存储收集到的 metrics，并运行已定义好的 alert.rules，通过一定规则进行清理和整理数据，并把得到的结果存储到新的时间序列中。记录新的时间序列或者向 Alertmanager 推送警报。</p>
+<p>​        3.Prometheus通过PromQL和其他API可视化地展示收集的数据。Prometheus支持很多方式的图表可视化，例如Grafana、自带的Promdash以及自身提供的模版引擎等等。</p>
 <h3 id="4、安装"><a href="#4、安装" class="headerlink" title="4、安装"></a>4、安装</h3><p>前提需要有helm环境：</p>
 <p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20191226101438796.png" srcset="/img/loading.gif" alt="image-20191226101438796"></p>
 <figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs cmake">helm  <span class="hljs-keyword">install</span>  prometheus   stable/prometheus<br></code></pre></td></tr></table></figure>
