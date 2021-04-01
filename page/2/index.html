@@ -220,6 +220,157 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
+        <a href="/2021/03/22/Redis%E4%BB%8B%E7%BB%8D/">Redis介绍</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2021/03/22/Redis%E4%BB%8B%E7%BB%8D/">
+          
+          
+            
+          
+          1、redis持久化redis提供了两种持久化的方式，分别是RDB（Redis DataBase）和AOF（Append Only File）。
+RDB，简而言之，就是在不同的时间点，将redis存储的数据生成快照并存储到磁盘等介质上；
+AOF，则是换了一个角度来实现持久化，那就是将redis执行过的所有写指令记录下来，在下次redis重新启动时，只要把这些写指令从前到后再重复执行一遍，就可以实现
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-03-22 15:13" pubdate>
+              2021-03-22
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/%E9%9D%9E%E5%85%B3%E7%B3%BB%E5%9E%8B%E6%95%B0%E6%8D%AE%E5%BA%93/">非关系型数据库</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/Redis/">Redis</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2021/03/22/%E5%AE%89%E8%A3%85MetalLB/">安装MetalLB</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2021/03/22/%E5%AE%89%E8%A3%85MetalLB/">
+          
+          
+            
+          
+          1、准备如果您在IPVS模式下使用kube-proxy，则从Kubernetes v1.14.2开始，必须启用严格的ARP模式。
+1请注意，如果您将kube-router用作服务代理，则不需要此设置，因为默认情况下它会启用严格的arp。
+可以通过在当前集群中编辑kube-proxy配置来实现：
+1234567kubectl edit configmap -n kube-system kube-pr
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-03-22 15:09" pubdate>
+              2021-03-22
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/Kubernetes/">Kubernetes</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/MetalLB/">MetalLB</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2021/03/22/MetalLB/">MetalLB</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2021/03/22/MetalLB/">
+          
+          
+            
+          
+          1、概念​        MetalLB挂接到您的Kubernetes集群中，并提供了网络负载平衡器实现。简而言之，它允许您在未在云提供商上运行的集群中创建类型为“ LoadBalancer”的Kubernetes服务。
+​        它具有两个可以共同提供此服务的功能：地址分配和外部通知
+1.1 地址分配​        在启用了云的Kubernetes集群中，您需要一个负载均衡器，然后您的
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-03-22 15:07" pubdate>
+              2021-03-22
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/Kubernetes/">Kubernetes</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/MetalLB/">MetalLB</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
         <a href="/2021/03/22/Docker-%E6%9C%80%E5%AE%9E%E7%94%A8%E5%91%BD%E4%BB%A4%E8%A1%8C/">Docker 最实用命令行</a>
       </h1>
 
@@ -564,160 +715,6 @@ PromQL，一种灵活的查询语言 ，可利用此维度
             <i class="iconfont icon-tags"></i>
             
               <a href="/tags/Prometheus/">Prometheus</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2021/03/18/dockerignore%E6%96%87%E4%BB%B6/">dockerignore文件</a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2021/03/18/dockerignore%E6%96%87%E4%BB%B6/">
-          
-          
-            
-          
-          ​    该.dockerignore文件是隐藏文件也是一个工具，可以帮助你定义你真正需要的Docker构建上下文。使用此文件，你可以为这些文件和文件夹规则指定忽略规则和异常，这些规则和异常将不包含在构建上下文中，因此不会打包到存档中并上载到Docker服务器。
-1、dockerignore语法​    该.dockerignore文件类似于gitignore该git工具使用的文件。与.gitig
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2021-03-18 17:27" pubdate>
-              2021-03-18
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/Docker/">Docker</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/Docker/">Docker</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2021/03/18/Kubernetes%E5%AE%89%E8%A3%85Ingress/">Kubernetes安装Ingress</a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2021/03/18/Kubernetes%E5%AE%89%E8%A3%85Ingress/">
-          
-          
-            
-          
-          1、Ingress 介绍​    ingress是一个kubernetes资源，可让你为运行在kubernetes上的应用程序（由一个或多个Services表示）配置HTTP负载平衡器。这样的负载平衡器对于将这些应用程序交付给Kubernetes集群之外的客户端是必需的
-ingress支持以下的路由：
-​    基于主机域名的路由
-​    基于服务路径的路由
-2、Ingress Controll
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2021-03-18 17:25" pubdate>
-              2021-03-18
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/Kubernetes/">Kubernetes</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/Kubernetes/">Kubernetes</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2021/03/18/Calico-IPIP%E6%A8%A1%E5%BC%8F/">Calico  IPIP模式</a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2021/03/18/Calico-IPIP%E6%A8%A1%E5%BC%8F/">
-          
-          
-            
-          
-          1、IPIP模式简介​    IPIP模式是一种将各Node的路由之间做一个tunnel，再把网络连接起来的模式：
-
-​    从字面上说，就是将一个IP数据包套在另一个IP包里，使用到了Linux提供的隧道技术。可以理解为一个基于IP层的网桥，将两个本不通的网络通过点对点连接起来。
-2、准备环境​    准备一套k8s环境，并安装好IPIP模式的calico网络
-
-master节点去污点，所以工
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2021-03-18 17:22" pubdate>
-              2021-03-18
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/Calico/">Calico</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/Calico/">Calico</a>
             
           </div>
         

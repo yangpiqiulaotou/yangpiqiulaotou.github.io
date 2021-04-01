@@ -4,6 +4,81 @@
   
   
   <entry>
+    <title>VMware安装虚拟机</title>
+    <link href="/2021/04/01/VMware%E5%AE%89%E8%A3%85%E8%99%9A%E6%8B%9F%E6%9C%BA/"/>
+    <url>/2021/04/01/VMware%E5%AE%89%E8%A3%85%E8%99%9A%E6%8B%9F%E6%9C%BA/</url>
+    
+    <content type="html"><![CDATA[<h2 id="1、创建虚拟机"><a href="#1、创建虚拟机" class="headerlink" title="1、创建虚拟机"></a>1、创建虚拟机</h2><p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20210330165040949.png" alt="image-20210330165040949"></p><p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20210330165110723.png" alt="image-20210330165110723"></p><p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20210330165302189.png" alt="image-20210330165302189"></p><p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20210330165408082.png" alt="image-20210330165408082"></p><p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20210330165503816.png" alt="image-20210330165503816"></p><p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20210330165531369.png" alt="image-20210330165531369"></p><p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20210330165623238.png" alt="image-20210330165623238"></p><p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20210330165746567.png" alt="image-20210330165746567"></p><p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20210330170105890.png" alt="image-20210330170105890"></p><p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20210330170315406.png" alt="image-20210330170315406"></p><p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20210330170446550.png" alt="image-20210330170446550"></p><p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20210330170512815.png" alt="image-20210330170512815"></p><p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20210330170643041.png" alt="image-20210330170643041"></p><p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20210330170728249.png" alt="image-20210330170728249"></p><p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20210330170748430.png" alt="image-20210330170748430"></p><p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20210330171008241.png" alt="image-20210330171008241"></p><p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20210330171125650.png" alt="image-20210330171125650"></p><p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20210330171225072.png" alt="image-20210330171225072"></p><h2 id="2、配置网络"><a href="#2、配置网络" class="headerlink" title="2、配置网络"></a>2、配置网络</h2><p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20210330172715893.png" alt="image-20210330172715893"></p><p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20210330172908460.png" alt="image-20210330172908460"></p><p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20210330173034578.png" alt="image-20210330173034578"></p><h2 id="3、关闭防火墙和SElinux"><a href="#3、关闭防火墙和SElinux" class="headerlink" title="3、关闭防火墙和SElinux"></a>3、关闭防火墙和SElinux</h2><figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs routeros">systemctl stop firewalld<br>systemctl <span class="hljs-builtin-name">disable</span> firewalld<br><br>vim   /etc/selinux/config<br><span class="hljs-attribute">SELINUX</span>=disabled<br></code></pre></td></tr></table></figure><h2 id="4、关机保存快照"><a href="#4、关机保存快照" class="headerlink" title="4、关机保存快照"></a>4、关机保存快照</h2><figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">init</span>  <span class="hljs-number">0</span><br></code></pre></td></tr></table></figure><p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20210330173400861.png" alt="image-20210330173400861"></p>]]></content>
+    
+    
+    <categories>
+      
+      <category>Linux</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>VMware</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>Jenkins构建时选择Git分支</title>
+    <link href="/2021/04/01/Jenkins%E6%9E%84%E5%BB%BA%E6%97%B6%E9%80%89%E6%8B%A9Git%E5%88%86%E6%94%AF/"/>
+    <url>/2021/04/01/Jenkins%E6%9E%84%E5%BB%BA%E6%97%B6%E9%80%89%E6%8B%A9Git%E5%88%86%E6%94%AF/</url>
+    
+    <content type="html"><![CDATA[<h2 id="1、安装Git-Parameter插件"><a href="#1、安装Git-Parameter插件" class="headerlink" title="1、安装Git Parameter插件"></a>1、安装<a href="https://wiki.jenkins-ci.org/display/JENKINS/Git+Parameter+Plugin">Git Parameter</a>插件</h2><p>在系统管理中的插件管理下载Git Parameter，下图是我已经安装</p><p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20210401150031254.png" alt="image-20210401150031254"></p><h2 id="2、配置参数化构建"><a href="#2、配置参数化构建" class="headerlink" title="2、配置参数化构建"></a>2、配置参数化构建</h2><p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20210401150709595.png" alt="image-20210401150709595"></p><p>在源代码库选择分支中使用变量接收</p><p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20210401150908867.png" alt="image-20210401150908867"></p><p>点击构建项目就能选择特性分支进行构建</p><p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20210401151022235.png" alt="image-20210401151022235"></p><p><strong>备注：如果配置了自动化构建，默认拉取的是master分支的代码！</strong></p>]]></content>
+    
+    
+    <categories>
+      
+      <category>Linux</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>Jenkins</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>Rancher宕机后命令行接管K8s集群</title>
+    <link href="/2021/04/01/Rancher%E5%AE%95%E6%9C%BA%E5%90%8E%E5%91%BD%E4%BB%A4%E8%A1%8C%E6%8E%A5%E7%AE%A1K8s%E9%9B%86%E7%BE%A4/"/>
+    <url>/2021/04/01/Rancher%E5%AE%95%E6%9C%BA%E5%90%8E%E5%91%BD%E4%BB%A4%E8%A1%8C%E6%8E%A5%E7%AE%A1K8s%E9%9B%86%E7%BE%A4/</url>
+    
+    <content type="html"><![CDATA[<p>​        使用rancher创建的k8s集群，当rancher的UI宕机不能访问后，不能接续使用<code>kubectl</code>接管集群，从 Rancher v2.2.2 开始，从 Rancher UI 创建的集群默认开启<code>授权集群访问地址</code>。创建好集群后 Rancher UI 生成的 kubecfg 文件中将显示多个 master 节点 IP 对应的 <code>server</code>。</p><p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20210331142119003.png" alt="image-20210331142119003"></p><h2 id="1、命令行访问集群"><a href="#1、命令行访问集群" class="headerlink" title="1、命令行访问集群"></a>1、命令行访问集群</h2><p>​        自行下载好kubectl文件，在.kube/config中配置好集群访问地址。</p><p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20210331142403423.png" alt="image-20210331142403423"></p><p>在命令行查看</p><p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20210331142458066.png" alt="image-20210331142458066"></p><h2 id="2、切换server控制端"><a href="#2、切换server控制端" class="headerlink" title="2、切换server控制端"></a>2、切换server控制端</h2><p>查看集群可使用的context</p><figure class="highlight arduino"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs arduino">kubectl <span class="hljs-built_in">config</span> view<br></code></pre></td></tr></table></figure><p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20210331142807728.png" alt="image-20210331142807728"></p><p>查看现在集群默认使用的context</p><figure class="highlight mipsasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs mipsasm">kubectl <span class="hljs-built_in">config</span> current-<span class="hljs-built_in">context</span><br></code></pre></td></tr></table></figure><p>通过context：name来切换，比如：</p><figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs verilog">kubectl <span class="hljs-keyword">config</span> <span class="hljs-keyword">use</span>-<span class="hljs-keyword">context</span>  test-docker2<br></code></pre></td></tr></table></figure><p>即可实现rancher宕机后也可继续接管集群了。</p><h2 id="3、未保存kubeconfig文件"><a href="#3、未保存kubeconfig文件" class="headerlink" title="3、未保存kubeconfig文件"></a>3、未保存kubeconfig文件</h2><p>参考：<a href="https://www.xtplayer.cn/rancher/restore-kubecfg/">https://www.xtplayer.cn/rancher/restore-kubecfg/</a></p>]]></content>
+    
+    
+    <categories>
+      
+      <category>Rancher</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>Rancher</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>gitlab使用minio实现分布式存储</title>
     <link href="/2021/03/25/gitlab%E4%BD%BF%E7%94%A8minio%E5%AE%9E%E7%8E%B0%E5%88%86%E5%B8%83%E5%BC%8F%E5%AD%98%E5%82%A8/"/>
     <url>/2021/03/25/gitlab%E4%BD%BF%E7%94%A8minio%E5%AE%9E%E7%8E%B0%E5%88%86%E5%B8%83%E5%BC%8F%E5%AD%98%E5%82%A8/</url>
@@ -1208,7 +1283,7 @@
   
   
   <entry>
-    <title>rancher流水线&lt;后端&gt;</title>
+    <title>Rancher流水线&lt;后端&gt;</title>
     <link href="/2021/01/04/rancher%E6%B5%81%E6%B0%B4%E7%BA%BF-%E5%90%8E%E7%AB%AF/"/>
     <url>/2021/01/04/rancher%E6%B5%81%E6%B0%B4%E7%BA%BF-%E5%90%8E%E7%AB%AF/</url>
     
@@ -1217,14 +1292,14 @@
     
     <categories>
       
-      <category>rancher</category>
+      <category>Rancher</category>
       
     </categories>
     
     
     <tags>
       
-      <tag>rancher</tag>
+      <tag>Rancher</tag>
       
     </tags>
     
@@ -1233,7 +1308,7 @@
   
   
   <entry>
-    <title>rancher:v2.3安装创建K8s集群</title>
+    <title>Rancher:v2.3安装创建K8s集群</title>
     <link href="/2021/01/04/rancher-v2-3%E5%AE%89%E8%A3%85%E5%88%9B%E5%BB%BAK8s%E9%9B%86%E7%BE%A4/"/>
     <url>/2021/01/04/rancher-v2-3%E5%AE%89%E8%A3%85%E5%88%9B%E5%BB%BAK8s%E9%9B%86%E7%BE%A4/</url>
     
@@ -1242,14 +1317,14 @@
     
     <categories>
       
-      <category>rancher</category>
+      <category>Rancher</category>
       
     </categories>
     
     
     <tags>
       
-      <tag>rancher</tag>
+      <tag>Rancher</tag>
       
     </tags>
     

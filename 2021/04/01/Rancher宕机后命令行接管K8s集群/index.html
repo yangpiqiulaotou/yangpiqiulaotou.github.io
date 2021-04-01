@@ -17,7 +17,7 @@
   <meta name="description" content="">
   <meta name="author" content="羊皮裘老头">
   <meta name="keywords" content="">
-  <title>gitlab使用minio实现分布式存储 - 羊皮裘老头</title>
+  <title>Rancher宕机后命令行接管K8s集群 - 羊皮裘老头</title>
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
 
@@ -201,7 +201,7 @@
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
           <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="gitlab使用minio实现分布式存储">
+            <span class="h2" id="subtitle" title="Rancher宕机后命令行接管K8s集群">
               
             </span>
 
@@ -211,8 +211,8 @@
   
     <span class="post-meta">
       <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-      <time datetime="2021-03-25 11:25" pubdate>
-        2021年3月25日 上午
+      <time datetime="2021-04-01 15:15" pubdate>
+        2021年4月1日 下午
       </time>
     </span>
   
@@ -223,7 +223,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      842 字
+      201 字
     </span>
   
 
@@ -233,7 +233,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      9
+      2
        分钟
     </span>
   
@@ -271,48 +271,24 @@
         <div class="py-5" id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">gitlab使用minio实现分布式存储</h1>
+            <h1 style="display: none">Rancher宕机后命令行接管K8s集群</h1>
             
             <div class="markdown-body">
-              <h2 id="1、分布式优势"><a href="#1、分布式优势" class="headerlink" title="1、分布式优势"></a>1、分布式优势</h2><h3 id="1-minio分布式介绍"><a href="#1-minio分布式介绍" class="headerlink" title="1.minio分布式介绍"></a>1.minio分布式介绍</h3><p>​        分布式模式下的MinIO使您可以将多个驱动器（甚至在不同的计算机上）合并到一个对象存储服务器中。由于驱动器分布在多个节点上，因此分布式MinIO可以承受多个节点故障，但仍可以确保完整的数据保护。</p>
-<p>​        分布式模式下的MinIO可以帮助您通过单个对象存储部署来设置高可用性存储系统。借助分布式MinIO，无论存储设备在网络中的位置如何，您都可以最佳地使用存储设备。</p>
-<h3 id="2-数据保护"><a href="#2-数据保护" class="headerlink" title="2.数据保护"></a>2.数据保护</h3><p>​        分布式MinIO 使用擦除代码提供针对多个节点/驱动器故障和位腐烂的保护。由于分布式MinIO所需的最小磁盘为4（与擦除编码所需的最小磁盘相同），因此在启动分布式MinIO时，擦除代码会自动启动。</p>
-<h3 id="3-高可用性"><a href="#3-高可用性" class="headerlink" title="3.高可用性"></a>3.高可用性</h3><p>​        如果托管磁盘的服务器脱机，则独立的MinIO服务器将关闭。相反，只要n / 2个或更多磁盘在线，具有n个磁盘的分布式MinIO设置将使您的数据安全。不过，您至少需要（n / 2 + 1）个法定磁盘来创建新对象。</p>
-<p>例如，即使最多有8台服务器处于脱机状态，一个16节点的分布式MinIO设置（每个节点具有16个磁盘）仍可继续提供文件。但是，您至少需要在线9台服务器才能创建新对象。</p>
-<h3 id="4-限度"><a href="#4-限度" class="headerlink" title="4.限度"></a>4.限度</h3><p>​        与独立模式下的MinIO一样，分布式MinIO的每个租户限制为最少2个，最多32个服务器。这些服务器上的磁盘数量没有限制。如果您需要多租户设置，则可以轻松启动由协调工具（如Kubernetes，Docker Swarm等）管理的多个MinIO实例。</p>
-<p>​        请注意，使用分布式MinIO，只要遵守限制，就可以处理节点和驱动器的数量。例如，您可以有2个节点，每个节点4个驱动器，4个节点每个4个驱动器，8个节点每个2个驱动器，32个服务器每个64个驱动器，依此类推。</p>
-<h3 id="5-一致性保证"><a href="#5-一致性保证" class="headerlink" title="5.一致性保证"></a>5.一致性保证</h3><p>​        MinIO遵循严格的读后写和列表后读 /一致性模型的所有输入输出都在分布式和独立模式操作。</p>
-<h2 id="2、使用Helm-Chart部署MinIO"><a href="#2、使用Helm-Chart部署MinIO" class="headerlink" title="2、使用Helm Chart部署MinIO"></a>2、使用Helm Chart部署MinIO</h2><p>前提条件：</p>
-<p>​    1.一个k8s集群</p>
-<p>​    2.具备helm环境</p>
-<h3 id="1-部署minio"><a href="#1-部署minio" class="headerlink" title="1.部署minio"></a>1.部署minio</h3><p>创建minio需要的pv</p>
-<figure class="highlight dts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs dts"><span class="hljs-meta">#vim  pv1.yaml</span><br><span class="hljs-symbol">apiVersion:</span> v1<br><span class="hljs-symbol">kind:</span> PersistentVolume<br><span class="hljs-symbol">metadata:</span><br><span class="hljs-symbol">  name:</span> minio-pv1<br><span class="hljs-symbol">spec:</span><br><span class="hljs-symbol">  capacity:</span><br><span class="hljs-symbol">    storage:</span> <span class="hljs-number">10</span>Gi<br><span class="hljs-symbol">  volumeMode:</span> Filesystem<br><span class="hljs-symbol">  accessModes:</span><br>  -  ReadWriteOnce<br><span class="hljs-symbol">  persistentVolumeReclaimPolicy:</span> Retain<br><span class="hljs-symbol">  hostPath:</span><br><span class="hljs-symbol">    path:</span> <span class="hljs-meta-keyword">/helm/</span>minio/pv1<br></code></pre></td></tr></table></figure>
-<p>在此使用的是hostpath，在worker节点创建相应的目录。</p>
-<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20191212211059077.png" srcset="/img/loading.gif" alt="image-20191212211059077"></p>
-<h3 id="2-安装minio"><a href="#2-安装minio" class="headerlink" title="2.安装minio"></a>2.安装minio</h3><figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-comment">#先拉到本地在安装</span><br><span class="hljs-attribute">helm</span>  pull  stable/minio<br><span class="hljs-attribute">tar</span>  -zxvf  minio-<span class="hljs-number">3</span>.<span class="hljs-number">0</span>.<span class="hljs-number">4</span>.tgz<br><span class="hljs-attribute">helm</span>  install  minio  ./minio<br><br><span class="hljs-comment">#或者直接安装</span><br><span class="hljs-attribute">helm</span>  install  minio  stable/minio<br></code></pre></td></tr></table></figure>
-<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20191212211624813.png" srcset="/img/loading.gif" alt="image-20191212211624813"></p>
-<p>查看pod状态</p>
-<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20191212212110685.png" srcset="/img/loading.gif" alt="image-20191212212110685"></p>
-<h3 id="3-登录访问minio"><a href="#3-登录访问minio" class="headerlink" title="3.登录访问minio"></a>3.登录访问minio</h3><p>默认参数：</p>
-<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/1576157102(1)_%E7%9C%8B%E5%9B%BE%E7%8E%8B_%E7%9C%8B%E5%9B%BE%E7%8E%8B.png" srcset="/img/loading.gif"></p>
-<p>访问web界面</p>
-<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20191212213046502.png" srcset="/img/loading.gif" alt="image-20191212213046502"></p>
-<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20191212213103278.png" srcset="/img/loading.gif" alt="image-20191212213103278"></p>
-<p>access Key和secret Key都是默认的，上图配置中</p>
-<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20191212213237181.png" srcset="/img/loading.gif" alt="image-20191212213237181"></p>
-<h2 id="3、gitlab和minio进行关联"><a href="#3、gitlab和minio进行关联" class="headerlink" title="3、gitlab和minio进行关联"></a>3、gitlab和minio进行关联</h2><figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs routeros">kubectl <span class="hljs-builtin-name">get</span> deploy minio -oyaml    查看关联Key<br></code></pre></td></tr></table></figure>
-<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20191212213506646.png" srcset="/img/loading.gif" alt="image-20191212213506646"></p>
-<p>在gitlab的yaml文件中添加</p>
-<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs yaml"><span class="hljs-string">kubectl</span> <span class="hljs-string">edit</span> <span class="hljs-string">deploy</span> <span class="hljs-string">gitlab-gitlab-ce</span><br><br><span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">MINIO_ACCESS_KEY</span><br>  <span class="hljs-attr">valueFrom:</span><br>    <span class="hljs-attr">secretKeyRef:</span><br>      <span class="hljs-attr">key:</span> <span class="hljs-string">accesskey</span><br>      <span class="hljs-attr">name:</span> <span class="hljs-string">minio</span><br><span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">MINIO_SECRET_KEY</span><br>  <span class="hljs-attr">valueFrom:</span><br>     <span class="hljs-attr">secretKeyRef:</span><br>       <span class="hljs-attr">key:</span> <span class="hljs-string">secretkey</span><br>       <span class="hljs-attr">name:</span> <span class="hljs-string">minio</span><br></code></pre></td></tr></table></figure>
-<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20191212213738745.png" srcset="/img/loading.gif" alt="image-20191212213738745"></p>
-<p>查看到状态正常</p>
-<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20191212214106629.png" srcset="/img/loading.gif" alt="image-20191212214106629"></p>
-<p>登录gitlab创建一个文件</p>
-<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20191212222659865.png" srcset="/img/loading.gif" alt="image-20191212222659865"></p>
-<p>删除原来的pod</p>
-<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20191212223057279.png" srcset="/img/loading.gif" alt="image-20191212223057279"></p>
-<p>gitlab的pod启动时间有点长，等启动完成访问界面可以看到</p>
-<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20191212223514760.png" srcset="/img/loading.gif" alt="image-20191212223514760"></p>
+              <p>​        使用rancher创建的k8s集群，当rancher的UI宕机不能访问后，不能接续使用<code>kubectl</code>接管集群，从 Rancher v2.2.2 开始，从 Rancher UI 创建的集群默认开启<code>授权集群访问地址</code>。创建好集群后 Rancher UI 生成的 kubecfg 文件中将显示多个 master 节点 IP 对应的 <code>server</code>。</p>
+<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20210331142119003.png" srcset="/img/loading.gif" alt="image-20210331142119003"></p>
+<h2 id="1、命令行访问集群"><a href="#1、命令行访问集群" class="headerlink" title="1、命令行访问集群"></a>1、命令行访问集群</h2><p>​        自行下载好kubectl文件，在.kube/config中配置好集群访问地址。</p>
+<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20210331142403423.png" srcset="/img/loading.gif" alt="image-20210331142403423"></p>
+<p>在命令行查看</p>
+<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20210331142458066.png" srcset="/img/loading.gif" alt="image-20210331142458066"></p>
+<h2 id="2、切换server控制端"><a href="#2、切换server控制端" class="headerlink" title="2、切换server控制端"></a>2、切换server控制端</h2><p>查看集群可使用的context</p>
+<figure class="highlight arduino"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs arduino">kubectl <span class="hljs-built_in">config</span> view<br></code></pre></td></tr></table></figure>
+<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20210331142807728.png" srcset="/img/loading.gif" alt="image-20210331142807728"></p>
+<p>查看现在集群默认使用的context</p>
+<figure class="highlight mipsasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs mipsasm">kubectl <span class="hljs-built_in">config</span> current-<span class="hljs-built_in">context</span><br></code></pre></td></tr></table></figure>
+<p>通过context：name来切换，比如：</p>
+<figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs verilog">kubectl <span class="hljs-keyword">config</span> <span class="hljs-keyword">use</span>-<span class="hljs-keyword">context</span>  test-docker2<br></code></pre></td></tr></table></figure>
+<p>即可实现rancher宕机后也可继续接管集群了。</p>
+<h2 id="3、未保存kubeconfig文件"><a href="#3、未保存kubeconfig文件" class="headerlink" title="3、未保存kubeconfig文件"></a>3、未保存kubeconfig文件</h2><p>参考：<a target="_blank" rel="noopener" href="https://www.xtplayer.cn/rancher/restore-kubecfg/">https://www.xtplayer.cn/rancher/restore-kubecfg/</a></p>
 
             </div>
             <hr>
@@ -322,7 +298,7 @@
                   <div class="post-meta mr-3">
                     <i class="iconfont icon-category"></i>
                     
-                      <a class="hover-with-bg" href="/categories/Helm/">Helm</a>
+                      <a class="hover-with-bg" href="/categories/Rancher/">Rancher</a>
                     
                   </div>
                 
@@ -330,7 +306,7 @@
                   <div class="post-meta">
                     <i class="iconfont icon-tags"></i>
                     
-                      <a class="hover-with-bg" href="/tags/Gitlab/">Gitlab</a>
+                      <a class="hover-with-bg" href="/tags/Rancher/">Rancher</a>
                     
                   </div>
                 
@@ -343,9 +319,9 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2021/04/01/Rancher%E5%AE%95%E6%9C%BA%E5%90%8E%E5%91%BD%E4%BB%A4%E8%A1%8C%E6%8E%A5%E7%AE%A1K8s%E9%9B%86%E7%BE%A4/">
+                      <a href="/2021/04/01/Jenkins%E6%9E%84%E5%BB%BA%E6%97%B6%E9%80%89%E6%8B%A9Git%E5%88%86%E6%94%AF/">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">Rancher宕机后命令行接管K8s集群</span>
+                        <span class="hidden-mobile">Jenkins构建时选择Git分支</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -353,8 +329,8 @@
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2021/03/25/helm3%E4%BD%BF%E7%94%A8minio%E8%87%AA%E5%BB%BA%E4%BB%93%E5%BA%93/">
-                        <span class="hidden-mobile">helm3使用minio自建仓库</span>
+                      <a href="/2021/03/25/gitlab%E4%BD%BF%E7%94%A8minio%E5%AE%9E%E7%8E%B0%E5%88%86%E5%B8%83%E5%BC%8F%E5%AD%98%E5%82%A8/">
+                        <span class="hidden-mobile">gitlab使用minio实现分布式存储</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
