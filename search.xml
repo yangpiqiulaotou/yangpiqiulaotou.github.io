@@ -246,41 +246,6 @@
       </tags>
   </entry>
   <entry>
-    <title>Docker 最实用命令行</title>
-    <url>/2021/03/22/Docker-%E6%9C%80%E5%AE%9E%E7%94%A8%E5%91%BD%E4%BB%A4%E8%A1%8C/</url>
-    <content><![CDATA[<h2 id="管理命令"><a href="#管理命令" class="headerlink" title="管理命令"></a>管理命令</h2><p>为了整理CLI，Docker 1.13引进了新的管理命令，如下：</p>
-<ul>
-<li>system</li>
-<li>container</li>
-<li>image</li>
-</ul>
-<p>Docker的老版本中已经有了 network, node, service, swarm 和 volume 。这些新命令组子命令过去作为root命令直接实现。</p>
-<h2 id="Docker系统"><a href="#Docker系统" class="headerlink" title="Docker系统"></a>Docker系统</h2><p>​        现在有一个新管理命令 system 。它有4个子命令分别是 df, events, info 和 prune  。命令 docker system df  提供Docker整体磁盘使用率的概况，包括镜像、容器和（本地）volume。所以我们现在随时都可以查看Docker使用了多少资源。</p>
-<p>​        如果之前的命令展示出 docker 已经占用了太多空间，我们会开始清理。有一个包办一切的命令：</p>
-<figure class="highlight clean"><table><tr><td class="code"><pre><code class="hljs clean">docker <span class="hljs-keyword">system</span> prune<br></code></pre></td></tr></table></figure>
-<p>​        这个命令会删除当前没有被使用的一切项目，它按照一种正确的序列进行清理，所以会达到最大化的输出结果。首先删除没有被使用的容器，然后是volume和网络，最后是挂起的镜像。通过使用 y 回复来确认操作。如果想在脚本中使用这个命令，可以使用参数 –force 或者 -f 告诉Docker不要发来确认请求。</p>
-<figure class="highlight livecodeserver"><table><tr><td class="code"><pre><code class="hljs livecodeserver">docker <span class="hljs-keyword">system</span> prune后可以加额外的参数，如：<br>docker <span class="hljs-keyword">system</span> prune -<span class="hljs-keyword">a</span> ： 一并清除所有未被使用的镜像和没有tag镜像。<br>docker <span class="hljs-keyword">system</span> prune -f ： 用以强制删除，不提示信息。<br></code></pre></td></tr></table></figure>
-<h2 id="Docker容器"><a href="#Docker容器" class="headerlink" title="Docker容器"></a>Docker容器</h2><p>​        我们已经知道许多 docker container 的子命令。它们过去（现在也是）是 docker 的直接子命令。可以通过下面的命令得到完整的子命令列表：</p>
-<figure class="highlight axapta"><table><tr><td class="code"><pre><code class="hljs axapta">docker <span class="hljs-built_in">container</span> prune<br></code></pre></td></tr></table></figure>
-<p>​        在列表中会看到一个 prune 命令。如果使用它，那么只会删除无用的容器。因此这条命令比 docker system prune 命令更局限。使用 –force 或者 -f 同意可以让CLI不再进行确认请求。</p>
-<h2 id="Docker网络"><a href="#Docker网络" class="headerlink" title="Docker网络"></a>Docker网络</h2><p>这里也有一个 prune 命令：</p>
-<figure class="highlight ebnf"><table><tr><td class="code"><pre><code class="hljs ebnf"><span class="hljs-attribute">docker network prune</span><br></code></pre></td></tr></table></figure>
-<p>删除所有没有使用的网络。</p>
-<h2 id="Docker-Volume"><a href="#Docker-Volume" class="headerlink" title="Docker Volume"></a>Docker Volume</h2><p>volume也有新的 prune 命令了：</p>
-<figure class="highlight dockerfile"><table><tr><td class="code"><pre><code class="hljs dockerfile">docker <span class="hljs-keyword">volume</span><span class="bash"> prune</span><br></code></pre></td></tr></table></figure>
-<p>删除所有（本地）没有被容器使用的volume。</p>
-<h2 id="Docker镜像"><a href="#Docker镜像" class="headerlink" title="Docker镜像"></a>Docker镜像</h2><p>新的镜像命令也是 prune 子命令。–force 用法如上面一样， –all 可以删除所有不用的镜像，不只挂起的镜像。</p>
-<figure class="highlight brainfuck"><table><tr><td class="code"><pre><code class="hljs brainfuck"><span class="hljs-comment">docker</span> <span class="hljs-comment">image</span> <span class="hljs-comment">prune</span> --<span class="hljs-comment">force</span> --<span class="hljs-comment">all</span><br></code></pre></td></tr></table></figure>
-<p>这个命令可以删除所有不使用的镜像并且不再请求确认。</p>
-]]></content>
-      <categories>
-        <category>Docker</category>
-      </categories>
-      <tags>
-        <tag>Docker</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>EFK收集K8s日志</title>
     <url>/2021/03/16/EFK%E6%94%B6%E9%9B%86K8s%E6%97%A5%E5%BF%97/</url>
     <content><![CDATA[<p>备注：所需镜像都会去外网拉取，所以镜像需要自己想办法！！！</p>
@@ -325,24 +290,38 @@
       </tags>
   </entry>
   <entry>
-    <title>Hexo集成Valine评论系统</title>
-    <url>/2020/12/30/Hexo%E9%9B%86%E6%88%90Valine%E8%AF%84%E8%AE%BA%E7%B3%BB%E7%BB%9F/</url>
-    <content><![CDATA[<h2 id="注册Leancloud"><a href="#注册Leancloud" class="headerlink" title="注册Leancloud"></a>注册Leancloud</h2><p>评论系统其实是放在Leancloud上的，因此首先需要去注册一个账号</p>
-<p>官网：<a href="https://leancloud.cn/">https://leancloud.cn/</a></p>
-<p>认证完成后创建应用</p>
-<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20201230150742969.png" alt="image-20201230150742969"></p>
-<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20201230150811967.png" alt="image-20201230150811967"></p>
-<p>点击设置获取appid 和 appkey</p>
-<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20201230150940084.png" alt="image-20201230150940084"></p>
-<h2 id="修改配置文件"><a href="#修改配置文件" class="headerlink" title="修改配置文件"></a>修改配置文件</h2><p>打开主题配置文件 搜索 valine，填入appid 和 appkey</p>
-<figure class="highlight yaml"><table><tr><td class="code"><pre><code class="hljs yaml"><span class="hljs-attr">valine:</span><br>  <span class="hljs-attr">appid:</span>  <span class="hljs-comment"># 从 LeanCloud 的应用中得到的 appId</span><br>  <span class="hljs-attr">appkey:</span>  <span class="hljs-comment"># 从 LeanCloud 的应用中得到的 APP Key</span><br>  <span class="hljs-attr">placeholder:</span> <span class="hljs-string">吐槽</span> <span class="hljs-comment"># 评论框占位提示符</span><br>  <span class="hljs-attr">path:</span> <span class="hljs-string">window.location.pathname</span> <span class="hljs-comment"># 当前文章页路径，用于区分不同的文章页，以保证正确读取该文章页下的评论列表</span><br>  <span class="hljs-attr">avatar:</span> <span class="hljs-string">retro</span> <span class="hljs-comment"># Gravatar 头像展示方式</span><br>  <span class="hljs-attr">meta:</span> [<span class="hljs-string">&#x27;nick&#x27;</span>, <span class="hljs-string">&#x27;mail&#x27;</span>, <span class="hljs-string">&#x27;link&#x27;</span>]  <span class="hljs-comment"># 评论者相关属性</span><br>  <span class="hljs-attr">pageSize:</span> <span class="hljs-number">10</span> <span class="hljs-comment"># 评论列表分页，每页条数</span><br>  <span class="hljs-attr">lang:</span> <span class="hljs-string">zh-CN</span> <span class="hljs-comment"># zh-CN | zh-TW | en | ja</span><br>  <span class="hljs-attr">highlight:</span> <span class="hljs-literal">false</span> <span class="hljs-comment"># 代码高亮</span><br>  <span class="hljs-attr">recordIP:</span> <span class="hljs-literal">false</span> <span class="hljs-comment"># 是否记录评论者IP</span><br>  <span class="hljs-attr">serverURLs:</span>  <span class="hljs-comment"># REST API 服务器地址，国际版不填</span><br></code></pre></td></tr></table></figure>
-<p>并修改评论插件为valine</p>
-<figure class="highlight yaml"><table><tr><td class="code"><pre><code class="hljs yaml"><span class="hljs-attr">comments:</span>  <span class="hljs-comment"># 评论</span><br>  <span class="hljs-attr">enable:</span> <span class="hljs-literal">true</span>  <span class="hljs-comment"># 开启评论</span><br>  <span class="hljs-attr">type:</span> <span class="hljs-string">valine</span>  <span class="hljs-comment"># 指定使用的评论模块</span><br></code></pre></td></tr></table></figure>]]></content>
+    <title>Docker 最实用命令行</title>
+    <url>/2021/03/22/Docker-%E6%9C%80%E5%AE%9E%E7%94%A8%E5%91%BD%E4%BB%A4%E8%A1%8C/</url>
+    <content><![CDATA[<h2 id="管理命令"><a href="#管理命令" class="headerlink" title="管理命令"></a>管理命令</h2><p>为了整理CLI，Docker 1.13引进了新的管理命令，如下：</p>
+<ul>
+<li>system</li>
+<li>container</li>
+<li>image</li>
+</ul>
+<p>Docker的老版本中已经有了 network, node, service, swarm 和 volume 。这些新命令组子命令过去作为root命令直接实现。</p>
+<h2 id="Docker系统"><a href="#Docker系统" class="headerlink" title="Docker系统"></a>Docker系统</h2><p>​        现在有一个新管理命令 system 。它有4个子命令分别是 df, events, info 和 prune  。命令 docker system df  提供Docker整体磁盘使用率的概况，包括镜像、容器和（本地）volume。所以我们现在随时都可以查看Docker使用了多少资源。</p>
+<p>​        如果之前的命令展示出 docker 已经占用了太多空间，我们会开始清理。有一个包办一切的命令：</p>
+<figure class="highlight clean"><table><tr><td class="code"><pre><code class="hljs clean">docker <span class="hljs-keyword">system</span> prune<br></code></pre></td></tr></table></figure>
+<p>​        这个命令会删除当前没有被使用的一切项目，它按照一种正确的序列进行清理，所以会达到最大化的输出结果。首先删除没有被使用的容器，然后是volume和网络，最后是挂起的镜像。通过使用 y 回复来确认操作。如果想在脚本中使用这个命令，可以使用参数 –force 或者 -f 告诉Docker不要发来确认请求。</p>
+<figure class="highlight livecodeserver"><table><tr><td class="code"><pre><code class="hljs livecodeserver">docker <span class="hljs-keyword">system</span> prune后可以加额外的参数，如：<br>docker <span class="hljs-keyword">system</span> prune -<span class="hljs-keyword">a</span> ： 一并清除所有未被使用的镜像和没有tag镜像。<br>docker <span class="hljs-keyword">system</span> prune -f ： 用以强制删除，不提示信息。<br></code></pre></td></tr></table></figure>
+<h2 id="Docker容器"><a href="#Docker容器" class="headerlink" title="Docker容器"></a>Docker容器</h2><p>​        我们已经知道许多 docker container 的子命令。它们过去（现在也是）是 docker 的直接子命令。可以通过下面的命令得到完整的子命令列表：</p>
+<figure class="highlight axapta"><table><tr><td class="code"><pre><code class="hljs axapta">docker <span class="hljs-built_in">container</span> prune<br></code></pre></td></tr></table></figure>
+<p>​        在列表中会看到一个 prune 命令。如果使用它，那么只会删除无用的容器。因此这条命令比 docker system prune 命令更局限。使用 –force 或者 -f 同意可以让CLI不再进行确认请求。</p>
+<h2 id="Docker网络"><a href="#Docker网络" class="headerlink" title="Docker网络"></a>Docker网络</h2><p>这里也有一个 prune 命令：</p>
+<figure class="highlight ebnf"><table><tr><td class="code"><pre><code class="hljs ebnf"><span class="hljs-attribute">docker network prune</span><br></code></pre></td></tr></table></figure>
+<p>删除所有没有使用的网络。</p>
+<h2 id="Docker-Volume"><a href="#Docker-Volume" class="headerlink" title="Docker Volume"></a>Docker Volume</h2><p>volume也有新的 prune 命令了：</p>
+<figure class="highlight dockerfile"><table><tr><td class="code"><pre><code class="hljs dockerfile">docker <span class="hljs-keyword">volume</span><span class="bash"> prune</span><br></code></pre></td></tr></table></figure>
+<p>删除所有（本地）没有被容器使用的volume。</p>
+<h2 id="Docker镜像"><a href="#Docker镜像" class="headerlink" title="Docker镜像"></a>Docker镜像</h2><p>新的镜像命令也是 prune 子命令。–force 用法如上面一样， –all 可以删除所有不用的镜像，不只挂起的镜像。</p>
+<figure class="highlight brainfuck"><table><tr><td class="code"><pre><code class="hljs brainfuck"><span class="hljs-comment">docker</span> <span class="hljs-comment">image</span> <span class="hljs-comment">prune</span> --<span class="hljs-comment">force</span> --<span class="hljs-comment">all</span><br></code></pre></td></tr></table></figure>
+<p>这个命令可以删除所有不使用的镜像并且不再请求确认。</p>
+]]></content>
       <categories>
-        <category>Hexo</category>
+        <category>Docker</category>
       </categories>
       <tags>
-        <tag>Hexo</tag>
+        <tag>Docker</tag>
       </tags>
   </entry>
   <entry>
@@ -402,41 +381,6 @@
       </tags>
   </entry>
   <entry>
-    <title>Jenkins主从配置</title>
-    <url>/2021/03/16/Jenkins%E4%B8%BB%E4%BB%8E%E9%85%8D%E7%BD%AE/</url>
-    <content><![CDATA[<h3 id="1、环境介绍"><a href="#1、环境介绍" class="headerlink" title="1、环境介绍"></a>1、环境介绍</h3><figure class="highlight crmsh"><table><tr><td class="code"><pre><code class="hljs crmsh"><span class="hljs-keyword">master</span>        <span class="hljs-title">192</span>.<span class="hljs-number">168.0</span>.<span class="hljs-number">121</span><br><span class="hljs-literal">slave</span>         <span class="hljs-number">192.168</span>.<span class="hljs-number">0.76</span><br></code></pre></td></tr></table></figure>
-<h3 id="2、生成密钥"><a href="#2、生成密钥" class="headerlink" title="2、生成密钥"></a>2、生成密钥</h3><p>部署jenkins master –slave 需要在master 服务器下 生成一个 秘钥文件</p>
-<figure class="highlight ebnf"><table><tr><td class="code"><pre><code class="hljs ebnf"><span class="hljs-attribute">ssh-keygen  -t   rsa</span><br></code></pre></td></tr></table></figure>
-<p>什么都不用填，一直敲回车就可以，生成的秘钥会在用户目录下， root 用户生成的 在~./ssh/中</p>
-<p>有两个文件 id_rsa；id_rsa.pub</p>
-<figure class="highlight applescript"><table><tr><td class="code"><pre><code class="hljs applescript">ssh-<span class="hljs-keyword">copy</span>-<span class="hljs-built_in">id</span>  -i  id_rsa.pub  <span class="hljs-number">192.168</span><span class="hljs-number">.0</span><span class="hljs-number">.76</span><br></code></pre></td></tr></table></figure>
-<h3 id="3、配置slave"><a href="#3、配置slave" class="headerlink" title="3、配置slave"></a>3、配置slave</h3><p>点击系统管理</p>
-<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master//img/image-20200324111648391.png" alt="image-20200324111648391"></p>
-<p>选择插件管理</p>
-<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master//img/image-20200324111713375.png" alt="image-20200324111713375"></p>
-<p>这是我已经装了的SSH插件，初始化的时候默认貌似就装了，展示下</p>
-<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master//img/image-20200324111849067.png" alt="image-20200324111849067"></p>
-<p>返回上一级，选择节点管理</p>
-<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master//img/image-20200324112021038.png" alt="image-20200324112021038"></p>
-<p>选择新建节点</p>
-<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master//img/image-20200324112051545.png" alt="image-20200324112051545"></p>
-<p>根据自己配置</p>
-<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master//img/image-20200324112444115.png" alt="image-20200324112444115"></p>
-<p>选择SSH username  with  private  key</p>
-<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master//img/image-20200324112756460.png" alt="image-20200324112756460"></p>
-<h3 id="4、关联slave"><a href="#4、关联slave" class="headerlink" title="4、关联slave"></a>4、关联slave</h3><p>slave节点需要java环境，需要提前准备，配置好后能看到这个界面</p>
-<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master//img/image-20200324113007717.png" alt="image-20200324113007717"></p>
-<p>但slave后面应该是没参数的，我这里已经进行关联了，点击刚才新增的进去即可进行关联</p>
-<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master//img/image-20200324113212259.png" alt="image-20200324113212259"></p>
-]]></content>
-      <categories>
-        <category>Linux</category>
-      </categories>
-      <tags>
-        <tag>Jenkins</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Jenkins主机之上部署SonarQube Scanner</title>
     <url>/2021/01/05/Jenkins%E4%B8%BB%E6%9C%BA%E4%B9%8B%E4%B8%8A%E9%83%A8%E7%BD%B2SonarQube-Scanner/</url>
     <content><![CDATA[<h3 id="1、在jenkins中安装插件：SonarQube-Scanner"><a href="#1、在jenkins中安装插件：SonarQube-Scanner" class="headerlink" title="1、在jenkins中安装插件：SonarQube Scanner"></a>1、在jenkins中安装插件：SonarQube Scanner</h3><p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20200303154952665.png" alt="image-20200303154952665"></p>
@@ -478,7 +422,42 @@
       </categories>
       <tags>
         <tag>Jenkins</tag>
-        <tag>SonarQube</tag>
+        <tag>Sonarqube</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Jenkins主从配置</title>
+    <url>/2021/03/16/Jenkins%E4%B8%BB%E4%BB%8E%E9%85%8D%E7%BD%AE/</url>
+    <content><![CDATA[<h3 id="1、环境介绍"><a href="#1、环境介绍" class="headerlink" title="1、环境介绍"></a>1、环境介绍</h3><figure class="highlight crmsh"><table><tr><td class="code"><pre><code class="hljs crmsh"><span class="hljs-keyword">master</span>        <span class="hljs-title">192</span>.<span class="hljs-number">168.0</span>.<span class="hljs-number">121</span><br><span class="hljs-literal">slave</span>         <span class="hljs-number">192.168</span>.<span class="hljs-number">0.76</span><br></code></pre></td></tr></table></figure>
+<h3 id="2、生成密钥"><a href="#2、生成密钥" class="headerlink" title="2、生成密钥"></a>2、生成密钥</h3><p>部署jenkins master –slave 需要在master 服务器下 生成一个 秘钥文件</p>
+<figure class="highlight ebnf"><table><tr><td class="code"><pre><code class="hljs ebnf"><span class="hljs-attribute">ssh-keygen  -t   rsa</span><br></code></pre></td></tr></table></figure>
+<p>什么都不用填，一直敲回车就可以，生成的秘钥会在用户目录下， root 用户生成的 在~./ssh/中</p>
+<p>有两个文件 id_rsa；id_rsa.pub</p>
+<figure class="highlight applescript"><table><tr><td class="code"><pre><code class="hljs applescript">ssh-<span class="hljs-keyword">copy</span>-<span class="hljs-built_in">id</span>  -i  id_rsa.pub  <span class="hljs-number">192.168</span><span class="hljs-number">.0</span><span class="hljs-number">.76</span><br></code></pre></td></tr></table></figure>
+<h3 id="3、配置slave"><a href="#3、配置slave" class="headerlink" title="3、配置slave"></a>3、配置slave</h3><p>点击系统管理</p>
+<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master//img/image-20200324111648391.png" alt="image-20200324111648391"></p>
+<p>选择插件管理</p>
+<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master//img/image-20200324111713375.png" alt="image-20200324111713375"></p>
+<p>这是我已经装了的SSH插件，初始化的时候默认貌似就装了，展示下</p>
+<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master//img/image-20200324111849067.png" alt="image-20200324111849067"></p>
+<p>返回上一级，选择节点管理</p>
+<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master//img/image-20200324112021038.png" alt="image-20200324112021038"></p>
+<p>选择新建节点</p>
+<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master//img/image-20200324112051545.png" alt="image-20200324112051545"></p>
+<p>根据自己配置</p>
+<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master//img/image-20200324112444115.png" alt="image-20200324112444115"></p>
+<p>选择SSH username  with  private  key</p>
+<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master//img/image-20200324112756460.png" alt="image-20200324112756460"></p>
+<h3 id="4、关联slave"><a href="#4、关联slave" class="headerlink" title="4、关联slave"></a>4、关联slave</h3><p>slave节点需要java环境，需要提前准备，配置好后能看到这个界面</p>
+<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master//img/image-20200324113007717.png" alt="image-20200324113007717"></p>
+<p>但slave后面应该是没参数的，我这里已经进行关联了，点击刚才新增的进去即可进行关联</p>
+<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master//img/image-20200324113212259.png" alt="image-20200324113212259"></p>
+]]></content>
+      <categories>
+        <category>Linux</category>
+      </categories>
+      <tags>
+        <tag>Jenkins</tag>
       </tags>
   </entry>
   <entry>
@@ -501,6 +480,27 @@
       </tags>
   </entry>
   <entry>
+    <title>Hexo集成Valine评论系统</title>
+    <url>/2020/12/30/Hexo%E9%9B%86%E6%88%90Valine%E8%AF%84%E8%AE%BA%E7%B3%BB%E7%BB%9F/</url>
+    <content><![CDATA[<h2 id="注册Leancloud"><a href="#注册Leancloud" class="headerlink" title="注册Leancloud"></a>注册Leancloud</h2><p>评论系统其实是放在Leancloud上的，因此首先需要去注册一个账号</p>
+<p>官网：<a href="https://leancloud.cn/">https://leancloud.cn/</a></p>
+<p>认证完成后创建应用</p>
+<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20201230150742969.png" alt="image-20201230150742969"></p>
+<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20201230150811967.png" alt="image-20201230150811967"></p>
+<p>点击设置获取appid 和 appkey</p>
+<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20201230150940084.png" alt="image-20201230150940084"></p>
+<h2 id="修改配置文件"><a href="#修改配置文件" class="headerlink" title="修改配置文件"></a>修改配置文件</h2><p>打开主题配置文件 搜索 valine，填入appid 和 appkey</p>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><code class="hljs yaml"><span class="hljs-attr">valine:</span><br>  <span class="hljs-attr">appid:</span>  <span class="hljs-comment"># 从 LeanCloud 的应用中得到的 appId</span><br>  <span class="hljs-attr">appkey:</span>  <span class="hljs-comment"># 从 LeanCloud 的应用中得到的 APP Key</span><br>  <span class="hljs-attr">placeholder:</span> <span class="hljs-string">吐槽</span> <span class="hljs-comment"># 评论框占位提示符</span><br>  <span class="hljs-attr">path:</span> <span class="hljs-string">window.location.pathname</span> <span class="hljs-comment"># 当前文章页路径，用于区分不同的文章页，以保证正确读取该文章页下的评论列表</span><br>  <span class="hljs-attr">avatar:</span> <span class="hljs-string">retro</span> <span class="hljs-comment"># Gravatar 头像展示方式</span><br>  <span class="hljs-attr">meta:</span> [<span class="hljs-string">&#x27;nick&#x27;</span>, <span class="hljs-string">&#x27;mail&#x27;</span>, <span class="hljs-string">&#x27;link&#x27;</span>]  <span class="hljs-comment"># 评论者相关属性</span><br>  <span class="hljs-attr">pageSize:</span> <span class="hljs-number">10</span> <span class="hljs-comment"># 评论列表分页，每页条数</span><br>  <span class="hljs-attr">lang:</span> <span class="hljs-string">zh-CN</span> <span class="hljs-comment"># zh-CN | zh-TW | en | ja</span><br>  <span class="hljs-attr">highlight:</span> <span class="hljs-literal">false</span> <span class="hljs-comment"># 代码高亮</span><br>  <span class="hljs-attr">recordIP:</span> <span class="hljs-literal">false</span> <span class="hljs-comment"># 是否记录评论者IP</span><br>  <span class="hljs-attr">serverURLs:</span>  <span class="hljs-comment"># REST API 服务器地址，国际版不填</span><br></code></pre></td></tr></table></figure>
+<p>并修改评论插件为valine</p>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><code class="hljs yaml"><span class="hljs-attr">comments:</span>  <span class="hljs-comment"># 评论</span><br>  <span class="hljs-attr">enable:</span> <span class="hljs-literal">true</span>  <span class="hljs-comment"># 开启评论</span><br>  <span class="hljs-attr">type:</span> <span class="hljs-string">valine</span>  <span class="hljs-comment"># 指定使用的评论模块</span><br></code></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>Hexo</category>
+      </categories>
+      <tags>
+        <tag>Hexo</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>K8s中Pod时间设置</title>
     <url>/2021/03/16/K8s%E4%B8%ADPod%E6%97%B6%E9%97%B4%E8%AE%BE%E7%BD%AE/</url>
     <content><![CDATA[<h3 id="1、-时间介绍"><a href="#1、-时间介绍" class="headerlink" title="1、 时间介绍"></a>1、 时间介绍</h3><h4 id="1-1-GMT"><a href="#1-1-GMT" class="headerlink" title="1.1    GMT"></a>1.1    GMT</h4><p>​    格林威治时间。即格林威治所在地的标准时间。</p>
@@ -511,63 +511,6 @@
 <h4 id="2-1挂在宿主机的时间到容器中"><a href="#2-1挂在宿主机的时间到容器中" class="headerlink" title="2.1挂在宿主机的时间到容器中"></a>2.1挂在宿主机的时间到容器中</h4><figure class="highlight dts"><table><tr><td class="code"><pre><code class="hljs dts"><span class="hljs-symbol">  volumeMounts:</span><br>  - mountPath: <span class="hljs-meta-keyword">/etc/</span>localtime<br><span class="hljs-symbol">    name:</span> localtime<br><span class="hljs-symbol">volumes:</span><br>- hostPath:<br><span class="hljs-symbol">    path:</span> <span class="hljs-meta-keyword">/etc/</span>localtime<br><span class="hljs-symbol">    type:</span> <span class="hljs-string">&quot;&quot;</span><br><span class="hljs-symbol">  name:</span> localtime<br></code></pre></td></tr></table></figure>
 <h4 id="2-2传参到pod中"><a href="#2-2传参到pod中" class="headerlink" title="2.2传参到pod中"></a>2.2传参到pod中</h4><figure class="highlight less"><table><tr><td class="code"><pre><code class="hljs less"><span class="hljs-attribute">spec</span>:<br>  <span class="hljs-attribute">containers</span>:<br>  - <span class="hljs-attribute">env</span>:<br>    - <span class="hljs-attribute">name</span>: TZ<br>      <span class="hljs-attribute">value</span>: Asia/Shanghai<br></code></pre></td></tr></table></figure>
 <h4 id="2-3传参到pod中"><a href="#2-3传参到pod中" class="headerlink" title="2.3传参到pod中"></a>2.3传参到pod中</h4><figure class="highlight less"><table><tr><td class="code"><pre><code class="hljs less"><span class="hljs-attribute">spec</span>:<br>  <span class="hljs-attribute">containers</span>:<br>  - <span class="hljs-attribute">env</span>:<br>    - <span class="hljs-attribute">name</span>: TZ<br>      <span class="hljs-attribute">value</span>: CST-<span class="hljs-number">8</span><br></code></pre></td></tr></table></figure>
-]]></content>
-      <categories>
-        <category>Kubernetes</category>
-      </categories>
-      <tags>
-        <tag>Kubernetes</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>K8s连接harbor私有仓库</title>
-    <url>/2021/03/16/K8s%E8%BF%9E%E6%8E%A5harbor%E7%A7%81%E6%9C%89%E4%BB%93%E5%BA%93/</url>
-    <content><![CDATA[<h3 id="1、登录Docker"><a href="#1、登录Docker" class="headerlink" title="1、登录Docker"></a>1、登录Docker</h3><p>通过注册表进行身份验证才能提取私有映像：</p>
-<figure class="highlight css"><table><tr><td class="code"><pre><code class="hljs css"><span class="hljs-selector-tag">docker</span> <span class="hljs-selector-tag">login</span>  <span class="hljs-selector-tag">registry</span><span class="hljs-selector-class">.hello</span><span class="hljs-selector-class">.com</span><br></code></pre></td></tr></table></figure>
-
-<p>出现提示时，输入您的Docker用户名和密码。登录过程将创建或更新config.json包含授权令牌的文件。</p>
-<p>查看config.json文件：</p>
-<figure class="highlight arcade"><table><tr><td class="code"><pre><code class="hljs arcade">cat ~<span class="hljs-regexp">/.docker/</span>config.json<br>&#123;<br>        <span class="hljs-string">&quot;auths&quot;</span>: &#123;<br>                <span class="hljs-string">&quot;registry.hello.com&quot;</span>: &#123;<br>                        <span class="hljs-string">&quot;auth&quot;</span>: <span class="hljs-string">&quot;YWRtaW46YWRtaW4xMjM=&quot;</span><br>                &#125;<br>        &#125;,<br>        <span class="hljs-string">&quot;HttpHeaders&quot;</span>: &#123;<br>                <span class="hljs-string">&quot;User-Agent&quot;</span>: <span class="hljs-string">&quot;Docker-Client/18.09.0 (linux)&quot;</span><br>        &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
-<h3 id="2、根据现有Docker凭证创建密钥"><a href="#2、根据现有Docker凭证创建密钥" class="headerlink" title="2、根据现有Docker凭证创建密钥"></a>2、根据现有Docker凭证创建密钥</h3><p>Kubernetes集群使用Secret docker-registry类型的密钥通过容器注册表进行身份验证以提取私有映像。如果您已</p>
-<p>经运行过docker login，则可以将该凭证复制到Kubernetes中：</p>
-<figure class="highlight livescript"><table><tr><td class="code"><pre><code class="hljs livescript">kubectl create secret generic harbor <span class="hljs-string">\</span>    <span class="hljs-comment">#命名为harbor</span><br>    --<span class="hljs-keyword">from</span>-file=.dockerconfigjson=<span class="hljs-regexp">/root/</span>.docker/config.json <span class="hljs-string">\</span><br>    --type=kubernetes.io/dockerconfigjson<br></code></pre></td></tr></table></figure>
-<p>如果您需要更多控制权（例如，在新密钥上设置名称空间或标签），则可以在存储密钥之前自定义密钥。</p>
-<p>务必：</p>
-<p>​    将数据项的名称设置为 .dockerconfigjson</p>
-<p>​    base64对docker文件进行编码并粘贴该字符串，将其作为字段的值不间断 data[“.dockerconfigjson”]</p>
-<p>​    设置type为kubernetes.io/dockerconfigjson</p>
-<figure class="highlight less"><table><tr><td class="code"><pre><code class="hljs less"><span class="hljs-attribute">apiVersion</span>: v1<br><span class="hljs-attribute">data</span>:<br>  .<span class="hljs-attribute">dockerconfigjson</span>: eyJhdXRocyI6eyJyZWdpc3RyeS5jbi1oYW5nemhvdS5hbGl5dW5jcy5jb20iOnsicGFzc3dvcmQiOiJFY29uYWdlQGs4cyIsInVzZXJuYW1lIjoiazhzQGVjb25hZ2UifX19<br><span class="hljs-attribute">kind</span>: Secret<br><span class="hljs-attribute">metadata</span>:<br>  <span class="hljs-attribute">name</span>: harbor<br>  <span class="hljs-attribute">namespace</span>: default<br><span class="hljs-attribute">type</span>: kubernetes.io/dockerconfigjson<br></code></pre></td></tr></table></figure>
-<p>如果收到错误消息 <code>error: no objects passed to create</code>，这可能意味着 base64 编码的字符串无效。如果您收到的错误类似 <code>Secret &quot;myregistrykey&quot; is invalid: data[.dockerconfigjson]: invalid value ...</code>，这意味着数据已成功地编码为 un-base64，但无法解析为一个 <code>.docker/config.json</code> 文件。</p>
-<h3 id="3、在-pod-上引用-imagePullSecrets"><a href="#3、在-pod-上引用-imagePullSecrets" class="headerlink" title="3、在 pod 上引用 imagePullSecrets"></a>3、在 pod 上引用 imagePullSecrets</h3><figure class="highlight avrasm"><table><tr><td class="code"><pre><code class="hljs avrasm"><span class="hljs-symbol">imagePullSecrets:</span><br><span class="hljs-symbol">name:</span> harbor<br></code></pre></td></tr></table></figure>
-
-
-<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master//img/image-20191213023009033.png" alt="image-20191213023009033"></p>
-<h3 id="4、使用-Docker-配置创建一个-Secret"><a href="#4、使用-Docker-配置创建一个-Secret" class="headerlink" title="4、使用 Docker 配置创建一个 Secret"></a>4、使用 Docker 配置创建一个 Secret</h3><figure class="highlight routeros"><table><tr><td class="code"><pre><code class="hljs routeros">kubectl create<span class="hljs-built_in"> secret </span>docker-registry myregistrykey \<br><span class="hljs-attribute">--docker-server</span>=registry.hello.com <span class="hljs-attribute">--docker-username</span>=admin \<br><span class="hljs-attribute">--docker-password</span>=admin123<br></code></pre></td></tr></table></figure>
-<p>Pod 只能引用它们自己命名空间中的镜像拉取 secret，因此，每个命名空间都需要完成一次此过程</p>
-<h3 id="5、应用场景"><a href="#5、应用场景" class="headerlink" title="5、应用场景"></a>5、应用场景</h3><p>有许多配置私有仓库的解决方案。以下是一些常见的用例和建议的解决方案。</p>
-<p>​    1.集群只运行非专有（例如，开放源码）镜像。不需要隐藏镜像。在 Docker hub 上使用公共镜像</p>
-<ul>
-<li>​            不需要配置。</li>
-<li>​            在 GCE 或 GKE 上，自动使用本地镜像来提高速度和可用性。</li>
-</ul>
-<p>​    2.集群运行一些私有镜像，这些镜像应该对公司以外用户进行隐藏，但对所有集群用户都是可见的。</p>
-<ul>
-<li>​            使用托管的 Docker 仓库。它可能托管在 Docker Hub 上，或其它地方。像上面描述的那样在每个节点上手动配置 .docker/config.json。</li>
-<li>​            或者，在防火墙后面运行内部私有仓库，并打开读取访问权限。不需要 Kubernetes 配置。</li>
-<li>​            或者，在 GCE 或 GKE 上，使用项目的 Google 容器仓库。与手动节点配置相比，集群自动伸缩会更好地工作。</li>
-<li>​            或者，在更改节点配置不方便的集群上，使用 imagePullSecrets。</li>
-</ul>
-<p>​    3.拥有专有镜像的集群，其中一些需要更严格的访问控制。</p>
-<ul>
-<li>​            确保 AlwaysPullImages 准入控制器 打开。否则，所有 pod 都可能访问所有的镜像。</li>
-<li>​            将敏感数据移动到 “Secret” 资源中，而不是将其打包到镜像中。</li>
-</ul>
-<p>​    4.多租户集群，每个租户都需要自己的私有仓库。</p>
-<ul>
-<li>​            确保 AlwaysPullImages 准入控制器 打开。否则，所有 pod 都可能访问所有的镜像。</li>
-<li>​            运行需要授权的私有仓库。为每个租户生成仓库凭证，将其转换为 secret，并将 secret 填充到每个租户命名空间。</li>
-<li>​            租户将该 secret 添加到每个命名空间的 imagePullSecrets 中。</li>
-</ul>
 ]]></content>
       <categories>
         <category>Kubernetes</category>
@@ -659,6 +602,63 @@
 <li>前文已经提及，由于Init Container必须在app Containers启动之前完成，所以可利用其特性，用作服务依赖处理。比如某一个服务A，需依赖db或memcached，那么可以利用服务A pod的Init Container判断db/memcached是否正常提供服务，如果启动服务失败或工作异常，设置Init Container启动失败，那么pod中的服务A就不会被启动了。</li>
 <li>应用镜像因安全原因等没办法安装或运行的工具，可放到Init Container中运行。另外，Init Container独立于业务服务，与业务无关的工具如sed, awk, python, dig等也可以按需放到Init Container之中。最后，Init Container也可以被授权访问应用Container无权访问的内容。</li>
 </ol>
+]]></content>
+      <categories>
+        <category>Kubernetes</category>
+      </categories>
+      <tags>
+        <tag>Kubernetes</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>K8s连接harbor私有仓库</title>
+    <url>/2021/03/16/K8s%E8%BF%9E%E6%8E%A5harbor%E7%A7%81%E6%9C%89%E4%BB%93%E5%BA%93/</url>
+    <content><![CDATA[<h3 id="1、登录Docker"><a href="#1、登录Docker" class="headerlink" title="1、登录Docker"></a>1、登录Docker</h3><p>通过注册表进行身份验证才能提取私有映像：</p>
+<figure class="highlight css"><table><tr><td class="code"><pre><code class="hljs css"><span class="hljs-selector-tag">docker</span> <span class="hljs-selector-tag">login</span>  <span class="hljs-selector-tag">registry</span><span class="hljs-selector-class">.hello</span><span class="hljs-selector-class">.com</span><br></code></pre></td></tr></table></figure>
+
+<p>出现提示时，输入您的Docker用户名和密码。登录过程将创建或更新config.json包含授权令牌的文件。</p>
+<p>查看config.json文件：</p>
+<figure class="highlight arcade"><table><tr><td class="code"><pre><code class="hljs arcade">cat ~<span class="hljs-regexp">/.docker/</span>config.json<br>&#123;<br>        <span class="hljs-string">&quot;auths&quot;</span>: &#123;<br>                <span class="hljs-string">&quot;registry.hello.com&quot;</span>: &#123;<br>                        <span class="hljs-string">&quot;auth&quot;</span>: <span class="hljs-string">&quot;YWRtaW46YWRtaW4xMjM=&quot;</span><br>                &#125;<br>        &#125;,<br>        <span class="hljs-string">&quot;HttpHeaders&quot;</span>: &#123;<br>                <span class="hljs-string">&quot;User-Agent&quot;</span>: <span class="hljs-string">&quot;Docker-Client/18.09.0 (linux)&quot;</span><br>        &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<h3 id="2、根据现有Docker凭证创建密钥"><a href="#2、根据现有Docker凭证创建密钥" class="headerlink" title="2、根据现有Docker凭证创建密钥"></a>2、根据现有Docker凭证创建密钥</h3><p>Kubernetes集群使用Secret docker-registry类型的密钥通过容器注册表进行身份验证以提取私有映像。如果您已</p>
+<p>经运行过docker login，则可以将该凭证复制到Kubernetes中：</p>
+<figure class="highlight livescript"><table><tr><td class="code"><pre><code class="hljs livescript">kubectl create secret generic harbor <span class="hljs-string">\</span>    <span class="hljs-comment">#命名为harbor</span><br>    --<span class="hljs-keyword">from</span>-file=.dockerconfigjson=<span class="hljs-regexp">/root/</span>.docker/config.json <span class="hljs-string">\</span><br>    --type=kubernetes.io/dockerconfigjson<br></code></pre></td></tr></table></figure>
+<p>如果您需要更多控制权（例如，在新密钥上设置名称空间或标签），则可以在存储密钥之前自定义密钥。</p>
+<p>务必：</p>
+<p>​    将数据项的名称设置为 .dockerconfigjson</p>
+<p>​    base64对docker文件进行编码并粘贴该字符串，将其作为字段的值不间断 data[“.dockerconfigjson”]</p>
+<p>​    设置type为kubernetes.io/dockerconfigjson</p>
+<figure class="highlight less"><table><tr><td class="code"><pre><code class="hljs less"><span class="hljs-attribute">apiVersion</span>: v1<br><span class="hljs-attribute">data</span>:<br>  .<span class="hljs-attribute">dockerconfigjson</span>: eyJhdXRocyI6eyJyZWdpc3RyeS5jbi1oYW5nemhvdS5hbGl5dW5jcy5jb20iOnsicGFzc3dvcmQiOiJFY29uYWdlQGs4cyIsInVzZXJuYW1lIjoiazhzQGVjb25hZ2UifX19<br><span class="hljs-attribute">kind</span>: Secret<br><span class="hljs-attribute">metadata</span>:<br>  <span class="hljs-attribute">name</span>: harbor<br>  <span class="hljs-attribute">namespace</span>: default<br><span class="hljs-attribute">type</span>: kubernetes.io/dockerconfigjson<br></code></pre></td></tr></table></figure>
+<p>如果收到错误消息 <code>error: no objects passed to create</code>，这可能意味着 base64 编码的字符串无效。如果您收到的错误类似 <code>Secret &quot;myregistrykey&quot; is invalid: data[.dockerconfigjson]: invalid value ...</code>，这意味着数据已成功地编码为 un-base64，但无法解析为一个 <code>.docker/config.json</code> 文件。</p>
+<h3 id="3、在-pod-上引用-imagePullSecrets"><a href="#3、在-pod-上引用-imagePullSecrets" class="headerlink" title="3、在 pod 上引用 imagePullSecrets"></a>3、在 pod 上引用 imagePullSecrets</h3><figure class="highlight avrasm"><table><tr><td class="code"><pre><code class="hljs avrasm"><span class="hljs-symbol">imagePullSecrets:</span><br><span class="hljs-symbol">name:</span> harbor<br></code></pre></td></tr></table></figure>
+
+
+<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master//img/image-20191213023009033.png" alt="image-20191213023009033"></p>
+<h3 id="4、使用-Docker-配置创建一个-Secret"><a href="#4、使用-Docker-配置创建一个-Secret" class="headerlink" title="4、使用 Docker 配置创建一个 Secret"></a>4、使用 Docker 配置创建一个 Secret</h3><figure class="highlight routeros"><table><tr><td class="code"><pre><code class="hljs routeros">kubectl create<span class="hljs-built_in"> secret </span>docker-registry myregistrykey \<br><span class="hljs-attribute">--docker-server</span>=registry.hello.com <span class="hljs-attribute">--docker-username</span>=admin \<br><span class="hljs-attribute">--docker-password</span>=admin123<br></code></pre></td></tr></table></figure>
+<p>Pod 只能引用它们自己命名空间中的镜像拉取 secret，因此，每个命名空间都需要完成一次此过程</p>
+<h3 id="5、应用场景"><a href="#5、应用场景" class="headerlink" title="5、应用场景"></a>5、应用场景</h3><p>有许多配置私有仓库的解决方案。以下是一些常见的用例和建议的解决方案。</p>
+<p>​    1.集群只运行非专有（例如，开放源码）镜像。不需要隐藏镜像。在 Docker hub 上使用公共镜像</p>
+<ul>
+<li>​            不需要配置。</li>
+<li>​            在 GCE 或 GKE 上，自动使用本地镜像来提高速度和可用性。</li>
+</ul>
+<p>​    2.集群运行一些私有镜像，这些镜像应该对公司以外用户进行隐藏，但对所有集群用户都是可见的。</p>
+<ul>
+<li>​            使用托管的 Docker 仓库。它可能托管在 Docker Hub 上，或其它地方。像上面描述的那样在每个节点上手动配置 .docker/config.json。</li>
+<li>​            或者，在防火墙后面运行内部私有仓库，并打开读取访问权限。不需要 Kubernetes 配置。</li>
+<li>​            或者，在 GCE 或 GKE 上，使用项目的 Google 容器仓库。与手动节点配置相比，集群自动伸缩会更好地工作。</li>
+<li>​            或者，在更改节点配置不方便的集群上，使用 imagePullSecrets。</li>
+</ul>
+<p>​    3.拥有专有镜像的集群，其中一些需要更严格的访问控制。</p>
+<ul>
+<li>​            确保 AlwaysPullImages 准入控制器 打开。否则，所有 pod 都可能访问所有的镜像。</li>
+<li>​            将敏感数据移动到 “Secret” 资源中，而不是将其打包到镜像中。</li>
+</ul>
+<p>​    4.多租户集群，每个租户都需要自己的私有仓库。</p>
+<ul>
+<li>​            确保 AlwaysPullImages 准入控制器 打开。否则，所有 pod 都可能访问所有的镜像。</li>
+<li>​            运行需要授权的私有仓库。为每个租户生成仓库凭证，将其转换为 secret，并将 secret 填充到每个租户命名空间。</li>
+<li>​            租户将该 secret 添加到每个命名空间的 imagePullSecrets 中。</li>
+</ul>
 ]]></content>
       <categories>
         <category>Kubernetes</category>
@@ -821,6 +821,27 @@
       </tags>
   </entry>
   <entry>
+    <title>Linux安装elasticsearch</title>
+    <url>/2021/01/20/Linux%E5%AE%89%E8%A3%85elasticsearch/</url>
+    <content><![CDATA[<h2 id="1、准备Java环境"><a href="#1、准备Java环境" class="headerlink" title="1、准备Java环境"></a>1、准备Java环境</h2><figure class="highlight awk"><table><tr><td class="code"><pre><code class="hljs awk">tar xvf jdk-<span class="hljs-number">8</span>u231-linux-x64.tar.gz -C <span class="hljs-regexp">/usr/</span>local/<br>mv jdk1.<span class="hljs-number">8.0</span>_231 java<br><br>vim <span class="hljs-regexp">/etc/</span>profile.d/java<br>export JAVA_HOME=<span class="hljs-regexp">/usr/</span>local/java<br>export PATH=<span class="hljs-variable">$JAVA_HOME</span>/bin:<span class="hljs-variable">$PATH</span><br><br>source <span class="hljs-regexp">/etc/</span>profile.d/java<br>java -version<br></code></pre></td></tr></table></figure>
+<h2 id="2、安装es"><a href="#2、安装es" class="headerlink" title="2、安装es"></a>2、安装es</h2><h3 id="2-1-创建用户和数据存放目录"><a href="#2-1-创建用户和数据存放目录" class="headerlink" title="2.1 创建用户和数据存放目录"></a>2.1 创建用户和数据存放目录</h3><figure class="highlight awk"><table><tr><td class="code"><pre><code class="hljs awk">useradd elk<br>passwd elk<br>mkdir <span class="hljs-regexp">/opt/</span>esdata<br>chown -R elk:elk <span class="hljs-regexp">/opt/</span><br></code></pre></td></tr></table></figure>
+<h3 id="2-2配置系统参数"><a href="#2-2配置系统参数" class="headerlink" title="2.2配置系统参数"></a>2.2配置系统参数</h3><figure class="highlight apache"><table><tr><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">vim</span> /etc/security/limits.conf<br><br><span class="hljs-attribute">elk</span> hard nofile <span class="hljs-number">65536</span><br><span class="hljs-attribute">elk</span> soft nofile <span class="hljs-number">65536</span><br></code></pre></td></tr></table></figure>
+<figure class="highlight vim"><table><tr><td class="code"><pre><code class="hljs vim"><span class="hljs-keyword">vim</span> /etc/sysctl.<span class="hljs-keyword">conf</span><br><br><span class="hljs-keyword">vm</span>.max_map_count = <span class="hljs-number">655360</span><br><br>sysctl -<span class="hljs-keyword">p</span><br></code></pre></td></tr></table></figure>
+<h3 id="2-3安装es"><a href="#2-3安装es" class="headerlink" title="2.3安装es"></a>2.3安装es</h3><figure class="highlight css"><table><tr><td class="code"><pre><code class="hljs css"><span class="hljs-selector-tag">tar</span> <span class="hljs-selector-tag">xvf</span> <span class="hljs-selector-tag">elasticsearch-6</span>.5.3<span class="hljs-selector-class">.tar</span><span class="hljs-selector-class">.gz</span> <span class="hljs-selector-tag">-C</span> /<span class="hljs-selector-tag">opt</span>/<br><br><span class="hljs-selector-tag">vim</span> <span class="hljs-selector-tag">jvm</span><span class="hljs-selector-class">.options</span><br><br><span class="hljs-selector-tag">-Xms8g</span><br><span class="hljs-selector-tag">-Xmx8g</span>     #实际内存的50%<br><br><span class="hljs-selector-tag">vim</span> <span class="hljs-selector-tag">elasticsearch</span><span class="hljs-selector-class">.yml</span><br><br><span class="hljs-selector-tag">cluster</span><span class="hljs-selector-class">.name</span>: <span class="hljs-selector-tag">elk</span>    #集群模式这里必须相同<br><span class="hljs-selector-tag">node</span><span class="hljs-selector-class">.name</span>: <span class="hljs-selector-tag">elk01</span><br># 自定义属性添加到节点上<br><span class="hljs-selector-tag">node</span><span class="hljs-selector-class">.attr</span><span class="hljs-selector-class">.rack</span>: <span class="hljs-selector-tag">r1</span><br><br><span class="hljs-selector-tag">node</span><span class="hljs-selector-class">.master</span>: <span class="hljs-selector-tag">true</span><br><span class="hljs-selector-id">#node</span><span class="hljs-selector-class">.voting_only</span>: <span class="hljs-selector-tag">true</span><br><span class="hljs-selector-tag">node</span><span class="hljs-selector-class">.data</span>: <span class="hljs-selector-tag">true</span><br><span class="hljs-selector-id">#node</span><span class="hljs-selector-class">.ingest</span>: <span class="hljs-selector-tag">true</span><br><span class="hljs-selector-id">#node</span><span class="hljs-selector-class">.ml</span>: <span class="hljs-selector-tag">false</span><br>#开启监控<span class="hljs-selector-tag">xpack</span><br><span class="hljs-selector-tag">xpack</span><span class="hljs-selector-class">.monitoring</span><span class="hljs-selector-class">.enabled</span>: <span class="hljs-selector-tag">true</span><br>#机器学习关闭<br><span class="hljs-selector-tag">xpack</span><span class="hljs-selector-class">.ml</span><span class="hljs-selector-class">.enabled</span>: <span class="hljs-selector-tag">false</span><br># 是否使用<span class="hljs-selector-tag">http</span>协议对外提供服务，默认为<span class="hljs-selector-tag">true</span>，开启<br><span class="hljs-selector-id">#http</span><span class="hljs-selector-class">.enabled</span>: <span class="hljs-selector-tag">true</span><br><br><span class="hljs-selector-tag">cluster</span><span class="hljs-selector-class">.remote</span><span class="hljs-selector-class">.connect</span>: <span class="hljs-selector-tag">false</span><br><span class="hljs-selector-tag">path</span><span class="hljs-selector-class">.data</span>: /<span class="hljs-selector-tag">data01</span>/<span class="hljs-selector-tag">elasticsearch</span>/<span class="hljs-selector-tag">lib</span><br><span class="hljs-selector-tag">path</span><span class="hljs-selector-class">.logs</span>: /<span class="hljs-selector-tag">data01</span>/<span class="hljs-selector-tag">elasticsearch</span>/<span class="hljs-selector-tag">logs</span><br>#锁定物理内存地址，防止<span class="hljs-selector-tag">es</span>内存被交换出去，也就是避免<span class="hljs-selector-tag">es</span>使用<span class="hljs-selector-tag">swap</span>交换分区，频繁的交换，会导致<span class="hljs-selector-tag">IOPS</span>变高<br><span class="hljs-selector-tag">bootstrap</span><span class="hljs-selector-class">.memory_lock</span>: <span class="hljs-selector-tag">true</span><br><span class="hljs-selector-tag">network</span><span class="hljs-selector-class">.host</span>: 192.168.88.128<br><span class="hljs-selector-tag">http</span><span class="hljs-selector-class">.port</span>: 9200<br>#<span class="hljs-selector-id">#discovery</span><span class="hljs-selector-class">.zen</span><span class="hljs-selector-class">.ping</span><span class="hljs-selector-class">.unicast</span><span class="hljs-selector-class">.hosts</span>旧版配置<br><span class="hljs-selector-tag">discovery</span><span class="hljs-selector-class">.seed_hosts</span>: <span class="hljs-selector-attr">[<span class="hljs-string">&quot;192.168.88.128&quot;</span>,<span class="hljs-string">&quot;192.168.99.92&quot;</span>,<span class="hljs-string">&quot;192.168.99.93&quot;</span>]</span><br><span class="hljs-selector-id">#Elasticsearch7</span>新增参数，写入候选主节点的设备地址，来开启服务时就可以被选为主节点<br><span class="hljs-selector-tag">cluster</span><span class="hljs-selector-class">.initial_master_nodes</span>: <span class="hljs-selector-attr">[<span class="hljs-string">&quot;192.168.88.128&quot;</span>,<span class="hljs-string">&quot;192.168.99.92&quot;</span>,<span class="hljs-string">&quot;192.168.99.93&quot;</span>]</span><br># 设置集群中<span class="hljs-selector-tag">N</span>个节点启动时进行数据恢复，默认为1。<br><span class="hljs-selector-tag">gateway</span><span class="hljs-selector-class">.recover_after_nodes</span>: 1<br>#设置是否可以通过正则或者_<span class="hljs-selector-tag">all</span>删除或者关闭索引<br><span class="hljs-selector-tag">action</span><span class="hljs-selector-class">.destructive_requires_name</span>: <span class="hljs-selector-tag">true</span><br><span class="hljs-selector-tag">discovery</span><span class="hljs-selector-class">.zen</span><span class="hljs-selector-class">.minimum_master_nodes</span>: 1   <span class="hljs-selector-id">#node</span><span class="hljs-selector-class">.master</span>数量/2+1<br><span class="hljs-selector-tag">indices</span><span class="hljs-selector-class">.fielddata</span><span class="hljs-selector-class">.cache</span><span class="hljs-selector-class">.size</span>: 20%     #内存回收机制<br><br><span class="hljs-selector-tag">network</span><span class="hljs-selector-class">.tcp</span><span class="hljs-selector-class">.no_delay</span>: <span class="hljs-selector-tag">true</span><br><span class="hljs-selector-tag">network</span><span class="hljs-selector-class">.tcp</span><span class="hljs-selector-class">.keep_alive</span>: <span class="hljs-selector-tag">true</span><br><span class="hljs-selector-tag">network</span><span class="hljs-selector-class">.tcp</span><span class="hljs-selector-class">.reuse_address</span>: <span class="hljs-selector-tag">true</span><br><span class="hljs-selector-tag">network</span><span class="hljs-selector-class">.tcp</span><span class="hljs-selector-class">.send_buffer_size</span>: 128<span class="hljs-selector-tag">mb</span><br><span class="hljs-selector-tag">network</span><span class="hljs-selector-class">.tcp</span><span class="hljs-selector-class">.receive_buffer_size</span>: 128<span class="hljs-selector-tag">mb</span><br><span class="hljs-selector-id">#transport</span><span class="hljs-selector-class">.tcp</span><span class="hljs-selector-class">.port</span>: 9301<br><span class="hljs-selector-tag">transport</span><span class="hljs-selector-class">.tcp</span><span class="hljs-selector-class">.compress</span>: <span class="hljs-selector-tag">true</span><br><span class="hljs-selector-tag">http</span><span class="hljs-selector-class">.max_content_length</span>: 200<span class="hljs-selector-tag">mb</span><br>#开启跨域访问<br><span class="hljs-selector-tag">http</span><span class="hljs-selector-class">.cors</span><span class="hljs-selector-class">.enabled</span>: <span class="hljs-selector-tag">true</span><br><span class="hljs-selector-tag">http</span><span class="hljs-selector-class">.cors</span><span class="hljs-selector-class">.allow-origin</span>: &quot;*&quot;<br><br><span class="hljs-selector-tag">cluster</span><span class="hljs-selector-class">.fault_detection</span><span class="hljs-selector-class">.leader_check</span><span class="hljs-selector-class">.interval</span>: 15<span class="hljs-selector-tag">s</span><br><span class="hljs-selector-tag">discovery</span><span class="hljs-selector-class">.cluster_formation_warning_timeout</span>: 30<span class="hljs-selector-tag">s</span><br><span class="hljs-selector-tag">cluster</span><span class="hljs-selector-class">.join</span><span class="hljs-selector-class">.timeout</span>: 120<span class="hljs-selector-tag">s</span><br><span class="hljs-selector-tag">cluster</span><span class="hljs-selector-class">.publish</span><span class="hljs-selector-class">.timeout</span>: 90<span class="hljs-selector-tag">s</span><br><span class="hljs-selector-tag">cluster</span><span class="hljs-selector-class">.routing</span><span class="hljs-selector-class">.allocation</span><span class="hljs-selector-class">.cluster_concurrent_rebalance</span>: 16<br><span class="hljs-selector-tag">cluster</span><span class="hljs-selector-class">.routing</span><span class="hljs-selector-class">.allocation</span><span class="hljs-selector-class">.node_concurrent_recoveries</span>: 16<br><span class="hljs-selector-tag">cluster</span><span class="hljs-selector-class">.routing</span><span class="hljs-selector-class">.allocation</span><span class="hljs-selector-class">.node_initial_primaries_recoveries</span>: 16<br><br><span class="hljs-selector-id">#6</span>/5新增<br><span class="hljs-selector-tag">thread_pool</span><span class="hljs-selector-class">.write</span><span class="hljs-selector-class">.size</span>: 5<br><span class="hljs-selector-tag">thread_pool</span><span class="hljs-selector-class">.write</span><span class="hljs-selector-class">.queue_size</span>: 400<br><span class="hljs-selector-tag">thread_pool</span><span class="hljs-selector-class">.search</span><span class="hljs-selector-class">.size</span>: 7<br><span class="hljs-selector-tag">thread_pool</span><span class="hljs-selector-class">.search</span><span class="hljs-selector-class">.queue_size</span>: 300<br><span class="hljs-selector-tag">thread_pool</span><span class="hljs-selector-class">.search</span><span class="hljs-selector-class">.min_queue_size</span>: 5<br><span class="hljs-selector-tag">thread_pool</span><span class="hljs-selector-class">.search</span><span class="hljs-selector-class">.max_queue_size</span>: 500<br><span class="hljs-selector-tag">thread_pool</span><span class="hljs-selector-class">.search</span><span class="hljs-selector-class">.auto_queue_frame_size</span>: 1000<br><span class="hljs-selector-tag">thread_pool</span><span class="hljs-selector-class">.search</span><span class="hljs-selector-class">.target_response_time</span>: 3<span class="hljs-selector-tag">s</span><br></code></pre></td></tr></table></figure>
+<p>命令</p>
+<figure class="highlight vala"><table><tr><td class="code"><pre><code class="hljs vala"><span class="hljs-meta">#调整index的merge过程的并发度</span><br>curl -H <span class="hljs-string">&quot;Content-Type: application/json&quot;</span> -XPUT <span class="hljs-string">&#x27;http://localhost:9200/_all/_settings?preserve_existing=true&#x27;</span> -d <span class="hljs-string">&#x27;&#123;&quot;index.merge.scheduler.max_thread_count&quot; : &quot;1&quot;&#125;&#x27;</span><br><br><span class="hljs-meta">#提高refresh的时间间隔，降低系统开销</span><br>curl -H <span class="hljs-string">&quot;Content-Type: application/json&quot;</span> -XPUT <span class="hljs-string">&#x27;http://localhost:9200/_all/_settings?preserve_existing=true&#x27;</span> -d <span class="hljs-string">&#x27;&#123;&quot;index.refresh_interval&quot; : &quot;30s&quot;&#125;&#x27;</span><br><br><span class="hljs-meta">#查看es集群状态</span><br>curl <span class="hljs-string">&#x27;http://localhost:9200/_cluster/health?pretty&#x27;</span><br><br><span class="hljs-meta">#查看es所有索引</span><br>curl <span class="hljs-string">&#x27;http://localhost:9200/_cat/indices?v&#x27;</span><br><br><br><span class="hljs-meta">#查看集群所在磁盘的分配状况</span><br>curl <span class="hljs-string">&#x27;http://127.0.0.1:9200/_cat/allocation?v&#x27;</span><br><span class="hljs-meta">#分片数（shards）:集群中各节点的分片数相同</span><br><span class="hljs-meta">#索引所占空间（disk.indices）:该节点中所有索引在该磁盘所点的空间。</span><br><span class="hljs-meta">#磁盘使用容量（disk.used）:已经使用空间</span><br><span class="hljs-meta">#磁盘可用容量（disk.avail）:可用空间</span><br><span class="hljs-meta">#磁盘总容量（disk.total）:总共容量</span><br><span class="hljs-meta">#磁盘便用率（disk.percent）:磁盘使用率</span><br><br><span class="hljs-meta">#查看节点信息</span><br>curl -XGET <span class="hljs-string">&quot;http://localhost:9200/_cat/nodes?v&amp;pretty&quot;</span><br><br><span class="hljs-meta">#查看分片信息</span><br>curl -XGET <span class="hljs-string">&quot;http://localhost:9200/_cat/shards?v&amp;pretty&quot;</span><br><br><span class="hljs-meta">#查看集群静态信息</span><br>curl -XGET <span class="hljs-string">&#x27;http://localhost:9200/_cluster/stats?pretty=true&#x27;</span><br><br><span class="hljs-meta">#删除索引</span><br>curl -XDELETE <span class="hljs-string">&#x27;http://localhost:9200/app-2019.05,app-2019.05&#x27;</span><br><br><span class="hljs-meta">#查询es当前线程</span><br>curl -XGET <span class="hljs-string">&#x27;http://localhost:9200/_nodes/stats/thread_pool?pretty&#x27;</span><br><br></code></pre></td></tr></table></figure>
+<h2 id="3、-logstash调优"><a href="#3、-logstash调优" class="headerlink" title="3、 logstash调优"></a>3、 logstash调优</h2><p>​    当batch.size增大，es处理的事件数就会变少，写入也就越快了。具体的worker/output.workers数量建议等于CPU数，batch.size/batch.delay根据实际的数据量逐渐增大来测试最优值。</p>
+<figure class="highlight css"><table><tr><td class="code"><pre><code class="hljs css"><span class="hljs-selector-tag">pipeline</span><span class="hljs-selector-class">.workers</span>: 24<br><span class="hljs-selector-tag">pipeline</span><span class="hljs-selector-class">.output</span><span class="hljs-selector-class">.workers</span>: 24<br><span class="hljs-selector-tag">pipeline</span><span class="hljs-selector-class">.batch</span><span class="hljs-selector-class">.size</span>: 10000<br><span class="hljs-selector-tag">pipeline</span><span class="hljs-selector-class">.batch</span><span class="hljs-selector-class">.delay</span>: 10<br></code></pre></td></tr></table></figure>
+<p>配置参考：<a href="https://www.iteye.com/blog/shihlei-2418651">https://www.iteye.com/blog/shihlei-2418651</a></p>
+]]></content>
+      <categories>
+        <category>Elk</category>
+      </categories>
+      <tags>
+        <tag>Elasticsearch</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Linux二进制软件包安装Mysql8主从复制</title>
     <url>/2021/01/05/Linux%E4%BA%8C%E8%BF%9B%E5%88%B6%E8%BD%AF%E4%BB%B6%E5%8C%85%E5%AE%89%E8%A3%85Mysql8%E4%B8%BB%E4%BB%8E%E5%A4%8D%E5%88%B6/</url>
     <content><![CDATA[<h3 id="1、下载安装包"><a href="#1、下载安装包" class="headerlink" title="1、下载安装包"></a>1、下载安装包</h3><p>wget  <a href="https://cdn.mysql.com//Downloads/MySQL-8.0/mysql-8.0.18-el7-x86_64.tar.gz">https://cdn.mysql.com//Downloads/MySQL-8.0/mysql-8.0.18-el7-x86_64.tar.gz</a></p>
@@ -850,52 +871,6 @@
         <category>关系型数据库</category>
       </categories>
       <tags>
-        <tag>Mysql</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Linux安装elasticsearch</title>
-    <url>/2021/01/20/Linux%E5%AE%89%E8%A3%85elasticsearch/</url>
-    <content><![CDATA[<h2 id="1、准备Java环境"><a href="#1、准备Java环境" class="headerlink" title="1、准备Java环境"></a>1、准备Java环境</h2><figure class="highlight awk"><table><tr><td class="code"><pre><code class="hljs awk">tar xvf jdk-<span class="hljs-number">8</span>u231-linux-x64.tar.gz -C <span class="hljs-regexp">/usr/</span>local/<br>mv jdk1.<span class="hljs-number">8.0</span>_231 java<br><br>vim <span class="hljs-regexp">/etc/</span>profile.d/java<br>export JAVA_HOME=<span class="hljs-regexp">/usr/</span>local/java<br>export PATH=<span class="hljs-variable">$JAVA_HOME</span>/bin:<span class="hljs-variable">$PATH</span><br><br>source <span class="hljs-regexp">/etc/</span>profile.d/java<br>java -version<br></code></pre></td></tr></table></figure>
-<h2 id="2、安装es"><a href="#2、安装es" class="headerlink" title="2、安装es"></a>2、安装es</h2><h3 id="2-1-创建用户和数据存放目录"><a href="#2-1-创建用户和数据存放目录" class="headerlink" title="2.1 创建用户和数据存放目录"></a>2.1 创建用户和数据存放目录</h3><figure class="highlight awk"><table><tr><td class="code"><pre><code class="hljs awk">useradd elk<br>passwd elk<br>mkdir <span class="hljs-regexp">/opt/</span>esdata<br>chown -R elk:elk <span class="hljs-regexp">/opt/</span><br></code></pre></td></tr></table></figure>
-<h3 id="2-2配置系统参数"><a href="#2-2配置系统参数" class="headerlink" title="2.2配置系统参数"></a>2.2配置系统参数</h3><figure class="highlight apache"><table><tr><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">vim</span> /etc/security/limits.conf<br><br><span class="hljs-attribute">elk</span> hard nofile <span class="hljs-number">65536</span><br><span class="hljs-attribute">elk</span> soft nofile <span class="hljs-number">65536</span><br></code></pre></td></tr></table></figure>
-<figure class="highlight vim"><table><tr><td class="code"><pre><code class="hljs vim"><span class="hljs-keyword">vim</span> /etc/sysctl.<span class="hljs-keyword">conf</span><br><br><span class="hljs-keyword">vm</span>.max_map_count = <span class="hljs-number">655360</span><br><br>sysctl -<span class="hljs-keyword">p</span><br></code></pre></td></tr></table></figure>
-<h3 id="2-3安装es"><a href="#2-3安装es" class="headerlink" title="2.3安装es"></a>2.3安装es</h3><figure class="highlight css"><table><tr><td class="code"><pre><code class="hljs css"><span class="hljs-selector-tag">tar</span> <span class="hljs-selector-tag">xvf</span> <span class="hljs-selector-tag">elasticsearch-6</span>.5.3<span class="hljs-selector-class">.tar</span><span class="hljs-selector-class">.gz</span> <span class="hljs-selector-tag">-C</span> /<span class="hljs-selector-tag">opt</span>/<br><br><span class="hljs-selector-tag">vim</span> <span class="hljs-selector-tag">jvm</span><span class="hljs-selector-class">.options</span><br><br><span class="hljs-selector-tag">-Xms8g</span><br><span class="hljs-selector-tag">-Xmx8g</span>     #实际内存的50%<br><br><span class="hljs-selector-tag">vim</span> <span class="hljs-selector-tag">elasticsearch</span><span class="hljs-selector-class">.yml</span><br><br><span class="hljs-selector-tag">cluster</span><span class="hljs-selector-class">.name</span>: <span class="hljs-selector-tag">elk</span>    #集群模式这里必须相同<br><span class="hljs-selector-tag">node</span><span class="hljs-selector-class">.name</span>: <span class="hljs-selector-tag">elk01</span><br># 自定义属性添加到节点上<br><span class="hljs-selector-tag">node</span><span class="hljs-selector-class">.attr</span><span class="hljs-selector-class">.rack</span>: <span class="hljs-selector-tag">r1</span><br><br><span class="hljs-selector-tag">node</span><span class="hljs-selector-class">.master</span>: <span class="hljs-selector-tag">true</span><br><span class="hljs-selector-id">#node</span><span class="hljs-selector-class">.voting_only</span>: <span class="hljs-selector-tag">true</span><br><span class="hljs-selector-tag">node</span><span class="hljs-selector-class">.data</span>: <span class="hljs-selector-tag">true</span><br><span class="hljs-selector-id">#node</span><span class="hljs-selector-class">.ingest</span>: <span class="hljs-selector-tag">true</span><br><span class="hljs-selector-id">#node</span><span class="hljs-selector-class">.ml</span>: <span class="hljs-selector-tag">false</span><br>#开启监控<span class="hljs-selector-tag">xpack</span><br><span class="hljs-selector-tag">xpack</span><span class="hljs-selector-class">.monitoring</span><span class="hljs-selector-class">.enabled</span>: <span class="hljs-selector-tag">true</span><br>#机器学习关闭<br><span class="hljs-selector-tag">xpack</span><span class="hljs-selector-class">.ml</span><span class="hljs-selector-class">.enabled</span>: <span class="hljs-selector-tag">false</span><br># 是否使用<span class="hljs-selector-tag">http</span>协议对外提供服务，默认为<span class="hljs-selector-tag">true</span>，开启<br><span class="hljs-selector-id">#http</span><span class="hljs-selector-class">.enabled</span>: <span class="hljs-selector-tag">true</span><br><br><span class="hljs-selector-tag">cluster</span><span class="hljs-selector-class">.remote</span><span class="hljs-selector-class">.connect</span>: <span class="hljs-selector-tag">false</span><br><span class="hljs-selector-tag">path</span><span class="hljs-selector-class">.data</span>: /<span class="hljs-selector-tag">data01</span>/<span class="hljs-selector-tag">elasticsearch</span>/<span class="hljs-selector-tag">lib</span><br><span class="hljs-selector-tag">path</span><span class="hljs-selector-class">.logs</span>: /<span class="hljs-selector-tag">data01</span>/<span class="hljs-selector-tag">elasticsearch</span>/<span class="hljs-selector-tag">logs</span><br>#锁定物理内存地址，防止<span class="hljs-selector-tag">es</span>内存被交换出去，也就是避免<span class="hljs-selector-tag">es</span>使用<span class="hljs-selector-tag">swap</span>交换分区，频繁的交换，会导致<span class="hljs-selector-tag">IOPS</span>变高<br><span class="hljs-selector-tag">bootstrap</span><span class="hljs-selector-class">.memory_lock</span>: <span class="hljs-selector-tag">true</span><br><span class="hljs-selector-tag">network</span><span class="hljs-selector-class">.host</span>: 192.168.88.128<br><span class="hljs-selector-tag">http</span><span class="hljs-selector-class">.port</span>: 9200<br>#<span class="hljs-selector-id">#discovery</span><span class="hljs-selector-class">.zen</span><span class="hljs-selector-class">.ping</span><span class="hljs-selector-class">.unicast</span><span class="hljs-selector-class">.hosts</span>旧版配置<br><span class="hljs-selector-tag">discovery</span><span class="hljs-selector-class">.seed_hosts</span>: <span class="hljs-selector-attr">[<span class="hljs-string">&quot;192.168.88.128&quot;</span>,<span class="hljs-string">&quot;192.168.99.92&quot;</span>,<span class="hljs-string">&quot;192.168.99.93&quot;</span>]</span><br><span class="hljs-selector-id">#Elasticsearch7</span>新增参数，写入候选主节点的设备地址，来开启服务时就可以被选为主节点<br><span class="hljs-selector-tag">cluster</span><span class="hljs-selector-class">.initial_master_nodes</span>: <span class="hljs-selector-attr">[<span class="hljs-string">&quot;192.168.88.128&quot;</span>,<span class="hljs-string">&quot;192.168.99.92&quot;</span>,<span class="hljs-string">&quot;192.168.99.93&quot;</span>]</span><br># 设置集群中<span class="hljs-selector-tag">N</span>个节点启动时进行数据恢复，默认为1。<br><span class="hljs-selector-tag">gateway</span><span class="hljs-selector-class">.recover_after_nodes</span>: 1<br>#设置是否可以通过正则或者_<span class="hljs-selector-tag">all</span>删除或者关闭索引<br><span class="hljs-selector-tag">action</span><span class="hljs-selector-class">.destructive_requires_name</span>: <span class="hljs-selector-tag">true</span><br><span class="hljs-selector-tag">discovery</span><span class="hljs-selector-class">.zen</span><span class="hljs-selector-class">.minimum_master_nodes</span>: 1   <span class="hljs-selector-id">#node</span><span class="hljs-selector-class">.master</span>数量/2+1<br><span class="hljs-selector-tag">indices</span><span class="hljs-selector-class">.fielddata</span><span class="hljs-selector-class">.cache</span><span class="hljs-selector-class">.size</span>: 20%     #内存回收机制<br><br><span class="hljs-selector-tag">network</span><span class="hljs-selector-class">.tcp</span><span class="hljs-selector-class">.no_delay</span>: <span class="hljs-selector-tag">true</span><br><span class="hljs-selector-tag">network</span><span class="hljs-selector-class">.tcp</span><span class="hljs-selector-class">.keep_alive</span>: <span class="hljs-selector-tag">true</span><br><span class="hljs-selector-tag">network</span><span class="hljs-selector-class">.tcp</span><span class="hljs-selector-class">.reuse_address</span>: <span class="hljs-selector-tag">true</span><br><span class="hljs-selector-tag">network</span><span class="hljs-selector-class">.tcp</span><span class="hljs-selector-class">.send_buffer_size</span>: 128<span class="hljs-selector-tag">mb</span><br><span class="hljs-selector-tag">network</span><span class="hljs-selector-class">.tcp</span><span class="hljs-selector-class">.receive_buffer_size</span>: 128<span class="hljs-selector-tag">mb</span><br><span class="hljs-selector-id">#transport</span><span class="hljs-selector-class">.tcp</span><span class="hljs-selector-class">.port</span>: 9301<br><span class="hljs-selector-tag">transport</span><span class="hljs-selector-class">.tcp</span><span class="hljs-selector-class">.compress</span>: <span class="hljs-selector-tag">true</span><br><span class="hljs-selector-tag">http</span><span class="hljs-selector-class">.max_content_length</span>: 200<span class="hljs-selector-tag">mb</span><br>#开启跨域访问<br><span class="hljs-selector-tag">http</span><span class="hljs-selector-class">.cors</span><span class="hljs-selector-class">.enabled</span>: <span class="hljs-selector-tag">true</span><br><span class="hljs-selector-tag">http</span><span class="hljs-selector-class">.cors</span><span class="hljs-selector-class">.allow-origin</span>: &quot;*&quot;<br><br><span class="hljs-selector-tag">cluster</span><span class="hljs-selector-class">.fault_detection</span><span class="hljs-selector-class">.leader_check</span><span class="hljs-selector-class">.interval</span>: 15<span class="hljs-selector-tag">s</span><br><span class="hljs-selector-tag">discovery</span><span class="hljs-selector-class">.cluster_formation_warning_timeout</span>: 30<span class="hljs-selector-tag">s</span><br><span class="hljs-selector-tag">cluster</span><span class="hljs-selector-class">.join</span><span class="hljs-selector-class">.timeout</span>: 120<span class="hljs-selector-tag">s</span><br><span class="hljs-selector-tag">cluster</span><span class="hljs-selector-class">.publish</span><span class="hljs-selector-class">.timeout</span>: 90<span class="hljs-selector-tag">s</span><br><span class="hljs-selector-tag">cluster</span><span class="hljs-selector-class">.routing</span><span class="hljs-selector-class">.allocation</span><span class="hljs-selector-class">.cluster_concurrent_rebalance</span>: 16<br><span class="hljs-selector-tag">cluster</span><span class="hljs-selector-class">.routing</span><span class="hljs-selector-class">.allocation</span><span class="hljs-selector-class">.node_concurrent_recoveries</span>: 16<br><span class="hljs-selector-tag">cluster</span><span class="hljs-selector-class">.routing</span><span class="hljs-selector-class">.allocation</span><span class="hljs-selector-class">.node_initial_primaries_recoveries</span>: 16<br><br><span class="hljs-selector-id">#6</span>/5新增<br><span class="hljs-selector-tag">thread_pool</span><span class="hljs-selector-class">.write</span><span class="hljs-selector-class">.size</span>: 5<br><span class="hljs-selector-tag">thread_pool</span><span class="hljs-selector-class">.write</span><span class="hljs-selector-class">.queue_size</span>: 400<br><span class="hljs-selector-tag">thread_pool</span><span class="hljs-selector-class">.search</span><span class="hljs-selector-class">.size</span>: 7<br><span class="hljs-selector-tag">thread_pool</span><span class="hljs-selector-class">.search</span><span class="hljs-selector-class">.queue_size</span>: 300<br><span class="hljs-selector-tag">thread_pool</span><span class="hljs-selector-class">.search</span><span class="hljs-selector-class">.min_queue_size</span>: 5<br><span class="hljs-selector-tag">thread_pool</span><span class="hljs-selector-class">.search</span><span class="hljs-selector-class">.max_queue_size</span>: 500<br><span class="hljs-selector-tag">thread_pool</span><span class="hljs-selector-class">.search</span><span class="hljs-selector-class">.auto_queue_frame_size</span>: 1000<br><span class="hljs-selector-tag">thread_pool</span><span class="hljs-selector-class">.search</span><span class="hljs-selector-class">.target_response_time</span>: 3<span class="hljs-selector-tag">s</span><br></code></pre></td></tr></table></figure>
-<p>命令</p>
-<figure class="highlight vala"><table><tr><td class="code"><pre><code class="hljs vala"><span class="hljs-meta">#调整index的merge过程的并发度</span><br>curl -H <span class="hljs-string">&quot;Content-Type: application/json&quot;</span> -XPUT <span class="hljs-string">&#x27;http://localhost:9200/_all/_settings?preserve_existing=true&#x27;</span> -d <span class="hljs-string">&#x27;&#123;&quot;index.merge.scheduler.max_thread_count&quot; : &quot;1&quot;&#125;&#x27;</span><br><br><span class="hljs-meta">#提高refresh的时间间隔，降低系统开销</span><br>curl -H <span class="hljs-string">&quot;Content-Type: application/json&quot;</span> -XPUT <span class="hljs-string">&#x27;http://localhost:9200/_all/_settings?preserve_existing=true&#x27;</span> -d <span class="hljs-string">&#x27;&#123;&quot;index.refresh_interval&quot; : &quot;30s&quot;&#125;&#x27;</span><br><br><span class="hljs-meta">#查看es集群状态</span><br>curl <span class="hljs-string">&#x27;http://localhost:9200/_cluster/health?pretty&#x27;</span><br><br><span class="hljs-meta">#查看es所有索引</span><br>curl <span class="hljs-string">&#x27;http://localhost:9200/_cat/indices?v&#x27;</span><br><br><br><span class="hljs-meta">#查看集群所在磁盘的分配状况</span><br>curl <span class="hljs-string">&#x27;http://127.0.0.1:9200/_cat/allocation?v&#x27;</span><br><span class="hljs-meta">#分片数（shards）:集群中各节点的分片数相同</span><br><span class="hljs-meta">#索引所占空间（disk.indices）:该节点中所有索引在该磁盘所点的空间。</span><br><span class="hljs-meta">#磁盘使用容量（disk.used）:已经使用空间</span><br><span class="hljs-meta">#磁盘可用容量（disk.avail）:可用空间</span><br><span class="hljs-meta">#磁盘总容量（disk.total）:总共容量</span><br><span class="hljs-meta">#磁盘便用率（disk.percent）:磁盘使用率</span><br><br><span class="hljs-meta">#查看节点信息</span><br>curl -XGET <span class="hljs-string">&quot;http://localhost:9200/_cat/nodes?v&amp;pretty&quot;</span><br><br><span class="hljs-meta">#查看分片信息</span><br>curl -XGET <span class="hljs-string">&quot;http://localhost:9200/_cat/shards?v&amp;pretty&quot;</span><br><br><span class="hljs-meta">#查看集群静态信息</span><br>curl -XGET <span class="hljs-string">&#x27;http://localhost:9200/_cluster/stats?pretty=true&#x27;</span><br><br><span class="hljs-meta">#删除索引</span><br>curl -XDELETE <span class="hljs-string">&#x27;http://localhost:9200/app-2019.05,app-2019.05&#x27;</span><br><br><span class="hljs-meta">#查询es当前线程</span><br>curl -XGET <span class="hljs-string">&#x27;http://localhost:9200/_nodes/stats/thread_pool?pretty&#x27;</span><br><br></code></pre></td></tr></table></figure>
-<h2 id="3、-logstash调优"><a href="#3、-logstash调优" class="headerlink" title="3、 logstash调优"></a>3、 logstash调优</h2><p>​    当batch.size增大，es处理的事件数就会变少，写入也就越快了。具体的worker/output.workers数量建议等于CPU数，batch.size/batch.delay根据实际的数据量逐渐增大来测试最优值。</p>
-<figure class="highlight css"><table><tr><td class="code"><pre><code class="hljs css"><span class="hljs-selector-tag">pipeline</span><span class="hljs-selector-class">.workers</span>: 24<br><span class="hljs-selector-tag">pipeline</span><span class="hljs-selector-class">.output</span><span class="hljs-selector-class">.workers</span>: 24<br><span class="hljs-selector-tag">pipeline</span><span class="hljs-selector-class">.batch</span><span class="hljs-selector-class">.size</span>: 10000<br><span class="hljs-selector-tag">pipeline</span><span class="hljs-selector-class">.batch</span><span class="hljs-selector-class">.delay</span>: 10<br></code></pre></td></tr></table></figure>
-<p>配置参考：<a href="https://www.iteye.com/blog/shihlei-2418651">https://www.iteye.com/blog/shihlei-2418651</a></p>
-]]></content>
-      <categories>
-        <category>Elk</category>
-      </categories>
-      <tags>
-        <tag>Elasticsearch</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Linux（centos）服务器环境通用优化</title>
-    <url>/2021/01/05/Linux%EF%BC%88centos%EF%BC%89%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%8E%AF%E5%A2%83%E9%80%9A%E7%94%A8%E4%BC%98%E5%8C%96/</url>
-    <content><![CDATA[<p>建议服务器内存在8G或以上</p>
-<h3 id="1、内核参数优化"><a href="#1、内核参数优化" class="headerlink" title="1、内核参数优化"></a>1、内核参数优化</h3><h4 id="1）备份："><a href="#1）备份：" class="headerlink" title="1）备份："></a>1）备份：</h4><figure class="highlight awk"><table><tr><td class="code"><pre><code class="hljs awk">cp <span class="hljs-regexp">/etc/</span>sysctl.conf <span class="hljs-regexp">/etc/</span>sysctl.conf.bak<br></code></pre></td></tr></table></figure>
-<h4 id="2）添加内容："><a href="#2）添加内容：" class="headerlink" title="2）添加内容："></a>2）添加内容：</h4><figure class="highlight apache"><table><tr><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">vi</span>  /etc/sysctl.conf<br><span class="hljs-comment">#网络性能调优</span><br><span class="hljs-attribute">net</span>.ipv<span class="hljs-number">4</span>.tcp_syncookies = <span class="hljs-number">1</span><br><span class="hljs-attribute">net</span>.ipv<span class="hljs-number">4</span>.tcp_mem = <span class="hljs-number">131072</span>  <span class="hljs-number">262144</span>  <span class="hljs-number">524288</span><br><span class="hljs-attribute">net</span>.ipv<span class="hljs-number">4</span>.tcp_rmem = <span class="hljs-number">8760</span>  <span class="hljs-number">256960</span>  <span class="hljs-number">4088000</span><br><span class="hljs-attribute">net</span>.ipv<span class="hljs-number">4</span>.tcp_wmem = <span class="hljs-number">8760</span>  <span class="hljs-number">256960</span>  <span class="hljs-number">4088000</span><br><br><span class="hljs-comment">#TCP/IP调优参数</span><br><span class="hljs-attribute">net</span>.core.rmem_default = <span class="hljs-number">256960</span><br><span class="hljs-attribute">net</span>.core.rmem_max = <span class="hljs-number">513920</span><br><span class="hljs-attribute">net</span>.core.wmem_default = <span class="hljs-number">256960</span><br><span class="hljs-attribute">net</span>.core.wmem_max = <span class="hljs-number">513920</span><br><span class="hljs-attribute">net</span>.ipv<span class="hljs-number">4</span>.tcp_timestamps = <span class="hljs-number">0</span><br><span class="hljs-attribute">net</span>.ipv<span class="hljs-number">4</span>.tcp_sack = <span class="hljs-number">1</span><br><span class="hljs-attribute">net</span>.ipv<span class="hljs-number">4</span>.tcp_window_scaling = <span class="hljs-number">1</span><br><br><span class="hljs-comment">#常见内核参数调优</span><br><span class="hljs-attribute">net</span>.ipv<span class="hljs-number">4</span>.tcp_fin_timeout = <span class="hljs-number">30</span><br><span class="hljs-attribute">net</span>.ipv<span class="hljs-number">4</span>.tcp_tw_reuse = <span class="hljs-number">1</span><br><span class="hljs-attribute">net</span>.ipv<span class="hljs-number">4</span>.tcp_tw_recycle = <span class="hljs-number">1</span><br><span class="hljs-attribute">net</span>.ipv<span class="hljs-number">4</span>.tcp_keepalive_time = <span class="hljs-number">1400</span><br><span class="hljs-attribute">net</span>.ipv<span class="hljs-number">4</span>.ip_local_port_range = <span class="hljs-number">9000</span>    <span class="hljs-number">65000</span><br><span class="hljs-attribute">net</span>.ipv<span class="hljs-number">4</span>.tcp_max_syn_backlog = <span class="hljs-number">16384</span><br><span class="hljs-attribute">net</span>.ipv<span class="hljs-number">4</span>.tcp_max_tw_buckets = <span class="hljs-number">36000</span><br><span class="hljs-attribute">net</span>.ipv<span class="hljs-number">4</span>.route.gc_timeout = <span class="hljs-number">100</span><br><span class="hljs-attribute">net</span>.ipv<span class="hljs-number">4</span>.tcp_keepalive_intvl = <span class="hljs-number">30</span><br><span class="hljs-attribute">net</span>.ipv<span class="hljs-number">4</span>.tcp_keepalive_probes = <span class="hljs-number">3</span><br><span class="hljs-attribute">net</span>.ipv<span class="hljs-number">4</span>.tcp_syn_retries = <span class="hljs-number">1</span><br><span class="hljs-attribute">net</span>.ipv<span class="hljs-number">4</span>.tcp_synack_retries = <span class="hljs-number">1</span><br><span class="hljs-attribute">net</span>.core.somaxconn = <span class="hljs-number">16384</span><br><span class="hljs-attribute">net</span>.core.netdev_max_backlog = <span class="hljs-number">16384</span><br><span class="hljs-attribute">net</span>.ipv<span class="hljs-number">4</span>.tcp_max_orphans = <span class="hljs-number">16384</span><br><span class="hljs-comment">#内存单个段允许使用的大小，可以设置到总内存的90%</span><br><span class="hljs-comment">#例如16G内存16*1024*1024*1024*90%=15461882265</span><br><span class="hljs-comment">#shmall的大小可以是15461882265/4k(分页大小，getconf PAGESIZE可得到)= 3774873</span><br><span class="hljs-comment">#示例参数以8g内存作为标准</span><br><span class="hljs-attribute">kernel</span>.shmmax=<span class="hljs-number">7730941132</span><br><span class="hljs-attribute">kernel</span>.shmall=<span class="hljs-number">1887436</span><br><span class="hljs-attribute">kernel</span>.msgmax=<span class="hljs-number">65535</span><br><span class="hljs-attribute">kernel</span>.msgmnb=<span class="hljs-number">65535</span><br><span class="hljs-comment">#以下参数是对iptables防火墙的优化，防火墙不开会提示，可以忽略不理。</span><br><span class="hljs-attribute">net</span>.nf_conntrack_max = <span class="hljs-number">25000000</span><br><span class="hljs-attribute">net</span>.netfilter.nf_conntrack_max = <span class="hljs-number">25000000</span><br><span class="hljs-attribute">net</span>.netfilter.nf_conntrack_tcp_timeout_established = <span class="hljs-number">180</span><br><span class="hljs-attribute">net</span>.netfilter.nf_conntrack_tcp_timeout_time_wait = <span class="hljs-number">120</span><br><span class="hljs-attribute">net</span>.netfilter.nf_conntrack_tcp_timeout_close_wait = <span class="hljs-number">60</span><br><span class="hljs-attribute">net</span>.netfilter.nf_conntrack_tcp_timeout_fin_wait = <span class="hljs-number">120</span><br></code></pre></td></tr></table></figure>
-<h4 id="3）生效配置："><a href="#3）生效配置：" class="headerlink" title="3）生效配置："></a>3）生效配置：</h4><figure class="highlight ebnf"><table><tr><td class="code"><pre><code class="hljs ebnf"><span class="hljs-attribute">sysctl -p</span><br></code></pre></td></tr></table></figure>
-<h3 id="2、关闭透明大页"><a href="#2、关闭透明大页" class="headerlink" title="2、关闭透明大页"></a>2、关闭透明大页</h3><p>目前已知mysql、oracle、redis内存大页功能会产生性能影响</p>
-<p>在/etc/rc.local中增加如下内容</p>
-<figure class="highlight awk"><table><tr><td class="code"><pre><code class="hljs awk"><span class="hljs-keyword">if</span> test -f <span class="hljs-regexp">/sys/</span>kernel<span class="hljs-regexp">/mm/</span>transparent_hugepage/enabled; then<br>echo never &gt; <span class="hljs-regexp">/sys/</span>kernel<span class="hljs-regexp">/mm/</span>transparent_hugepage/enabled<br>fi<br><span class="hljs-keyword">if</span> test -f <span class="hljs-regexp">/sys/</span>kernel<span class="hljs-regexp">/mm/</span>transparent_hugepage/defrag; then<br>echo never &gt; <span class="hljs-regexp">/sys/</span>kernel<span class="hljs-regexp">/mm/</span>transparent_hugepage/defrag<br>fi<br></code></pre></td></tr></table></figure>
-<h3 id="3、调整客户端最大数"><a href="#3、调整客户端最大数" class="headerlink" title="3、调整客户端最大数"></a>3、调整客户端最大数</h3><figure class="highlight stata"><table><tr><td class="code"><pre><code class="hljs stata">vi /etc/security/limits.<span class="hljs-keyword">conf</span><br><span class="hljs-comment">* soft nofile 65536 # open files (-n)</span><br><span class="hljs-comment">* hard nofile 65536</span><br><span class="hljs-comment">* soft nproc 65565</span><br><span class="hljs-comment">* hard nproc 65565 # max user processes (-u)</span><br></code></pre></td></tr></table></figure>
-<h3 id="4、关闭selinux"><a href="#4、关闭selinux" class="headerlink" title="4、关闭selinux"></a>4、关闭selinux</h3><p>修改/etc/selinux/config文件中设置</p>
-<figure class="highlight ini"><table><tr><td class="code"><pre><code class="hljs ini"><span class="hljs-attr">SELINUX</span>=disabled<br></code></pre></td></tr></table></figure>
-<h3 id="5、关闭防火墙"><a href="#5、关闭防火墙" class="headerlink" title="5、关闭防火墙"></a>5、关闭防火墙</h3><figure class="highlight gauss"><table><tr><td class="code"><pre><code class="hljs gauss">systemctl <span class="hljs-keyword">stop</span> firewalld.service     <span class="hljs-meta">#停止firewall</span><br>systemctl <span class="hljs-keyword">disable</span> firewalld.service  <span class="hljs-meta">#禁止firewall开机启动</span><br></code></pre></td></tr></table></figure>
-<h3 id="6、禁用交换区"><a href="#6、禁用交换区" class="headerlink" title="6、禁用交换区"></a>6、禁用交换区</h3><p>可以执行如下命令:</p>
-<figure class="highlight ebnf"><table><tr><td class="code"><pre><code class="hljs ebnf"><span class="hljs-attribute">Swapoff -a</span><br></code></pre></td></tr></table></figure>
-<h3 id="7、修改mysql配置文件"><a href="#7、修改mysql配置文件" class="headerlink" title="7、修改mysql配置文件"></a>7、修改mysql配置文件</h3><figure class="highlight ini"><table><tr><td class="code"><pre><code class="hljs ini"><span class="hljs-section">[mysqld]</span><br><span class="hljs-attr">server_id</span>=<span class="hljs-number">1</span><br><span class="hljs-attr">transaction_isolation</span>=READ-COMMITTED<br><span class="hljs-attr">character_set_server</span>=utf8mb4<br><span class="hljs-attr">collation_server</span>=utf8mb4_unicode_ci<br><span class="hljs-attr">log_bin</span>=db-binlog<br><span class="hljs-attr">binlog_format</span>=mixed<br><span class="hljs-attr">expire_logs_days</span>=<span class="hljs-number">15</span><br><span class="hljs-attr">max_connections</span>=<span class="hljs-number">200</span><br><span class="hljs-attr">join_buffer_size</span>=<span class="hljs-number">4</span>M<br><span class="hljs-attr">sort_buffer_size</span>=<span class="hljs-number">4</span>M<br><span class="hljs-attr">read_rnd_buffer_size</span>=<span class="hljs-number">16</span>M<br><span class="hljs-attr">innodb_log_buffer_size</span>=<span class="hljs-number">16</span>M<br><span class="hljs-attr">innodb_buffer_pool_size</span>=【物理内存*（<span class="hljs-number">0.5</span>~<span class="hljs-number">0.75</span>）】<br><span class="hljs-attr">innodb_log_file_size</span>=<span class="hljs-number">256</span>M<br><br><span class="hljs-section">[client]</span><br><span class="hljs-attr">default-character-set</span>=utf8mb4<br></code></pre></td></tr></table></figure>]]></content>
-      <categories>
-        <category>关系型数据库</category>
-      </categories>
-      <tags>
-        <tag>Linux</tag>
         <tag>Mysql</tag>
       </tags>
   </entry>
@@ -953,20 +928,31 @@
         <category>Linux</category>
       </categories>
       <tags>
-        <tag>SonarQube</tag>
+        <tag>Sonarqube</tag>
       </tags>
   </entry>
   <entry>
-    <title>MySQL自动备份脚本</title>
-    <url>/2021/01/05/MySQL%E8%87%AA%E5%8A%A8%E5%A4%87%E4%BB%BD%E8%84%9A%E6%9C%AC/</url>
-    <content><![CDATA[<h2 id="1、备份脚本"><a href="#1、备份脚本" class="headerlink" title="1、备份脚本"></a>1、备份脚本</h2><figure class="highlight awk"><table><tr><td class="code"><pre><code class="hljs awk">mkdir -p <span class="hljs-regexp">/data/my</span>sqlbak/&#123;data,logs,scripts&#125;<br><br>cd <span class="hljs-regexp">/data/my</span>sqlbak/scripts<br><br>cat &gt; backup.sh &lt;&lt; EOF<br><span class="hljs-comment">#!/bin/bash</span><br><br>DATE=$(date +%Y%m%d)<br>BACKUP_ROOT=<span class="hljs-regexp">/data/my</span>sqlbak<br>BACKUP_FILEDIR=<span class="hljs-variable">$BACKUP_ROOT</span><span class="hljs-regexp">/data/</span><span class="hljs-variable">$DATE</span><br><br>mkdir -p <span class="hljs-variable">$BACKUP_ROOT</span><span class="hljs-regexp">/data/</span><span class="hljs-variable">$DATE</span><br>source <span class="hljs-regexp">/etc/</span>profile.d/mysql<br><br>DATABASES=$(mysql -uroot -peconage123 -e <span class="hljs-string">&quot;show databases&quot;</span> | grep -Ev <span class="hljs-string">&quot;Database|sys|information_schema|performance_schema|mysql&quot;</span>)<br><br><span class="hljs-keyword">for</span> db <span class="hljs-keyword">in</span> <span class="hljs-variable">$DATABASES</span><br><span class="hljs-keyword">do</span><br>echo<br>echo ----------<span class="hljs-variable">$BACKUP_FILEDIR</span>/<span class="hljs-variable">$&#123;db&#125;</span>_<span class="hljs-variable">$DATE</span>.sql.gz <span class="hljs-keyword">BEGIN</span>----------<br>mysqldump -uroot -phello123 --default-character-set=utf8 -q -n --lock-all-tables --flush-logs -E -R --triggers -B <span class="hljs-variable">$&#123;db&#125;</span> | gzip &gt; <span class="hljs-variable">$BACKUP_FILEDIR</span>/<span class="hljs-variable">$&#123;db&#125;</span>_<span class="hljs-variable">$DATE</span>.sql.gz<br>echo ----------<span class="hljs-variable">$BACKUP_FILEDIR</span>/<span class="hljs-variable">$&#123;db&#125;</span>_<span class="hljs-variable">$DATE</span>.sql.gz COMPLETE-------<br>echo<br>done<br><br>echo <span class="hljs-string">&quot;done&quot;</span><br>EOF<br></code></pre></td></tr></table></figure>
-<h2 id="2、清理脚本"><a href="#2、清理脚本" class="headerlink" title="2、清理脚本"></a>2、清理脚本</h2><figure class="highlight jboss-cli"><table><tr><td class="code"><pre><code class="hljs jboss-cli">cat &gt; backup_clean.sh &lt;&lt; EOF<br><span class="hljs-comment">#!/bin/bash</span><br><span class="hljs-keyword">echo</span> <span class="hljs-params">----------CLEAN</span> BEGIN<span class="hljs-params">----------</span><br>find <span class="hljs-string">/data/mysqlbak/data/</span> -mtime +14  -exec rm -rf &#123;&#125; \;<br><span class="hljs-keyword">echo</span> <span class="hljs-params">----------CLEAN</span> COMPLETE<span class="hljs-params">-------</span><br>EOF<br></code></pre></td></tr></table></figure>
-<h2 id="3、给脚本执行权限"><a href="#3、给脚本执行权限" class="headerlink" title="3、给脚本执行权限"></a>3、给脚本执行权限</h2><figure class="highlight css"><table><tr><td class="code"><pre><code class="hljs css"><span class="hljs-selector-tag">chmod</span> +<span class="hljs-selector-tag">x</span> <span class="hljs-selector-tag">backup</span><span class="hljs-selector-class">.sh</span><br><span class="hljs-selector-tag">chmod</span> +<span class="hljs-selector-tag">x</span> <span class="hljs-selector-tag">backup_clean</span><span class="hljs-selector-class">.sh</span><br></code></pre></td></tr></table></figure>
-<h2 id="4、设置定时任务"><a href="#4、设置定时任务" class="headerlink" title="4、设置定时任务"></a>4、设置定时任务</h2><figure class="highlight awk"><table><tr><td class="code"><pre><code class="hljs awk">crontab -e<br><span class="hljs-number">00</span> <span class="hljs-number">1</span> * * <span class="hljs-number">5</span> <span class="hljs-regexp">/data/my</span>sqlbak<span class="hljs-regexp">/scripts/</span>backup.sh<br><span class="hljs-number">00</span> <span class="hljs-number">1</span> * * <span class="hljs-number">5</span> <span class="hljs-regexp">/data/my</span>sqlbak<span class="hljs-regexp">/scripts/</span>backup_clean.sh &gt; <span class="hljs-regexp">/data/my</span>sqlbak<span class="hljs-regexp">/logs/</span>backup_full_clean.log <span class="hljs-number">2</span>&gt;&amp;<span class="hljs-number">1</span><br></code></pre></td></tr></table></figure>]]></content>
+    <title>Linux（centos）服务器环境通用优化</title>
+    <url>/2021/01/05/Linux%EF%BC%88centos%EF%BC%89%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%8E%AF%E5%A2%83%E9%80%9A%E7%94%A8%E4%BC%98%E5%8C%96/</url>
+    <content><![CDATA[<p>建议服务器内存在8G或以上</p>
+<h3 id="1、内核参数优化"><a href="#1、内核参数优化" class="headerlink" title="1、内核参数优化"></a>1、内核参数优化</h3><h4 id="1）备份："><a href="#1）备份：" class="headerlink" title="1）备份："></a>1）备份：</h4><figure class="highlight awk"><table><tr><td class="code"><pre><code class="hljs awk">cp <span class="hljs-regexp">/etc/</span>sysctl.conf <span class="hljs-regexp">/etc/</span>sysctl.conf.bak<br></code></pre></td></tr></table></figure>
+<h4 id="2）添加内容："><a href="#2）添加内容：" class="headerlink" title="2）添加内容："></a>2）添加内容：</h4><figure class="highlight apache"><table><tr><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">vi</span>  /etc/sysctl.conf<br><span class="hljs-comment">#网络性能调优</span><br><span class="hljs-attribute">net</span>.ipv<span class="hljs-number">4</span>.tcp_syncookies = <span class="hljs-number">1</span><br><span class="hljs-attribute">net</span>.ipv<span class="hljs-number">4</span>.tcp_mem = <span class="hljs-number">131072</span>  <span class="hljs-number">262144</span>  <span class="hljs-number">524288</span><br><span class="hljs-attribute">net</span>.ipv<span class="hljs-number">4</span>.tcp_rmem = <span class="hljs-number">8760</span>  <span class="hljs-number">256960</span>  <span class="hljs-number">4088000</span><br><span class="hljs-attribute">net</span>.ipv<span class="hljs-number">4</span>.tcp_wmem = <span class="hljs-number">8760</span>  <span class="hljs-number">256960</span>  <span class="hljs-number">4088000</span><br><br><span class="hljs-comment">#TCP/IP调优参数</span><br><span class="hljs-attribute">net</span>.core.rmem_default = <span class="hljs-number">256960</span><br><span class="hljs-attribute">net</span>.core.rmem_max = <span class="hljs-number">513920</span><br><span class="hljs-attribute">net</span>.core.wmem_default = <span class="hljs-number">256960</span><br><span class="hljs-attribute">net</span>.core.wmem_max = <span class="hljs-number">513920</span><br><span class="hljs-attribute">net</span>.ipv<span class="hljs-number">4</span>.tcp_timestamps = <span class="hljs-number">0</span><br><span class="hljs-attribute">net</span>.ipv<span class="hljs-number">4</span>.tcp_sack = <span class="hljs-number">1</span><br><span class="hljs-attribute">net</span>.ipv<span class="hljs-number">4</span>.tcp_window_scaling = <span class="hljs-number">1</span><br><br><span class="hljs-comment">#常见内核参数调优</span><br><span class="hljs-attribute">net</span>.ipv<span class="hljs-number">4</span>.tcp_fin_timeout = <span class="hljs-number">30</span><br><span class="hljs-attribute">net</span>.ipv<span class="hljs-number">4</span>.tcp_tw_reuse = <span class="hljs-number">1</span><br><span class="hljs-attribute">net</span>.ipv<span class="hljs-number">4</span>.tcp_tw_recycle = <span class="hljs-number">1</span><br><span class="hljs-attribute">net</span>.ipv<span class="hljs-number">4</span>.tcp_keepalive_time = <span class="hljs-number">1400</span><br><span class="hljs-attribute">net</span>.ipv<span class="hljs-number">4</span>.ip_local_port_range = <span class="hljs-number">9000</span>    <span class="hljs-number">65000</span><br><span class="hljs-attribute">net</span>.ipv<span class="hljs-number">4</span>.tcp_max_syn_backlog = <span class="hljs-number">16384</span><br><span class="hljs-attribute">net</span>.ipv<span class="hljs-number">4</span>.tcp_max_tw_buckets = <span class="hljs-number">36000</span><br><span class="hljs-attribute">net</span>.ipv<span class="hljs-number">4</span>.route.gc_timeout = <span class="hljs-number">100</span><br><span class="hljs-attribute">net</span>.ipv<span class="hljs-number">4</span>.tcp_keepalive_intvl = <span class="hljs-number">30</span><br><span class="hljs-attribute">net</span>.ipv<span class="hljs-number">4</span>.tcp_keepalive_probes = <span class="hljs-number">3</span><br><span class="hljs-attribute">net</span>.ipv<span class="hljs-number">4</span>.tcp_syn_retries = <span class="hljs-number">1</span><br><span class="hljs-attribute">net</span>.ipv<span class="hljs-number">4</span>.tcp_synack_retries = <span class="hljs-number">1</span><br><span class="hljs-attribute">net</span>.core.somaxconn = <span class="hljs-number">16384</span><br><span class="hljs-attribute">net</span>.core.netdev_max_backlog = <span class="hljs-number">16384</span><br><span class="hljs-attribute">net</span>.ipv<span class="hljs-number">4</span>.tcp_max_orphans = <span class="hljs-number">16384</span><br><span class="hljs-comment">#内存单个段允许使用的大小，可以设置到总内存的90%</span><br><span class="hljs-comment">#例如16G内存16*1024*1024*1024*90%=15461882265</span><br><span class="hljs-comment">#shmall的大小可以是15461882265/4k(分页大小，getconf PAGESIZE可得到)= 3774873</span><br><span class="hljs-comment">#示例参数以8g内存作为标准</span><br><span class="hljs-attribute">kernel</span>.shmmax=<span class="hljs-number">7730941132</span><br><span class="hljs-attribute">kernel</span>.shmall=<span class="hljs-number">1887436</span><br><span class="hljs-attribute">kernel</span>.msgmax=<span class="hljs-number">65535</span><br><span class="hljs-attribute">kernel</span>.msgmnb=<span class="hljs-number">65535</span><br><span class="hljs-comment">#以下参数是对iptables防火墙的优化，防火墙不开会提示，可以忽略不理。</span><br><span class="hljs-attribute">net</span>.nf_conntrack_max = <span class="hljs-number">25000000</span><br><span class="hljs-attribute">net</span>.netfilter.nf_conntrack_max = <span class="hljs-number">25000000</span><br><span class="hljs-attribute">net</span>.netfilter.nf_conntrack_tcp_timeout_established = <span class="hljs-number">180</span><br><span class="hljs-attribute">net</span>.netfilter.nf_conntrack_tcp_timeout_time_wait = <span class="hljs-number">120</span><br><span class="hljs-attribute">net</span>.netfilter.nf_conntrack_tcp_timeout_close_wait = <span class="hljs-number">60</span><br><span class="hljs-attribute">net</span>.netfilter.nf_conntrack_tcp_timeout_fin_wait = <span class="hljs-number">120</span><br></code></pre></td></tr></table></figure>
+<h4 id="3）生效配置："><a href="#3）生效配置：" class="headerlink" title="3）生效配置："></a>3）生效配置：</h4><figure class="highlight ebnf"><table><tr><td class="code"><pre><code class="hljs ebnf"><span class="hljs-attribute">sysctl -p</span><br></code></pre></td></tr></table></figure>
+<h3 id="2、关闭透明大页"><a href="#2、关闭透明大页" class="headerlink" title="2、关闭透明大页"></a>2、关闭透明大页</h3><p>目前已知mysql、oracle、redis内存大页功能会产生性能影响</p>
+<p>在/etc/rc.local中增加如下内容</p>
+<figure class="highlight awk"><table><tr><td class="code"><pre><code class="hljs awk"><span class="hljs-keyword">if</span> test -f <span class="hljs-regexp">/sys/</span>kernel<span class="hljs-regexp">/mm/</span>transparent_hugepage/enabled; then<br>echo never &gt; <span class="hljs-regexp">/sys/</span>kernel<span class="hljs-regexp">/mm/</span>transparent_hugepage/enabled<br>fi<br><span class="hljs-keyword">if</span> test -f <span class="hljs-regexp">/sys/</span>kernel<span class="hljs-regexp">/mm/</span>transparent_hugepage/defrag; then<br>echo never &gt; <span class="hljs-regexp">/sys/</span>kernel<span class="hljs-regexp">/mm/</span>transparent_hugepage/defrag<br>fi<br></code></pre></td></tr></table></figure>
+<h3 id="3、调整客户端最大数"><a href="#3、调整客户端最大数" class="headerlink" title="3、调整客户端最大数"></a>3、调整客户端最大数</h3><figure class="highlight stata"><table><tr><td class="code"><pre><code class="hljs stata">vi /etc/security/limits.<span class="hljs-keyword">conf</span><br><span class="hljs-comment">* soft nofile 65536 # open files (-n)</span><br><span class="hljs-comment">* hard nofile 65536</span><br><span class="hljs-comment">* soft nproc 65565</span><br><span class="hljs-comment">* hard nproc 65565 # max user processes (-u)</span><br></code></pre></td></tr></table></figure>
+<h3 id="4、关闭selinux"><a href="#4、关闭selinux" class="headerlink" title="4、关闭selinux"></a>4、关闭selinux</h3><p>修改/etc/selinux/config文件中设置</p>
+<figure class="highlight ini"><table><tr><td class="code"><pre><code class="hljs ini"><span class="hljs-attr">SELINUX</span>=disabled<br></code></pre></td></tr></table></figure>
+<h3 id="5、关闭防火墙"><a href="#5、关闭防火墙" class="headerlink" title="5、关闭防火墙"></a>5、关闭防火墙</h3><figure class="highlight gauss"><table><tr><td class="code"><pre><code class="hljs gauss">systemctl <span class="hljs-keyword">stop</span> firewalld.service     <span class="hljs-meta">#停止firewall</span><br>systemctl <span class="hljs-keyword">disable</span> firewalld.service  <span class="hljs-meta">#禁止firewall开机启动</span><br></code></pre></td></tr></table></figure>
+<h3 id="6、禁用交换区"><a href="#6、禁用交换区" class="headerlink" title="6、禁用交换区"></a>6、禁用交换区</h3><p>可以执行如下命令:</p>
+<figure class="highlight ebnf"><table><tr><td class="code"><pre><code class="hljs ebnf"><span class="hljs-attribute">Swapoff -a</span><br></code></pre></td></tr></table></figure>
+<h3 id="7、修改mysql配置文件"><a href="#7、修改mysql配置文件" class="headerlink" title="7、修改mysql配置文件"></a>7、修改mysql配置文件</h3><figure class="highlight ini"><table><tr><td class="code"><pre><code class="hljs ini"><span class="hljs-section">[mysqld]</span><br><span class="hljs-attr">server_id</span>=<span class="hljs-number">1</span><br><span class="hljs-attr">transaction_isolation</span>=READ-COMMITTED<br><span class="hljs-attr">character_set_server</span>=utf8mb4<br><span class="hljs-attr">collation_server</span>=utf8mb4_unicode_ci<br><span class="hljs-attr">log_bin</span>=db-binlog<br><span class="hljs-attr">binlog_format</span>=mixed<br><span class="hljs-attr">expire_logs_days</span>=<span class="hljs-number">15</span><br><span class="hljs-attr">max_connections</span>=<span class="hljs-number">200</span><br><span class="hljs-attr">join_buffer_size</span>=<span class="hljs-number">4</span>M<br><span class="hljs-attr">sort_buffer_size</span>=<span class="hljs-number">4</span>M<br><span class="hljs-attr">read_rnd_buffer_size</span>=<span class="hljs-number">16</span>M<br><span class="hljs-attr">innodb_log_buffer_size</span>=<span class="hljs-number">16</span>M<br><span class="hljs-attr">innodb_buffer_pool_size</span>=【物理内存*（<span class="hljs-number">0.5</span>~<span class="hljs-number">0.75</span>）】<br><span class="hljs-attr">innodb_log_file_size</span>=<span class="hljs-number">256</span>M<br><br><span class="hljs-section">[client]</span><br><span class="hljs-attr">default-character-set</span>=utf8mb4<br></code></pre></td></tr></table></figure>]]></content>
       <categories>
         <category>关系型数据库</category>
       </categories>
       <tags>
+        <tag>Linux</tag>
         <tag>Mysql</tag>
       </tags>
   </entry>
@@ -1076,18 +1062,17 @@
       </tags>
   </entry>
   <entry>
-    <title>Prometheus监控Redis</title>
-    <url>/2021/03/22/Prometheus%E7%9B%91%E6%8E%A7Redis/</url>
-    <content><![CDATA[<h2 id="1、安装"><a href="#1、安装" class="headerlink" title="1、安装"></a>1、安装</h2><figure class="highlight apache"><table><tr><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">tar</span> xvf redis_exporter-v<span class="hljs-number">1</span>.<span class="hljs-number">6</span>.<span class="hljs-number">0</span>.linux-amd<span class="hljs-number">64</span>.tar.gz -C /usr/local/<br><span class="hljs-attribute">mv</span> redis_exporter-v<span class="hljs-number">1</span>.<span class="hljs-number">6</span>.<span class="hljs-number">0</span>.linux-amd<span class="hljs-number">64</span> redis_exporter<br><span class="hljs-comment">## 无密码</span><br><span class="hljs-attribute">nohup</span> ./redis_exporter -redis.addr <span class="hljs-number">192.168.1.120:6379</span> &amp;<br><span class="hljs-comment">## 有密码</span><br><span class="hljs-attribute">nohup</span> ./redis_exporter -redis.addr <span class="hljs-number">192.168.1.120:6379</span>  -redis.password <span class="hljs-number">123456</span><br><span class="hljs-comment">#查看是否运行成功</span><br><span class="hljs-attribute">ss</span> -auntlp |grep <span class="hljs-number">9121</span><br></code></pre></td></tr></table></figure>
-<h2 id="2、Prometheus收集redis"><a href="#2、Prometheus收集redis" class="headerlink" title="2、Prometheus收集redis"></a>2、Prometheus收集redis</h2><figure class="highlight awk"><table><tr><td class="code"><pre><code class="hljs awk">    scrape_configs:<br>    - job_name: <span class="hljs-string">&#x27;redis-dev&#x27;</span><br>      static_configs:<br>      - targets:<br>        - <span class="hljs-string">&quot;192.168.1.120:9121&quot;</span><br><span class="hljs-comment">#可以重启Prometheus的服务，也可以热加载</span><br>curl -X POST http:<span class="hljs-regexp">//</span><span class="hljs-number">192.168</span>.<span class="hljs-number">0.103</span>:<span class="hljs-number">31842</span><span class="hljs-regexp">/-/</span>reload        <span class="hljs-comment">#Prometheus的web访问地址</span><br></code></pre></td></tr></table></figure>
-<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20200619140854076.png" alt="image-20200619140854076"></p>
-<h2 id="3、grafana导入模板模板编号763"><a href="#3、grafana导入模板模板编号763" class="headerlink" title="3、grafana导入模板模板编号763"></a>3、grafana导入模板模板编号763</h2><p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20200619150016808.png" alt="image-20200619150016808"></p>
-]]></content>
+    <title>MySQL自动备份脚本</title>
+    <url>/2021/01/05/MySQL%E8%87%AA%E5%8A%A8%E5%A4%87%E4%BB%BD%E8%84%9A%E6%9C%AC/</url>
+    <content><![CDATA[<h2 id="1、备份脚本"><a href="#1、备份脚本" class="headerlink" title="1、备份脚本"></a>1、备份脚本</h2><figure class="highlight awk"><table><tr><td class="code"><pre><code class="hljs awk">mkdir -p <span class="hljs-regexp">/data/my</span>sqlbak/&#123;data,logs,scripts&#125;<br><br>cd <span class="hljs-regexp">/data/my</span>sqlbak/scripts<br><br>cat &gt; backup.sh &lt;&lt; EOF<br><span class="hljs-comment">#!/bin/bash</span><br><br>DATE=$(date +%Y%m%d)<br>BACKUP_ROOT=<span class="hljs-regexp">/data/my</span>sqlbak<br>BACKUP_FILEDIR=<span class="hljs-variable">$BACKUP_ROOT</span><span class="hljs-regexp">/data/</span><span class="hljs-variable">$DATE</span><br><br>mkdir -p <span class="hljs-variable">$BACKUP_ROOT</span><span class="hljs-regexp">/data/</span><span class="hljs-variable">$DATE</span><br>source <span class="hljs-regexp">/etc/</span>profile.d/mysql<br><br>DATABASES=$(mysql -uroot -peconage123 -e <span class="hljs-string">&quot;show databases&quot;</span> | grep -Ev <span class="hljs-string">&quot;Database|sys|information_schema|performance_schema|mysql&quot;</span>)<br><br><span class="hljs-keyword">for</span> db <span class="hljs-keyword">in</span> <span class="hljs-variable">$DATABASES</span><br><span class="hljs-keyword">do</span><br>echo<br>echo ----------<span class="hljs-variable">$BACKUP_FILEDIR</span>/<span class="hljs-variable">$&#123;db&#125;</span>_<span class="hljs-variable">$DATE</span>.sql.gz <span class="hljs-keyword">BEGIN</span>----------<br>mysqldump -uroot -phello123 --default-character-set=utf8 -q -n --lock-all-tables --flush-logs -E -R --triggers -B <span class="hljs-variable">$&#123;db&#125;</span> | gzip &gt; <span class="hljs-variable">$BACKUP_FILEDIR</span>/<span class="hljs-variable">$&#123;db&#125;</span>_<span class="hljs-variable">$DATE</span>.sql.gz<br>echo ----------<span class="hljs-variable">$BACKUP_FILEDIR</span>/<span class="hljs-variable">$&#123;db&#125;</span>_<span class="hljs-variable">$DATE</span>.sql.gz COMPLETE-------<br>echo<br>done<br><br>echo <span class="hljs-string">&quot;done&quot;</span><br>EOF<br></code></pre></td></tr></table></figure>
+<h2 id="2、清理脚本"><a href="#2、清理脚本" class="headerlink" title="2、清理脚本"></a>2、清理脚本</h2><figure class="highlight jboss-cli"><table><tr><td class="code"><pre><code class="hljs jboss-cli">cat &gt; backup_clean.sh &lt;&lt; EOF<br><span class="hljs-comment">#!/bin/bash</span><br><span class="hljs-keyword">echo</span> <span class="hljs-params">----------CLEAN</span> BEGIN<span class="hljs-params">----------</span><br>find <span class="hljs-string">/data/mysqlbak/data/</span> -mtime +14  -exec rm -rf &#123;&#125; \;<br><span class="hljs-keyword">echo</span> <span class="hljs-params">----------CLEAN</span> COMPLETE<span class="hljs-params">-------</span><br>EOF<br></code></pre></td></tr></table></figure>
+<h2 id="3、给脚本执行权限"><a href="#3、给脚本执行权限" class="headerlink" title="3、给脚本执行权限"></a>3、给脚本执行权限</h2><figure class="highlight css"><table><tr><td class="code"><pre><code class="hljs css"><span class="hljs-selector-tag">chmod</span> +<span class="hljs-selector-tag">x</span> <span class="hljs-selector-tag">backup</span><span class="hljs-selector-class">.sh</span><br><span class="hljs-selector-tag">chmod</span> +<span class="hljs-selector-tag">x</span> <span class="hljs-selector-tag">backup_clean</span><span class="hljs-selector-class">.sh</span><br></code></pre></td></tr></table></figure>
+<h2 id="4、设置定时任务"><a href="#4、设置定时任务" class="headerlink" title="4、设置定时任务"></a>4、设置定时任务</h2><figure class="highlight awk"><table><tr><td class="code"><pre><code class="hljs awk">crontab -e<br><span class="hljs-number">00</span> <span class="hljs-number">1</span> * * <span class="hljs-number">5</span> <span class="hljs-regexp">/data/my</span>sqlbak<span class="hljs-regexp">/scripts/</span>backup.sh<br><span class="hljs-number">00</span> <span class="hljs-number">1</span> * * <span class="hljs-number">5</span> <span class="hljs-regexp">/data/my</span>sqlbak<span class="hljs-regexp">/scripts/</span>backup_clean.sh &gt; <span class="hljs-regexp">/data/my</span>sqlbak<span class="hljs-regexp">/logs/</span>backup_full_clean.log <span class="hljs-number">2</span>&gt;&amp;<span class="hljs-number">1</span><br></code></pre></td></tr></table></figure>]]></content>
       <categories>
-        <category>Prometheus</category>
+        <category>关系型数据库</category>
       </categories>
       <tags>
-        <tag>Prometheus</tag>
+        <tag>Mysql</tag>
       </tags>
   </entry>
   <entry>
@@ -1186,6 +1171,21 @@
 <h4 id="8-3配置邮件告警"><a href="#8-3配置邮件告警" class="headerlink" title="8.3配置邮件告警"></a>8.3配置邮件告警</h4><p>修改alertmanager的configmap文件</p>
 <figure class="highlight bash"><table><tr><td class="code"><pre><code class="hljs bash">apiVersion: v1<br>data:<br>  alertmanager.yml: |<br>    global:<br>      resolve_timeout: 5m<br>      smtp_smarthost: smtp.qq.com:587       <span class="hljs-comment">#端口有的是465，有的是587</span><br>      smtp_from: 982012556@qq.com         <span class="hljs-comment">#邮箱地址</span><br>      smtp_auth_username: 982012556@qq.com     <span class="hljs-comment">#邮箱地址</span><br>      smtp_auth_password: hblcukkqnzwebdai     <span class="hljs-comment">#在邮箱中开启SMTP服务所得的密码</span><br>      smtp_require_tls: <span class="hljs-literal">true</span><br>    route:<br>      group_interval: 5m<br>      group_wait: 10s<br>      receiver: email<br>      repeat_interval: 10m<br>      routes:<br>      - receiver: email<br>        group_wait: 10s<br>        match:<br>          team: wechat          <span class="hljs-comment">#这是我设置的规则组，可在Prometheus的配置文件中随意设置</span><br>    receivers:<br>    - name: email<br>      email_configs:<br>      - to: 982012556@qq.com<br>        send_resolved: <span class="hljs-literal">true</span><br>kind: ConfigMap<br>metadata:<br>  labels:<br>    app: prometheus<br>  name: prometheus-alertmanager<br>  namespace: default<br></code></pre></td></tr></table></figure>
 <p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master//img/1616395526(1).jpg" alt="1616395526(1)"></p>
+]]></content>
+      <categories>
+        <category>Prometheus</category>
+      </categories>
+      <tags>
+        <tag>Prometheus</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Prometheus监控Redis</title>
+    <url>/2021/03/22/Prometheus%E7%9B%91%E6%8E%A7Redis/</url>
+    <content><![CDATA[<h2 id="1、安装"><a href="#1、安装" class="headerlink" title="1、安装"></a>1、安装</h2><figure class="highlight apache"><table><tr><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">tar</span> xvf redis_exporter-v<span class="hljs-number">1</span>.<span class="hljs-number">6</span>.<span class="hljs-number">0</span>.linux-amd<span class="hljs-number">64</span>.tar.gz -C /usr/local/<br><span class="hljs-attribute">mv</span> redis_exporter-v<span class="hljs-number">1</span>.<span class="hljs-number">6</span>.<span class="hljs-number">0</span>.linux-amd<span class="hljs-number">64</span> redis_exporter<br><span class="hljs-comment">## 无密码</span><br><span class="hljs-attribute">nohup</span> ./redis_exporter -redis.addr <span class="hljs-number">192.168.1.120:6379</span> &amp;<br><span class="hljs-comment">## 有密码</span><br><span class="hljs-attribute">nohup</span> ./redis_exporter -redis.addr <span class="hljs-number">192.168.1.120:6379</span>  -redis.password <span class="hljs-number">123456</span><br><span class="hljs-comment">#查看是否运行成功</span><br><span class="hljs-attribute">ss</span> -auntlp |grep <span class="hljs-number">9121</span><br></code></pre></td></tr></table></figure>
+<h2 id="2、Prometheus收集redis"><a href="#2、Prometheus收集redis" class="headerlink" title="2、Prometheus收集redis"></a>2、Prometheus收集redis</h2><figure class="highlight awk"><table><tr><td class="code"><pre><code class="hljs awk">    scrape_configs:<br>    - job_name: <span class="hljs-string">&#x27;redis-dev&#x27;</span><br>      static_configs:<br>      - targets:<br>        - <span class="hljs-string">&quot;192.168.1.120:9121&quot;</span><br><span class="hljs-comment">#可以重启Prometheus的服务，也可以热加载</span><br>curl -X POST http:<span class="hljs-regexp">//</span><span class="hljs-number">192.168</span>.<span class="hljs-number">0.103</span>:<span class="hljs-number">31842</span><span class="hljs-regexp">/-/</span>reload        <span class="hljs-comment">#Prometheus的web访问地址</span><br></code></pre></td></tr></table></figure>
+<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20200619140854076.png" alt="image-20200619140854076"></p>
+<h2 id="3、grafana导入模板模板编号763"><a href="#3、grafana导入模板模板编号763" class="headerlink" title="3、grafana导入模板模板编号763"></a>3、grafana导入模板模板编号763</h2><p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20200619150016808.png" alt="image-20200619150016808"></p>
 ]]></content>
       <categories>
         <category>Prometheus</category>
@@ -1431,56 +1431,6 @@
       </tags>
   </entry>
   <entry>
-    <title>gitlab使用minio实现分布式存储</title>
-    <url>/2021/03/25/gitlab%E4%BD%BF%E7%94%A8minio%E5%AE%9E%E7%8E%B0%E5%88%86%E5%B8%83%E5%BC%8F%E5%AD%98%E5%82%A8/</url>
-    <content><![CDATA[<h2 id="1、分布式优势"><a href="#1、分布式优势" class="headerlink" title="1、分布式优势"></a>1、分布式优势</h2><h3 id="1-minio分布式介绍"><a href="#1-minio分布式介绍" class="headerlink" title="1.minio分布式介绍"></a>1.minio分布式介绍</h3><p>​        分布式模式下的MinIO使您可以将多个驱动器（甚至在不同的计算机上）合并到一个对象存储服务器中。由于驱动器分布在多个节点上，因此分布式MinIO可以承受多个节点故障，但仍可以确保完整的数据保护。</p>
-<p>​        分布式模式下的MinIO可以帮助您通过单个对象存储部署来设置高可用性存储系统。借助分布式MinIO，无论存储设备在网络中的位置如何，您都可以最佳地使用存储设备。</p>
-<h3 id="2-数据保护"><a href="#2-数据保护" class="headerlink" title="2.数据保护"></a>2.数据保护</h3><p>​        分布式MinIO 使用擦除代码提供针对多个节点/驱动器故障和位腐烂的保护。由于分布式MinIO所需的最小磁盘为4（与擦除编码所需的最小磁盘相同），因此在启动分布式MinIO时，擦除代码会自动启动。</p>
-<h3 id="3-高可用性"><a href="#3-高可用性" class="headerlink" title="3.高可用性"></a>3.高可用性</h3><p>​        如果托管磁盘的服务器脱机，则独立的MinIO服务器将关闭。相反，只要n / 2个或更多磁盘在线，具有n个磁盘的分布式MinIO设置将使您的数据安全。不过，您至少需要（n / 2 + 1）个法定磁盘来创建新对象。</p>
-<p>例如，即使最多有8台服务器处于脱机状态，一个16节点的分布式MinIO设置（每个节点具有16个磁盘）仍可继续提供文件。但是，您至少需要在线9台服务器才能创建新对象。</p>
-<h3 id="4-限度"><a href="#4-限度" class="headerlink" title="4.限度"></a>4.限度</h3><p>​        与独立模式下的MinIO一样，分布式MinIO的每个租户限制为最少2个，最多32个服务器。这些服务器上的磁盘数量没有限制。如果您需要多租户设置，则可以轻松启动由协调工具（如Kubernetes，Docker Swarm等）管理的多个MinIO实例。</p>
-<p>​        请注意，使用分布式MinIO，只要遵守限制，就可以处理节点和驱动器的数量。例如，您可以有2个节点，每个节点4个驱动器，4个节点每个4个驱动器，8个节点每个2个驱动器，32个服务器每个64个驱动器，依此类推。</p>
-<h3 id="5-一致性保证"><a href="#5-一致性保证" class="headerlink" title="5.一致性保证"></a>5.一致性保证</h3><p>​        MinIO遵循严格的读后写和列表后读 /一致性模型的所有输入输出都在分布式和独立模式操作。</p>
-<h2 id="2、使用Helm-Chart部署MinIO"><a href="#2、使用Helm-Chart部署MinIO" class="headerlink" title="2、使用Helm Chart部署MinIO"></a>2、使用Helm Chart部署MinIO</h2><p>前提条件：</p>
-<p>​    1.一个k8s集群</p>
-<p>​    2.具备helm环境</p>
-<h3 id="1-部署minio"><a href="#1-部署minio" class="headerlink" title="1.部署minio"></a>1.部署minio</h3><p>创建minio需要的pv</p>
-<figure class="highlight dts"><table><tr><td class="code"><pre><code class="hljs dts"><span class="hljs-meta">#vim  pv1.yaml</span><br><span class="hljs-symbol">apiVersion:</span> v1<br><span class="hljs-symbol">kind:</span> PersistentVolume<br><span class="hljs-symbol">metadata:</span><br><span class="hljs-symbol">  name:</span> minio-pv1<br><span class="hljs-symbol">spec:</span><br><span class="hljs-symbol">  capacity:</span><br><span class="hljs-symbol">    storage:</span> <span class="hljs-number">10</span>Gi<br><span class="hljs-symbol">  volumeMode:</span> Filesystem<br><span class="hljs-symbol">  accessModes:</span><br>  -  ReadWriteOnce<br><span class="hljs-symbol">  persistentVolumeReclaimPolicy:</span> Retain<br><span class="hljs-symbol">  hostPath:</span><br><span class="hljs-symbol">    path:</span> <span class="hljs-meta-keyword">/helm/</span>minio/pv1<br></code></pre></td></tr></table></figure>
-<p>在此使用的是hostpath，在worker节点创建相应的目录。</p>
-<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20191212211059077.png" alt="image-20191212211059077"></p>
-<h3 id="2-安装minio"><a href="#2-安装minio" class="headerlink" title="2.安装minio"></a>2.安装minio</h3><figure class="highlight apache"><table><tr><td class="code"><pre><code class="hljs apache"><span class="hljs-comment">#先拉到本地在安装</span><br><span class="hljs-attribute">helm</span>  pull  stable/minio<br><span class="hljs-attribute">tar</span>  -zxvf  minio-<span class="hljs-number">3</span>.<span class="hljs-number">0</span>.<span class="hljs-number">4</span>.tgz<br><span class="hljs-attribute">helm</span>  install  minio  ./minio<br><br><span class="hljs-comment">#或者直接安装</span><br><span class="hljs-attribute">helm</span>  install  minio  stable/minio<br></code></pre></td></tr></table></figure>
-<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20191212211624813.png" alt="image-20191212211624813"></p>
-<p>查看pod状态</p>
-<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20191212212110685.png" alt="image-20191212212110685"></p>
-<h3 id="3-登录访问minio"><a href="#3-登录访问minio" class="headerlink" title="3.登录访问minio"></a>3.登录访问minio</h3><p>默认参数：</p>
-<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/1576157102(1)_%E7%9C%8B%E5%9B%BE%E7%8E%8B_%E7%9C%8B%E5%9B%BE%E7%8E%8B.png"></p>
-<p>访问web界面</p>
-<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20191212213046502.png" alt="image-20191212213046502"></p>
-<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20191212213103278.png" alt="image-20191212213103278"></p>
-<p>access Key和secret Key都是默认的，上图配置中</p>
-<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20191212213237181.png" alt="image-20191212213237181"></p>
-<h2 id="3、gitlab和minio进行关联"><a href="#3、gitlab和minio进行关联" class="headerlink" title="3、gitlab和minio进行关联"></a>3、gitlab和minio进行关联</h2><figure class="highlight routeros"><table><tr><td class="code"><pre><code class="hljs routeros">kubectl <span class="hljs-builtin-name">get</span> deploy minio -oyaml    查看关联Key<br></code></pre></td></tr></table></figure>
-<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20191212213506646.png" alt="image-20191212213506646"></p>
-<p>在gitlab的yaml文件中添加</p>
-<figure class="highlight yaml"><table><tr><td class="code"><pre><code class="hljs yaml"><span class="hljs-string">kubectl</span> <span class="hljs-string">edit</span> <span class="hljs-string">deploy</span> <span class="hljs-string">gitlab-gitlab-ce</span><br><br><span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">MINIO_ACCESS_KEY</span><br>  <span class="hljs-attr">valueFrom:</span><br>    <span class="hljs-attr">secretKeyRef:</span><br>      <span class="hljs-attr">key:</span> <span class="hljs-string">accesskey</span><br>      <span class="hljs-attr">name:</span> <span class="hljs-string">minio</span><br><span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">MINIO_SECRET_KEY</span><br>  <span class="hljs-attr">valueFrom:</span><br>     <span class="hljs-attr">secretKeyRef:</span><br>       <span class="hljs-attr">key:</span> <span class="hljs-string">secretkey</span><br>       <span class="hljs-attr">name:</span> <span class="hljs-string">minio</span><br></code></pre></td></tr></table></figure>
-<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20191212213738745.png" alt="image-20191212213738745"></p>
-<p>查看到状态正常</p>
-<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20191212214106629.png" alt="image-20191212214106629"></p>
-<p>登录gitlab创建一个文件</p>
-<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20191212222659865.png" alt="image-20191212222659865"></p>
-<p>删除原来的pod</p>
-<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20191212223057279.png" alt="image-20191212223057279"></p>
-<p>gitlab的pod启动时间有点长，等启动完成访问界面可以看到</p>
-<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20191212223514760.png" alt="image-20191212223514760"></p>
-]]></content>
-      <categories>
-        <category>Helm</category>
-      </categories>
-      <tags>
-        <tag>Gitlab</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>filebeat收集K8s日志</title>
     <url>/2021/03/16/filebeat%E6%94%B6%E9%9B%86K8s%E6%97%A5%E5%BF%97/</url>
     <content><![CDATA[<p><a href="https://www.elastic.co/guide/en/beats/filebeat/current/configuration-filebeat-options.html">https://www.elastic.co/guide/en/beats/filebeat/current/configuration-filebeat-options.html</a></p>
@@ -1582,6 +1532,93 @@
       </tags>
   </entry>
   <entry>
+    <title>gitlab使用minio实现分布式存储</title>
+    <url>/2021/03/25/gitlab%E4%BD%BF%E7%94%A8minio%E5%AE%9E%E7%8E%B0%E5%88%86%E5%B8%83%E5%BC%8F%E5%AD%98%E5%82%A8/</url>
+    <content><![CDATA[<h2 id="1、分布式优势"><a href="#1、分布式优势" class="headerlink" title="1、分布式优势"></a>1、分布式优势</h2><h3 id="1-minio分布式介绍"><a href="#1-minio分布式介绍" class="headerlink" title="1.minio分布式介绍"></a>1.minio分布式介绍</h3><p>​        分布式模式下的MinIO使您可以将多个驱动器（甚至在不同的计算机上）合并到一个对象存储服务器中。由于驱动器分布在多个节点上，因此分布式MinIO可以承受多个节点故障，但仍可以确保完整的数据保护。</p>
+<p>​        分布式模式下的MinIO可以帮助您通过单个对象存储部署来设置高可用性存储系统。借助分布式MinIO，无论存储设备在网络中的位置如何，您都可以最佳地使用存储设备。</p>
+<h3 id="2-数据保护"><a href="#2-数据保护" class="headerlink" title="2.数据保护"></a>2.数据保护</h3><p>​        分布式MinIO 使用擦除代码提供针对多个节点/驱动器故障和位腐烂的保护。由于分布式MinIO所需的最小磁盘为4（与擦除编码所需的最小磁盘相同），因此在启动分布式MinIO时，擦除代码会自动启动。</p>
+<h3 id="3-高可用性"><a href="#3-高可用性" class="headerlink" title="3.高可用性"></a>3.高可用性</h3><p>​        如果托管磁盘的服务器脱机，则独立的MinIO服务器将关闭。相反，只要n / 2个或更多磁盘在线，具有n个磁盘的分布式MinIO设置将使您的数据安全。不过，您至少需要（n / 2 + 1）个法定磁盘来创建新对象。</p>
+<p>例如，即使最多有8台服务器处于脱机状态，一个16节点的分布式MinIO设置（每个节点具有16个磁盘）仍可继续提供文件。但是，您至少需要在线9台服务器才能创建新对象。</p>
+<h3 id="4-限度"><a href="#4-限度" class="headerlink" title="4.限度"></a>4.限度</h3><p>​        与独立模式下的MinIO一样，分布式MinIO的每个租户限制为最少2个，最多32个服务器。这些服务器上的磁盘数量没有限制。如果您需要多租户设置，则可以轻松启动由协调工具（如Kubernetes，Docker Swarm等）管理的多个MinIO实例。</p>
+<p>​        请注意，使用分布式MinIO，只要遵守限制，就可以处理节点和驱动器的数量。例如，您可以有2个节点，每个节点4个驱动器，4个节点每个4个驱动器，8个节点每个2个驱动器，32个服务器每个64个驱动器，依此类推。</p>
+<h3 id="5-一致性保证"><a href="#5-一致性保证" class="headerlink" title="5.一致性保证"></a>5.一致性保证</h3><p>​        MinIO遵循严格的读后写和列表后读 /一致性模型的所有输入输出都在分布式和独立模式操作。</p>
+<h2 id="2、使用Helm-Chart部署MinIO"><a href="#2、使用Helm-Chart部署MinIO" class="headerlink" title="2、使用Helm Chart部署MinIO"></a>2、使用Helm Chart部署MinIO</h2><p>前提条件：</p>
+<p>​    1.一个k8s集群</p>
+<p>​    2.具备helm环境</p>
+<h3 id="1-部署minio"><a href="#1-部署minio" class="headerlink" title="1.部署minio"></a>1.部署minio</h3><p>创建minio需要的pv</p>
+<figure class="highlight dts"><table><tr><td class="code"><pre><code class="hljs dts"><span class="hljs-meta">#vim  pv1.yaml</span><br><span class="hljs-symbol">apiVersion:</span> v1<br><span class="hljs-symbol">kind:</span> PersistentVolume<br><span class="hljs-symbol">metadata:</span><br><span class="hljs-symbol">  name:</span> minio-pv1<br><span class="hljs-symbol">spec:</span><br><span class="hljs-symbol">  capacity:</span><br><span class="hljs-symbol">    storage:</span> <span class="hljs-number">10</span>Gi<br><span class="hljs-symbol">  volumeMode:</span> Filesystem<br><span class="hljs-symbol">  accessModes:</span><br>  -  ReadWriteOnce<br><span class="hljs-symbol">  persistentVolumeReclaimPolicy:</span> Retain<br><span class="hljs-symbol">  hostPath:</span><br><span class="hljs-symbol">    path:</span> <span class="hljs-meta-keyword">/helm/</span>minio/pv1<br></code></pre></td></tr></table></figure>
+<p>在此使用的是hostpath，在worker节点创建相应的目录。</p>
+<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20191212211059077.png" alt="image-20191212211059077"></p>
+<h3 id="2-安装minio"><a href="#2-安装minio" class="headerlink" title="2.安装minio"></a>2.安装minio</h3><figure class="highlight apache"><table><tr><td class="code"><pre><code class="hljs apache"><span class="hljs-comment">#先拉到本地在安装</span><br><span class="hljs-attribute">helm</span>  pull  stable/minio<br><span class="hljs-attribute">tar</span>  -zxvf  minio-<span class="hljs-number">3</span>.<span class="hljs-number">0</span>.<span class="hljs-number">4</span>.tgz<br><span class="hljs-attribute">helm</span>  install  minio  ./minio<br><br><span class="hljs-comment">#或者直接安装</span><br><span class="hljs-attribute">helm</span>  install  minio  stable/minio<br></code></pre></td></tr></table></figure>
+<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20191212211624813.png" alt="image-20191212211624813"></p>
+<p>查看pod状态</p>
+<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20191212212110685.png" alt="image-20191212212110685"></p>
+<h3 id="3-登录访问minio"><a href="#3-登录访问minio" class="headerlink" title="3.登录访问minio"></a>3.登录访问minio</h3><p>默认参数：</p>
+<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/1576157102(1)_%E7%9C%8B%E5%9B%BE%E7%8E%8B_%E7%9C%8B%E5%9B%BE%E7%8E%8B.png"></p>
+<p>访问web界面</p>
+<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20191212213046502.png" alt="image-20191212213046502"></p>
+<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20191212213103278.png" alt="image-20191212213103278"></p>
+<p>access Key和secret Key都是默认的，上图配置中</p>
+<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20191212213237181.png" alt="image-20191212213237181"></p>
+<h2 id="3、gitlab和minio进行关联"><a href="#3、gitlab和minio进行关联" class="headerlink" title="3、gitlab和minio进行关联"></a>3、gitlab和minio进行关联</h2><figure class="highlight routeros"><table><tr><td class="code"><pre><code class="hljs routeros">kubectl <span class="hljs-builtin-name">get</span> deploy minio -oyaml    查看关联Key<br></code></pre></td></tr></table></figure>
+<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20191212213506646.png" alt="image-20191212213506646"></p>
+<p>在gitlab的yaml文件中添加</p>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><code class="hljs yaml"><span class="hljs-string">kubectl</span> <span class="hljs-string">edit</span> <span class="hljs-string">deploy</span> <span class="hljs-string">gitlab-gitlab-ce</span><br><br><span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">MINIO_ACCESS_KEY</span><br>  <span class="hljs-attr">valueFrom:</span><br>    <span class="hljs-attr">secretKeyRef:</span><br>      <span class="hljs-attr">key:</span> <span class="hljs-string">accesskey</span><br>      <span class="hljs-attr">name:</span> <span class="hljs-string">minio</span><br><span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">MINIO_SECRET_KEY</span><br>  <span class="hljs-attr">valueFrom:</span><br>     <span class="hljs-attr">secretKeyRef:</span><br>       <span class="hljs-attr">key:</span> <span class="hljs-string">secretkey</span><br>       <span class="hljs-attr">name:</span> <span class="hljs-string">minio</span><br></code></pre></td></tr></table></figure>
+<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20191212213738745.png" alt="image-20191212213738745"></p>
+<p>查看到状态正常</p>
+<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20191212214106629.png" alt="image-20191212214106629"></p>
+<p>登录gitlab创建一个文件</p>
+<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20191212222659865.png" alt="image-20191212222659865"></p>
+<p>删除原来的pod</p>
+<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20191212223057279.png" alt="image-20191212223057279"></p>
+<p>gitlab的pod启动时间有点长，等启动完成访问界面可以看到</p>
+<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20191212223514760.png" alt="image-20191212223514760"></p>
+]]></content>
+      <categories>
+        <category>Helm</category>
+      </categories>
+      <tags>
+        <tag>Gitlab</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>helm3安装harbor</title>
+    <url>/2021/03/25/helm3%E5%AE%89%E8%A3%85harbor/</url>
+    <content><![CDATA[<h2 id="1、下载并修改"><a href="#1、下载并修改" class="headerlink" title="1、下载并修改"></a>1、下载并修改</h2><figure class="highlight apache"><table><tr><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">helm</span> repo add harbor https://helm.goharbor.io<br><br><span class="hljs-attribute">helm</span> pull harbor/harbor --version <span class="hljs-number">1</span>.<span class="hljs-number">2</span>.<span class="hljs-number">3</span><br></code></pre></td></tr></table></figure>
+<p>修改values.yaml文件</p>
+<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20191218094113775.png" alt="image-20191218094113775"></p>
+<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20191218095431741.png" alt="image-20191218095431741"></p>
+<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20191218094043836.png" alt="image-20191218094043836"></p>
+<h2 id="2、安装"><a href="#2、安装" class="headerlink" title="2、安装"></a>2、安装</h2><figure class="highlight subunit"><table><tr><td class="code"><pre><code class="hljs subunit">helm install harbor ./harbor<br><br><span class="hljs-keyword">Error: </span>unable to build kubernetes objects from release manifest: unable to recognize &quot;&quot;: no matches for kind &quot;Deployment&quot; in version &quot;extensions/v1beta1&quot;<br></code></pre></td></tr></table></figure>
+<p>由于我是最新版的k8s集群，所以不支持version “extensions/v1beta1”，下面修改版本为apps</p>
+<figure class="highlight gradle"><table><tr><td class="code"><pre><code class="hljs gradle"><span class="hljs-keyword">grep</span> -irl <span class="hljs-string">&quot;extensions/v1beta1&quot;</span> harbor | <span class="hljs-keyword">grep</span> deployment<br><br><span class="hljs-keyword">grep</span> -irl <span class="hljs-string">&quot;extensions/v1beta1&quot;</span> harbor | <span class="hljs-keyword">grep</span> deploy | xargs sed -i <span class="hljs-string">&#x27;s#extensions/v1beta1#apps/v1#g&#x27;</span><br></code></pre></td></tr></table></figure>
+<p>再次执行安装</p>
+<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20191218094627633.png" alt="image-20191218094627633"></p>
+<p>服务需要请求pv，所以这里我们使用hostPath来创建pv</p>
+<figure class="highlight dts"><table><tr><td class="code"><pre><code class="hljs dts"><span class="hljs-symbol">apiVersion:</span> v1<br><span class="hljs-symbol">kind:</span> PersistentVolume<br><span class="hljs-symbol">metadata:</span><br><span class="hljs-symbol">  name:</span> harbor-pv1<br><span class="hljs-symbol">spec:</span><br><span class="hljs-symbol">  capacity:</span><br><span class="hljs-symbol">    storage:</span> <span class="hljs-number">10</span>Gi<br><span class="hljs-symbol">  volumeMode:</span> Filesystem<br><span class="hljs-symbol">  accessModes:</span><br>  -  ReadWriteOnce<br><span class="hljs-symbol">  persistentVolumeReclaimPolicy:</span> Retain<br><span class="hljs-symbol">  hostPath:</span><br><span class="hljs-symbol">    path:</span> <span class="hljs-meta-keyword">/helm/</span>harbor/pv1<br><br></code></pre></td></tr></table></figure>
+<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20191218094806015.png" alt="image-20191218094806015"></p>
+<h2 id="3、访问web界面"><a href="#3、访问web界面" class="headerlink" title="3、访问web界面"></a>3、访问web界面</h2><p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20191218095238237.png" alt="image-20191218095238237"></p>
+<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20191218095454993.png" alt="image-20191218095454993"></p>
+<p>使用用户密码登录胡发现登录不了。我们查看pod日志会发现</p>
+<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20191218095756759.png" alt="image-20191218095756759"></p>
+<figure class="highlight apache"><table><tr><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">kubectl</span> logs harbor-harbor-redis-<span class="hljs-number">0</span><br><br><span class="hljs-attribute">1</span>:M <span class="hljs-number">18</span> Dec <span class="hljs-number">02</span>:<span class="hljs-number">00</span>:<span class="hljs-number">08</span>.<span class="hljs-number">032</span> * <span class="hljs-number">10</span> changes in <span class="hljs-number">300</span> seconds. Saving...<br><span class="hljs-attribute">1</span>:M <span class="hljs-number">18</span> Dec <span class="hljs-number">02</span>:<span class="hljs-number">00</span>:<span class="hljs-number">08</span>.<span class="hljs-number">033</span> * Background saving started by pid <span class="hljs-number">97</span><br><span class="hljs-attribute">97</span>:C <span class="hljs-number">18</span> Dec <span class="hljs-number">02</span>:<span class="hljs-number">00</span>:<span class="hljs-number">08</span>.<span class="hljs-number">033</span> # Failed opening the RDB file dump.rdb (in server root dir /var/lib/redis) for saving: Permission denied<br><span class="hljs-attribute">1</span>:M <span class="hljs-number">18</span> Dec <span class="hljs-number">02</span>:<span class="hljs-number">00</span>:<span class="hljs-number">08</span>.<span class="hljs-number">133</span> # Background saving error<br></code></pre></td></tr></table></figure>
+<p>由于redis请求的pv权限不够</p>
+<figure class="highlight awk"><table><tr><td class="code"><pre><code class="hljs awk">kubectl get pvc   <span class="hljs-comment">#查看绑定的pv是主机的路径，然后给与777的权限即可</span><br>chmod <span class="hljs-number">777</span> <span class="hljs-regexp">/helm/</span>harbor<span class="hljs-regexp">/pv4/</span><br></code></pre></td></tr></table></figure>
+<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20191218100454712.png" alt="image-20191218100454712"></p>
+<figure class="highlight scilab"><table><tr><td class="code"><pre><code class="hljs scilab">kubectl logs harbor-harbor-clair-c9757f6cb<span class="hljs-number">-9</span>x8nr<br><br>&#123;<span class="hljs-string">&quot;Event&quot;</span>:<span class="hljs-string">&quot;could not download Oracle&#x27;</span>s update <span class="hljs-built_in">list</span><span class="hljs-string">&quot;,&quot;</span>Level<span class="hljs-string">&quot;:&quot;</span><span class="hljs-built_in">error</span><span class="hljs-string">&quot;,&quot;</span>Location<span class="hljs-string">&quot;:&quot;</span>oracle.go:<span class="hljs-number">162</span><span class="hljs-string">&quot;,&quot;</span>Time<span class="hljs-string">&quot;:&quot;</span><span class="hljs-number">2019</span><span class="hljs-number">-12</span><span class="hljs-number">-18</span> <span class="hljs-number">01</span>:<span class="hljs-number">54</span>:<span class="hljs-number">54.608195</span><span class="hljs-string">&quot;,&quot;</span><span class="hljs-built_in">error</span><span class="hljs-string">&quot;:&quot;</span>Get https:<span class="hljs-comment">//linux.oracle.com/oval/com.oracle.elsa-20161292.xml: read tcp 10.244.2.34:35278-\u003e23.63.35.142:443: read: connection reset by peer&quot;&#125;</span><br>&#123;<span class="hljs-string">&quot;Event&quot;</span>:<span class="hljs-string">&quot;an error occured when fetching update&quot;</span>,<span class="hljs-string">&quot;Level&quot;</span>:<span class="hljs-string">&quot;error&quot;</span>,<span class="hljs-string">&quot;Location&quot;</span>:<span class="hljs-string">&quot;updater.go:246&quot;</span>,<span class="hljs-string">&quot;Time&quot;</span>:<span class="hljs-string">&quot;2019-12-18 01:54:54.609261&quot;</span>,<span class="hljs-string">&quot;error&quot;</span>:<span class="hljs-string">&quot;could not download requested resource&quot;</span>,<span class="hljs-string">&quot;updater name&quot;</span>:<span class="hljs-string">&quot;oracle&quot;</span>&#125;<br></code></pre></td></tr></table></figure>
+<p>将pod删除，自动生成即可</p>
+<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20191218101344298.png" alt="image-20191218101344298"></p>
+<p>再次根据设置的密码登录，我这里是admin/admin12345</p>
+<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20191218101451910.png" alt="image-20191218101451910"></p>
+]]></content>
+      <categories>
+        <category>Helm</category>
+      </categories>
+      <tags>
+        <tag>Harbor</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>helm3安装gitlab</title>
     <url>/2021/03/25/helm3%E5%AE%89%E8%A3%85gitlab/</url>
     <content><![CDATA[<h3 id="1、添加helm源"><a href="#1、添加helm源" class="headerlink" title="1、添加helm源"></a>1、添加helm源</h3><figure class="highlight vim"><table><tr><td class="code"><pre><code class="hljs vim">helm repo <span class="hljs-built_in">add</span> stable http<span class="hljs-variable">s:</span>//kubernetes-charts.storage.googleapis.<span class="hljs-keyword">com</span><br>helm repo <span class="hljs-built_in">add</span> aliyun http<span class="hljs-variable">s:</span>//kubernetes.oss-<span class="hljs-keyword">cn</span>-hangzhou.aliyuncs.<span class="hljs-keyword">com</span>/charts<br>helm repo <span class="hljs-built_in">add</span>  apphub http<span class="hljs-variable">s:</span>//apphub.aliyuncs.<span class="hljs-keyword">com</span>/<br></code></pre></td></tr></table></figure>
@@ -1644,43 +1681,6 @@ spec:
       </categories>
       <tags>
         <tag>Gitlab</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>helm3安装harbor</title>
-    <url>/2021/03/25/helm3%E5%AE%89%E8%A3%85harbor/</url>
-    <content><![CDATA[<h2 id="1、下载并修改"><a href="#1、下载并修改" class="headerlink" title="1、下载并修改"></a>1、下载并修改</h2><figure class="highlight apache"><table><tr><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">helm</span> repo add harbor https://helm.goharbor.io<br><br><span class="hljs-attribute">helm</span> pull harbor/harbor --version <span class="hljs-number">1</span>.<span class="hljs-number">2</span>.<span class="hljs-number">3</span><br></code></pre></td></tr></table></figure>
-<p>修改values.yaml文件</p>
-<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20191218094113775.png" alt="image-20191218094113775"></p>
-<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20191218095431741.png" alt="image-20191218095431741"></p>
-<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20191218094043836.png" alt="image-20191218094043836"></p>
-<h2 id="2、安装"><a href="#2、安装" class="headerlink" title="2、安装"></a>2、安装</h2><figure class="highlight subunit"><table><tr><td class="code"><pre><code class="hljs subunit">helm install harbor ./harbor<br><br><span class="hljs-keyword">Error: </span>unable to build kubernetes objects from release manifest: unable to recognize &quot;&quot;: no matches for kind &quot;Deployment&quot; in version &quot;extensions/v1beta1&quot;<br></code></pre></td></tr></table></figure>
-<p>由于我是最新版的k8s集群，所以不支持version “extensions/v1beta1”，下面修改版本为apps</p>
-<figure class="highlight gradle"><table><tr><td class="code"><pre><code class="hljs gradle"><span class="hljs-keyword">grep</span> -irl <span class="hljs-string">&quot;extensions/v1beta1&quot;</span> harbor | <span class="hljs-keyword">grep</span> deployment<br><br><span class="hljs-keyword">grep</span> -irl <span class="hljs-string">&quot;extensions/v1beta1&quot;</span> harbor | <span class="hljs-keyword">grep</span> deploy | xargs sed -i <span class="hljs-string">&#x27;s#extensions/v1beta1#apps/v1#g&#x27;</span><br></code></pre></td></tr></table></figure>
-<p>再次执行安装</p>
-<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20191218094627633.png" alt="image-20191218094627633"></p>
-<p>服务需要请求pv，所以这里我们使用hostPath来创建pv</p>
-<figure class="highlight dts"><table><tr><td class="code"><pre><code class="hljs dts"><span class="hljs-symbol">apiVersion:</span> v1<br><span class="hljs-symbol">kind:</span> PersistentVolume<br><span class="hljs-symbol">metadata:</span><br><span class="hljs-symbol">  name:</span> harbor-pv1<br><span class="hljs-symbol">spec:</span><br><span class="hljs-symbol">  capacity:</span><br><span class="hljs-symbol">    storage:</span> <span class="hljs-number">10</span>Gi<br><span class="hljs-symbol">  volumeMode:</span> Filesystem<br><span class="hljs-symbol">  accessModes:</span><br>  -  ReadWriteOnce<br><span class="hljs-symbol">  persistentVolumeReclaimPolicy:</span> Retain<br><span class="hljs-symbol">  hostPath:</span><br><span class="hljs-symbol">    path:</span> <span class="hljs-meta-keyword">/helm/</span>harbor/pv1<br><br></code></pre></td></tr></table></figure>
-<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20191218094806015.png" alt="image-20191218094806015"></p>
-<h2 id="3、访问web界面"><a href="#3、访问web界面" class="headerlink" title="3、访问web界面"></a>3、访问web界面</h2><p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20191218095238237.png" alt="image-20191218095238237"></p>
-<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20191218095454993.png" alt="image-20191218095454993"></p>
-<p>使用用户密码登录胡发现登录不了。我们查看pod日志会发现</p>
-<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20191218095756759.png" alt="image-20191218095756759"></p>
-<figure class="highlight apache"><table><tr><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">kubectl</span> logs harbor-harbor-redis-<span class="hljs-number">0</span><br><br><span class="hljs-attribute">1</span>:M <span class="hljs-number">18</span> Dec <span class="hljs-number">02</span>:<span class="hljs-number">00</span>:<span class="hljs-number">08</span>.<span class="hljs-number">032</span> * <span class="hljs-number">10</span> changes in <span class="hljs-number">300</span> seconds. Saving...<br><span class="hljs-attribute">1</span>:M <span class="hljs-number">18</span> Dec <span class="hljs-number">02</span>:<span class="hljs-number">00</span>:<span class="hljs-number">08</span>.<span class="hljs-number">033</span> * Background saving started by pid <span class="hljs-number">97</span><br><span class="hljs-attribute">97</span>:C <span class="hljs-number">18</span> Dec <span class="hljs-number">02</span>:<span class="hljs-number">00</span>:<span class="hljs-number">08</span>.<span class="hljs-number">033</span> # Failed opening the RDB file dump.rdb (in server root dir /var/lib/redis) for saving: Permission denied<br><span class="hljs-attribute">1</span>:M <span class="hljs-number">18</span> Dec <span class="hljs-number">02</span>:<span class="hljs-number">00</span>:<span class="hljs-number">08</span>.<span class="hljs-number">133</span> # Background saving error<br></code></pre></td></tr></table></figure>
-<p>由于redis请求的pv权限不够</p>
-<figure class="highlight awk"><table><tr><td class="code"><pre><code class="hljs awk">kubectl get pvc   <span class="hljs-comment">#查看绑定的pv是主机的路径，然后给与777的权限即可</span><br>chmod <span class="hljs-number">777</span> <span class="hljs-regexp">/helm/</span>harbor<span class="hljs-regexp">/pv4/</span><br></code></pre></td></tr></table></figure>
-<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20191218100454712.png" alt="image-20191218100454712"></p>
-<figure class="highlight scilab"><table><tr><td class="code"><pre><code class="hljs scilab">kubectl logs harbor-harbor-clair-c9757f6cb<span class="hljs-number">-9</span>x8nr<br><br>&#123;<span class="hljs-string">&quot;Event&quot;</span>:<span class="hljs-string">&quot;could not download Oracle&#x27;</span>s update <span class="hljs-built_in">list</span><span class="hljs-string">&quot;,&quot;</span>Level<span class="hljs-string">&quot;:&quot;</span><span class="hljs-built_in">error</span><span class="hljs-string">&quot;,&quot;</span>Location<span class="hljs-string">&quot;:&quot;</span>oracle.go:<span class="hljs-number">162</span><span class="hljs-string">&quot;,&quot;</span>Time<span class="hljs-string">&quot;:&quot;</span><span class="hljs-number">2019</span><span class="hljs-number">-12</span><span class="hljs-number">-18</span> <span class="hljs-number">01</span>:<span class="hljs-number">54</span>:<span class="hljs-number">54.608195</span><span class="hljs-string">&quot;,&quot;</span><span class="hljs-built_in">error</span><span class="hljs-string">&quot;:&quot;</span>Get https:<span class="hljs-comment">//linux.oracle.com/oval/com.oracle.elsa-20161292.xml: read tcp 10.244.2.34:35278-\u003e23.63.35.142:443: read: connection reset by peer&quot;&#125;</span><br>&#123;<span class="hljs-string">&quot;Event&quot;</span>:<span class="hljs-string">&quot;an error occured when fetching update&quot;</span>,<span class="hljs-string">&quot;Level&quot;</span>:<span class="hljs-string">&quot;error&quot;</span>,<span class="hljs-string">&quot;Location&quot;</span>:<span class="hljs-string">&quot;updater.go:246&quot;</span>,<span class="hljs-string">&quot;Time&quot;</span>:<span class="hljs-string">&quot;2019-12-18 01:54:54.609261&quot;</span>,<span class="hljs-string">&quot;error&quot;</span>:<span class="hljs-string">&quot;could not download requested resource&quot;</span>,<span class="hljs-string">&quot;updater name&quot;</span>:<span class="hljs-string">&quot;oracle&quot;</span>&#125;<br></code></pre></td></tr></table></figure>
-<p>将pod删除，自动生成即可</p>
-<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20191218101344298.png" alt="image-20191218101344298"></p>
-<p>再次根据设置的密码登录，我这里是admin/admin12345</p>
-<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20191218101451910.png" alt="image-20191218101451910"></p>
-]]></content>
-      <categories>
-        <category>Helm</category>
-      </categories>
-      <tags>
-        <tag>Harbor</tag>
       </tags>
   </entry>
   <entry>
@@ -1942,51 +1942,6 @@ spec:
       </tags>
   </entry>
   <entry>
-    <title>Rancher流水线&lt;后端&gt;</title>
-    <url>/2021/01/04/rancher%E6%B5%81%E6%B0%B4%E7%BA%BF-%E5%90%8E%E7%AB%AF/</url>
-    <content><![CDATA[<h3 id="1、Pipeline授权设置"><a href="#1、Pipeline授权设置" class="headerlink" title="1、Pipeline授权设置"></a>1、Pipeline授权设置</h3><p>Gitlab版本需要在9以上，授权账号必须是项目的Maintainer（gitlab 8 里面是master）,在gitlab中创建application，callbackurl在rancher上复制</p>
-<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20191214193027408.png" alt="image-20191214193027408"></p>
-<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20191214193138485.png" alt="image-20191214193138485"></p>
-<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20191214193217867.png" alt="image-20191214193217867"></p>
-<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20191214193509071.png" alt="image-20191214193509071"></p>
-<p>生成需要的ID和Key</p>
-<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20191214193835277.png" alt="image-20191214193835277"></p>
-<p>将刚才生成的ID和Key填入，地址输入自己gitlab的URL</p>
-<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20191214193949412.png" alt="image-20191214193949412"></p>
-<p>授权完成后，给流水线的运行设置资源限制</p>
-<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20191214194027442.png" alt="image-20191214194027442"></p>
-<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20191214194108099.png" alt="image-20191214194108099"></p>
-<h3 id="2、配置流水线"><a href="#2、配置流水线" class="headerlink" title="2、配置流水线"></a>2、配置流水线</h3><p>现在就可以开始设置流水线了，先设置代码库，开启需要运行的代码库</p>
-<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20191214194230120.png" alt="image-20191214194230120"></p>
-<p>设置什么条件可以触发流水线</p>
-<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20191214194305401.png" alt="image-20191214194305401"></p>
-<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20191214194325948.png" alt="image-20191214194325948"></p>
-<p>开始配置流水线流程，选择你需要配置的分支</p>
-<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20191214194356585.png" alt="image-20191214194356585"></p>
-<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20191214194421735.png" alt="image-20191214194421735"></p>
-<h3 id="3、流水线配置"><a href="#3、流水线配置" class="headerlink" title="3、流水线配置"></a>3、流水线配置</h3><p>第一步是系统已经设定好的，我们只需要根据自己的需要设置后面的步骤</p>
-<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20191214194540875.png" alt="image-20191214194540875"></p>
-<p>第二步 build，选择的类型是运行脚本，执行mvn clean package命令，选用的镜像是我自己打包maven3.6镜像。  公司有自己的maven私服，那么打包maven镜像的时候，可以设置好setting.xml文件，上传到前面配置的harbor仓库就可以了。如果不知道setting文件放到mvn镜像中的位置，就先运行 mvn  -X查看mvn读取配置文件的顺序，再把setting文件copy进去即可</p>
-<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20191214194705581.png" alt="image-20191214194705581"></p>
-<p>这一步主要是用build构建后的包，根据代码中的Dockerfile打包成镜像，当前目录依然是git  clone后的目录，指定Dockerfile的相对位置，并命名打包后的惊醒名，其中镜像名中的:${CICD_GIT_COMMIT}是rancher提供的变量。这里Dockerfile路径和构建上下文路径是gitlab库中的dockerfile文件的路径。</p>
-<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20191214194801709.png" alt="image-20191214194801709"></p>
-<p>下面讲下dockerfile的配置：</p>
-<figure class="highlight css"><table><tr><td class="code"><pre><code class="hljs css"><span class="hljs-selector-tag">FROM</span> <span class="hljs-selector-tag">registry</span><span class="hljs-selector-class">.hello</span><span class="hljs-selector-class">.com</span>/<span class="hljs-selector-tag">jdk</span><span class="hljs-selector-pseudo">:1.8_232</span>    #这里是我私仓自己的<span class="hljs-selector-tag">jdk</span>镜像<br><br><span class="hljs-selector-tag">ADD</span> ./<span class="hljs-selector-tag">target</span>/<span class="hljs-selector-tag">app</span><span class="hljs-selector-class">.jar</span>  <span class="hljs-selector-tag">app</span><span class="hljs-selector-class">.jar</span><br><br><span class="hljs-selector-tag">CMD</span>  <span class="hljs-selector-attr">[<span class="hljs-string">&quot;java  -jar app.jar  -XX:+UnlockExperimentalVMOptions -XX:+UseCGroupMemoryLimitForHeap&quot;</span>]</span><br></code></pre></td></tr></table></figure>
-<p>最后一步部署Deployment.yaml文件，yaml路径是你gitlab仓库中项目下的路径</p>
-<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20191214194824641.png" alt="image-20191214194824641"></p>
-<p>保存完成后就可以看到正在构建了</p>
-<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20191214195024989.png" alt="image-20191214195024989"></p>
-<p>全部运行成功后，就可以在工作负载看到pod的运行状态</p>
-<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20191214195120170.png" alt="image-20191214195120170"></p>
-]]></content>
-      <categories>
-        <category>Rancher</category>
-      </categories>
-      <tags>
-        <tag>Rancher</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Rancher:v2.3安装创建K8s集群</title>
     <url>/2021/01/04/rancher-v2-3%E5%AE%89%E8%A3%85%E5%88%9B%E5%BB%BAK8s%E9%9B%86%E7%BE%A4/</url>
     <content><![CDATA[<h3 id="1、rancher介绍"><a href="#1、rancher介绍" class="headerlink" title="1、rancher介绍"></a>1、rancher介绍</h3><p>每个团队都可以在他们选择的公共云或私有云上部署应用程序，Rancher 在 IT 和 DevOps 组织中扮演的角色如下：</p>
@@ -2051,6 +2006,51 @@ spec:
       </tags>
   </entry>
   <entry>
+    <title>Rancher流水线&lt;后端&gt;</title>
+    <url>/2021/01/04/rancher%E6%B5%81%E6%B0%B4%E7%BA%BF-%E5%90%8E%E7%AB%AF/</url>
+    <content><![CDATA[<h3 id="1、Pipeline授权设置"><a href="#1、Pipeline授权设置" class="headerlink" title="1、Pipeline授权设置"></a>1、Pipeline授权设置</h3><p>Gitlab版本需要在9以上，授权账号必须是项目的Maintainer（gitlab 8 里面是master）,在gitlab中创建application，callbackurl在rancher上复制</p>
+<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20191214193027408.png" alt="image-20191214193027408"></p>
+<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20191214193138485.png" alt="image-20191214193138485"></p>
+<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20191214193217867.png" alt="image-20191214193217867"></p>
+<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20191214193509071.png" alt="image-20191214193509071"></p>
+<p>生成需要的ID和Key</p>
+<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20191214193835277.png" alt="image-20191214193835277"></p>
+<p>将刚才生成的ID和Key填入，地址输入自己gitlab的URL</p>
+<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20191214193949412.png" alt="image-20191214193949412"></p>
+<p>授权完成后，给流水线的运行设置资源限制</p>
+<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20191214194027442.png" alt="image-20191214194027442"></p>
+<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20191214194108099.png" alt="image-20191214194108099"></p>
+<h3 id="2、配置流水线"><a href="#2、配置流水线" class="headerlink" title="2、配置流水线"></a>2、配置流水线</h3><p>现在就可以开始设置流水线了，先设置代码库，开启需要运行的代码库</p>
+<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20191214194230120.png" alt="image-20191214194230120"></p>
+<p>设置什么条件可以触发流水线</p>
+<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20191214194305401.png" alt="image-20191214194305401"></p>
+<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20191214194325948.png" alt="image-20191214194325948"></p>
+<p>开始配置流水线流程，选择你需要配置的分支</p>
+<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20191214194356585.png" alt="image-20191214194356585"></p>
+<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20191214194421735.png" alt="image-20191214194421735"></p>
+<h3 id="3、流水线配置"><a href="#3、流水线配置" class="headerlink" title="3、流水线配置"></a>3、流水线配置</h3><p>第一步是系统已经设定好的，我们只需要根据自己的需要设置后面的步骤</p>
+<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20191214194540875.png" alt="image-20191214194540875"></p>
+<p>第二步 build，选择的类型是运行脚本，执行mvn clean package命令，选用的镜像是我自己打包maven3.6镜像。  公司有自己的maven私服，那么打包maven镜像的时候，可以设置好setting.xml文件，上传到前面配置的harbor仓库就可以了。如果不知道setting文件放到mvn镜像中的位置，就先运行 mvn  -X查看mvn读取配置文件的顺序，再把setting文件copy进去即可</p>
+<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20191214194705581.png" alt="image-20191214194705581"></p>
+<p>这一步主要是用build构建后的包，根据代码中的Dockerfile打包成镜像，当前目录依然是git  clone后的目录，指定Dockerfile的相对位置，并命名打包后的惊醒名，其中镜像名中的:${CICD_GIT_COMMIT}是rancher提供的变量。这里Dockerfile路径和构建上下文路径是gitlab库中的dockerfile文件的路径。</p>
+<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20191214194801709.png" alt="image-20191214194801709"></p>
+<p>下面讲下dockerfile的配置：</p>
+<figure class="highlight css"><table><tr><td class="code"><pre><code class="hljs css"><span class="hljs-selector-tag">FROM</span> <span class="hljs-selector-tag">registry</span><span class="hljs-selector-class">.hello</span><span class="hljs-selector-class">.com</span>/<span class="hljs-selector-tag">jdk</span><span class="hljs-selector-pseudo">:1.8_232</span>    #这里是我私仓自己的<span class="hljs-selector-tag">jdk</span>镜像<br><br><span class="hljs-selector-tag">ADD</span> ./<span class="hljs-selector-tag">target</span>/<span class="hljs-selector-tag">app</span><span class="hljs-selector-class">.jar</span>  <span class="hljs-selector-tag">app</span><span class="hljs-selector-class">.jar</span><br><br><span class="hljs-selector-tag">CMD</span>  <span class="hljs-selector-attr">[<span class="hljs-string">&quot;java  -jar app.jar  -XX:+UnlockExperimentalVMOptions -XX:+UseCGroupMemoryLimitForHeap&quot;</span>]</span><br></code></pre></td></tr></table></figure>
+<p>最后一步部署Deployment.yaml文件，yaml路径是你gitlab仓库中项目下的路径</p>
+<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20191214194824641.png" alt="image-20191214194824641"></p>
+<p>保存完成后就可以看到正在构建了</p>
+<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20191214195024989.png" alt="image-20191214195024989"></p>
+<p>全部运行成功后，就可以在工作负载看到pod的运行状态</p>
+<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20191214195120170.png" alt="image-20191214195120170"></p>
+]]></content>
+      <categories>
+        <category>Rancher</category>
+      </categories>
+      <tags>
+        <tag>Rancher</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>sonarqube使用钉钉告警</title>
     <url>/2021/01/05/sonarqube%E4%BD%BF%E7%94%A8%E9%92%89%E9%92%89%E5%91%8A%E8%AD%A6/</url>
     <content><![CDATA[<p>说明：因项目需求，创建的是一个Jenkins自由项目，需要sonar代码扫描通过再继续maven构建、并且不发送钉钉告警，扫描不通过则停止构建、并发送钉钉告警。</p>
@@ -2073,63 +2073,7 @@ spec:
         <category>Linux</category>
       </categories>
       <tags>
-        <tag>SonarQube</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>二进制安装mariadb主从复制</title>
-    <url>/2021/01/05/%E4%BA%8C%E8%BF%9B%E5%88%B6%E5%AE%89%E8%A3%85mariadb%E4%B8%BB%E4%BB%8E%E5%A4%8D%E5%88%B6/</url>
-    <content><![CDATA[<p>官网地址：<a href="https://mariadb.com/downloads">https://mariadb.com/downloads</a></p>
-<h3 id="1、安装MariaDB"><a href="#1、安装MariaDB" class="headerlink" title="1、安装MariaDB"></a>1、安装MariaDB</h3><figure class="highlight apache"><table><tr><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">tar</span> xvf mariadb-<span class="hljs-number">10</span>.<span class="hljs-number">4</span>.<span class="hljs-number">12</span>-linux-x<span class="hljs-number">86</span>_<span class="hljs-number">64</span>.tar.gz -C /usr/local/<br><span class="hljs-attribute">cd</span> /usr/local<br><span class="hljs-attribute">ln</span> -s mariadb-<span class="hljs-number">10</span>.<span class="hljs-number">4</span>.<span class="hljs-number">12</span>-linux-x<span class="hljs-number">86</span>_<span class="hljs-number">64</span> mysql<br><span class="hljs-attribute">groupadd</span> mysql<br><span class="hljs-attribute">useradd</span> -g mysql mysql<br></code></pre></td></tr></table></figure>
-<p>创建数据目录</p>
-<figure class="highlight awk"><table><tr><td class="code"><pre><code class="hljs awk">mkdir -p <span class="hljs-regexp">/data/my</span>sql/data<br>chown -R mysql.mysql <span class="hljs-regexp">/data/</span><br>chown -R mysql.mysql <span class="hljs-regexp">/usr/</span>local/mysql<br></code></pre></td></tr></table></figure>
-<h3 id="2、安装配置"><a href="#2、安装配置" class="headerlink" title="2、安装配置"></a>2、安装配置</h3><figure class="highlight awk"><table><tr><td class="code"><pre><code class="hljs awk">cd <span class="hljs-regexp">/usr/</span>local/mysql<br>.<span class="hljs-regexp">/scripts/my</span>sql_install_db --user=mysql --datadir=<span class="hljs-regexp">/data/my</span>sql/data    <span class="hljs-comment">#执行配置脚本</span><br></code></pre></td></tr></table></figure>
-<p>修改/etc/my.cnf中的配置<master></p>
-<figure class="highlight routeros"><table><tr><td class="code"><pre><code class="hljs routeros">[mysqld]<br>slow_query_log = 1       #开启慢日志<br>slow_query_log_file = <span class="hljs-string">&quot;/data/log/mariadb/mariadb-slow.log&quot;</span>     #慢日志存放目录<br>long_query_time = 2      #查询时间超过 2 秒则定义为慢查询<br><span class="hljs-attribute">bind-address</span>=0.0.0.0     #一般建议全部绑定，因为 mysql 和 mariadb 不允许手动绑定指定<span class="hljs-built_in"> IP </span>地址<br>port = 3306<br>datadir = <span class="hljs-string">&quot;/data/mysql/data&quot;</span>     #后期同步的二进制修改信息会放在这里<br>log_error = <span class="hljs-string">&quot;/data/log/mariadb/error.log&quot;</span><br>socket = <span class="hljs-string">&quot;/var/lib/mysql/mysql.sock&quot;</span>         #用于支持本地访问的 socket 文件<br><span class="hljs-attribute">server-id</span>=1              #配置本机 mysql 的唯一 ID，多台 mysql 不能存在相同的 ID<br><span class="hljs-attribute">log-bin</span>=master-bin        #设置”主服务器需要同步的二进制日志”文件名前缀<br><span class="hljs-attribute">relay-log</span>=mysql-relay-bin   #设置”从服务器需要执行的中继日志”文件名前缀<br><span class="hljs-attribute">binlog_format</span>=row           #修改了复制格式为 mixed，mysql 一共有三种格式 mixed 和 statement 和 row ，默认是 row<br>expire_logs_days = 3        #设置”二进制修改信息”的保存时间，过期（三天后）清理<br><span class="hljs-attribute">autocommit</span>=0<br><span class="hljs-attribute">character_set_server</span>=utf8mb4<br><span class="hljs-attribute">collation_server</span>=utf8mb4_bin<br><span class="hljs-attribute">explicit_defaults_for_timestamp</span>=1<br><span class="hljs-attribute">transaction_isolation</span>=READ-COMMITTED<br><span class="hljs-attribute">tmp_table_size</span>=64M<br><span class="hljs-attribute">interactive_timeout</span>=1800<br><span class="hljs-attribute">wait_timeout</span>=1800<br><span class="hljs-attribute">max_connections</span>=200<br><span class="hljs-attribute">max_allowed_packet</span>=32M<br><span class="hljs-attribute">read_rnd_buffer_size</span>=8M<br><span class="hljs-attribute">sort_buffer_size</span>=8M<br><span class="hljs-attribute">join_buffer_size</span>=8M<br><span class="hljs-attribute">binlog_cache_size</span>=4M<br><span class="hljs-attribute">innodb_log_buffer_size</span>=16M<br><span class="hljs-attribute">innodb_flush_log_at_trx_commit</span>=1<br><span class="hljs-attribute">innodb_sort_buffer_size</span>=64M<br><span class="hljs-attribute">innodb_log_file_size</span>=512M<br><span class="hljs-attribute">innodb_print_all_deadlocks</span>=1<br><span class="hljs-attribute">innodb_buffer_pool_size</span>=【物理内存*0.6】<br><span class="hljs-attribute">lower_case_table_names</span>=1            #关闭大小写敏感<br>default-time_zone = <span class="hljs-string">&#x27;+8:00&#x27;</span><br><br>并添加如下配置：<br>[client]<br><span class="hljs-attribute">default-character-set</span>=utf8mb4<br></code></pre></td></tr></table></figure>
-<p>修改/etc/my.cnf中的配置<slave></p>
-<figure class="highlight ini"><table><tr><td class="code"><pre><code class="hljs ini"><span class="hljs-section">[mysqld]</span><br><span class="hljs-attr">port</span> = <span class="hljs-number">3306</span><br><span class="hljs-attr">server-id</span>=<span class="hljs-number">2</span><br><span class="hljs-attr">log-bin</span>=slave-bin<br></code></pre></td></tr></table></figure>
-<h3 id="3、启动数据库"><a href="#3、启动数据库" class="headerlink" title="3、启动数据库"></a>3、启动数据库</h3><figure class="highlight awk"><table><tr><td class="code"><pre><code class="hljs awk">.<span class="hljs-regexp">/bin/my</span>sqld_safe --user=mysql --datadir=<span class="hljs-regexp">/data/my</span>sql/data &amp;<br>ln -s <span class="hljs-regexp">/var/</span>lib<span class="hljs-regexp">/mysql/my</span>sql.sock <span class="hljs-regexp">/tmp/my</span>sql.sock<br></code></pre></td></tr></table></figure>
-<p>设置数据库root用户密码</p>
-<figure class="highlight awk"><table><tr><td class="code"><pre><code class="hljs awk">.<span class="hljs-regexp">/bin/my</span>sqladmin -u root password <span class="hljs-string">&#x27;123456&#x27;</span>       <span class="hljs-comment">#设置root用户密码</span><br></code></pre></td></tr></table></figure>
-<p>关闭数据库</p>
-<figure class="highlight awk"><table><tr><td class="code"><pre><code class="hljs awk">.<span class="hljs-regexp">/bin/my</span>sqladmin -uroot -p shutdown<br></code></pre></td></tr></table></figure>
-<h3 id="4、数据库连接、查询"><a href="#4、数据库连接、查询" class="headerlink" title="4、数据库连接、查询"></a>4、数据库连接、查询</h3><figure class="highlight pgsql"><table><tr><td class="code"><pre><code class="hljs pgsql">./bin/mysql -uroot -p<br><span class="hljs-keyword">select</span> host,<span class="hljs-keyword">user</span>,<span class="hljs-keyword">password</span> <span class="hljs-keyword">from</span> <span class="hljs-keyword">user</span>;<br><span class="hljs-keyword">GRANT</span> <span class="hljs-keyword">ALL</span> <span class="hljs-keyword">PRIVILEGES</span> <span class="hljs-keyword">ON</span> *.* <span class="hljs-keyword">TO</span> <span class="hljs-string">&#x27;root&#x27;</span>@<span class="hljs-string">&#x27;%&#x27;</span> IDENTIFIED <span class="hljs-keyword">BY</span> <span class="hljs-string">&#x27;econage123&#x27;</span> <span class="hljs-keyword">WITH</span> <span class="hljs-keyword">GRANT</span> <span class="hljs-keyword">OPTION</span>;<br>FLUSH <span class="hljs-keyword">PRIVILEGES</span>;<br></code></pre></td></tr></table></figure>
-<h3 id="5、创建主从连接的用户"><a href="#5、创建主从连接的用户" class="headerlink" title="5、创建主从连接的用户"></a>5、创建主从连接的用户<master></h3><figure class="highlight pgsql"><table><tr><td class="code"><pre><code class="hljs pgsql"><span class="hljs-keyword">create</span> <span class="hljs-keyword">user</span> <span class="hljs-string">&#x27;admin&#x27;</span>@<span class="hljs-string">&#x27;%&#x27;</span> identified <span class="hljs-keyword">by</span> <span class="hljs-string">&#x27;admin123&#x27;</span>;<br><span class="hljs-keyword">grant</span> <span class="hljs-keyword">replication</span> slave <span class="hljs-keyword">on</span> *.* <span class="hljs-keyword">to</span> <span class="hljs-string">&#x27;admin&#x27;</span>@<span class="hljs-string">&#x27;%&#x27;</span>;<br>FLUSH <span class="hljs-keyword">PRIVILEGES</span>;<br><span class="hljs-keyword">show</span> master status;<br></code></pre></td></tr></table></figure>
-<h3 id="6、进行关联master节点"><a href="#6、进行关联master节点" class="headerlink" title="6、进行关联master节点"></a>6、进行关联master节点<slave></h3><figure class="highlight routeros"><table><tr><td class="code"><pre><code class="hljs routeros">CHANGE MASTER <span class="hljs-keyword">TO</span><br>  <span class="hljs-attribute">MASTER_HOST</span>=<span class="hljs-string">&#x27;172.18.103.211&#x27;</span>,<br>  <span class="hljs-attribute">MASTER_USER</span>=<span class="hljs-string">&#x27;econage&#x27;</span>,<br>  <span class="hljs-attribute">MASTER_PASSWORD</span>=<span class="hljs-string">&#x27;econage&#x27;</span>,<br>  <span class="hljs-attribute">MASTER_PORT</span>=3306,<br>  <span class="hljs-attribute">MASTER_LOG_FILE</span>=<span class="hljs-string">&#x27;mysql-bin.000003&#x27;</span>,<br>  <span class="hljs-attribute">MASTER_LOG_POS</span>=1552;<br></code></pre></td></tr></table></figure>
-<p>最后输入命令 show slave status\G 查看状态。（写 \G 是换行）</p>
-<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20200408164002241.png" alt="image-20200408164002241"></p>
-<p>如果状态没有同步</p>
-<figure class="highlight crmsh"><table><tr><td class="code"><pre><code class="hljs crmsh"><span class="hljs-literal">stop</span>  <span class="hljs-literal">slave</span>;<br><span class="hljs-literal">start</span>  <span class="hljs-literal">slave</span>;<br>show <span class="hljs-literal">slave</span> status\G<br></code></pre></td></tr></table></figure>
-<p>参考文章：<a href="https://www.landui.com/help/show-9902.html">https://www.landui.com/help/show-9902.html</a></p>
-<p>​                    <a href="https://blog.csdn.net/yhld456/article/details/89020979">https://blog.csdn.net/yhld456/article/details/89020979</a></p>
-]]></content>
-      <categories>
-        <category>关系型数据库</category>
-      </categories>
-      <tags>
-        <tag>Mariadb</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>安装Calicoctl</title>
-    <url>/2021/03/17/%E5%AE%89%E8%A3%85Calicoctl/</url>
-    <content><![CDATA[<h2 id="1、二进制安装calicoctl"><a href="#1、二进制安装calicoctl" class="headerlink" title="1、二进制安装calicoctl"></a>1、二进制安装calicoctl</h2><figure class="highlight awk"><table><tr><td class="code"><pre><code class="hljs awk">curl -O -L  https:<span class="hljs-regexp">//gi</span>thub.com<span class="hljs-regexp">/projectcalico/</span>calicoctl<span class="hljs-regexp">/releases/</span>download<span class="hljs-regexp">/v3.13.3/</span>calicoctl<br>mv calicoctl <span class="hljs-regexp">/usr/</span>local<span class="hljs-regexp">/bin/</span><br>chmod +x calicoctl<br></code></pre></td></tr></table></figure>
-<h2 id="2、配置文件"><a href="#2、配置文件" class="headerlink" title="2、配置文件"></a>2、配置文件</h2><p>​        默认情况下，<code>calicoctl</code>将在上查找配置文件<code>/etc/calico/calicoctl.cfg</code>。您可以使用<code>--config</code>带有需要数据存储访问权限的命令的选项来覆盖此选项。</p>
-<p>​        如果<code>calicoctl</code>无法找到，读取或访问配置文件，它将检查一组特定的环境变量</p>
-<h2 id="3、配置calicoctl以连接到Kubernetes-API数据存储"><a href="#3、配置calicoctl以连接到Kubernetes-API数据存储" class="headerlink" title="3、配置calicoctl以连接到Kubernetes API数据存储"></a>3、配置calicoctl以连接到Kubernetes API数据存储</h2><p>Kubernetes API连接配置的完整列表，请查看官网：</p>
-<p><a href="https://docs.projectcalico.org/getting-started/calicoctl/configure/kdd">https://docs.projectcalico.org/getting-started/calicoctl/configure/kdd</a></p>
-<p>通过命令行设置calicoctl所需的环境变量</p>
-<figure class="highlight routeros"><table><tr><td class="code"><pre><code class="hljs routeros"><span class="hljs-attribute">DATASTORE_TYPE</span>=kubernetes <span class="hljs-attribute">KUBECONFIG</span>=~/.kube/config calicoctl <span class="hljs-builtin-name">get</span> nodes<br><span class="hljs-builtin-name">export</span> <span class="hljs-attribute">CALICO_DATASTORE_TYPE</span>=kubernetes<br><span class="hljs-builtin-name">export</span> <span class="hljs-attribute">CALICO_KUBECONFIG</span>=~/.kube/config<br>calicoctl <span class="hljs-builtin-name">get</span> workloadendpoints<br></code></pre></td></tr></table></figure>
-<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master//img/image-20200506112145074.png" alt="image-20200506112145074"></p>
-<p>命令使用</p>
-<figure class="highlight ebnf"><table><tr><td class="code"><pre><code class="hljs ebnf"><span class="hljs-attribute">calicoctl  -h</span><br></code></pre></td></tr></table></figure>
-<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master//img/image-20200507143342250.png" alt="image-20200507143342250"></p>
-]]></content>
-      <categories>
-        <category>Calico</category>
-      </categories>
-      <tags>
-        <tag>Calico</tag>
+        <tag>Sonarqube</tag>
       </tags>
   </entry>
   <entry>
@@ -2218,6 +2162,62 @@ spec:
       </categories>
       <tags>
         <tag>Calico</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>安装Calicoctl</title>
+    <url>/2021/03/17/%E5%AE%89%E8%A3%85Calicoctl/</url>
+    <content><![CDATA[<h2 id="1、二进制安装calicoctl"><a href="#1、二进制安装calicoctl" class="headerlink" title="1、二进制安装calicoctl"></a>1、二进制安装calicoctl</h2><figure class="highlight awk"><table><tr><td class="code"><pre><code class="hljs awk">curl -O -L  https:<span class="hljs-regexp">//gi</span>thub.com<span class="hljs-regexp">/projectcalico/</span>calicoctl<span class="hljs-regexp">/releases/</span>download<span class="hljs-regexp">/v3.13.3/</span>calicoctl<br>mv calicoctl <span class="hljs-regexp">/usr/</span>local<span class="hljs-regexp">/bin/</span><br>chmod +x calicoctl<br></code></pre></td></tr></table></figure>
+<h2 id="2、配置文件"><a href="#2、配置文件" class="headerlink" title="2、配置文件"></a>2、配置文件</h2><p>​        默认情况下，<code>calicoctl</code>将在上查找配置文件<code>/etc/calico/calicoctl.cfg</code>。您可以使用<code>--config</code>带有需要数据存储访问权限的命令的选项来覆盖此选项。</p>
+<p>​        如果<code>calicoctl</code>无法找到，读取或访问配置文件，它将检查一组特定的环境变量</p>
+<h2 id="3、配置calicoctl以连接到Kubernetes-API数据存储"><a href="#3、配置calicoctl以连接到Kubernetes-API数据存储" class="headerlink" title="3、配置calicoctl以连接到Kubernetes API数据存储"></a>3、配置calicoctl以连接到Kubernetes API数据存储</h2><p>Kubernetes API连接配置的完整列表，请查看官网：</p>
+<p><a href="https://docs.projectcalico.org/getting-started/calicoctl/configure/kdd">https://docs.projectcalico.org/getting-started/calicoctl/configure/kdd</a></p>
+<p>通过命令行设置calicoctl所需的环境变量</p>
+<figure class="highlight routeros"><table><tr><td class="code"><pre><code class="hljs routeros"><span class="hljs-attribute">DATASTORE_TYPE</span>=kubernetes <span class="hljs-attribute">KUBECONFIG</span>=~/.kube/config calicoctl <span class="hljs-builtin-name">get</span> nodes<br><span class="hljs-builtin-name">export</span> <span class="hljs-attribute">CALICO_DATASTORE_TYPE</span>=kubernetes<br><span class="hljs-builtin-name">export</span> <span class="hljs-attribute">CALICO_KUBECONFIG</span>=~/.kube/config<br>calicoctl <span class="hljs-builtin-name">get</span> workloadendpoints<br></code></pre></td></tr></table></figure>
+<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master//img/image-20200506112145074.png" alt="image-20200506112145074"></p>
+<p>命令使用</p>
+<figure class="highlight ebnf"><table><tr><td class="code"><pre><code class="hljs ebnf"><span class="hljs-attribute">calicoctl  -h</span><br></code></pre></td></tr></table></figure>
+<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master//img/image-20200507143342250.png" alt="image-20200507143342250"></p>
+]]></content>
+      <categories>
+        <category>Calico</category>
+      </categories>
+      <tags>
+        <tag>Calico</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>二进制安装mariadb主从复制</title>
+    <url>/2021/01/05/%E4%BA%8C%E8%BF%9B%E5%88%B6%E5%AE%89%E8%A3%85mariadb%E4%B8%BB%E4%BB%8E%E5%A4%8D%E5%88%B6/</url>
+    <content><![CDATA[<p>官网地址：<a href="https://mariadb.com/downloads">https://mariadb.com/downloads</a></p>
+<h3 id="1、安装MariaDB"><a href="#1、安装MariaDB" class="headerlink" title="1、安装MariaDB"></a>1、安装MariaDB</h3><figure class="highlight apache"><table><tr><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">tar</span> xvf mariadb-<span class="hljs-number">10</span>.<span class="hljs-number">4</span>.<span class="hljs-number">12</span>-linux-x<span class="hljs-number">86</span>_<span class="hljs-number">64</span>.tar.gz -C /usr/local/<br><span class="hljs-attribute">cd</span> /usr/local<br><span class="hljs-attribute">ln</span> -s mariadb-<span class="hljs-number">10</span>.<span class="hljs-number">4</span>.<span class="hljs-number">12</span>-linux-x<span class="hljs-number">86</span>_<span class="hljs-number">64</span> mysql<br><span class="hljs-attribute">groupadd</span> mysql<br><span class="hljs-attribute">useradd</span> -g mysql mysql<br></code></pre></td></tr></table></figure>
+<p>创建数据目录</p>
+<figure class="highlight awk"><table><tr><td class="code"><pre><code class="hljs awk">mkdir -p <span class="hljs-regexp">/data/my</span>sql/data<br>chown -R mysql.mysql <span class="hljs-regexp">/data/</span><br>chown -R mysql.mysql <span class="hljs-regexp">/usr/</span>local/mysql<br></code></pre></td></tr></table></figure>
+<h3 id="2、安装配置"><a href="#2、安装配置" class="headerlink" title="2、安装配置"></a>2、安装配置</h3><figure class="highlight awk"><table><tr><td class="code"><pre><code class="hljs awk">cd <span class="hljs-regexp">/usr/</span>local/mysql<br>.<span class="hljs-regexp">/scripts/my</span>sql_install_db --user=mysql --datadir=<span class="hljs-regexp">/data/my</span>sql/data    <span class="hljs-comment">#执行配置脚本</span><br></code></pre></td></tr></table></figure>
+<p>修改/etc/my.cnf中的配置<master></p>
+<figure class="highlight routeros"><table><tr><td class="code"><pre><code class="hljs routeros">[mysqld]<br>slow_query_log = 1       #开启慢日志<br>slow_query_log_file = <span class="hljs-string">&quot;/data/log/mariadb/mariadb-slow.log&quot;</span>     #慢日志存放目录<br>long_query_time = 2      #查询时间超过 2 秒则定义为慢查询<br><span class="hljs-attribute">bind-address</span>=0.0.0.0     #一般建议全部绑定，因为 mysql 和 mariadb 不允许手动绑定指定<span class="hljs-built_in"> IP </span>地址<br>port = 3306<br>datadir = <span class="hljs-string">&quot;/data/mysql/data&quot;</span>     #后期同步的二进制修改信息会放在这里<br>log_error = <span class="hljs-string">&quot;/data/log/mariadb/error.log&quot;</span><br>socket = <span class="hljs-string">&quot;/var/lib/mysql/mysql.sock&quot;</span>         #用于支持本地访问的 socket 文件<br><span class="hljs-attribute">server-id</span>=1              #配置本机 mysql 的唯一 ID，多台 mysql 不能存在相同的 ID<br><span class="hljs-attribute">log-bin</span>=master-bin        #设置”主服务器需要同步的二进制日志”文件名前缀<br><span class="hljs-attribute">relay-log</span>=mysql-relay-bin   #设置”从服务器需要执行的中继日志”文件名前缀<br><span class="hljs-attribute">binlog_format</span>=row           #修改了复制格式为 mixed，mysql 一共有三种格式 mixed 和 statement 和 row ，默认是 row<br>expire_logs_days = 3        #设置”二进制修改信息”的保存时间，过期（三天后）清理<br><span class="hljs-attribute">autocommit</span>=0<br><span class="hljs-attribute">character_set_server</span>=utf8mb4<br><span class="hljs-attribute">collation_server</span>=utf8mb4_bin<br><span class="hljs-attribute">explicit_defaults_for_timestamp</span>=1<br><span class="hljs-attribute">transaction_isolation</span>=READ-COMMITTED<br><span class="hljs-attribute">tmp_table_size</span>=64M<br><span class="hljs-attribute">interactive_timeout</span>=1800<br><span class="hljs-attribute">wait_timeout</span>=1800<br><span class="hljs-attribute">max_connections</span>=200<br><span class="hljs-attribute">max_allowed_packet</span>=32M<br><span class="hljs-attribute">read_rnd_buffer_size</span>=8M<br><span class="hljs-attribute">sort_buffer_size</span>=8M<br><span class="hljs-attribute">join_buffer_size</span>=8M<br><span class="hljs-attribute">binlog_cache_size</span>=4M<br><span class="hljs-attribute">innodb_log_buffer_size</span>=16M<br><span class="hljs-attribute">innodb_flush_log_at_trx_commit</span>=1<br><span class="hljs-attribute">innodb_sort_buffer_size</span>=64M<br><span class="hljs-attribute">innodb_log_file_size</span>=512M<br><span class="hljs-attribute">innodb_print_all_deadlocks</span>=1<br><span class="hljs-attribute">innodb_buffer_pool_size</span>=【物理内存*0.6】<br><span class="hljs-attribute">lower_case_table_names</span>=1            #关闭大小写敏感<br>default-time_zone = <span class="hljs-string">&#x27;+8:00&#x27;</span><br><br>并添加如下配置：<br>[client]<br><span class="hljs-attribute">default-character-set</span>=utf8mb4<br></code></pre></td></tr></table></figure>
+<p>修改/etc/my.cnf中的配置<slave></p>
+<figure class="highlight ini"><table><tr><td class="code"><pre><code class="hljs ini"><span class="hljs-section">[mysqld]</span><br><span class="hljs-attr">port</span> = <span class="hljs-number">3306</span><br><span class="hljs-attr">server-id</span>=<span class="hljs-number">2</span><br><span class="hljs-attr">log-bin</span>=slave-bin<br></code></pre></td></tr></table></figure>
+<h3 id="3、启动数据库"><a href="#3、启动数据库" class="headerlink" title="3、启动数据库"></a>3、启动数据库</h3><figure class="highlight awk"><table><tr><td class="code"><pre><code class="hljs awk">.<span class="hljs-regexp">/bin/my</span>sqld_safe --user=mysql --datadir=<span class="hljs-regexp">/data/my</span>sql/data &amp;<br>ln -s <span class="hljs-regexp">/var/</span>lib<span class="hljs-regexp">/mysql/my</span>sql.sock <span class="hljs-regexp">/tmp/my</span>sql.sock<br></code></pre></td></tr></table></figure>
+<p>设置数据库root用户密码</p>
+<figure class="highlight awk"><table><tr><td class="code"><pre><code class="hljs awk">.<span class="hljs-regexp">/bin/my</span>sqladmin -u root password <span class="hljs-string">&#x27;123456&#x27;</span>       <span class="hljs-comment">#设置root用户密码</span><br></code></pre></td></tr></table></figure>
+<p>关闭数据库</p>
+<figure class="highlight awk"><table><tr><td class="code"><pre><code class="hljs awk">.<span class="hljs-regexp">/bin/my</span>sqladmin -uroot -p shutdown<br></code></pre></td></tr></table></figure>
+<h3 id="4、数据库连接、查询"><a href="#4、数据库连接、查询" class="headerlink" title="4、数据库连接、查询"></a>4、数据库连接、查询</h3><figure class="highlight pgsql"><table><tr><td class="code"><pre><code class="hljs pgsql">./bin/mysql -uroot -p<br><span class="hljs-keyword">select</span> host,<span class="hljs-keyword">user</span>,<span class="hljs-keyword">password</span> <span class="hljs-keyword">from</span> <span class="hljs-keyword">user</span>;<br><span class="hljs-keyword">GRANT</span> <span class="hljs-keyword">ALL</span> <span class="hljs-keyword">PRIVILEGES</span> <span class="hljs-keyword">ON</span> *.* <span class="hljs-keyword">TO</span> <span class="hljs-string">&#x27;root&#x27;</span>@<span class="hljs-string">&#x27;%&#x27;</span> IDENTIFIED <span class="hljs-keyword">BY</span> <span class="hljs-string">&#x27;econage123&#x27;</span> <span class="hljs-keyword">WITH</span> <span class="hljs-keyword">GRANT</span> <span class="hljs-keyword">OPTION</span>;<br>FLUSH <span class="hljs-keyword">PRIVILEGES</span>;<br></code></pre></td></tr></table></figure>
+<h3 id="5、创建主从连接的用户"><a href="#5、创建主从连接的用户" class="headerlink" title="5、创建主从连接的用户"></a>5、创建主从连接的用户<master></h3><figure class="highlight pgsql"><table><tr><td class="code"><pre><code class="hljs pgsql"><span class="hljs-keyword">create</span> <span class="hljs-keyword">user</span> <span class="hljs-string">&#x27;admin&#x27;</span>@<span class="hljs-string">&#x27;%&#x27;</span> identified <span class="hljs-keyword">by</span> <span class="hljs-string">&#x27;admin123&#x27;</span>;<br><span class="hljs-keyword">grant</span> <span class="hljs-keyword">replication</span> slave <span class="hljs-keyword">on</span> *.* <span class="hljs-keyword">to</span> <span class="hljs-string">&#x27;admin&#x27;</span>@<span class="hljs-string">&#x27;%&#x27;</span>;<br>FLUSH <span class="hljs-keyword">PRIVILEGES</span>;<br><span class="hljs-keyword">show</span> master status;<br></code></pre></td></tr></table></figure>
+<h3 id="6、进行关联master节点"><a href="#6、进行关联master节点" class="headerlink" title="6、进行关联master节点"></a>6、进行关联master节点<slave></h3><figure class="highlight routeros"><table><tr><td class="code"><pre><code class="hljs routeros">CHANGE MASTER <span class="hljs-keyword">TO</span><br>  <span class="hljs-attribute">MASTER_HOST</span>=<span class="hljs-string">&#x27;172.18.103.211&#x27;</span>,<br>  <span class="hljs-attribute">MASTER_USER</span>=<span class="hljs-string">&#x27;econage&#x27;</span>,<br>  <span class="hljs-attribute">MASTER_PASSWORD</span>=<span class="hljs-string">&#x27;econage&#x27;</span>,<br>  <span class="hljs-attribute">MASTER_PORT</span>=3306,<br>  <span class="hljs-attribute">MASTER_LOG_FILE</span>=<span class="hljs-string">&#x27;mysql-bin.000003&#x27;</span>,<br>  <span class="hljs-attribute">MASTER_LOG_POS</span>=1552;<br></code></pre></td></tr></table></figure>
+<p>最后输入命令 show slave status\G 查看状态。（写 \G 是换行）</p>
+<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20200408164002241.png" alt="image-20200408164002241"></p>
+<p>如果状态没有同步</p>
+<figure class="highlight crmsh"><table><tr><td class="code"><pre><code class="hljs crmsh"><span class="hljs-literal">stop</span>  <span class="hljs-literal">slave</span>;<br><span class="hljs-literal">start</span>  <span class="hljs-literal">slave</span>;<br>show <span class="hljs-literal">slave</span> status\G<br></code></pre></td></tr></table></figure>
+<p>参考文章：<a href="https://www.landui.com/help/show-9902.html">https://www.landui.com/help/show-9902.html</a></p>
+<p>​                    <a href="https://blog.csdn.net/yhld456/article/details/89020979">https://blog.csdn.net/yhld456/article/details/89020979</a></p>
+]]></content>
+      <categories>
+        <category>关系型数据库</category>
+      </categories>
+      <tags>
+        <tag>Mariadb</tag>
       </tags>
   </entry>
   <entry>
