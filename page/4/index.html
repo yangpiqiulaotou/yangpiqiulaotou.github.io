@@ -220,6 +220,105 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
+        <a href="/2021/03/17/Kubernetes%E4%B8%8A%E5%AE%89%E8%A3%85Calico/">Kubernetes上安装Calico</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2021/03/17/Kubernetes%E4%B8%8A%E5%AE%89%E8%A3%85Calico/">
+          
+          
+            
+          
+          1、使用以下命令初始化主机1kubeadm init --pod-network-cidr=192.168.0.0/16
+初始化成功截图如下：
+
+2、执行以下命令来配置kubectl123mkdir -p $HOME/.kubesudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/configsudo chown $(id -u):$(id -g) $
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-03-17 16:44" pubdate>
+              2021-03-17
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/Calico/">Calico</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/Calico/">Calico</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2021/03/16/k8s%E4%BD%BF%E7%94%A8Jenkins%E5%8F%91%E5%B8%83%E7%89%88%E6%9C%AC/">k8s使用Jenkins发布版本</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2021/03/16/k8s%E4%BD%BF%E7%94%A8Jenkins%E5%8F%91%E5%B8%83%E7%89%88%E6%9C%AC/">
+          
+          
+            
+          
+          1、安装Jenkins1234567891011#准备Java环境tar xvf  jdk-8u231-linux-x64.tar.gz -C /usr/local/cd /usr/local/ln -s jdk1.8.0_231 javacat  /etc/profile.d/javaexport JAVA_HOME=/usr/local/javaexport PATH=$PATH:$JAVA_
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-03-16 17:29" pubdate>
+              2021-03-16
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/Kubernetes/">Kubernetes</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/Jenkins/">Jenkins</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
         <a href="/2021/03/16/Jenkins%E4%B8%BB%E4%BB%8E%E9%85%8D%E7%BD%AE/">Jenkins主从配置</a>
       </h1>
 
@@ -645,104 +744,6 @@ Centos7.6
             <i class="iconfont icon-tags"></i>
             
               <a href="/tags/Kubernetes/">Kubernetes</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2021/01/20/elasticsearch%E6%80%A7%E8%83%BD%E6%B5%8B%E8%AF%95%E5%B7%A5%E5%85%B7rally/">elasticsearch性能测试工具rally</a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2021/01/20/elasticsearch%E6%80%A7%E8%83%BD%E6%B5%8B%E8%AF%95%E5%B7%A5%E5%85%B7rally/">
-          
-          
-            
-          
-          1、esrally功能：es的性能测试工具esrally不支持windows版本，目前只支持Linux和Mac OS。
-1.1 依赖环境Install Python 3.8+ including pip3, git 1.9+ and an appropriate JDK to run ElasticsearchBe sure that JAVA_HOME points to that JDK
-1.
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2021-01-20 11:01" pubdate>
-              2021-01-20
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/Elk/">Elk</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/Elasticsearch/">Elasticsearch</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2021/01/20/Linux%E5%AE%89%E8%A3%85elasticsearch/">Linux安装elasticsearch</a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2021/01/20/Linux%E5%AE%89%E8%A3%85elasticsearch/">
-          
-          
-            
-          
-          1、准备Java环境123456789tar xvf jdk-8u231-linux-x64.tar.gz -C /usr/local/mv jdk1.8.0_231 javavim /etc/profile.d/javaexport JAVA_HOME=/usr/local/javaexport PATH=$JAVA_HOME/bin:$PATHsource /etc/profile.d/jav
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2021-01-20 10:55" pubdate>
-              2021-01-20
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/Elk/">Elk</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/Elasticsearch/">Elasticsearch</a>
             
           </div>
         
