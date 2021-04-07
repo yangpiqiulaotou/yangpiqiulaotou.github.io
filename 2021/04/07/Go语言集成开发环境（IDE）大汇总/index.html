@@ -17,7 +17,7 @@
   <meta name="description" content="">
   <meta name="author" content="羊皮裘老头">
   <meta name="keywords" content="">
-  <title>Go语言简介 - 羊皮裘老头</title>
+  <title>Go语言集成开发环境（IDE）大汇总 - 羊皮裘老头</title>
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
 
@@ -201,7 +201,7 @@
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
           <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="Go语言简介">
+            <span class="h2" id="subtitle" title="Go语言集成开发环境（IDE）大汇总">
               
             </span>
 
@@ -211,7 +211,7 @@
   
     <span class="post-meta">
       <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-      <time datetime="2021-04-07 11:09" pubdate>
+      <time datetime="2021-04-07 11:25" pubdate>
         2021年4月7日 上午
       </time>
     </span>
@@ -223,7 +223,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      1.5k 字
+      1.1k 字
     </span>
   
 
@@ -233,7 +233,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      16
+      12
        分钟
     </span>
   
@@ -271,39 +271,39 @@
         <div class="py-5" id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">Go语言简介</h1>
+            <h1 style="display: none">Go语言集成开发环境（IDE）大汇总</h1>
             
             <div class="markdown-body">
-              <h2 id="Go语言学习路线"><a href="#Go语言学习路线" class="headerlink" title="Go语言学习路线"></a>Go语言学习路线</h2><p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/golang%E5%AD%A6%E4%B9%A0%E8%B7%AF%E7%BA%BF.png" srcset="/img/loading.gif" alt="golang学习路线"></p>
-<p>​        Go语言（或 Golang）起源于 2007 年，并在 2009 年正式对外发布。Go 是非常年轻的一门语言，它的主要目标是“兼具 <a target="_blank" rel="noopener" href="http://c.biancheng.net/python/">Python</a> 等动态语言的开发速度和 C/<a target="_blank" rel="noopener" href="http://c.biancheng.net/cplus/">C++</a> 等编译型语言的性能与安全性”。</p>
-<pre><code>     Go语言是编程语言设计的又一次尝试，是对类C语言的重大改进，它不但能让你访问底层操作系统，还提供了强大的网络编程和并发编程支持。Go语言的用途众多，可以进行网络编程、系统编程、并发编程、分布式编程。
-
-     Go语言的推出，旨在不损失应用程序性能的情况下降低代码的复杂性，具有“部署简单、并发性好、语言设计良好、执行性能好”等优势，目前国内诸多 IT 公司均已采用Go语言开发项目。</code></pre>
-<p>​         Go语言有时候被描述为“C 类似语言”，或者是“21 世纪的C语言”。Go 从C语言继承了相似的表达式语法、控制流结构、基础数据类型、调用参数传值、指针等很多思想，还有C语言一直所看中的编译后机器码的运行效率以及和现有操作系统的无缝适配。</p>
-<pre><code>     因为Go语言没有类和继承的概念，所以它和 [Java](http://c.biancheng.net/java/) 或 C++ 看起来并不相同。但是它通过接口（interface）的概念来实现多态性。Go语言有一个清晰易懂的轻量级类型系统，在类型之间也没有层级之说。因此可以说Go语言是一门混合型的语言。</code></pre>
-<p>​         此外，很多重要的开源项目都是使用Go语言开发的，其中包括 <a target="_blank" rel="noopener" href="http://c.biancheng.net/docker/">Docker</a>、Go-Ethereum、Thrraform 和 Kubernetes。</p>
-<h2 id="Go语言创始人"><a href="#Go语言创始人" class="headerlink" title="Go语言创始人"></a>Go语言创始人</h2><p>​        对语言进行评估时，明白设计者的动机以及语言要解决的问题很重要。Go语言出自 Ken Thompson 和 Rob Pike、Robert Griesemer 之手，他们都是计算机科学领域的重量级人物。</p>
-<h4 id="1-Ken-Thompson"><a href="#1-Ken-Thompson" class="headerlink" title="1) Ken Thompson"></a>1) Ken Thompson</h4><p>​        贝尔实验室 Unix 团队成员，C语言、Unix 和 Plan 9 的创始人之一，在 20 世纪 70 年代，设计并实现了最初的 UNIX  操作系统，仅从这一点说，他对计算机科学的贡献怎么强调都不过分。他还与 Rob Pike 合作设计了 UTF-8 编码方案。</p>
-<h4 id="2-Rob-Pike"><a href="#2-Rob-Pike" class="headerlink" title="2) Rob Pike"></a>2) Rob Pike</h4><p>​        Go语言项目总负责人，贝尔实验室 Unix 团队成员，除帮助设计 UTF-8 外，还帮助开发了分布式多用户操作系统 Plan 9、Inferno 操作系统和 Limbo 编程语言，并与人合著了《The Unix Programming Environment》，对 UNIX  的设计理念做了正统的阐述。</p>
-<h4 id="3-Robert-Griesemer"><a href="#3-Robert-Griesemer" class="headerlink" title="3) Robert Griesemer"></a>3) Robert Griesemer</h4><p>​        就职于 Google，参与开发 Java HotSpot 虚拟机，对语言设计有深入的认识，并负责 Chrome 浏览器和 Node.js 使用的 Google V8 <a target="_blank" rel="noopener" href="http://c.biancheng.net/js/">JavaScript</a> 引擎的代码生成部分。</p>
-<pre><code>     这些计算机科学领城的重量级人物设计Go语言的初衷是满足 Google  的需求。设计此语言花费了两年的时间，融入了整个团队多年的经验及对编程语言设计的深入认识。设计团队借鉴了 Pascal、Oberon  和C语言的设计智慧，同时让Go语言具备动态语言的便利性。因此，Go语言体现了经验丰富的计算机科学家的语言设计理念，是为全球最大的互联网公司之一设计的。</code></pre>
-<p>​         Go语言的所有设计者都说，设计Go语言是因为 C++ 给他们带来了挫败感。在 Google I/O 2012 的 Go 设计小组见面会上，Rob Pike 是这样说的：</p>
-<blockquote>
-<p>我们做了大量的 C++ 开发，厌烦了等待编译完成，尽管这是玩笑，但在很大程度上来说也是事实。</p>
-</blockquote>
-<h2 id="Go-是编译型语言"><a href="#Go-是编译型语言" class="headerlink" title="Go 是编译型语言"></a>Go 是编译型语言</h2><p>​        Go 使用编译器来编译代码。编译器将源代码编译成二进制（或字节码）格式；在编译代码时，编译器检查错误、优化性能并输出可在不同平台上运行的二进制文件。要创建并运行 Go 程序，程序员必须执行如下步骤。</p>
-<ol>
-<li>使用文本编辑器创建 Go 程序；</li>
-<li>保存文件；</li>
-<li>编译程序；</li>
-<li>运行编译得到的可执行文件。</li>
-</ol>
-<p> 这不同于 Python、Ruby 和 JavaScript 等语言，它们不包含编译步骤。Go 自带了编译器，因此无须单独安装编译器。</p>
-<h2 id="为什么要学习Go语言"><a href="#为什么要学习Go语言" class="headerlink" title="为什么要学习Go语言"></a>为什么要学习Go语言</h2><p>​        如果你要创建系统程序，或者基于网络的程序，Go语言是很不错的选择。作为一种相对较新的语言，它是由经验丰富且受人尊敬的计算机科学家设计的，旨在应对创建大型并发网络程序面临的挑战。</p>
-<pre><code>     在Go语言出现之前，开发者们总是面临非常艰难的抉择，究竟是使用执行速度快但是编译速度并不理想的语言（如：C++），还是使用编译速度较快但执行效率不佳的语言（如：.NET、Java），或者说开发难度较低但执行速度一般的动态语言呢？显然，Go语言在这 3 个条件之间做到了最佳的平衡：快速编译，高效执行，易于开发。</code></pre>
-<p>​         Go语言支持交叉编译，比如说你可以在运行 Linux 系统的计算机上开发可以在 Windows 上运行的应用程序。这是第一门完全支持 UTF-8 的编程语言，这不仅体现在它可以处理使用 UTF-8 编码的字符串，就连它的源码文件格式都是使用的 UTF-8  编码。Go语言做到了真正的国际化！</p>
-<h2 id="Go语言吉祥物"><a href="#Go语言吉祥物" class="headerlink" title="Go语言吉祥物"></a>Go语言吉祥物</h2><p>​        Go语言有一个吉祥物，在会议、文档页面和博文中，大多会包含下图所示的 Go Gopher，这是才华横溢的插画家 Renee French 设计的，她也是 Go 设计者之一 Rob Pike 的妻子。</p>
-<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/1-1PPQA9545W.jpg" srcset="/img/loading.gif" alt="img"></p>
+              <p>如何挑选合适的编辑器或集成开发环境呢？下面列举了一些Go语言集成开发环境或编辑器应该具备的特性：</p>
+<ul>
+<li>语法高亮是必不可少的功能，这也是为什么每个开发工具都提供配置文件来实现自定义配置的原因。</li>
+<li>拥有较好的项目文件纵览和导航能力，可以同时编辑多个源文件并设置书签，能够匹配括号，能够跳转到某个函数或类型的定义部分。</li>
+<li>完美的查找和替换功能，替换之前最好还能预览结果。</li>
+<li>当有编译错误时，双击错误提示可以跳转到发生错误的位置。</li>
+<li>跨平台，能够在 Linux、Mac OS X 和 Windows 下工作，这样就可以专注于一个开发环境。</li>
+<li>能够通过插件架构来轻易扩展和替换某个功能。</li>
+<li>拥有断点、检查变量值、单步执行、逐过程执行标识库中代码的能力。</li>
+<li>能够方便的存取最近使用过的文件或项目。</li>
+<li>拥有对包、类型、变量、函数和方法的智能代码补全的功能。</li>
+<li>能够方便地在不同的 Go 环境之间切换。</li>
+<li>针对一些特定的项目有项目模板，如：Web 应用，App Engine 项目，从而能够更快地开始开发工作。</li>
+</ul>
+<p> 下面为大家推荐几款常用的适用于Go语言的编辑器或集成开发环境。</p>
+<h4 id="1-Goland"><a href="#1-Goland" class="headerlink" title="1) Goland"></a>1) Goland</h4><p>Goland 是由 JetBrains 公司开发的一个新的商业 IDE，旨在为 Go 开发者提供的一个符合人体工程学的新的商业  IDE。Goland 整合了 IntelliJ 平台（一个用于 java  语言开发的集成环境，也可用于其他开发语言），提供了针对Go语言的编码辅助和工具集成。</p>
+<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/4-19110G24221554.gif" srcset="/img/loading.gif" alt="Goland"></p>
+<p> 关于 Goland 的详细使用说明请参考《<a target="_blank" rel="noopener" href="http://c.biancheng.net/view/6124.html">Goland 2019下载和安装</a>》一节。</p>
+<h4 id="2-LiteIDE"><a href="#2-LiteIDE" class="headerlink" title="2) LiteIDE"></a>2) LiteIDE</h4><p>LiteIDE是一款专门针对 Go 开发的集成开发环境，在编辑、编译和运行 Go 程序和项目方面都有非常好的支持。同时还包括了对源代码的抽象语法树视图和一些内置工具（此开发环境由国人 vfc 大叔开发）。</p>
+<p> LiteIDE 是一款非常好用的轻量级 Go 集成开发环境（基于 QT、Kate 和  SciTE），包含了跨平台开发及其它必要的特性，对代码编写、自动补全和运行调试都有极佳的支持。它采用了 Go  项目的概念来对项目文件进行浏览和管理，它还支持在各个 Go 开发环境之间随意切换以及交叉编译的功能。</p>
+<p> 同时，它具备了抽象语法树视图的功能，可以清楚地纵览项目中的常量、变量、函数、不同类型以及他们的属性和方法。</p>
+<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/4-1Z6051J24a61.gif" srcset="/img/loading.gif" alt="LiteIDE界面"></p>
+<p> 关于 LiteIDE 的安装和使用大家可以参考《<a target="_blank" rel="noopener" href="http://c.biancheng.net/view/6241.html">LiteIDE搭建Go语言开发环境</a>》一节。</p>
+<h4 id="3-Sublime-Text"><a href="#3-Sublime-Text" class="headerlink" title="3) Sublime Text"></a>3) Sublime Text</h4><p>一个革命性的跨平台（Linux、Mac OS X、Windows）文本编辑器，它支持编写非常多的编程语言代码。对于 Go 而言，它有一个插件叫做 GoSublime 来支持代码补全和代码模版。</p>
+<h4 id="4-GoClipse"><a href="#4-GoClipse" class="headerlink" title="4) GoClipse"></a>4) GoClipse</h4><p>是一款 Eclipse IDE 的插件，拥有非常多的特性以及通过 GoCode 来实现代码补全功能。其依附于著名的 Eclipse  这个大型开发环境，虽然需要安装 JVM 运行环境，但却可以很容易地享有 Eclipse  本身所具有的诸多功能。这是一个非常好的编辑器，完善的代码补全、抽象语法树视图、项目管理和程序调试功能。</p>
+<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/4-1Z6051J320429.gif" srcset="/img/loading.gif" alt="GoClipse界面"></p>
+<p> 如果你对集成开发环境都不是很熟悉，那就使用 LiteIDE 吧，另外使用 GoClipse 或者 IntelliJ Idea Plugin 也是不错的选择。</p>
+<p> 代码补全一般都是通过内置 GoCode 实现的（如：LiteIDE、GoClipse），如果需要手动安装 GoCode，在命令行输入指令 <code>go get -u github.com/nsf/gocode</code> 即可（务必事先配置好 Go 环境变量） 。</p>
+<h4 id="5-Visual-Studio-Code（简称VS-Code）"><a href="#5-Visual-Studio-Code（简称VS-Code）" class="headerlink" title="5) Visual Studio Code（简称VS Code）"></a>5) Visual Studio Code（简称VS Code）</h4><p>是一款由微软公司开发的，能运行在 Mac OS X、Windows 和 Linux 上的跨平台开源代码编辑器。</p>
+<p> VS Code 使用 JSON 格式的配置文件进行所有功能和特性的配置，同时它还可以通过扩展程序为编辑器实现编程语言高亮、参数提示、编译、调试、文档生成等各种功能。</p>
 
             </div>
             <hr>
@@ -334,18 +334,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2021/04/07/Go%E8%AF%AD%E8%A8%80%E7%9A%84%E7%89%B9%E6%80%A7/">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">Go语言的特性</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2021/04/06/Kubernetes-%E5%BC%83%E7%94%A8-Docker/">
-                        <span class="hidden-mobile">Kubernetes 弃用 Docker</span>
+                      <a href="/2021/04/07/Go%E8%AF%AD%E8%A8%80%E7%9A%84%E7%89%B9%E6%80%A7/">
+                        <span class="hidden-mobile">Go语言的特性</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
