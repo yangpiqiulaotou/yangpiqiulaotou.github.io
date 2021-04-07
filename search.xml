@@ -766,13 +766,11 @@
 <p>​            简而言之，Docker 并不支持 CRI（容器运行时接口）这一 Kubernetes 运行时 API，而 Kubernetes 用户一直以来所使用的其实是名为“dockershim”的桥接服务。Dockershim 能够转换 Docker API 与 CRI，但在后续版本当中，Kubernetes 将不再提供这项桥接服务。</p>
 <p>​            当然，Docker 本身也是一款非常强大的工具，可用于创建开发环境。但为了了解造成当前状况的原因，我们需要全面分析 Docker 在现有 Kubernetes 架构中的作用。</p>
 <p>​            Kubernetes 是一款基础设施工具，可对多种不同计算资源（例如虚拟 / 物理机）进行分组，使其呈现为统一的巨量计算资源，从而供应用程序使用或与其他人共享。在这样的架构中，Docker（或者容器运行时）仅用于通过 Kubernetes 控制平面进行调度，从而在实际主机内运行应用程序。</p>
-<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/aHR0cHM6Ly9tbWJpei5xcGljLmNuL21tYml6X3BuZy9GRTRWaWJGMFNqZk1kakRzcEtOQlNjd1hJVHlkT3NreEJMbUh3aEpEektUZHRQWGQ2U05TZnRaU1o4cUN6bkpESzMzaWE1UkgzRjRpYUp5MnRBR1hVUmljU3cvNjQw" alt="img"></p>
-<p>通过以上架构图，可以看到每个 Kubernetes 节点都与控制平面彼此通信。各个节点上的 kubelet 获取元数据，并执行 CRI 以在该节点上创建 / 删除容器。</p>
+<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/1617763816h.jpg" alt="1617763816h"><br>通过以上架构图，可以看到每个 Kubernetes 节点都与控制平面彼此通信。各个节点上的 kubelet 获取元数据，并执行 CRI 以在该节点上创建 / 删除容器。</p>
 <h2 id="1、但-Docker-为什么会被弃用？"><a href="#1、但-Docker-为什么会被弃用？" class="headerlink" title="1、但 Docker 为什么会被弃用？"></a>1、但 Docker 为什么会被弃用？</h2><hr>
 <p>如前所述，Kubernetes 只能与 CRI 通信，因此要与 Docker 通信，就必须使用桥接服务。这就是弃用 Docker 的第一点原因。</p>
 <p>要解释下一个原因，我们必须稍微聊聊 Docker 架构。首先参考以下示意图。</p>
-<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/aHR0cHM6Ly9tbWJpei5xcGljLmNuL21tYml6X3BuZy9GRTRWaWJGMFNqZk1kakRzcEtOQlNjd1hJVHlkT3NreEJMbUh3aEpEektUZHRQWGQ2U05TZnRaU1o4cUN6bkpESzMzaWE1UkgzRjRpYUp5MnRBR1hVUmljU3cvNjQw" alt="img"></p>
-<p>没错，Kubernetes 实际上需要保持在红框之内。Docker 网络与存储卷都被排除在外。</p>
+<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/1617763840j.jpg" alt="1617763840j"><br>没错，Kubernetes 实际上需要保持在红框之内。Docker 网络与存储卷都被排除在外。</p>
 <p>而这些用不到的功能本身就可能带来安全隐患。事实上，您拥有的功能越少，攻击面也就越小。</p>
 <p>因此，我们需要考虑使用替代方案，即 CRI 运行时。</p>
 <p>对于啥是 CRI 运行时？我们暂可以简单的将 Ta 理解为与 Docker 同等的存在（另外一个容器容器运行时）。如下图</p>
