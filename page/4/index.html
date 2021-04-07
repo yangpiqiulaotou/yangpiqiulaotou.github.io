@@ -220,6 +220,59 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
+        <a href="/2021/03/17/Calico%E7%BD%91%E7%BB%9C%E7%AD%96%E7%95%A5%E5%9F%BA%E7%A1%80/">Calico网络策略基础</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2021/03/17/Calico%E7%BD%91%E7%BB%9C%E7%AD%96%E7%95%A5%E5%9F%BA%E7%A1%80/">
+          
+          
+            
+          
+          1、创建服务创建名称空间
+1kubectl create ns policy-demo
+在policy-demo命名空间中创建两个副本的Nginx Pod
+1kubectl run --namespace=policy-demo nginx --replicas=2 --image=nginx
+如果你和我反馈一样：
+1Flag --replicas has been deprecated, has
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-03-17 16:46" pubdate>
+              2021-03-17
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/Calico/">Calico</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/Calico/">Calico</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
         <a href="/2021/03/17/Kubernetes%E4%B8%8A%E5%AE%89%E8%A3%85Calico/">Kubernetes上安装Calico</a>
       </h1>
 
@@ -651,82 +704,6 @@ LivenessProbe存活探测：用于判断容器是否存活，即Pod是否为runn
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
             <time datetime="2021-03-16 10:07" pubdate>
-              2021-03-16
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/Kubernetes/">Kubernetes</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/Kubernetes/">Kubernetes</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2021/03/16/Kubeadm%E9%83%A8%E7%BD%B2Kubernetes1-14-1%E9%9B%86%E7%BE%A4/">Kubeadm部署Kubernetes1.14.1集群</a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2021/03/16/Kubeadm%E9%83%A8%E7%BD%B2Kubernetes1-14-1%E9%9B%86%E7%BE%A4/">
-          
-          
-            
-          
-          一、环境说明
-
-
-主机名
-IP地址
-角色
-系统
-
-
-
-k8s-node-1
-192.168.120.128
-k8s-master
-Centos7.6
-
-
-k8s-node-2
-192.168.120.129
-k8s-node
-Centos7.6
-
-
-k8s-node-3
-192.168.120.130
-k8s-node
-Centos7.6
-
-
-注意：官方建议每台机器至少双核2G内存，同时需确保MA
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2021-03-16 10:03" pubdate>
               2021-03-16
             </time>
           </div>
