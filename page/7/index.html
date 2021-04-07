@@ -220,18 +220,18 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
-        <a href="/2020/12/30/Typora-PicGo-Gitee%E5%86%99%E5%8D%9A%E5%AE%A2%E5%92%8C%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2%E5%9B%BE%E5%BA%8A/">Typora+PicGo+Gitee写博客和个人博客图床</a>
+        <a href="/2021/01/05/Linux%EF%BC%88centos%EF%BC%89%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%8E%AF%E5%A2%83%E9%80%9A%E7%94%A8%E4%BC%98%E5%8C%96/">Linux（centos）服务器环境通用优化</a>
       </h1>
 
       <p class="index-excerpt">
-        <a href="/2020/12/30/Typora-PicGo-Gitee%E5%86%99%E5%8D%9A%E5%AE%A2%E5%92%8C%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2%E5%9B%BE%E5%BA%8A/">
+        <a href="/2021/01/05/Linux%EF%BC%88centos%EF%BC%89%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%8E%AF%E5%A2%83%E9%80%9A%E7%94%A8%E4%BC%98%E5%8C%96/">
           
           
             
           
-          图床简介​        在写博客的过程中，我们都会遇到插入图片的情况，图片存在本地的话，我们把博客上传到网站后，会没有办法显示，而且存放在本地移植性也不太好，我们就需要图床辅助我们。
-​        图床就是一个便于在博文中插入在线图片连接的个人图片仓库。设置图床之后，在自己博客中插入的图片链接就可以随时随地在线预览了，并且不会因为任何意外原因无法查看，除非自己亲自删除。
-备注：需要nodej
+          建议服务器内存在8G或以上
+1、内核参数优化1）备份：1cp /etc/sysctl.conf /etc/sysctl.conf.bak
+2）添加内容：1234567891011121314151617181920212223242526272829303132333435363738394041424344454647vi  /etc/sysctl.conf#网络性能调优net.ipv4.tcp
         </a>
       </p>
 
@@ -239,8 +239,8 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2020-12-30 14:35" pubdate>
-              2020-12-30
+            <time datetime="2021-01-05 11:48" pubdate>
+              2021-01-05
             </time>
           </div>
         
@@ -248,7 +248,7 @@
           <div class="post-meta mr-3">
             <i class="iconfont icon-category"></i>
             
-              <a href="/categories/Hexo/">Hexo</a>
+              <a href="/categories/%E5%85%B3%E7%B3%BB%E5%9E%8B%E6%95%B0%E6%8D%AE%E5%BA%93/">关系型数据库</a>
             
           </div>
         
@@ -256,7 +256,9 @@
           <div class="post-meta">
             <i class="iconfont icon-tags"></i>
             
-              <a href="/tags/Hexo/">Hexo</a>
+              <a href="/tags/Linux/">Linux</a>
+            
+              <a href="/tags/Mysql/">Mysql</a>
             
           </div>
         
@@ -270,20 +272,18 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
-        <a href="/2020/12/30/%E5%AE%89%E8%A3%85Hexo%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/">安装Hexo个人博客</a>
+        <a href="/2021/01/05/%E4%BA%8C%E8%BF%9B%E5%88%B6%E5%AE%89%E8%A3%85mariadb%E4%B8%BB%E4%BB%8E%E5%A4%8D%E5%88%B6/">二进制安装mariadb主从复制</a>
       </h1>
 
       <p class="index-excerpt">
-        <a href="/2020/12/30/%E5%AE%89%E8%A3%85Hexo%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/">
+        <a href="/2021/01/05/%E4%BA%8C%E8%BF%9B%E5%88%B6%E5%AE%89%E8%A3%85mariadb%E4%B8%BB%E4%BB%8E%E5%A4%8D%E5%88%B6/">
           
           
             
           
-          需要的工具nodejs: 包含俩个命令 node npm
-hexo: 快速、简洁且高效的博客框架,支持markdown 插件和扩展性很好
-git：需要安装git 通过git 命令来操作github
-github账号：申请注册一个github账号，github提供了一个github pages功能可以支持站点软件版本
-windows安装git1、打开Git的官方网站：https://git-scm.
+          官网地址：https://mariadb.com/downloads
+1、安装MariaDB12345tar xvf mariadb-10.4.12-linux-x86_64.tar.gz -C /usr/local/cd /usr/localln -s mariadb-10.4.12-linux-x86_64 mysqlgroupadd mysqluseradd -g mysql mysql
+创
         </a>
       </p>
 
@@ -291,7 +291,437 @@ windows安装git1、打开Git的官方网站：https://git-scm.
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2020-12-30 13:57" pubdate>
+            <time datetime="2021-01-05 11:44" pubdate>
+              2021-01-05
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/%E5%85%B3%E7%B3%BB%E5%9E%8B%E6%95%B0%E6%8D%AE%E5%BA%93/">关系型数据库</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/Mariadb/">Mariadb</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2021/01/05/Linux%E4%BA%8C%E8%BF%9B%E5%88%B6%E8%BD%AF%E4%BB%B6%E5%8C%85%E5%AE%89%E8%A3%85Mysql8%E4%B8%BB%E4%BB%8E%E5%A4%8D%E5%88%B6/">Linux二进制软件包安装Mysql8主从复制</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2021/01/05/Linux%E4%BA%8C%E8%BF%9B%E5%88%B6%E8%BD%AF%E4%BB%B6%E5%8C%85%E5%AE%89%E8%A3%85Mysql8%E4%B8%BB%E4%BB%8E%E5%A4%8D%E5%88%B6/">
+          
+          
+            
+          
+          1、下载安装包wget  https://cdn.mysql.com//Downloads/MySQL-8.0/mysql-8.0.18-el7-x86_64.tar.gz
+2、删除系统自带123rpm -qa |grep  mysqlrpm -qa |grep mariadbrpm -e --nodeps mariadb-libs-5.5.60-1.el7_5.x86_64
+3、初始化数据库12
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-01-05 11:40" pubdate>
+              2021-01-05
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/%E5%85%B3%E7%B3%BB%E5%9E%8B%E6%95%B0%E6%8D%AE%E5%BA%93/">关系型数据库</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/Mysql/">Mysql</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2021/01/05/sonarqube%E4%BD%BF%E7%94%A8%E9%92%89%E9%92%89%E5%91%8A%E8%AD%A6/">sonarqube使用钉钉告警</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2021/01/05/sonarqube%E4%BD%BF%E7%94%A8%E9%92%89%E9%92%89%E5%91%8A%E8%AD%A6/">
+          
+          
+            
+          
+          说明：因项目需求，创建的是一个Jenkins自由项目，需要sonar代码扫描通过再继续maven构建、并且不发送钉钉告警，扫描不通过则停止构建、并发送钉钉告警。
+1、安装告警插件#下载release包 /releases/dingding-sonar-1.0-SNAPSHOT.jar
+123wget https://gitee.com/chejiangyi/dingding-sonar/repos
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-01-05 10:45" pubdate>
+              2021-01-05
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/Linux/">Linux</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/Sonarqube/">Sonarqube</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2021/01/05/Jenkins%E4%B8%BB%E6%9C%BA%E4%B9%8B%E4%B8%8A%E9%83%A8%E7%BD%B2SonarQube-Scanner/">Jenkins主机之上部署SonarQube Scanner</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2021/01/05/Jenkins%E4%B8%BB%E6%9C%BA%E4%B9%8B%E4%B8%8A%E9%83%A8%E7%BD%B2SonarQube-Scanner/">
+          
+          
+            
+          
+          1、在jenkins中安装插件：SonarQube Scanner
+2、在jenkins主机之上安装 SonarQube Scanner 部件，将其安装到jenkins用户之下12345678910cd  /usr/localunzip sonar-scanner-cli-4.2.0.1873-linux.zipln -s sonar-scanner-4.2.0.1873-linux sonar-
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-01-05 09:50" pubdate>
+              2021-01-05
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/Linux/">Linux</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/Jenkins/">Jenkins</a>
+            
+              <a href="/tags/Sonarqube/">Sonarqube</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2021/01/05/Linux%E5%AE%89%E8%A3%85sonarqube8-2/">Linux安装sonarqube8.2</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2021/01/05/Linux%E5%AE%89%E8%A3%85sonarqube8-2/">
+          
+          
+            
+          
+          社区版下载地址：https://www.sonarqube.org/downloads/
+环境介绍：（本文使用Oracle jdk 11.0.6，postgreSQL 12）
+1、解压缩包1unzip sonarqube-8.2.0.32929.zip
+
+2、创建postgreSQL用户安装完后会自动创建postgres用户 su - postgres切换进去
+12345678910psql   
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-01-05 09:45" pubdate>
+              2021-01-05
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/Linux/">Linux</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/Sonarqube/">Sonarqube</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2021/01/05/CentOS7%E5%AE%89%E8%A3%85PostgreSQL12/">CentOS7安装PostgreSQL12</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2021/01/05/CentOS7%E5%AE%89%E8%A3%85PostgreSQL12/">
+          
+          
+            
+          
+          1、进入官网下载所需版本https://www.postgresql.org/download/linux/redhat/
+
+2、开始安装1yum install https://download.postgresql.org/pub/repos/yum/reporpms/EL-7-x86_64/pgdg-redhat-repo-latest.noarch.rpm -y
+
+12yum instal
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-01-05 09:41" pubdate>
+              2021-01-05
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/%E5%85%B3%E7%B3%BB%E5%9E%8B%E6%95%B0%E6%8D%AE%E5%BA%93/">关系型数据库</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/PostgreSQL/">PostgreSQL</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2021/01/04/rancher%E6%B5%81%E6%B0%B4%E7%BA%BF-%E5%90%8E%E7%AB%AF/">Rancher流水线&lt;后端&gt;</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2021/01/04/rancher%E6%B5%81%E6%B0%B4%E7%BA%BF-%E5%90%8E%E7%AB%AF/">
+          
+          
+            
+          
+          1、Pipeline授权设置Gitlab版本需要在9以上，授权账号必须是项目的Maintainer（gitlab 8 里面是master）,在gitlab中创建application，callbackurl在rancher上复制
+
+
+
+
+生成需要的ID和Key
+
+将刚才生成的ID和Key填入，地址输入自己gitlab的URL
+
+授权完成后，给流水线的运行设置资源限制
+
+
+2、配置流水线现在就可以开
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-01-04 10:34" pubdate>
+              2021-01-04
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/Rancher/">Rancher</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/Rancher/">Rancher</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2021/01/04/rancher-v2-3%E5%AE%89%E8%A3%85%E5%88%9B%E5%BB%BAK8s%E9%9B%86%E7%BE%A4/">Rancher:v2.3安装创建K8s集群</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2021/01/04/rancher-v2-3%E5%AE%89%E8%A3%85%E5%88%9B%E5%BB%BAK8s%E9%9B%86%E7%BE%A4/">
+          
+          
+            
+          
+          1、rancher介绍每个团队都可以在他们选择的公共云或私有云上部署应用程序，Rancher 在 IT 和 DevOps 组织中扮演的角色如下：
+
+同时具备多种功能：
+
+内置 CI/CD 流水线
+告警和日志收集功能
+多集群管理功能
+集成 Rancher Kubernetes Engine (RKE)
+与各云 Kubernetes 服务(如 GKE、EKS、AKS) 集成
+
+2、安装要求2.1操作系
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-01-04 10:31" pubdate>
+              2021-01-04
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/Rancher/">Rancher</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/Rancher/">Rancher</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2020/12/30/Hexo%E9%9B%86%E6%88%90Valine%E8%AF%84%E8%AE%BA%E7%B3%BB%E7%BB%9F/">Hexo集成Valine评论系统</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2020/12/30/Hexo%E9%9B%86%E6%88%90Valine%E8%AF%84%E8%AE%BA%E7%B3%BB%E7%BB%9F/">
+          
+          
+            
+          
+          注册Leancloud评论系统其实是放在Leancloud上的，因此首先需要去注册一个账号
+官网：https://leancloud.cn/
+认证完成后创建应用
+
+
+点击设置获取appid 和 appkey
+
+修改配置文件打开主题配置文件 搜索 valine，填入appid 和 appkey
+123456789101112valine:  appid:  # 从 LeanCloud 的应用中得到的
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2020-12-30 15:19" pubdate>
               2020-12-30
             </time>
           </div>
@@ -320,7 +750,7 @@ windows安装git1、打开Git的官方网站：https://git-scm.
 
   <nav aria-label="navigation">
     <span class="pagination" id="pagination">
-      <a class="extend prev" rel="prev" href="/page/6/"><i class="iconfont icon-arrowleft"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><a class="page-number" href="/page/6/">6</a><span class="page-number current">7</span>
+      <a class="extend prev" rel="prev" href="/page/6/"><i class="iconfont icon-arrowleft"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><a class="page-number" href="/page/6/">6</a><span class="page-number current">7</span><a class="page-number" href="/page/8/">8</a><a class="extend next" rel="next" href="/page/8/"><i class="iconfont icon-arrowright"></i></a>
     </span>
   </nav>
   
