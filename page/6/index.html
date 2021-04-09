@@ -220,6 +220,109 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
+        <a href="/2021/03/17/Calico%E7%BD%91%E7%BB%9C%E8%BF%9B%E9%98%B6/">Calico网络进阶</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2021/03/17/Calico%E7%BD%91%E7%BB%9C%E8%BF%9B%E9%98%B6/">
+          
+          
+            
+          
+          1、创建服务1kubectl create ns advanced-policy-demo
+由于k8s的v1.18.2版本启用了replicas命令，使用yaml文件创建nginx服务
+1234567891011121314151617181920212223242526vim nginx-deployment.yamlapiVersion: apps/v1kind: Deploymentmeta
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-03-17 16:47" pubdate>
+              2021-03-17
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/Calico/">Calico</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/Calico/">Calico</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2021/03/17/Calico%E7%BD%91%E7%BB%9C%E7%AD%96%E7%95%A5%E5%9F%BA%E7%A1%80/">Calico网络策略基础</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2021/03/17/Calico%E7%BD%91%E7%BB%9C%E7%AD%96%E7%95%A5%E5%9F%BA%E7%A1%80/">
+          
+          
+            
+          
+          1、创建服务创建名称空间
+1kubectl create ns policy-demo
+在policy-demo命名空间中创建两个副本的Nginx Pod
+1kubectl run --namespace=policy-demo nginx --replicas=2 --image=nginx
+如果你和我反馈一样：
+1Flag --replicas has been deprecated, has
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-03-17 16:46" pubdate>
+              2021-03-17
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/Calico/">Calico</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/Calico/">Calico</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
         <a href="/2021/03/17/Kubernetes%E4%B8%8A%E5%AE%89%E8%A3%85Calico/">Kubernetes上安装Calico</a>
       </h1>
 
@@ -622,140 +725,11 @@ LivenessProbe存活探测：用于判断容器是否存活，即Pod是否为runn
     </article>
   </div>
 
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2021/03/16/K8s%E8%BF%9E%E6%8E%A5harbor%E7%A7%81%E6%9C%89%E4%BB%93%E5%BA%93/">K8s连接harbor私有仓库</a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2021/03/16/K8s%E8%BF%9E%E6%8E%A5harbor%E7%A7%81%E6%9C%89%E4%BB%93%E5%BA%93/">
-          
-          
-            
-          
-          1、登录Docker通过注册表进行身份验证才能提取私有映像：
-1docker login  registry.hello.com
-
-出现提示时，输入您的Docker用户名和密码。登录过程将创建或更新config.json包含授权令牌的文件。
-查看config.json文件：
-1234567891011cat ~/.docker/config.json&#123;        &quot;auth
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2021-03-16 10:07" pubdate>
-              2021-03-16
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/Kubernetes/">Kubernetes</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/Kubernetes/">Kubernetes</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2021/03/16/Kubeadm%E9%83%A8%E7%BD%B2Kubernetes1-14-1%E9%9B%86%E7%BE%A4/">Kubeadm部署Kubernetes1.14.1集群</a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2021/03/16/Kubeadm%E9%83%A8%E7%BD%B2Kubernetes1-14-1%E9%9B%86%E7%BE%A4/">
-          
-          
-            
-          
-          一、环境说明
-
-
-主机名
-IP地址
-角色
-系统
-
-
-
-k8s-node-1
-192.168.120.128
-k8s-master
-Centos7.6
-
-
-k8s-node-2
-192.168.120.129
-k8s-node
-Centos7.6
-
-
-k8s-node-3
-192.168.120.130
-k8s-node
-Centos7.6
-
-
-注意：官方建议每台机器至少双核2G内存，同时需确保MA
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2021-03-16 10:03" pubdate>
-              2021-03-16
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/Kubernetes/">Kubernetes</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/Kubernetes/">Kubernetes</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
 
 
   <nav aria-label="navigation">
     <span class="pagination" id="pagination">
-      <a class="extend prev" rel="prev" href="/page/5/"><i class="iconfont icon-arrowleft"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><span class="page-number current">6</span><a class="page-number" href="/page/7/">7</a><a class="page-number" href="/page/8/">8</a><a class="extend next" rel="next" href="/page/7/"><i class="iconfont icon-arrowright"></i></a>
+      <a class="extend prev" rel="prev" href="/page/5/"><i class="iconfont icon-arrowleft"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><span class="page-number current">6</span><a class="page-number" href="/page/7/">7</a><a class="page-number" href="/page/8/">8</a><a class="page-number" href="/page/9/">9</a><a class="extend next" rel="next" href="/page/7/"><i class="iconfont icon-arrowright"></i></a>
     </span>
   </nav>
   
