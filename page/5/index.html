@@ -220,6 +220,111 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
+        <a href="/2021/03/22/MetalLB/">MetalLB</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2021/03/22/MetalLB/">
+          
+          
+            
+          
+          1、概念​        MetalLB挂接到您的Kubernetes集群中，并提供了网络负载平衡器实现。简而言之，它允许您在未在云提供商上运行的集群中创建类型为“ LoadBalancer”的Kubernetes服务。
+​        它具有两个可以共同提供此服务的功能：地址分配和外部通知
+1.1 地址分配​        在启用了云的Kubernetes集群中，您需要一个负载均衡器，然后您的
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-03-22 15:07" pubdate>
+              2021-03-22
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/Kubernetes/">Kubernetes</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/MetalLB/">MetalLB</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2021/03/22/Docker-%E6%9C%80%E5%AE%9E%E7%94%A8%E5%91%BD%E4%BB%A4%E8%A1%8C/">Docker 最实用命令行</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2021/03/22/Docker-%E6%9C%80%E5%AE%9E%E7%94%A8%E5%91%BD%E4%BB%A4%E8%A1%8C/">
+          
+          
+            
+          
+          管理命令为了整理CLI，Docker 1.13引进了新的管理命令，如下：
+
+system
+container
+image
+
+Docker的老版本中已经有了 network, node, service, swarm 和 volume 。这些新命令组子命令过去作为root命令直接实现。
+Docker系统​        现在有一个新管理命令 system 。它有4个子命令分别是 df, events
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-03-22 15:06" pubdate>
+              2021-03-22
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/Docker/">Docker</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/Docker/">Docker</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
         <a href="/2021/03/22/prometheus%E5%AF%B9%E6%8E%A5%E9%92%89%E9%92%89/">prometheus对接钉钉</a>
       </h1>
 
@@ -610,108 +715,6 @@ ingress支持以下的路由：
             <i class="iconfont icon-tags"></i>
             
               <a href="/tags/Kubernetes/">Kubernetes</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2021/03/18/Calico-IPIP%E6%A8%A1%E5%BC%8F/">Calico  IPIP模式</a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2021/03/18/Calico-IPIP%E6%A8%A1%E5%BC%8F/">
-          
-          
-            
-          
-          1、IPIP模式简介​    IPIP模式是一种将各Node的路由之间做一个tunnel，再把网络连接起来的模式：
-
-​    从字面上说，就是将一个IP数据包套在另一个IP包里，使用到了Linux提供的隧道技术。可以理解为一个基于IP层的网桥，将两个本不通的网络通过点对点连接起来。
-2、准备环境​    准备一套k8s环境，并安装好IPIP模式的calico网络
-
-master节点去污点，所以工
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2021-03-18 17:22" pubdate>
-              2021-03-18
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/Calico/">Calico</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/Calico/">Calico</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2021/03/17/%E5%88%9D%E8%AF%86Calico/">初识Calico</a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2021/03/17/%E5%88%9D%E8%AF%86Calico/">
-          
-          
-            
-          
-          1、简介​        Calico是针对容器，虚拟机和基于主机的本机工作负载的开源网络和网络安全解决方案。Calico支持广泛的平台，包括Kubernetes，OpenShift，Docker EE，OpenStack和裸机服务。
-​        Calico将灵活的网络功能与无处不在的安全性实施相结合，以提供具有本地Linux内核性能和真正的云原生可扩展性的解决方案。Calico为开发人员
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2021-03-17 16:52" pubdate>
-              2021-03-17
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/Calico/">Calico</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/Calico/">Calico</a>
             
           </div>
         
