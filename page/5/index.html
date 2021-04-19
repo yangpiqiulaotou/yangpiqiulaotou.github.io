@@ -220,6 +220,220 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
+        <a href="/2021/03/25/helm3%E5%AE%89%E8%A3%85nexus/">helm3安装nexus</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2021/03/25/helm3%E5%AE%89%E8%A3%85nexus/">
+          
+          
+            
+          
+          1、环境介绍
+2、安装nexus1234helm search repo nexushelm  pull  stable/sonatype-nexustar  xvf  sonatype-nexus-1.21.2.tgzhelm  install  nexus  ./sonatype-nexus
+
+1kubectl  get  pod
+
+1kubectl describe pod nexus-so
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-03-25 11:20" pubdate>
+              2021-03-25
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/Helm/">Helm</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/Nexus/">Nexus</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2021/03/25/helm3%E5%AE%89%E8%A3%85sonarqube/">helm3安装sonarqube</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2021/03/25/helm3%E5%AE%89%E8%A3%85sonarqube/">
+          
+          
+            
+          
+          1、总览SonarQube平台由4个组件组成：
+
+一台SonarQube Server启动3个主要过程：
+Web服务器，供开发人员，管理人员浏览高质量的快照并配置SonarQube实例
+基于Elasticsearch的Search Server从UI进行后退搜索
+Compute Engine服务器，负责处理代码分析报告并将其保存在SonarQube数据库中
+
+
+一个SonarQube数据库要存储：
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-03-25 11:18" pubdate>
+              2021-03-25
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/Helm/">Helm</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/Sonarqube/">Sonarqube</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2021/03/25/%E5%AE%89%E8%A3%85%E9%83%A8%E7%BD%B2Helm3/">安装部署Helm3</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2021/03/25/%E5%AE%89%E8%A3%85%E9%83%A8%E7%BD%B2Helm3/">
+          
+          
+            
+          
+          1、新的功能Helm 3具有许多新功能，但其中一些功能应在此处重点介绍：
+
+版本以新格式存储
+没有群集内（分iller）组件
+Helm 3包括对新版Helm图表的支持（图表v2）
+Helm 3还支持库图表-图表主要用作其他图表的资源。
+用于在OCI注册表中存储Helm图表的实验支持（例如Docker Distribution）可以进行测试。
+现在在升级Kubernetes资源时将应用3向战略合并补
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-03-25 11:12" pubdate>
+              2021-03-25
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/Helm/">Helm</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/Helm/">Helm</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2021/03/22/Redis%E4%BB%8B%E7%BB%8D/">Redis介绍</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2021/03/22/Redis%E4%BB%8B%E7%BB%8D/">
+          
+          
+            
+          
+          1、redis持久化redis提供了两种持久化的方式，分别是RDB（Redis DataBase）和AOF（Append Only File）。
+RDB，简而言之，就是在不同的时间点，将redis存储的数据生成快照并存储到磁盘等介质上；
+AOF，则是换了一个角度来实现持久化，那就是将redis执行过的所有写指令记录下来，在下次redis重新启动时，只要把这些写指令从前到后再重复执行一遍，就可以实现
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-03-22 15:13" pubdate>
+              2021-03-22
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/%E9%9D%9E%E5%85%B3%E7%B3%BB%E5%9E%8B%E6%95%B0%E6%8D%AE%E5%BA%93/">非关系型数据库</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/Redis/">Redis</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
         <a href="/2021/03/22/%E5%AE%89%E8%A3%85MetalLB/">安装MetalLB</a>
       </h1>
 
@@ -509,211 +723,6 @@ Docker系统​        现在有一个新管理命令 system 。它有4个子命
             <i class="iconfont icon-tags"></i>
             
               <a href="/tags/Prometheus/">Prometheus</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2021/03/22/alertmanager%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6%E8%AF%A6%E8%A7%A3/">alertmanager配置文件详解</a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2021/03/22/alertmanager%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6%E8%AF%A6%E8%A7%A3/">
-          
-          
-            
-          
-          123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354global:  smtp_smarthost: &#x27;localhost:25&#x27;  smtp_from: &#x27;alertmanager@example.org&#x27;   
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2021-03-22 14:59" pubdate>
-              2021-03-22
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/Prometheus/">Prometheus</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/Prometheus/">Prometheus</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2021/03/22/Prometheus%E5%90%AF%E5%8A%A8%E5%8F%82%E6%95%B0%E8%AF%A6%E8%A7%A3/">Prometheus启动参数详解</a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2021/03/22/Prometheus%E5%90%AF%E5%8A%A8%E5%8F%82%E6%95%B0%E8%AF%A6%E8%A7%A3/">
-          
-          
-            
-          
-          12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849505152535455565758596061626364656667686970717273747576777879808182838485868788899091929394959697989910010110210
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2021-03-22 14:58" pubdate>
-              2021-03-22
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/Prometheus/">Prometheus</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/Prometheus/">Prometheus</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2021/03/22/Prometheus%E7%9B%91%E6%8E%A7k8s%E9%9B%86%E7%BE%A4/">Prometheus监控k8s集群</a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2021/03/22/Prometheus%E7%9B%91%E6%8E%A7k8s%E9%9B%86%E7%BE%A4/">
-          
-          
-            
-          
-          1、特征普罗米修斯的主要特点是：
-
-一个多维数据模型，其中包含通过度量标准名称和键/值对标识的时间序列数据
-PromQL，一种灵活的查询语言 ，可利用此维度
-不依赖分布式存储；单服务器节点是自治的
-时间序列收集通过HTTP上的拉模型进行
-通过中间网关支持推送时间序列
-通过服务发现或静态配置发现目标
-多种图形和仪表板支持模式
-
-2、组件Prometheus生态系统包含多个组件，其中许多是可选的：
-
-
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2021-03-22 14:56" pubdate>
-              2021-03-22
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/Prometheus/">Prometheus</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/Prometheus/">Prometheus</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2021/03/18/dockerignore%E6%96%87%E4%BB%B6/">dockerignore文件</a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2021/03/18/dockerignore%E6%96%87%E4%BB%B6/">
-          
-          
-            
-          
-          ​    该.dockerignore文件是隐藏文件也是一个工具，可以帮助你定义你真正需要的Docker构建上下文。使用此文件，你可以为这些文件和文件夹规则指定忽略规则和异常，这些规则和异常将不包含在构建上下文中，因此不会打包到存档中并上载到Docker服务器。
-1、dockerignore语法​    该.dockerignore文件类似于gitignore该git工具使用的文件。与.gitig
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2021-03-18 17:27" pubdate>
-              2021-03-18
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/Docker/">Docker</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/Docker/">Docker</a>
             
           </div>
         
