@@ -220,6 +220,108 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
+        <a href="/2021/04/07/Go%E8%AF%AD%E8%A8%80%E7%A8%8B%E5%BA%8F%E7%9A%84%E7%BC%96%E8%AF%91%E5%92%8C%E8%BF%90%E8%A1%8C/">Go语言程序的编译和运行</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2021/04/07/Go%E8%AF%AD%E8%A8%80%E7%A8%8B%E5%BA%8F%E7%9A%84%E7%BC%96%E8%AF%91%E5%92%8C%E8%BF%90%E8%A1%8C/">
+          
+          
+            
+          
+          Go语言是编译型的静态语言（和C语言一样），所以在运行Go语言程序之前，先要将其编译成二进制的可执行文件。
+ 可以通过Go语言提供的go build或者go run命令对Go语言程序进行编译：
+
+go build 命令可以将Go语言程序代码编译成二进制的可执行文件，但是需要我们手动运行该二进制文件；
+go run 命令则更加方便，它会在编译后直接运行Go语言程序，编译过程中会产生一个临时文件，但不
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-04-07 11:47" pubdate>
+              2021-04-07
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/Golang/">Golang</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/Golang/">Golang</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2021/04/07/%E7%AC%AC%E4%B8%80%E4%B8%AAGo%E8%AF%AD%E8%A8%80%E7%A8%8B%E5%BA%8F/">第一个Go语言程序</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2021/04/07/%E7%AC%AC%E4%B8%80%E4%B8%AAGo%E8%AF%AD%E8%A8%80%E7%A8%8B%E5%BA%8F/">
+          
+          
+            
+          
+           在控制台输出“Hello World!”非常简单，仅需要几行代码就可以搞定，如下所示：
+12345678910// hello project main.gopackage mainimport (	&quot;fmt&quot;)func main() &#123;	fmt.Println(&quot;Hello World!&quot;)&#125;
+大家也许不明白这些代码的含义，没关系，下
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-04-07 11:46" pubdate>
+              2021-04-07
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/Golang/">Golang</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/Golang/">Golang</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
         <a href="/2021/04/07/Go%E8%AF%AD%E8%A8%80%E6%98%AF%E6%80%8E%E4%B9%88%E5%AE%8C%E6%88%90%E7%BC%96%E8%AF%91%E7%9A%84/">Go语言是怎么完成编译的</a>
       </h1>
 
@@ -612,115 +714,11 @@ src 目录：放置项目和库的源
     </article>
   </div>
 
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2021/04/07/Go%E8%AF%AD%E8%A8%80%E9%9B%86%E6%88%90%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%EF%BC%88IDE%EF%BC%89%E5%A4%A7%E6%B1%87%E6%80%BB/">Go语言集成开发环境（IDE）大汇总</a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2021/04/07/Go%E8%AF%AD%E8%A8%80%E9%9B%86%E6%88%90%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%EF%BC%88IDE%EF%BC%89%E5%A4%A7%E6%B1%87%E6%80%BB/">
-          
-          
-            
-          
-          如何挑选合适的编辑器或集成开发环境呢？下面列举了一些Go语言集成开发环境或编辑器应该具备的特性：
-
-语法高亮是必不可少的功能，这也是为什么每个开发工具都提供配置文件来实现自定义配置的原因。
-拥有较好的项目文件纵览和导航能力，可以同时编辑多个源文件并设置书签，能够匹配括号，能够跳转到某个函数或类型的定义部分。
-完美的查找和替换功能，替换之前最好还能预览结果。
-当有编译错误时，双击错误提示可以跳转到发
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2021-04-07 11:25" pubdate>
-              2021-04-07
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/Golang/">Golang</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/Golang/">Golang</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2021/04/07/Go%E8%AF%AD%E8%A8%80%E7%9A%84%E7%89%B9%E6%80%A7/">Go语言的特性</a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2021/04/07/Go%E8%AF%AD%E8%A8%80%E7%9A%84%E7%89%B9%E6%80%A7/">
-          
-          
-            
-          
-          Go语言也称为 Golang，是由 Google 公司开发的一种静态强类型、编译型、并发型、并具有垃圾回收功能的编程语言。
- 接下来从几个方面来具体介绍一下Go语言的特性。
-语法简单​        抛开语法样式不谈，单就类型和规则而言，Go 与 C99、C11 相似之处颇多，这也是Go语言被冠以“NextC”名号的重要原因。
-​         Go语言的语法处于简单和复杂的两极。C语言简单到你
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2021-04-07 11:23" pubdate>
-              2021-04-07
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/Golang/">Golang</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/Golang/">Golang</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
 
 
   <nav aria-label="navigation">
     <span class="pagination" id="pagination">
-      <a class="extend prev" rel="prev" href="/page/2/"><i class="iconfont icon-arrowleft"></i></a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><span class="space">&hellip;</span><a class="page-number" href="/page/9/">9</a><a class="extend next" rel="next" href="/page/4/"><i class="iconfont icon-arrowright"></i></a>
+      <a class="extend prev" rel="prev" href="/page/2/"><i class="iconfont icon-arrowleft"></i></a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><span class="space">&hellip;</span><a class="page-number" href="/page/10/">10</a><a class="extend next" rel="next" href="/page/4/"><i class="iconfont icon-arrowright"></i></a>
     </span>
   </nav>
   

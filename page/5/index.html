@@ -220,6 +220,107 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
+        <a href="/2021/03/25/helm3%E5%AE%89%E8%A3%85gitlab/">helm3安装gitlab</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2021/03/25/helm3%E5%AE%89%E8%A3%85gitlab/">
+          
+          
+            
+          
+          1、添加helm源123helm repo add stable https://kubernetes-charts.storage.googleapis.comhelm repo add aliyun https://kubernetes.oss-cn-hangzhou.aliyuncs.com/chartshelm repo add  apphub https://apphub.aliyunc
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-03-25 11:22" pubdate>
+              2021-03-25
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/Helm/">Helm</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/Gitlab/">Gitlab</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2021/03/25/helm3%E5%AE%89%E8%A3%85harbor/">helm3安装harbor</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2021/03/25/helm3%E5%AE%89%E8%A3%85harbor/">
+          
+          
+            
+          
+          1、下载并修改123helm repo add harbor https://helm.goharbor.iohelm pull harbor/harbor --version 1.2.3
+修改values.yaml文件
+
+
+
+2、安装123helm install harbor ./harborError: unable to build kubernetes objects from rele
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-03-25 11:21" pubdate>
+              2021-03-25
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/Helm/">Helm</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/Harbor/">Harbor</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
         <a href="/2021/03/25/helm3%E5%AE%89%E8%A3%85nexus/">helm3安装nexus</a>
       </h1>
 
@@ -632,109 +733,11 @@ Docker系统​        现在有一个新管理命令 system 。它有4个子命
     </article>
   </div>
 
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2021/03/22/Prometheus%E7%9B%91%E6%8E%A7MySQL/">Prometheus监控MySQL</a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2021/03/22/Prometheus%E7%9B%91%E6%8E%A7MySQL/">
-          
-          
-            
-          
-          官方地址：https://github.com/prometheus/mysqld_exporter
-软件包下载地址：https://github.com/prometheus/mysqld_exporter/releases
-1、进入数据库创建用户123CREATE USER &#x27;exporter&#x27;@&#x27;localhost&#x27; IDENTIFIED BY &#x
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2021-03-22 15:03" pubdate>
-              2021-03-22
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/Prometheus/">Prometheus</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/Prometheus/">Prometheus</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2021/03/22/Prometheus%E7%9B%91%E6%8E%A7Redis/">Prometheus监控Redis</a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2021/03/22/Prometheus%E7%9B%91%E6%8E%A7Redis/">
-          
-          
-            
-          
-          1、安装12345678tar xvf redis_exporter-v1.6.0.linux-amd64.tar.gz -C /usr/local/mv redis_exporter-v1.6.0.linux-amd64 redis_exporter## 无密码nohup ./redis_exporter -redis.addr 192.168.1.120:6379 &amp;## 有密码noh
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2021-03-22 15:01" pubdate>
-              2021-03-22
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/Prometheus/">Prometheus</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/Prometheus/">Prometheus</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
 
 
   <nav aria-label="navigation">
     <span class="pagination" id="pagination">
-      <a class="extend prev" rel="prev" href="/page/4/"><i class="iconfont icon-arrowleft"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><span class="page-number current">5</span><a class="page-number" href="/page/6/">6</a><a class="page-number" href="/page/7/">7</a><span class="space">&hellip;</span><a class="page-number" href="/page/9/">9</a><a class="extend next" rel="next" href="/page/6/"><i class="iconfont icon-arrowright"></i></a>
+      <a class="extend prev" rel="prev" href="/page/4/"><i class="iconfont icon-arrowleft"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><span class="page-number current">5</span><a class="page-number" href="/page/6/">6</a><a class="page-number" href="/page/7/">7</a><span class="space">&hellip;</span><a class="page-number" href="/page/10/">10</a><a class="extend next" rel="next" href="/page/6/"><i class="iconfont icon-arrowright"></i></a>
     </span>
   </nav>
   

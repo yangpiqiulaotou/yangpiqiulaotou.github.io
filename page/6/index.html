@@ -220,6 +220,104 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
+        <a href="/2021/03/22/Prometheus%E7%9B%91%E6%8E%A7MySQL/">Prometheus监控MySQL</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2021/03/22/Prometheus%E7%9B%91%E6%8E%A7MySQL/">
+          
+          
+            
+          
+          官方地址：https://github.com/prometheus/mysqld_exporter
+软件包下载地址：https://github.com/prometheus/mysqld_exporter/releases
+1、进入数据库创建用户123CREATE USER &#x27;exporter&#x27;@&#x27;localhost&#x27; IDENTIFIED BY &#x
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-03-22 15:03" pubdate>
+              2021-03-22
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/Prometheus/">Prometheus</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/Prometheus/">Prometheus</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2021/03/22/Prometheus%E7%9B%91%E6%8E%A7Redis/">Prometheus监控Redis</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2021/03/22/Prometheus%E7%9B%91%E6%8E%A7Redis/">
+          
+          
+            
+          
+          1、安装12345678tar xvf redis_exporter-v1.6.0.linux-amd64.tar.gz -C /usr/local/mv redis_exporter-v1.6.0.linux-amd64 redis_exporter## 无密码nohup ./redis_exporter -redis.addr 192.168.1.120:6379 &amp;## 有密码noh
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-03-22 15:01" pubdate>
+              2021-03-22
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/Prometheus/">Prometheus</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/Prometheus/">Prometheus</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
         <a href="/2021/03/22/alertmanager%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6%E8%AF%A6%E8%A7%A3/">alertmanager配置文件详解</a>
       </h1>
 
@@ -622,109 +720,11 @@ master节点去污点，所以工
     </article>
   </div>
 
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2021/03/17/Calico%E7%AD%96%E7%95%A5%E6%BC%94%E7%A4%BA/">Calico策略演示</a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2021/03/17/Calico%E7%AD%96%E7%95%A5%E6%BC%94%E7%A4%BA/">
-          
-          
-            
-          
-          1、创建前端，后端，客户端和管理用户界面应用程序12345kubectl create -f https://docs.projectcalico.org/security/tutorials/kubernetes-policy-demo/manifests/00-namespace.yamlkubectl create -f https://docs.projectcalico.org/secu
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2021-03-17 16:49" pubdate>
-              2021-03-17
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/Calico/">Calico</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/Calico/">Calico</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2021/03/17/Calico%E7%BD%91%E7%BB%9C%E8%BF%9B%E9%98%B6/">Calico网络进阶</a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2021/03/17/Calico%E7%BD%91%E7%BB%9C%E8%BF%9B%E9%98%B6/">
-          
-          
-            
-          
-          1、创建服务1kubectl create ns advanced-policy-demo
-由于k8s的v1.18.2版本启用了replicas命令，使用yaml文件创建nginx服务
-1234567891011121314151617181920212223242526vim nginx-deployment.yamlapiVersion: apps/v1kind: Deploymentmeta
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2021-03-17 16:47" pubdate>
-              2021-03-17
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/Calico/">Calico</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/Calico/">Calico</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
 
 
   <nav aria-label="navigation">
     <span class="pagination" id="pagination">
-      <a class="extend prev" rel="prev" href="/page/5/"><i class="iconfont icon-arrowleft"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><span class="page-number current">6</span><a class="page-number" href="/page/7/">7</a><a class="page-number" href="/page/8/">8</a><a class="page-number" href="/page/9/">9</a><a class="extend next" rel="next" href="/page/7/"><i class="iconfont icon-arrowright"></i></a>
+      <a class="extend prev" rel="prev" href="/page/5/"><i class="iconfont icon-arrowleft"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><span class="page-number current">6</span><a class="page-number" href="/page/7/">7</a><a class="page-number" href="/page/8/">8</a><span class="space">&hellip;</span><a class="page-number" href="/page/10/">10</a><a class="extend next" rel="next" href="/page/7/"><i class="iconfont icon-arrowright"></i></a>
     </span>
   </nav>
   
