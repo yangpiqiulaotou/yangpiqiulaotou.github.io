@@ -220,6 +220,56 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
+        <a href="/2021/04/23/K8s%E9%85%8D%E7%BD%AE%E5%9F%9F%E5%90%8D%E8%A7%A3%E6%9E%90/">K8s配置域名解析</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2021/04/23/K8s%E9%85%8D%E7%BD%AE%E5%9F%9F%E5%90%8D%E8%A7%A3%E6%9E%90/">
+          
+          
+            
+          
+          有的时候pod里面调域名，需要写到 /etc/hosts 里面进行域名解析，但很不幸，/etc/hosts 被 k8s 征用了，无法修改。
+但 k8s 给我们提供了 hostAliases 来解决此问题。
+123456789101112131415161718192021222324252627apiVersion: apps/v1kind: Deploymentmetadata:  name: 
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-04-23 14:17" pubdate>
+              2021-04-23
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/Kubernetes/">Kubernetes</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/Kubernetes/">Kubernetes</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
         <a href="/2021/04/21/Go%E8%AF%AD%E8%A8%80%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95/">Go语言单元测试</a>
       </h1>
 
@@ -661,57 +711,6 @@ Golang 面向对象编
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
             <time datetime="2021-04-19 15:18" pubdate>
-              2021-04-19
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/Golang/">Golang</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/Golang/">Golang</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2021/04/19/Go%E8%AF%AD%E8%A8%80Map/">Go语言Map</a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2021/04/19/Go%E8%AF%AD%E8%A8%80Map/">
-          
-          
-            
-          
-          map 的基本介绍map 是 key-value 数据结构，又称为字段或者关联数组。类似其它编程语言的集合
-map 的声明基本语法1var map 变量名 map[keytype]valuetype
-key 类型golang 中的 map，的 key 可以是很多种类型，比如 bool, 数字，string, 指针, channel , 还可以是只包含前面几个类型的 接口, 结构体, 数组
-通常 k
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2021-04-19 15:13" pubdate>
               2021-04-19
             </time>
           </div>

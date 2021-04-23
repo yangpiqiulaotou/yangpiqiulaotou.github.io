@@ -220,6 +220,58 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
+        <a href="/2021/03/16/Jenkins%E4%B8%BB%E4%BB%8E%E9%85%8D%E7%BD%AE/">Jenkins主从配置</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2021/03/16/Jenkins%E4%B8%BB%E4%BB%8E%E9%85%8D%E7%BD%AE/">
+          
+          
+            
+          
+          1、环境介绍12master        192.168.0.121slave         192.168.0.76
+2、生成密钥部署jenkins master –slave 需要在master 服务器下 生成一个 秘钥文件
+1ssh-keygen  -t   rsa
+什么都不用填，一直敲回车就可以，生成的秘钥会在用户目录下， root 用户生成的 在~./ssh/中
+有两个文件 id_r
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-03-16 17:24" pubdate>
+              2021-03-16
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/Linux/">Linux</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/Jenkins/">Jenkins</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
         <a href="/2021/03/16/EFK%E6%94%B6%E9%9B%86K8s%E6%97%A5%E5%BF%97/">EFK收集K8s日志</a>
       </h1>
 
@@ -691,56 +743,6 @@ Centos7.6
             <i class="iconfont icon-tags"></i>
             
               <a href="/tags/Elasticsearch/">Elasticsearch</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2021/01/20/logstash%E5%AD%97%E7%AC%A6%E8%BD%AC%E6%8D%A2/">logstash字符转换</a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2021/01/20/logstash%E5%AD%97%E7%AC%A6%E8%BD%AC%E6%8D%A2/">
-          
-          
-            
-          
-          项目需求
-request_time， upstream_response_time 等的数据类型需要改为float
-1、nginx配置json格式日志123456789101112131415161718192021222324252627http &#123;    log_format json &#x27;&#123;&quot;@timestamp&quot;:&quot;$time_is
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2021-01-20 10:53" pubdate>
-              2021-01-20
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/Elk/">Elk</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/Logstash/">Logstash</a>
             
           </div>
         
