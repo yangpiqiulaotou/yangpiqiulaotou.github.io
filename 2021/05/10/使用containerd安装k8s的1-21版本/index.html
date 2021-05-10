@@ -1,0 +1,812 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" type="image/png" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="羊皮裘老头">
+  <meta name="keywords" content="">
+  <title>使用containerd安装k8s的1.21版本 - 羊皮裘老头</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.4.0/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.8.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"onlypost":false},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}}};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.3.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>羊皮裘老头</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="iconfont icon-books"></i>
+                文档
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" target="_blank" rel="noopener" href="https://hexo.fluid-dev.com/">
+                    
+                    主题博客
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" target="_blank" rel="noopener" href="https://hexo.fluid-dev.com/docs/guide/">
+                    
+                    配置指南
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" target="_blank" rel="noopener" href="https://hexo.fluid-dev.com/docs/icon/">
+                    
+                    图标用法
+                  </a>
+                
+              </div>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" href="javascript:">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/ss.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="使用containerd安装k8s的1.21版本">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2021-05-10 15:29" pubdate>
+        2021年5月10日 下午
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      2.3k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      32
+       分钟
+    </span>
+  
+
+  
+  
+    
+      <!-- LeanCloud 统计文章PV -->
+      <span id="leancloud-page-views-container" class="post-meta" style="display: none">
+        <i class="iconfont icon-eye" aria-hidden="true"></i>
+        <span id="leancloud-page-views"></span> 次
+      </span>
+    
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">使用containerd安装k8s的1.21版本</h1>
+            
+            <div class="markdown-body">
+              <h2 id="1、准备"><a href="#1、准备" class="headerlink" title="1、准备"></a>1、准备</h2><ul>
+<li>每台机器 2 GB 或更多的 RAM</li>
+<li>2 CPU 核或更多</li>
+<li>集群中的所有机器的网络彼此均能相互连接</li>
+<li>关闭selinux和firewalld</li>
+<li>关闭swap分区</li>
+<li>添加hosts解析</li>
+</ul>
+<h2 id="2、确保每个节点上-MAC-地址和-product-uuid-的唯一性"><a href="#2、确保每个节点上-MAC-地址和-product-uuid-的唯一性" class="headerlink" title="2、确保每个节点上 MAC 地址和 product_uuid 的唯一性"></a>2、确保每个节点上 MAC 地址和 product_uuid 的唯一性</h2><ul>
+<li>使用命令 <code>ip link</code> 或 <code>ifconfig -a</code> 来获取网络接口的 MAC 地址</li>
+<li>使用 <code>cat /sys/class/dmi/id/product_uuid</code> 命令对 product_uuid 校验</li>
+</ul>
+<p>一般来讲，硬件设备会拥有唯一的地址，但是有些虚拟机的地址可能会重复。 Kubernetes 使用这些值来唯一确定集群中的节点。</p>
+<h2 id="3、允许-iptables-检查桥接流量"><a href="#3、允许-iptables-检查桥接流量" class="headerlink" title="3、允许 iptables 检查桥接流量"></a>3、允许 iptables 检查桥接流量</h2><p>3.1 安装依赖包</p>
+<figure class="highlight mipsasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs mipsasm">yum <span class="hljs-keyword">install </span>-y epel-release conntrack ipvsadm ipset <span class="hljs-keyword">jq </span>sysstat curl iptables libseccomp<br></code></pre></td></tr></table></figure>
+<p>3.2 关闭防火墙</p>
+<figure class="highlight sas"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sas">iptables -F <span class="hljs-variable">&amp;&amp;</span> iptables -<span class="hljs-meta">X</span> <span class="hljs-variable">&amp;&amp;</span> iptables -F -t nat <span class="hljs-variable">&amp;&amp;</span> iptables -<span class="hljs-meta">X</span> -t nat <span class="hljs-variable">&amp;&amp;</span> iptables -P FORWARD ACCEPT<br></code></pre></td></tr></table></figure>
+<p>确保 <code>br_netfilter</code> 模块被加载。这一操作可以通过运行 <code>lsmod | grep br_netfilter</code> 来完成。若要显式加载该模块，可执行 <code>modprobe br_netfilter</code>。</p>
+<p>为了让你的 Linux 节点上的 iptables 能够正确地查看桥接流量，你需要确保在你的 <code>sysctl</code> 配置中将 <code>net.bridge.bridge-nf-call-iptables</code> 设置为 1。例如：</p>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">cat</span> &lt;&lt;EOF | tee /etc/modules-load.d/k<span class="hljs-number">8</span>s.conf<br><span class="hljs-attribute">br_netfilter</span><br><span class="hljs-attribute">EOF</span><br><br><span class="hljs-attribute">cat</span> &lt;&lt;EOF | sudo tee /etc/sysctl.d/k<span class="hljs-number">8</span>s.conf<br><span class="hljs-attribute">net</span>.bridge.bridge-nf-call-ip<span class="hljs-number">6</span>tables = <span class="hljs-number">1</span><br><span class="hljs-attribute">net</span>.bridge.bridge-nf-call-iptables = <span class="hljs-number">1</span><br><span class="hljs-attribute">net</span>.ipv<span class="hljs-number">4</span>.ip_forward=<span class="hljs-number">1</span><br><span class="hljs-attribute">net</span>.ipv<span class="hljs-number">4</span>.tcp_tw_recycle=<span class="hljs-number">0</span><br><span class="hljs-attribute">vm</span>.swappiness=<span class="hljs-number">0</span><br><span class="hljs-attribute">vm</span>.overcommit_memory=<span class="hljs-number">1</span><br><span class="hljs-attribute">vm</span>.panic_on_oom=<span class="hljs-number">0</span><br><span class="hljs-attribute">fs</span>.inotify.max_user_watches=<span class="hljs-number">89100</span><br><span class="hljs-attribute">fs</span>.file-max=<span class="hljs-number">52706963</span><br><span class="hljs-attribute">fs</span>.nr_open=<span class="hljs-number">52706963</span><br><span class="hljs-attribute">net</span>.ipv<span class="hljs-number">6</span>.conf.<span class="hljs-literal">all</span>.disable_ipv<span class="hljs-number">6</span>=<span class="hljs-number">1</span><br><span class="hljs-attribute">net</span>.netfilter.nf_conntrack_max=<span class="hljs-number">2310720</span><br><span class="hljs-attribute">EOF</span><br><span class="hljs-attribute">sysctl</span> --system<br></code></pre></td></tr></table></figure>
+<p>3.3 加载内核模块</p>
+<figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs gradle">cat &gt; <span class="hljs-regexp">/etc/</span>sysconfig<span class="hljs-regexp">/modules/i</span>pvs.modules &lt;&lt;EOF<br>#!<span class="hljs-regexp">/bin/</span>bash<br>modprobe -- ip_vs<br>modprobe -- ip_vs_rr<br>modprobe -- ip_vs_wrr<br>modprobe -- ip_vs_sh<br>modprobe -- nf_conntrack_ipv4<br>modprobe -- br_netfilter<br>EOF<br><br>chmod <span class="hljs-number">755</span> <span class="hljs-regexp">/etc/</span>sysconfig<span class="hljs-regexp">/modules/i</span>pvs.modules &amp;&amp; bash <span class="hljs-regexp">/etc/</span>sysconfig<span class="hljs-regexp">/modules/i</span>pvs.modules<br></code></pre></td></tr></table></figure>
+<h2 id="4、检查所需端口"><a href="#4、检查所需端口" class="headerlink" title="4、检查所需端口"></a>4、检查所需端口</h2><h3 id="4-1-控制平面节点"><a href="#4-1-控制平面节点" class="headerlink" title="4.1 控制平面节点"></a>4.1 控制平面节点</h3><table>
+<thead>
+<tr>
+<th>协议</th>
+<th>方向</th>
+<th>端口范围</th>
+<th>作用</th>
+<th>使用者</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>TCP</td>
+<td>入站</td>
+<td>6443</td>
+<td>Kubernetes API 服务器</td>
+<td>所有组件</td>
+</tr>
+<tr>
+<td>TCP</td>
+<td>入站</td>
+<td>2379-2380</td>
+<td>etcd 服务器客户端 API</td>
+<td>kube-apiserver, etcd</td>
+</tr>
+<tr>
+<td>TCP</td>
+<td>入站</td>
+<td>10250</td>
+<td>Kubelet API</td>
+<td>kubelet 自身、控制平面组件</td>
+</tr>
+<tr>
+<td>TCP</td>
+<td>入站</td>
+<td>10251</td>
+<td>kube-scheduler</td>
+<td>kube-scheduler 自身</td>
+</tr>
+<tr>
+<td>TCP</td>
+<td>入站</td>
+<td>10252</td>
+<td>kube-controller-manager</td>
+<td>kube-controller-manager 自身</td>
+</tr>
+</tbody></table>
+<h3 id="4-2-工作节点"><a href="#4-2-工作节点" class="headerlink" title="4.2 工作节点"></a>4.2 工作节点</h3><table>
+<thead>
+<tr>
+<th>协议</th>
+<th>方向</th>
+<th>端口范围</th>
+<th>作用</th>
+<th>使用者</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>TCP</td>
+<td>入站</td>
+<td>10250</td>
+<td>Kubelet API</td>
+<td>kubelet 自身、控制平面组件</td>
+</tr>
+<tr>
+<td>TCP</td>
+<td>入站</td>
+<td>30000-32767</td>
+<td>NodePort 服务†</td>
+<td>所有组件</td>
+</tr>
+</tbody></table>
+<h2 id="5、安装-runtime"><a href="#5、安装-runtime" class="headerlink" title="5、安装 runtime"></a>5、安装 runtime</h2><p>为了在 Pod 中运行容器，Kubernetes 使用容器运行时Container Runtime</p>
+<p>默认情况下，Kubernetes 使用 <a target="_blank" rel="noopener" href="https://kubernetes.io/zh/docs/concepts/overview/components/#container-runtime">容器运行时接口（Container Runtime Interface，CRI）</a> 来与你所选择的容器运行时交互。</p>
+<p>如果你不指定运行时，则 kubeadm 会自动尝试检测到系统上已经安装的运行时， 方法是扫描一组众所周知的 Unix 域套接字。 下面的表格列举了一些容器运行时及其对应的套接字路径：</p>
+<table>
+<thead>
+<tr>
+<th>运行时</th>
+<th>域套接字</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Docker</td>
+<td>/var/run/dockershim.sock</td>
+</tr>
+<tr>
+<td>containerd</td>
+<td>/run/containerd/containerd.sock</td>
+</tr>
+<tr>
+<td>CRI-O</td>
+<td>/var/run/crio/crio.sock</td>
+</tr>
+</tbody></table>
+<p>如果同时检测到 Docker 和 containerd，则优先选择 Docker。 这是必然的，因为 Docker 18.09 附带了 containerd 并且两者都是可以检测到的， 即使你仅安装了 Docker。 如果检测到其他两个或多个运行时，kubeadm 输出错误信息并退出。</p>
+<p>kubelet 通过内置的 <code>dockershim</code> CRI 实现与 Docker 集成。</p>
+<h3 id="5-1-使用-containerd-作为-CRI-运行时"><a href="#5-1-使用-containerd-作为-CRI-运行时" class="headerlink" title="5.1 使用 containerd 作为 CRI 运行时"></a>5.1 使用 containerd 作为 CRI 运行时</h3><figure class="highlight gauss"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs gauss">cat &lt;&lt;<span class="hljs-built_in">EOF</span> | tee /etc/modules-load.d/containerd.conf<br>overlay<br>br_netfilter<br><span class="hljs-built_in">EOF</span><br><br>modprobe overlay<br>modprobe br_netfilter<br><br><span class="hljs-meta"># 设置必需的 sysctl 参数，这些参数在重新启动后仍然存在。</span><br>cat &lt;&lt;<span class="hljs-built_in">EOF</span> | sudo tee /etc/sysctl.d/<span class="hljs-number">99</span>-kubernetes-cri.conf<br>net.bridge.bridge-nf-<span class="hljs-keyword">call</span>-iptables  = <span class="hljs-number">1</span><br>net.ipv4.ip_forward                 = <span class="hljs-number">1</span><br>net.bridge.bridge-nf-<span class="hljs-keyword">call</span>-ip6tables = <span class="hljs-number">1</span><br><span class="hljs-built_in">EOF</span><br><br><span class="hljs-meta"># 应用 sysctl 参数而无需重新启动</span><br>sysctl --<span class="hljs-keyword">system</span><br></code></pre></td></tr></table></figure>
+<h3 id="5-2-安装-containerd"><a href="#5-2-安装-containerd" class="headerlink" title="5.2 安装 containerd"></a>5.2 安装 containerd</h3><ol>
+<li><p>从官方Docker仓库安装 <code>containerd.io</code> 软件包</p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs awk">yum install -y yum-utils<br>yum-config-manager \<br>    --add-repo \<br>    https:<span class="hljs-regexp">//</span>download.docker.com<span class="hljs-regexp">/linux/</span>centos/docker-ce.repo<br>yum install -y containerd.io<br></code></pre></td></tr></table></figure></li>
+<li><p>配置 containerd</p>
+<figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs gradle">mkdir -p <span class="hljs-regexp">/etc/</span>containerd<br>containerd config <span class="hljs-keyword">default</span> | tee <span class="hljs-regexp">/etc/</span>containerd/config.toml<br></code></pre></td></tr></table></figure></li>
+<li><p>重新启动 containerd</p>
+<figure class="highlight pgsql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs pgsql">systemctl <span class="hljs-keyword">restart</span> containerd<br>systemctl <span class="hljs-keyword">enable</span> containerd<br></code></pre></td></tr></table></figure>
+<h3 id="5-3-使用-systemd-cgroup-驱动程序"><a href="#5-3-使用-systemd-cgroup-驱动程序" class="headerlink" title="5.3 使用 systemd cgroup 驱动程序"></a>5.3 使用 <code>systemd</code> cgroup 驱动程序</h3></li>
+</ol>
+<p>结合 <code>runc</code> 使用 <code>systemd</code> cgroup 驱动，在 <code>/etc/containerd/config.toml</code> 中设置</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs stylus">sandbox_image = <span class="hljs-string">&quot;registry.cn-hangzhou.aliyuncs.com/google_containers/pause:3.2&quot;</span> #换成阿里云[plugins.<span class="hljs-string">&quot;io.containerd.grpc.v1.cri&quot;</span><span class="hljs-selector-class">.containerd</span><span class="hljs-selector-class">.runtimes</span>.runc]  ...  [plugins.<span class="hljs-string">&quot;io.containerd.grpc.v1.cri&quot;</span><span class="hljs-selector-class">.containerd</span><span class="hljs-selector-class">.runtimes</span><span class="hljs-selector-class">.runc</span>.options]    SystemdCgroup = true<br></code></pre></td></tr></table></figure>
+<p>再次重新启动 containerd</p>
+<figure class="highlight ebnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs ebnf"><span class="hljs-attribute">systemctl restart containerd</span><br></code></pre></td></tr></table></figure>
+<h2 id="6、安装-kubeadm、kubelet-和-kubectl"><a href="#6、安装-kubeadm、kubelet-和-kubectl" class="headerlink" title="6、安装 kubeadm、kubelet 和 kubectl"></a>6、安装 kubeadm、kubelet 和 kubectl</h2><p>需要在每台机器上安装以下的软件包：</p>
+<ul>
+<li><code>kubeadm</code>：用来初始化集群的指令。</li>
+<li><code>kubelet</code>：在集群中的每个节点上用来启动 Pod 和容器等。</li>
+<li><code>kubectl</code>：用来与集群通信的命令行工具。</li>
+</ul>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs awk">cat &lt;&lt;EOF &gt; <span class="hljs-regexp">/etc/yum</span>.repos.d<span class="hljs-regexp">/kubernetes.repo[kubernetes]name=Kubernetesbaseurl=https:/</span><span class="hljs-regexp">/mirrors.aliyun.com/</span>kubernetes<span class="hljs-regexp">/yum/</span>repos<span class="hljs-regexp">/kubernetes-el7-x86_64/</span>enabled=<span class="hljs-number">1</span>gpgcheck=<span class="hljs-number">0</span>repo_gpgcheck=<span class="hljs-number">0</span>gpgkey=https:<span class="hljs-regexp">//mi</span>rrors.aliyun.com<span class="hljs-regexp">/kubernetes/yum</span><span class="hljs-regexp">/doc/yum</span>-key.gpg https:<span class="hljs-regexp">//mi</span>rrors.aliyun.com<span class="hljs-regexp">/kubernetes/yum</span><span class="hljs-regexp">/doc/</span>rpm-package-key.gpgexclude=kubelet kubeadm kubectlEOFyum install -y kubelet kubeadm kubectl --disableexcludes=kubernetessystemctl enable --now kubelet<br></code></pre></td></tr></table></figure>
+<p>kubelet 现在每隔几秒就会重启，因为它陷入了一个等待 kubeadm 指令的死循环。</p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs awk">cat &gt; <span class="hljs-regexp">/etc/</span>sysconfig<span class="hljs-regexp">/kubelet &lt;&lt;EOFKUBELET_EXTRA_ARGS=--cgroup-driver=systemd --container-runtime=remote --container-runtime-endpoint=/</span>run<span class="hljs-regexp">/containerd/</span>containerd.sockEOF<br></code></pre></td></tr></table></figure>
+<h2 id="7、初始化控制平面节点"><a href="#7、初始化控制平面节点" class="headerlink" title="7、初始化控制平面节点"></a>7、初始化控制平面节点</h2><p>如果计划将单个控制平面 kubeadm 集群升级成高可用， 应该指定 <code>--control-plane-endpoint</code> 为所有控制平面节点设置共享端点。 端点可以是负载均衡器的 DNS 名称或 IP 地址。</p>
+<h3 id="7-1-kubeadm-init"><a href="#7-1-kubeadm-init" class="headerlink" title="7.1 kubeadm init"></a>7.1 kubeadm init</h3><h4 id="选项"><a href="#选项" class="headerlink" title="选项"></a>选项</h4><table>
+<thead>
+<tr>
+<th>–apiserver-advertise-address string</th>
+<th>API 服务器所公布的其正在监听的 IP 地址。如果未设置，则使用默认网络接口。</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>–apiserver-bind-port int32   默认值：6443</td>
+<td>API 服务器绑定的端口。</td>
+</tr>
+<tr>
+<td>–apiserver-cert-extra-sans stringSlice</td>
+<td>用于 API Server 服务证书的可选附加主题备用名称（SAN）。可以是 IP 地址和 DNS 名称。</td>
+</tr>
+<tr>
+<td>–cert-dir string   默认值：”/etc/kubernetes/pki”</td>
+<td>保存和存储证书的路径</td>
+</tr>
+<tr>
+<td>–certificate-key string</td>
+<td>用于加密 kubeadm-certs Secret 中的控制平面证书的密钥。</td>
+</tr>
+<tr>
+<td>–config string</td>
+<td>kubeadm 配置文件的路径。</td>
+</tr>
+<tr>
+<td>–control-plane-endpoint string</td>
+<td>为控制平面指定一个稳定的 IP 地址或 DNS 名称。</td>
+</tr>
+<tr>
+<td>–cri-socket string</td>
+<td>要连接的 CRI 套接字的路径。如果为空，则 kubeadm 将尝试自动检测此值；仅当安装了多个 CRI 或具有非标准 CRI 插槽时，才使用此选项。</td>
+</tr>
+<tr>
+<td>–dry-run</td>
+<td>不要应用任何更改；只是输出将要执行的操作。</td>
+</tr>
+<tr>
+<td>–experimental-patches string</td>
+<td>包含名为 “target[suffix][+patchtype].extension” 的文件的目录路径。 例如，”kube-apiserver0+merge.yaml” 或仅仅是 “etcd.json”。 “patchtype” 可以是 “strategic”、”merge” 或 “json” 之一，并且它们与 kubectl 支持的补丁格式匹配。 默认的 “patchtype” 为 “strategic”。 “extension” 必须为 “json” 或 “yaml”。 “suffix” 是一个可选字符串，可用于确定首先按字母顺序应用哪些补丁。</td>
+</tr>
+<tr>
+<td>–feature-gates string</td>
+<td>一组用来描述各种功能特性的键值（key=value）对。选项是： IPv6DualStack=true|false (ALPHA - default=false)</td>
+</tr>
+<tr>
+<td>-h, –help</td>
+<td>init 操作的帮助命令</td>
+</tr>
+<tr>
+<td>–ignore-preflight-errors stringSlice</td>
+<td>错误将显示为警告的检查列表；例如：’IsPrivilegedUser,Swap’。取值为 ‘all’ 时将忽略检查中的所有错误。</td>
+</tr>
+<tr>
+<td>–image-repository string   默认值：”k8s.gcr.io”</td>
+<td>选择用于拉取控制平面镜像的容器仓库</td>
+</tr>
+<tr>
+<td>–kubernetes-version string   默认值：”stable-1”</td>
+<td>为控制平面选择一个特定的 Kubernetes 版本。</td>
+</tr>
+<tr>
+<td>–node-name string</td>
+<td>指定节点的名称。</td>
+</tr>
+<tr>
+<td>–pod-network-cidr string</td>
+<td>指明 pod 网络可以使用的 IP 地址段。如果设置了这个参数，控制平面将会为每一个节点自动分配 CIDRs。</td>
+</tr>
+<tr>
+<td>–service-cidr string   默认值：”10.96.0.0/12”</td>
+<td>为服务的虚拟 IP 地址另外指定 IP 地址段</td>
+</tr>
+<tr>
+<td>–service-dns-domain string   默认值：”cluster.local”</td>
+<td>为服务另外指定域名，例如：”myorg.internal”。</td>
+</tr>
+<tr>
+<td>–skip-certificate-key-print</td>
+<td>不要打印用于加密控制平面证书的密钥。</td>
+</tr>
+<tr>
+<td>–skip-phases stringSlice</td>
+<td>要跳过的阶段列表</td>
+</tr>
+<tr>
+<td>–skip-token-print</td>
+<td>跳过打印 ‘kubeadm init’ 生成的默认引导令牌。</td>
+</tr>
+<tr>
+<td>–token string</td>
+<td>这个令牌用于建立控制平面节点与工作节点间的双向通信。格式为 [a-z0-9]{6}.[a-z0-9]{16} - 示例：abcdef.0123456789abcdef</td>
+</tr>
+<tr>
+<td>–token-ttl duration   默认值：24h0m0s</td>
+<td>令牌被自动删除之前的持续时间（例如 1 s，2 m，3 h）。如果设置为 ‘0’，则令牌将永不过期</td>
+</tr>
+<tr>
+<td>–upload-certs</td>
+<td>将控制平面证书上传到 kubeadm-certs Secret。</td>
+</tr>
+</tbody></table>
+<h2 id="8、使用自定义的镜像"><a href="#8、使用自定义的镜像" class="headerlink" title="8、使用自定义的镜像"></a>8、使用自定义的镜像</h2><p>默认情况下, kubeadm 会从 <code>k8s.gcr.io</code> 仓库拉取镜像。如果请求的 Kubernetes 版本是 CI 标签 （例如 <code>ci/latest</code>），则使用 <code>gcr.io/kubernetes-ci-images</code>。</p>
+<p>允许的自定义功能有：</p>
+<ul>
+<li>使用其他的 <code>imageRepository</code> 来代替 <code>k8s.gcr.io</code>。</li>
+<li>将 <code>useHyperKubeImage</code> 设置为 <code>true</code>，使用 HyperKube 镜像。</li>
+<li>为 etcd 或 DNS 附件提供特定的 <code>imageRepository</code> 和 <code>imageTag</code>。</li>
+</ul>
+<p>请注意配置文件中的配置项 <code>kubernetesVersion</code> 或者命令行参数 <code>--kubernetes-version</code> 会影响到镜像的版本。</p>
+<p>以使用 <code>kubeadm config print</code> 命令打印默认配置， 并使用 <code>kubeadm config migrate</code> 命令将旧版本的配置转化成新版本。 <code>kubeadm config images list</code> 和 <code>kubeadm config images pull</code> 命令可以用来列出并拉取 kubeadm 所需的镜像。</p>
+<h3 id="8-1-拉取阿里云镜像"><a href="#8-1-拉取阿里云镜像" class="headerlink" title="8.1 拉取阿里云镜像"></a>8.1 拉取阿里云镜像</h3><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs css"><span class="hljs-selector-tag">kubeadm</span> <span class="hljs-selector-tag">config</span> <span class="hljs-selector-tag">images</span> <span class="hljs-selector-tag">pull</span> <span class="hljs-selector-tag">--image-repository</span> <span class="hljs-selector-tag">registry</span><span class="hljs-selector-class">.cn-hangzhou</span><span class="hljs-selector-class">.aliyuncs</span><span class="hljs-selector-class">.com</span>/<span class="hljs-selector-tag">google_containers</span><br></code></pre></td></tr></table></figure>
+<h3 id="8-2-初始化"><a href="#8-2-初始化" class="headerlink" title="8.2 初始化"></a>8.2 初始化</h3><figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs routeros">kubeadm init   <span class="hljs-attribute">--kubernetes-version</span>=v1.21.0   <span class="hljs-attribute">--pod-network-cidr</span>=10.244.0.0/16   <span class="hljs-attribute">--apiserver-advertise-address</span>=192.168.120.128   <span class="hljs-attribute">--image-repository</span>=registry.cn-hangzhou.aliyuncs.com/google_containers<br></code></pre></td></tr></table></figure>
+<p>备注：如果初始化有问题，使用<code>reset</code>重置</p>
+<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/20210507164420.png" srcset="/img/loading.gif" alt="image-20210507164407170"></p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs awk">mkdir -p <span class="hljs-variable">$HOME</span><span class="hljs-regexp">/.kubesudo cp -i /</span>etc<span class="hljs-regexp">/kubernetes/</span>admin.conf <span class="hljs-variable">$HOME</span><span class="hljs-regexp">/.kube/</span>configsudo chown $(id -u):$(id -g) <span class="hljs-variable">$HOME</span><span class="hljs-regexp">/.kube/</span>config<br></code></pre></td></tr></table></figure>
+<h3 id="8-3-安装calico网络"><a href="#8-3-安装calico网络" class="headerlink" title="8.3 安装calico网络"></a>8.3 安装calico网络</h3><figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs awk">kubectl apply -f https:<span class="hljs-regexp">//</span>docs.projectcalico.org<span class="hljs-regexp">/manifests/</span>calico.yaml<span class="hljs-comment">#移除母版上的污点kubectl taint nodes --all node-role.kubernetes.io/master-</span><br></code></pre></td></tr></table></figure>
+<h3 id="8-4-添加自动补全命令"><a href="#8-4-添加自动补全命令" class="headerlink" title="8.4 添加自动补全命令"></a>8.4 添加自动补全命令</h3><figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs awk">yum install -y epel-release bash-completionsource <span class="hljs-regexp">/usr/</span>share<span class="hljs-regexp">/bash-completion/</span>bash_completionsource &lt;(kubectl completion bash)echo <span class="hljs-string">&quot;source &lt;(kubectl completion bash)&quot;</span> &gt;&gt; ~/.bashrc<br></code></pre></td></tr></table></figure>
+<p>根据初始化成功的提示加入从节点即可</p>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/Kubernetes/">Kubernetes</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/Kubernetes/">Kubernetes</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2021/05/10/Crictl%E5%AE%89%E8%A3%85%E4%B8%8E%E4%BD%BF%E7%94%A8/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">Crictl安装与使用</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2021/05/10/Linux%E4%B8%89%E5%89%91%E5%AE%A2%E4%B9%8Bawk/">
+                        <span class="hidden-mobile">Linux三剑客之awk</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <article class="comments" id="comments">
+                
+                
+  <div id="vcomments"></div>
+  <script type="text/javascript">
+    Fluid.utils.waitElementVisible('vcomments', function() {
+      Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js', function () {
+        new Valine({
+          el: "#vcomments",
+          app_id: "hPHtsN0Gt7U2zB2AllYqbucc-9Nh9j0Va",
+          app_key: "TVUER8rWijR8cD1STqzd2d4E",
+          placeholder: "你有故事，我有酒，我们一起勇闯天涯。。。",
+          path: window.location.pathname,
+          avatar: "retro",
+          meta: ["nick","mail","link"],
+          pageSize: "10",
+          lang: "zh-CN",
+          highlight: false,
+          recordIP: false,
+          serverURLs: "",
+        });
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the
+    <a target="_blank" href="https://valine.js.org" rel="nofollow noopener noopener">comments powered by Valine.</a>
+  </noscript>
+
+
+              </article>
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- 不蒜子统计PV -->
+        <span id="busuanzi_container_site_pv" style="display: none">
+            总访问量 
+            <span id="busuanzi_value_site_pv"></span>
+             次
+          </span>
+      
+      
+        <!-- 不蒜子统计UV -->
+        <span id="busuanzi_container_site_uv" style="display: none">
+            总访客数 
+            <span id="busuanzi_value_site_uv"></span>
+             人
+          </span>
+      
+    
+  </div>
+
+
+  
+
+  
+</footer>
+
+<!-- SCRIPTS -->
+
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.0/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.0/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js" ></script>
+
+
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    (function () {
+      var path = "/local-search.xml";
+      var inputArea = document.querySelector("#local-search-input");
+      inputArea.onclick = function () {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+        this.onclick = null
+      }
+    })()
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+
+</body>
+</html>

@@ -1,0 +1,655 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" type="image/png" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="羊皮裘老头">
+  <meta name="keywords" content="">
+  <title>Linux rsync命令用法 - 羊皮裘老头</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.4.0/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.8.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"onlypost":false},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}}};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.3.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>羊皮裘老头</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="iconfont icon-books"></i>
+                文档
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" target="_blank" rel="noopener" href="https://hexo.fluid-dev.com/">
+                    
+                    主题博客
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" target="_blank" rel="noopener" href="https://hexo.fluid-dev.com/docs/guide/">
+                    
+                    配置指南
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" target="_blank" rel="noopener" href="https://hexo.fluid-dev.com/docs/icon/">
+                    
+                    图标用法
+                  </a>
+                
+              </div>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" href="javascript:">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/ss.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="Linux rsync命令用法">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2021-05-10 15:23" pubdate>
+        2021年5月10日 下午
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      1.5k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      19
+       分钟
+    </span>
+  
+
+  
+  
+    
+      <!-- LeanCloud 统计文章PV -->
+      <span id="leancloud-page-views-container" class="post-meta" style="display: none">
+        <i class="iconfont icon-eye" aria-hidden="true"></i>
+        <span id="leancloud-page-views"></span> 次
+      </span>
+    
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">Linux rsync命令用法</h1>
+            
+            <div class="markdown-body">
+              <h2 id="1、介绍"><a href="#1、介绍" class="headerlink" title="1、介绍"></a>1、介绍</h2><p>​        从字面意思上，rsync 可以理解为 remote sync（远程同步），但它不仅可以远程同步数据（类似于 scp 命令），还可以本地同步数据（类似于 cp 命令）。不同于 cp 或 scp 的一点是，使用 rsync 命令备份数据时，不会直接覆盖以前的数据（如果数据已经存在），而是先判断已经存在的数据和新数据的差异，只有数据不同时才会把不相同的部分覆盖。</p>
+<h2 id="2、安装"><a href="#2、安装" class="headerlink" title="2、安装"></a>2、安装</h2><p>在Centos中使用以下命令安装rsync：</p>
+<figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs cmake">yum <span class="hljs-keyword">install</span> -y rsync<br></code></pre></td></tr></table></figure>
+<h2 id="3、工作模式"><a href="#3、工作模式" class="headerlink" title="3、工作模式"></a>3、工作模式</h2><p>rsync 有 5 种不同的工作模式：</p>
+<ul>
+<li>第一种用于仅在本地备份数据；</li>
+<li>第二种用于将本地数据备份到远程机器上；</li>
+<li>第三种用于将远程机器上的数据备份到本地机器上；</li>
+<li>第四种和第三种是相对的，同样第五种和第二种是相对的，它们各自之间的区别在于登陆认证时使用的验证方式不同。</li>
+</ul>
+<p>要知道，使用 rsync 在远程传输数据（备份数据）前，是需要进行登陆认证的，这个过程需要借助 ssh 协议或者 rsync 协议才能完成。在 rsync 命令中，如果使用单个冒号（:），则默认使用 ssh 协议；反之，如果使用两个冒号（::），则使用 rsync 协议。</p>
+<blockquote>
+<p>ssh 协议和 rsync 协议的区别在于，rsync 协议在使用时需要额外配置，增加了工作量，但优势是更加安全；反之，ssh 协议使用方便，无需进行配置，但有泄漏服务器密码的风险。</p>
+</blockquote>
+<h2 id="4、参数列表"><a href="#4、参数列表" class="headerlink" title="4、参数列表"></a>4、参数列表</h2><p>另外，以上几种格式中各个参数的含义如下：</p>
+<ul>
+<li>SRC：用来表示要备份的目标数据所在的位置（路径）；</li>
+<li>DEST：用于表示将数据备份到什么位置；</li>
+<li>USER@：当做远程同步操作时，需指明系统登录的用户名，如果不显示指定，默认为以 root 身份登录系统并完成同步操作。</li>
+</ul>
+<p>rsync 命令提供使用的 OPTION 及功能如表</p>
+<table>
+<thead>
+<tr>
+<th>OPTION选项</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>-a</td>
+<td>这是归档模式，表示以递归方式传输文件，并保持所有属性，它等同于-r、-l、-p、-t、-g、-o、-D 选项。-a 选项后面可以跟一个 –no-OPTION，表示关闭 -r、-l、-p、-t、-g、-o、-D 中的某一个，<strong>比如-a   –no-l 等同于 -r、-p、-t、-g、-o、-D 选项。</strong></td>
+</tr>
+<tr>
+<td>-r</td>
+<td>表示以递归模式处理子目录，它主要是针对目录来说的，如果单独传一个文件不需要加 -r 选项，但是传输目录时必须加。</td>
+</tr>
+<tr>
+<td>-v</td>
+<td>表示打印一些信息，比如文件列表、文件数量等。</td>
+</tr>
+<tr>
+<td>-l</td>
+<td>表示保留软连接。</td>
+</tr>
+<tr>
+<td>-L</td>
+<td>表示像对待常规文件一样处理软连接。如果是 SRC 中有软连接文件，则加上该选项后，将会把软连接指向的目标文件复制到 DEST。</td>
+</tr>
+<tr>
+<td>-p</td>
+<td>表示保持文件权限。</td>
+</tr>
+<tr>
+<td>-o</td>
+<td>表示保持文件属主信息。</td>
+</tr>
+<tr>
+<td>-g</td>
+<td>表示保持文件属组信息。</td>
+</tr>
+<tr>
+<td>-D</td>
+<td>表示保持设备文件信息。</td>
+</tr>
+<tr>
+<td>-t</td>
+<td>表示保持文件时间信息。</td>
+</tr>
+<tr>
+<td>–delete</td>
+<td>表示删除 DEST 中 SRC 没有的文件。</td>
+</tr>
+<tr>
+<td>–exclude=PATTERN</td>
+<td>表示指定排除不需要传输的文件，等号后面跟文件名，可以是通配符模式（如 *.txt）。</td>
+</tr>
+<tr>
+<td>–progress</td>
+<td>表示在同步的过程中可以看到同步的过程状态，比如统计要同步的文件数量、 同步的文件传输速度等。</td>
+</tr>
+<tr>
+<td>-u</td>
+<td>表示把 DEST 中比 SRC 还新的文件排除掉，不会覆盖。</td>
+</tr>
+<tr>
+<td>-z</td>
+<td>加上该选项，将会在传输过程中压缩。</td>
+</tr>
+</tbody></table>
+<h2 id="5、本机中的两个目录进行同步"><a href="#5、本机中的两个目录进行同步" class="headerlink" title="5、本机中的两个目录进行同步"></a>5、本机中的两个目录进行同步</h2><p>要同步本地计算机中的两个目录，使用<code>rsync -zvr</code>命令：</p>
+<figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs stata">[root@node1 ~]# <span class="hljs-keyword">mkdir</span> /rsync<br>[root@node1 ~]# rsync -zvr /<span class="hljs-keyword">var</span>/<span class="hljs-keyword">log</span>/ /rsync/<br>sending incremental <span class="hljs-keyword">file</span> <span class="hljs-keyword">list</span><br><span class="hljs-keyword">boot</span>.<span class="hljs-keyword">log</span><br>......<br>tuned/tuned.<span class="hljs-keyword">log</span><br><br>sent 465,270 bytes  received 759 bytes  932,058.00 bytes/sec<br><span class="hljs-keyword">total</span> size is 4,754,906  speedup is 10.20<br></code></pre></td></tr></table></figure>
+<h2 id="6、使用rsync-a选项"><a href="#6、使用rsync-a选项" class="headerlink" title="6、使用rsync  -a选项"></a>6、使用rsync  -a选项</h2><p>rsync命令的<code>-a</code>选项表示存档模式。<code>-a</code>选项递归同步，保留符号链接，保留权限，保留，保留所有者和组。</p>
+<p>现在，执行以下命令，然后查看文件的时间：</p>
+<figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs stata">[root@node1 ~]# rsync -zva /<span class="hljs-keyword">var</span>/<span class="hljs-keyword">log</span>/ /rsync/<br>sending incremental <span class="hljs-keyword">file</span> <span class="hljs-keyword">list</span><br>./<br><span class="hljs-keyword">boot</span>.<span class="hljs-keyword">log</span><br>......<br>tuned/tuned.<span class="hljs-keyword">log</span><br><br>sent 465,714 bytes  received 762 bytes  932,952.00 bytes/sec<br><span class="hljs-keyword">total</span> size is 4,759,531  speedup is 10.20<br></code></pre></td></tr></table></figure>
+<p>如下图所示，在同步期间保留了补充</p>
+<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/20210429153216.png" srcset="/img/loading.gif" alt="image-20210429152235649"></p>
+<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/20210429153151.png" srcset="/img/loading.gif" alt="image-20210429152252882"></p>
+<h2 id="7、将文件从本地同步到远程目录"><a href="#7、将文件从本地同步到远程目录" class="headerlink" title="7、将文件从本地同步到远程目录"></a>7、将文件从本地同步到远程目录</h2><p>rsync允许在本地和远程系统之间的同步文件/目录，应该是本地和远程系统都要安装rsync才行</p>
+<figure class="highlight vbnet"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs vbnet">[root@node1 ~]# rsync -zva /var/log/ root@<span class="hljs-number">192.168</span>.<span class="hljs-number">10.200</span>:/rsync<br>The authenticity <span class="hljs-keyword">of</span> host <span class="hljs-comment">&#x27;192.168.10.200 (192.168.10.200)&#x27; can&#x27;t be established.</span><br>ECDSA <span class="hljs-keyword">key</span> fingerprint <span class="hljs-built_in">is</span> SHA256:CQ+Ueun/hBJkSNzWjqdNDLc3bFsfS8RwWTYeX3aD3Ak.<br>ECDSA <span class="hljs-keyword">key</span> fingerprint <span class="hljs-built_in">is</span> MD5:<span class="hljs-number">4</span>d:fd:<span class="hljs-number">8</span>a:<span class="hljs-number">6</span>f:<span class="hljs-number">99</span>:<span class="hljs-number">16</span>:<span class="hljs-number">33</span>:<span class="hljs-number">39</span>:fb:c9:<span class="hljs-number">7</span>c:<span class="hljs-number">1</span>b:<span class="hljs-number">16</span>:<span class="hljs-number">61</span>:ea:<span class="hljs-number">07</span>.<br>Are you sure you want <span class="hljs-keyword">to</span> <span class="hljs-keyword">continue</span> connecting (yes/no)? yes<br><span class="hljs-symbol">Warning:</span> Permanently added <span class="hljs-comment">&#x27;192.168.10.200&#x27; (ECDSA) to the list of known hosts.</span><br>root@<span class="hljs-number">192.168</span>.<span class="hljs-number">10.200</span><span class="hljs-comment">&#x27;s password:</span><br>sending incremental file list<br>created directory /rsync<br>./<br>boot.log<br>......<br>tuned/tuned.log<br><br>sent <span class="hljs-number">465</span>,<span class="hljs-number">718</span> bytes  received <span class="hljs-number">791</span> bytes  <span class="hljs-number">71</span>,<span class="hljs-number">770.62</span> bytes/sec<br>total size <span class="hljs-built_in">is</span> <span class="hljs-number">4</span>,<span class="hljs-number">759</span>,<span class="hljs-number">531</span>  speedup <span class="hljs-built_in">is</span> <span class="hljs-number">10.20</span><br></code></pre></td></tr></table></figure>
+<h2 id="8、将文件从远程目录同步到本地"><a href="#8、将文件从远程目录同步到本地" class="headerlink" title="8、将文件从远程目录同步到本地"></a>8、将文件从远程目录同步到本地</h2><p>将目标文件从远程系统同步到本地时，在源中指定远程路径，在目标中指定本地路径即可：</p>
+<figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs applescript">[root@node1 ~]<span class="hljs-comment"># rsync -avz root@192.168.10.200:/rsync/ /test1/</span><br>root@<span class="hljs-number">192.168</span><span class="hljs-number">.10</span><span class="hljs-number">.200</span>&#x27;s password:<br>receiving incremental <span class="hljs-built_in">file</span> <span class="hljs-built_in">list</span><br>./<br>boot.<span class="hljs-built_in">log</span><br>......<br>tuned/tuned.<span class="hljs-built_in">log</span><br><br>sent <span class="hljs-number">770</span> bytes  received <span class="hljs-number">465</span>,<span class="hljs-number">673</span> bytes  <span class="hljs-number">103</span>,<span class="hljs-number">654.00</span> bytes/sec<br>total size <span class="hljs-keyword">is</span> <span class="hljs-number">4</span>,<span class="hljs-number">759</span>,<span class="hljs-number">531</span>  speedup <span class="hljs-keyword">is</span> <span class="hljs-number">10.20</span><br></code></pre></td></tr></table></figure>
+<h2 id="9、不传输大文件"><a href="#9、不传输大文件" class="headerlink" title="9、不传输大文件"></a>9、不传输大文件</h2><p>可以使用<code>rsync --max-size</code>选项告诉rsync不要传输大于指定大小的文件。</p>
+<figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs stata">[root@node1 ~]# rsync -zva --max-size=&#x27;1M&#x27; /<span class="hljs-keyword">var</span>/<span class="hljs-keyword">log</span>/ root@192.168.10.200:/rsync1<br>root@192.168.10.200&#x27;s password:<br>sending incremental <span class="hljs-keyword">file</span> <span class="hljs-keyword">list</span><br>created directory /rsync1<br>./<br><span class="hljs-keyword">boot</span>.<span class="hljs-keyword">log</span><br>......<br>tuned/tuned.<span class="hljs-keyword">log</span><br><br>sent 279,991 bytes  received 773 bytes  112,305.60 bytes/sec<br><span class="hljs-keyword">total</span> size is 4,773,150  speedup is 17.00<br></code></pre></td></tr></table></figure>
+<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/20210429154823.png" srcset="/img/loading.gif" alt="image-20210429154749416"></p>
+<p><code>--max-size=1M</code>使rsync仅传输小于或等于1M的文件。单位可以是K，M，G等。</p>
+<p>还可以使用<code>--min-size=</code>参数，指定传输最小文件的大小。</p>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/Linux/">Linux</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/Shell/">Shell</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2021/05/10/Linux%E4%B8%89%E5%89%91%E5%AE%A2%E4%B9%8BSed/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">Linux三剑客之Sed</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2021/05/10/Shell%E8%84%9A%E6%9C%AC/">
+                        <span class="hidden-mobile">Shell脚本</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <article class="comments" id="comments">
+                
+                
+  <div id="vcomments"></div>
+  <script type="text/javascript">
+    Fluid.utils.waitElementVisible('vcomments', function() {
+      Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js', function () {
+        new Valine({
+          el: "#vcomments",
+          app_id: "hPHtsN0Gt7U2zB2AllYqbucc-9Nh9j0Va",
+          app_key: "TVUER8rWijR8cD1STqzd2d4E",
+          placeholder: "你有故事，我有酒，我们一起勇闯天涯。。。",
+          path: window.location.pathname,
+          avatar: "retro",
+          meta: ["nick","mail","link"],
+          pageSize: "10",
+          lang: "zh-CN",
+          highlight: false,
+          recordIP: false,
+          serverURLs: "",
+        });
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the
+    <a target="_blank" href="https://valine.js.org" rel="nofollow noopener noopener">comments powered by Valine.</a>
+  </noscript>
+
+
+              </article>
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- 不蒜子统计PV -->
+        <span id="busuanzi_container_site_pv" style="display: none">
+            总访问量 
+            <span id="busuanzi_value_site_pv"></span>
+             次
+          </span>
+      
+      
+        <!-- 不蒜子统计UV -->
+        <span id="busuanzi_container_site_uv" style="display: none">
+            总访客数 
+            <span id="busuanzi_value_site_uv"></span>
+             人
+          </span>
+      
+    
+  </div>
+
+
+  
+
+  
+</footer>
+
+<!-- SCRIPTS -->
+
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.0/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.0/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js" ></script>
+
+
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    (function () {
+      var path = "/local-search.xml";
+      var inputArea = document.querySelector("#local-search-input");
+      inputArea.onclick = function () {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+        this.onclick = null
+      }
+    })()
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+
+</body>
+</html>

@@ -1,0 +1,678 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" type="image/png" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="羊皮裘老头">
+  <meta name="keywords" content="">
+  <title>Linux三剑客之Sed - 羊皮裘老头</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.4.0/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.8.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"onlypost":false},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}}};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.3.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>羊皮裘老头</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="iconfont icon-books"></i>
+                文档
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" target="_blank" rel="noopener" href="https://hexo.fluid-dev.com/">
+                    
+                    主题博客
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" target="_blank" rel="noopener" href="https://hexo.fluid-dev.com/docs/guide/">
+                    
+                    配置指南
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" target="_blank" rel="noopener" href="https://hexo.fluid-dev.com/docs/icon/">
+                    
+                    图标用法
+                  </a>
+                
+              </div>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" href="javascript:">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/ss.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="Linux三剑客之Sed">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2021-05-10 15:24" pubdate>
+        2021年5月10日 下午
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      3.4k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      45
+       分钟
+    </span>
+  
+
+  
+  
+    
+      <!-- LeanCloud 统计文章PV -->
+      <span id="leancloud-page-views-container" class="post-meta" style="display: none">
+        <i class="iconfont icon-eye" aria-hidden="true"></i>
+        <span id="leancloud-page-views"></span> 次
+      </span>
+    
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">Linux三剑客之Sed</h1>
+            
+            <div class="markdown-body">
+              <h2 id="1、介绍"><a href="#1、介绍" class="headerlink" title="1、介绍"></a>1、介绍</h2><p>sed 会根据脚本命令来处理文本文件中的数据，这些命令要么从命令行中输入，要么存储在一个文本文件中，此命令执行数据的顺序如下：</p>
+<ol>
+<li>每次仅读取一行内容；</li>
+<li>根据提供的规则命令匹配并修改数据。注意，sed 默认不会直接修改源文件数据，而是会将数据复制到缓冲区中，修改也仅限于缓冲区中的数据；</li>
+<li>将执行结果输出。</li>
+</ol>
+<p>当一行数据匹配完成后，它会继续读取下一行数据，并重复这个过程，直到将文件中所有数据处理完毕。</p>
+<h2 id="2、格式"><a href="#2、格式" class="headerlink" title="2、格式"></a>2、格式</h2><p>sed 命令的基本格式如下：</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs css"><span class="hljs-selector-attr">[root@localhost ~]</span># <span class="hljs-selector-tag">sed</span> <span class="hljs-selector-attr">[选项]</span> <span class="hljs-selector-attr">[脚本命令]</span> 文件名<br></code></pre></td></tr></table></figure>
+<p>该命令常用的选项及含义，如表图所示</p>
+<table>
+<thead>
+<tr>
+<th>选项</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>-e 脚本命令</td>
+<td>该选项会将其后跟的脚本命令添加到已有的命令中。</td>
+</tr>
+<tr>
+<td>-f 脚本命令文件</td>
+<td>该选项会将其后文件中的脚本命令添加到已有的命令中。</td>
+</tr>
+<tr>
+<td>-n</td>
+<td>默认情况下，sed 会在所有的脚本指定执行完毕后，会自动输出处理后的内容，而该选项会屏蔽启动输出，需使用 print 命令来完成输出。</td>
+</tr>
+<tr>
+<td>-i</td>
+<td>此选项会直接修改源文件，要慎用。</td>
+</tr>
+</tbody></table>
+<h2 id="3、参数"><a href="#3、参数" class="headerlink" title="3、参数"></a>3、参数</h2><p>文件：指定待处理的文本文件列表。</p>
+<h4 id="sed常用命令"><a href="#sed常用命令" class="headerlink" title="sed常用命令"></a>sed常用命令</h4><figure class="highlight excel"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><code class="hljs excel">a\ 在当前行下面插入文本;<br>i\ 在当前行上面插入文本;<br>c\ 把选定的行改为新的文本;<br>d 删除，删除选择的行;<br>D 删除模板块的第一行;<br>s 替换指定字符;<br>h 拷贝模板块的内容到内存中的缓冲区;<br>H 追加模板块的内容到内存中的缓冲区;<br>g 获得内存缓冲区的内容，并替代当前模板块中的文本;<br>G 获得内存缓冲区的内容，并追加到当前模板块文本的后面;<br>l 列表不能打印字符的清单;<br><span class="hljs-built_in">n</span> 读取下一个输入行，用下一个命令处理新的行而不是用第一个命令;<br><span class="hljs-built_in">N</span> 追加下一个输入行到模板块后面并在二者间嵌入一个新行，改变当前行号码;<br>p 打印模板块的行。 P(大写) 打印模板块的第一行;<br>q 退出Sed;<br>b lable 分支到脚本中带有标记的地方，如果分支不存在则分支到脚本的末尾;<br>r file 从file中读行;<br><span class="hljs-built_in">t</span> label <span class="hljs-built_in">if</span>分支，从最后一行开始，条件一旦满足或者<span class="hljs-built_in">T</span>，<span class="hljs-built_in">t</span>命令，将导致分支到带有标号的命令处，或者到脚本的末尾;<br><span class="hljs-built_in">T</span> label 错误分支，从最后一行开始，一旦发生错误或者<span class="hljs-built_in">T</span>，<span class="hljs-built_in">t</span>命令，将导致分支到带有标号的命令处，或者到脚本的末尾;<br>w file 写并追加模板块到file末尾;<br>W file 写并追加模板块的第一行到file末尾;<br>! 表示后面的命令对所有没有被选定的行发生作用;<br>= 打印当前行号;<br># 把注释扩展到下一个换行符以前;<br></code></pre></td></tr></table></figure>
+<h4 id="sed替换标记"><a href="#sed替换标记" class="headerlink" title="sed替换标记"></a>sed替换标记</h4><figure class="highlight gml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs gml">g 表示行内全面替换;<br>p 表示打印行;<br>w 表示把行写入一个文件;<br><span class="hljs-symbol">x</span> 表示互换模板块中的文本和缓冲区中的文本;<br><span class="hljs-symbol">y</span> 表示把一个字符翻译为另外的字符（但是不用于正则表达式）;<br>\<span class="hljs-number">1</span> 子串匹配标记;<br>&amp; 已匹配字符串标记;<br></code></pre></td></tr></table></figure>
+<h4 id="sed元字符集"><a href="#sed元字符集" class="headerlink" title="sed元字符集"></a>sed元字符集</h4><figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs awk">^ 匹配行开始，如：<span class="hljs-regexp">/^sed/</span>匹配所有以sed开头的行;<br>$ 匹配行结束，如：<span class="hljs-regexp">/sed$/</span>匹配所有以sed结尾的行;<br>. 匹配一个非换行符的任意字符，如：<span class="hljs-regexp">/s.d/</span>匹配s后接一个任意字符，最后是d;<br>* 匹配<span class="hljs-number">0</span>个或多个字符，如：<span class="hljs-regexp">/*sed/</span>匹配所有模板是一个或多个空格后紧跟sed的行;<br>[] 匹配一个指定范围内的字符，如<span class="hljs-regexp">/[ss]ed/</span>匹配sed和Sed;<br>[^] 匹配一个不在指定范围内的字符，如：<span class="hljs-regexp">/[^A-RT-Z]ed/</span>匹配不包含A-R和T-Z的一个字母开头，紧跟ed的行;<br>\(..\) 匹配子串，保存匹配的字符，如s<span class="hljs-regexp">/\(love\)able/</span>\<span class="hljs-number">1</span>rs，loveable被替换成lovers;<br>&amp; 保存搜索字符用来替换其他字符，如s<span class="hljs-regexp">/love/</span>**&amp;**/，love这成**love**;<br>\&lt; 匹配单词的开始，如:/\<br>\&gt; 匹配单词的结束，如<span class="hljs-regexp">/love\&gt;/</span>匹配包含以love结尾的单词的行;<br>x\&#123;m\&#125; 重复字符x，m次，如：<span class="hljs-regexp">/0\&#123;5\&#125;/</span>匹配包含<span class="hljs-number">5</span>个<span class="hljs-number">0</span>的行;<br>x\&#123;m,\&#125; 重复字符x，至少m次，如：<span class="hljs-regexp">/0\&#123;5,\&#125;/</span>匹配至少有<span class="hljs-number">5</span>个<span class="hljs-number">0</span>的行;<br>x\&#123;m,n\&#125; 重复字符x，至少m次，不多于n次，如：<span class="hljs-regexp">/0\&#123;5,10\&#125;/</span>匹配<span class="hljs-number">5</span>~<span class="hljs-number">10</span>个<span class="hljs-number">0</span>的行;<br></code></pre></td></tr></table></figure>
+<h2 id="4、脚本命令"><a href="#4、脚本命令" class="headerlink" title="4、脚本命令"></a>4、脚本命令</h2><h3 id="4-1-替换命令：s"><a href="#4-1-替换命令：s" class="headerlink" title="4.1 替换命令：s"></a>4.1 替换命令：s</h3><p>此命令的基本格式为：</p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs awk">[address]s<span class="hljs-regexp">/pattern/</span>replacement/flags<br></code></pre></td></tr></table></figure>
+<p>其中，address 表示指定要操作的具体行，pattern 指的是需要替换的内容，replacement 指的是要替换的新内容。</p>
+<p>此命令中常用的 flags 标记如下表所示</p>
+<table>
+<thead>
+<tr>
+<th>flags 标记</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>n</td>
+<td>1~512 之间的数字，表示指定要替换的字符串出现第几次时才进行替换，例如，一行中有 3 个 A，但用户只想替换第二个 A，这是就用到这个标记；</td>
+</tr>
+<tr>
+<td>g</td>
+<td>对数据中所有匹配到的内容进行替换，如果没有 g，则只会在第一次匹配成功时做替换操作。例如，一行数据中有 3 个 A，则只会替换第一个 A；</td>
+</tr>
+<tr>
+<td>p</td>
+<td>会打印与替换命令中指定的模式匹配的行。此标记通常与 -n 选项一起使用。</td>
+</tr>
+<tr>
+<td>w file</td>
+<td>将缓冲区中的内容写到指定的 file 文件中；</td>
+</tr>
+<tr>
+<td>&amp;</td>
+<td>用正则表达式匹配的内容进行替换；</td>
+</tr>
+<tr>
+<td>\n</td>
+<td>匹配第 n 个子串，该子串之前在 pattern 中用 () 指定。</td>
+</tr>
+<tr>
+<td>\</td>
+<td>转义（转义替换部分包含：&amp;、\ 等）。</td>
+</tr>
+</tbody></table>
+<p>查看原文件</p>
+<figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs applescript">[root@node1 ~]<span class="hljs-comment"># cat data1.txt</span><br>This <span class="hljs-keyword">is</span> a test <span class="hljs-keyword">of</span> <span class="hljs-keyword">the</span> test <span class="hljs-keyword">script</span>.<br>This <span class="hljs-keyword">is</span> <span class="hljs-keyword">the</span> <span class="hljs-keyword">second</span> test <span class="hljs-keyword">of</span> <span class="hljs-keyword">the</span> test <span class="hljs-keyword">script</span>.<br></code></pre></td></tr></table></figure>
+<p>替换后为</p>
+<figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs applescript">[root@node1 ~]<span class="hljs-comment"># sed &#x27;s/test/hello/2&#x27; data1.txt</span><br>This <span class="hljs-keyword">is</span> a test <span class="hljs-keyword">of</span> <span class="hljs-keyword">the</span> hello <span class="hljs-keyword">script</span>.<br>This <span class="hljs-keyword">is</span> <span class="hljs-keyword">the</span> <span class="hljs-keyword">second</span> test <span class="hljs-keyword">of</span> <span class="hljs-keyword">the</span> hello <span class="hljs-keyword">script</span>.<br></code></pre></td></tr></table></figure>
+<p>可以看到，使用数字 2 作为标记的结果就是，sed 编辑器只替换每行中第 2 次出现的匹配模式。</p>
+<p>如果要用新文件替换所有匹配的字符串，可以使用 g 标记：</p>
+<figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs applescript">[root@node1 ~]<span class="hljs-comment"># sed &#x27;s/test/hello/g&#x27; data1.txt</span><br>This <span class="hljs-keyword">is</span> a hello <span class="hljs-keyword">of</span> <span class="hljs-keyword">the</span> hello <span class="hljs-keyword">script</span>.<br>This <span class="hljs-keyword">is</span> <span class="hljs-keyword">the</span> <span class="hljs-keyword">second</span> hello <span class="hljs-keyword">of</span> <span class="hljs-keyword">the</span> hello <span class="hljs-keyword">script</span>.<br></code></pre></td></tr></table></figure>
+<p>-n 选项会禁止 sed 输出，但 p 标记会输出修改过的行，将二者匹配使用的效果就是只输出被替换命令修改过的行，例如：</p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs ruby">[root<span class="hljs-variable">@node1</span> ~]<span class="hljs-comment"># cat data1.txtThis is a test of the test script.This is the second test of the test script.[root<span class="hljs-doctag">@node</span>1 ~]# sed -n &#x27;s/second/hello/p&#x27; data1.txtThis is the hello test of the test script.</span><br></code></pre></td></tr></table></figure>
+<p>w 标记会将匹配后的结果保存到指定文件中，比如：</p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs ruby">[root<span class="hljs-variable">@node1</span> ~]<span class="hljs-comment"># sed &#x27;s/second/hello/w test.txt&#x27; data1.txtThis is a test of the test script.This is the hello test of the test script.[root<span class="hljs-doctag">@node</span>1 ~]# cat test.txtThis is the hello test of the test script.</span><br></code></pre></td></tr></table></figure>
+<p>在使用 s 脚本命令时，替换类似文件路径的字符串会比较麻烦，需要将路径中的正斜线进行转义，例如：</p>
+<figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs gradle">[root@node1 ~]# cat <span class="hljs-regexp">/etc/</span>passwdtest:x:<span class="hljs-number">1000</span>:<span class="hljs-number">1000</span>::<span class="hljs-regexp">/home/</span>test:<span class="hljs-regexp">/bin/</span>bash[root@node1 ~]# sed -n <span class="hljs-string">&#x27;s/\/home\/test/\/home\/hello/p&#x27;</span> <span class="hljs-regexp">/etc/</span>passwdtest:x:<span class="hljs-number">1000</span>:<span class="hljs-number">1000</span>::<span class="hljs-regexp">/home/</span>hello:<span class="hljs-regexp">/bin/</span>bash<br></code></pre></td></tr></table></figure>
+<p>以上命令中字符 / 在sed中作为定界符使用，也可以使用任意的定界符</p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs ruby">[root<span class="hljs-variable">@node1</span> ~]<span class="hljs-comment"># sed &#x27;s:test:ok:g&#x27; data1.txtThis is a ok of the ok script.This is the second ok of the ok script.[root<span class="hljs-doctag">@node</span>1 ~]# sed &#x27;s#test#ok1#g&#x27; data1.txtThis is a ok1 of the ok1 script.This is the second ok1 of the ok1 script.[root<span class="hljs-doctag">@node</span>1 ~]# sed &#x27;s|test|ok2|g&#x27; data1.txtThis is a ok2 of the ok2 script.This is the second ok2 of the ok2 script.</span><br></code></pre></td></tr></table></figure>
+<h3 id="4-2-删除命令：d"><a href="#4-2-删除命令：d" class="headerlink" title="4.2 删除命令：d"></a>4.2 删除命令：d</h3><p>删除空白行</p>
+<figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs vim">[root@node1 ~]# <span class="hljs-keyword">cat</span> data2.txtThis <span class="hljs-keyword">is</span> <span class="hljs-built_in">line</span> <span class="hljs-keyword">number</span> <span class="hljs-number">1</span>.This <span class="hljs-keyword">is</span> <span class="hljs-built_in">line</span> <span class="hljs-keyword">number</span> <span class="hljs-number">2</span>.This <span class="hljs-keyword">is</span> <span class="hljs-built_in">line</span> <span class="hljs-keyword">number</span> <span class="hljs-number">3</span>.This <span class="hljs-keyword">is</span> <span class="hljs-built_in">line</span> <span class="hljs-keyword">number</span> <span class="hljs-number">4</span>.[root@node1 ~]# sed <span class="hljs-string">&#x27;/^$/d&#x27;</span> data2.txtThis <span class="hljs-keyword">is</span> <span class="hljs-built_in">line</span> <span class="hljs-keyword">number</span> <span class="hljs-number">1</span>.This <span class="hljs-keyword">is</span> <span class="hljs-built_in">line</span> <span class="hljs-keyword">number</span> <span class="hljs-number">2</span>.This <span class="hljs-keyword">is</span> <span class="hljs-built_in">line</span> <span class="hljs-keyword">number</span> <span class="hljs-number">3</span>.This <span class="hljs-keyword">is</span> <span class="hljs-built_in">line</span> <span class="hljs-keyword">number</span> <span class="hljs-number">4</span>.<br></code></pre></td></tr></table></figure>
+<p>删除指定行</p>
+<figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs vim">[root@node1 ~]# sed <span class="hljs-string">&#x27;2d&#x27;</span> data2.txtThis <span class="hljs-keyword">is</span> <span class="hljs-built_in">line</span> <span class="hljs-keyword">number</span> <span class="hljs-number">1</span>.This <span class="hljs-keyword">is</span> <span class="hljs-built_in">line</span> <span class="hljs-keyword">number</span> <span class="hljs-number">3</span>.This <span class="hljs-keyword">is</span> <span class="hljs-built_in">line</span> <span class="hljs-keyword">number</span> <span class="hljs-number">4</span>.<br></code></pre></td></tr></table></figure>
+<p>删除第二行到末尾所有行</p>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs dart">[root<span class="hljs-meta">@node</span>1 ~]# sed <span class="hljs-string">&#x27;2,<span class="hljs-subst">$d</span>&#x27;</span> data2.txtThis <span class="hljs-keyword">is</span> line number <span class="hljs-number">1.</span><br></code></pre></td></tr></table></figure>
+<p>删除最后一行</p>
+<figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs vim">[root@node1 ~]# sed <span class="hljs-string">&#x27;$d&#x27;</span> data2.txtThis <span class="hljs-keyword">is</span> <span class="hljs-built_in">line</span> <span class="hljs-keyword">number</span> <span class="hljs-number">1</span>.This <span class="hljs-keyword">is</span> <span class="hljs-built_in">line</span> <span class="hljs-keyword">number</span> <span class="hljs-number">2</span>.This <span class="hljs-keyword">is</span> <span class="hljs-built_in">line</span> <span class="hljs-keyword">number</span> <span class="hljs-number">3</span>.<br></code></pre></td></tr></table></figure>
+<p><strong>在此强调，在默认情况下 sed 并不会修改原始文件，这里被删除的行只是从 sed 的输出中消失了，原始文件没做任何改变。</strong></p>
+<h3 id="4-3-插入命令：a和i"><a href="#4-3-插入命令：a和i" class="headerlink" title="4.3 插入命令：a和i"></a>4.3 插入命令：a和i</h3><p>a 命令表示在指定行的后面附加一行，i 命令表示在指定行的前面插入一行，这里之所以要同时介绍这 2 个脚本命令，因为它们的基本格式完全相同，如下所示：</p>
+<figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs vim">[root@node1 ~]# sed <span class="hljs-string">&#x27;3i/This is an inserted line.&#x27;</span> data2.txtThis <span class="hljs-keyword">is</span> <span class="hljs-built_in">line</span> <span class="hljs-keyword">number</span> <span class="hljs-number">1</span>.This <span class="hljs-keyword">is</span> <span class="hljs-built_in">line</span> <span class="hljs-keyword">number</span> <span class="hljs-number">2</span>./This <span class="hljs-keyword">is</span> <span class="hljs-keyword">an</span> inserted <span class="hljs-built_in">line</span>.This <span class="hljs-keyword">is</span> <span class="hljs-built_in">line</span> <span class="hljs-keyword">number</span> <span class="hljs-number">3</span>.This <span class="hljs-keyword">is</span> <span class="hljs-built_in">line</span> <span class="hljs-keyword">number</span> <span class="hljs-number">4</span>.<br></code></pre></td></tr></table></figure>
+<figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs vim">[root@node1 ~]# sed <span class="hljs-string">&#x27;3a/This is an inserted line.&#x27;</span> data2.txtThis <span class="hljs-keyword">is</span> <span class="hljs-built_in">line</span> <span class="hljs-keyword">number</span> <span class="hljs-number">1</span>.This <span class="hljs-keyword">is</span> <span class="hljs-built_in">line</span> <span class="hljs-keyword">number</span> <span class="hljs-number">2</span>.This <span class="hljs-keyword">is</span> <span class="hljs-built_in">line</span> <span class="hljs-keyword">number</span> <span class="hljs-number">3</span>./This <span class="hljs-keyword">is</span> <span class="hljs-keyword">an</span> inserted <span class="hljs-built_in">line</span>.This <span class="hljs-keyword">is</span> <span class="hljs-built_in">line</span> <span class="hljs-keyword">number</span> <span class="hljs-number">4</span>.<br></code></pre></td></tr></table></figure>
+<h3 id="4-4-替换文本命令：c"><a href="#4-4-替换文本命令：c" class="headerlink" title="4.4 替换文本命令：c"></a>4.4 替换文本命令：c</h3><p>c 命令表示将指定行中的所有内容，替换成该选项后面的字符串。</p>
+<figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs vim">[root@node1 ~]# sed <span class="hljs-string">&#x27;3c/This is an inserted line test.&#x27;</span> data2.txtThis <span class="hljs-keyword">is</span> <span class="hljs-built_in">line</span> <span class="hljs-keyword">number</span> <span class="hljs-number">1</span>.This <span class="hljs-keyword">is</span> <span class="hljs-built_in">line</span> <span class="hljs-keyword">number</span> <span class="hljs-number">2</span>./This <span class="hljs-keyword">is</span> <span class="hljs-keyword">an</span> inserted <span class="hljs-built_in">line</span> test.This <span class="hljs-keyword">is</span> <span class="hljs-built_in">line</span> <span class="hljs-keyword">number</span> <span class="hljs-number">4</span>.<br></code></pre></td></tr></table></figure>
+<h3 id="4-5-转换命令：y"><a href="#4-5-转换命令：y" class="headerlink" title="4.5 转换命令：y"></a>4.5 转换命令：y</h3><p>y 转换命令是唯一可以处理单个字符的 sed 脚本命令</p>
+<p>转换命令会对 inchars 和 outchars 值进行一对一的映射，即 inchars 中的第一个字符会被转换为 outchars 中的第一个字符，第二个字符会被转换成 outchars 中的第二个字符…这个映射过程会一直持续到处理完指定字符。如果 inchars 和 outchars 的长度不同，则 sed 会产生一条错误消息。</p>
+<figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs vim">[root@node1 ~]# <span class="hljs-keyword">cat</span> data2.txtThis <span class="hljs-keyword">is</span> <span class="hljs-built_in">line</span> <span class="hljs-keyword">number</span> <span class="hljs-number">1</span>.This <span class="hljs-keyword">is</span> <span class="hljs-built_in">line</span> <span class="hljs-keyword">number</span> <span class="hljs-number">2</span>.This <span class="hljs-keyword">is</span> <span class="hljs-built_in">line</span> <span class="hljs-keyword">number</span> <span class="hljs-number">3</span>.This <span class="hljs-keyword">is</span> <span class="hljs-built_in">line</span> <span class="hljs-keyword">number</span> <span class="hljs-number">4</span>.This <span class="hljs-keyword">is</span> <span class="hljs-built_in">line</span> <span class="hljs-keyword">number</span> <span class="hljs-number">5</span>.This <span class="hljs-keyword">is</span> <span class="hljs-built_in">line</span> <span class="hljs-keyword">number</span> <span class="hljs-number">6</span>.This <span class="hljs-keyword">is</span> <span class="hljs-built_in">line</span> <span class="hljs-keyword">number</span> <span class="hljs-number">7</span>.This <span class="hljs-keyword">is</span> <span class="hljs-built_in">line</span> <span class="hljs-keyword">number</span> <span class="hljs-number">8</span>.This <span class="hljs-keyword">is</span> <span class="hljs-built_in">line</span> <span class="hljs-keyword">number</span> <span class="hljs-number">9</span>.[root@node1 ~]# sed <span class="hljs-string">&#x27;y/123/789/&#x27;</span> data2.txtThis <span class="hljs-keyword">is</span> <span class="hljs-built_in">line</span> <span class="hljs-keyword">number</span> <span class="hljs-number">7</span>.This <span class="hljs-keyword">is</span> <span class="hljs-built_in">line</span> <span class="hljs-keyword">number</span> <span class="hljs-number">8</span>.This <span class="hljs-keyword">is</span> <span class="hljs-built_in">line</span> <span class="hljs-keyword">number</span> <span class="hljs-number">9</span>.This <span class="hljs-keyword">is</span> <span class="hljs-built_in">line</span> <span class="hljs-keyword">number</span> <span class="hljs-number">4</span>.This <span class="hljs-keyword">is</span> <span class="hljs-built_in">line</span> <span class="hljs-keyword">number</span> <span class="hljs-number">5</span>.This <span class="hljs-keyword">is</span> <span class="hljs-built_in">line</span> <span class="hljs-keyword">number</span> <span class="hljs-number">6</span>.This <span class="hljs-keyword">is</span> <span class="hljs-built_in">line</span> <span class="hljs-keyword">number</span> <span class="hljs-number">7</span>.This <span class="hljs-keyword">is</span> <span class="hljs-built_in">line</span> <span class="hljs-keyword">number</span> <span class="hljs-number">8</span>.This <span class="hljs-keyword">is</span> <span class="hljs-built_in">line</span> <span class="hljs-keyword">number</span> <span class="hljs-number">9</span>.<br></code></pre></td></tr></table></figure>
+<p>可以看到，inchars 模式中指定字符的每个实例都会被替换成 outchars 模式中相同位置的那个字符。</p>
+<p>转换命令是一个全局命令，也就是说，它会文本行中找到的所有指定字符自动进行转换，而不会考虑它们出现的位置，再打个比方：</p>
+<figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs vim">[root@node1 ~]# <span class="hljs-keyword">cat</span> data2.txtThis <span class="hljs-keyword">is</span> <span class="hljs-built_in">line</span> <span class="hljs-keyword">number</span> <span class="hljs-number">1</span>.This <span class="hljs-keyword">is</span> <span class="hljs-built_in">line</span> <span class="hljs-keyword">number</span> <span class="hljs-number">2</span>.This <span class="hljs-keyword">is</span> <span class="hljs-built_in">line</span> <span class="hljs-keyword">number</span> <span class="hljs-number">3</span>.This <span class="hljs-keyword">is</span> <span class="hljs-built_in">line</span> <span class="hljs-keyword">number</span> <span class="hljs-number">4</span>.This <span class="hljs-keyword">is</span> <span class="hljs-built_in">line</span> <span class="hljs-keyword">number</span> <span class="hljs-number">5</span>.This <span class="hljs-keyword">is</span> <span class="hljs-built_in">line</span> <span class="hljs-keyword">number</span> <span class="hljs-number">6</span>.This <span class="hljs-keyword">is</span> <span class="hljs-built_in">line</span> <span class="hljs-keyword">number</span> <span class="hljs-number">7</span>.This <span class="hljs-keyword">is</span> <span class="hljs-built_in">line</span> <span class="hljs-keyword">number</span> <span class="hljs-number">8</span>.This <span class="hljs-keyword">is</span> <span class="hljs-built_in">line</span> <span class="hljs-keyword">number</span> <span class="hljs-number">9</span>.This <span class="hljs-keyword">is</span> <span class="hljs-built_in">line</span> <span class="hljs-keyword">number</span> <span class="hljs-number">10</span>.This <span class="hljs-keyword">is</span> <span class="hljs-built_in">line</span> <span class="hljs-keyword">number</span> <span class="hljs-number">11</span>.This <span class="hljs-keyword">is</span> <span class="hljs-built_in">line</span> <span class="hljs-keyword">number</span> <span class="hljs-number">12</span>.[root@node1 ~]# sed <span class="hljs-string">&#x27;y/123/789/&#x27;</span> data2.txtThis <span class="hljs-keyword">is</span> <span class="hljs-built_in">line</span> <span class="hljs-keyword">number</span> <span class="hljs-number">7</span>.This <span class="hljs-keyword">is</span> <span class="hljs-built_in">line</span> <span class="hljs-keyword">number</span> <span class="hljs-number">8</span>.This <span class="hljs-keyword">is</span> <span class="hljs-built_in">line</span> <span class="hljs-keyword">number</span> <span class="hljs-number">9</span>.This <span class="hljs-keyword">is</span> <span class="hljs-built_in">line</span> <span class="hljs-keyword">number</span> <span class="hljs-number">4</span>.This <span class="hljs-keyword">is</span> <span class="hljs-built_in">line</span> <span class="hljs-keyword">number</span> <span class="hljs-number">5</span>.This <span class="hljs-keyword">is</span> <span class="hljs-built_in">line</span> <span class="hljs-keyword">number</span> <span class="hljs-number">6</span>.This <span class="hljs-keyword">is</span> <span class="hljs-built_in">line</span> <span class="hljs-keyword">number</span> <span class="hljs-number">7</span>.This <span class="hljs-keyword">is</span> <span class="hljs-built_in">line</span> <span class="hljs-keyword">number</span> <span class="hljs-number">8</span>.This <span class="hljs-keyword">is</span> <span class="hljs-built_in">line</span> <span class="hljs-keyword">number</span> <span class="hljs-number">9</span>.This <span class="hljs-keyword">is</span> <span class="hljs-built_in">line</span> <span class="hljs-keyword">number</span> <span class="hljs-number">70</span>.This <span class="hljs-keyword">is</span> <span class="hljs-built_in">line</span> <span class="hljs-keyword">number</span> <span class="hljs-number">77</span>.This <span class="hljs-keyword">is</span> <span class="hljs-built_in">line</span> <span class="hljs-keyword">number</span> <span class="hljs-number">78</span>.<br></code></pre></td></tr></table></figure>
+<p><strong>sed 转换了在文本行中匹配到的字符，无法限定只转换在特定地方出现的字符。</strong></p>
+<h3 id="4-6-打印命令：p"><a href="#4-6-打印命令：p" class="headerlink" title="4.6 打印命令：p"></a>4.6 打印命令：p</h3><p>p 命令表示搜索符号条件的行，并输出该行的内容</p>
+<figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs vim">[root@node1 ~]# <span class="hljs-keyword">cat</span> data2.txtThis <span class="hljs-keyword">is</span> <span class="hljs-built_in">line</span> <span class="hljs-keyword">number</span> <span class="hljs-number">1</span>.This <span class="hljs-keyword">is</span> <span class="hljs-built_in">line</span> <span class="hljs-keyword">number</span> <span class="hljs-number">2</span>.This <span class="hljs-keyword">is</span> <span class="hljs-built_in">line</span> <span class="hljs-keyword">number</span> <span class="hljs-number">3</span>.This <span class="hljs-keyword">is</span> <span class="hljs-built_in">line</span> <span class="hljs-keyword">number</span> <span class="hljs-number">4</span>.[root@node1 ~]# sed -n <span class="hljs-string">&#x27;/number 2/p&#x27;</span> data2.txtThis <span class="hljs-keyword">is</span> <span class="hljs-built_in">line</span> <span class="hljs-keyword">number</span> <span class="hljs-number">2</span>.<br></code></pre></td></tr></table></figure>
+<p>可以看到，用 -n 选项和 p 命令配合使用，我们可以禁止输出其他行，只打印包含匹配文本模式的行。</p>
+<p>如果需要在修改之前查看行，也可以使用打印命令，比如与替换或修改命令一起使用。可以创建一个脚本在修改行之前显示该行，如下所示：</p>
+<figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs vim">[root@node1 ~]# sed -n <span class="hljs-string">&#x27;/3/&#123;&gt; p&gt; s/line/test/p&gt; &#125;&#x27;</span> data2.txtThis <span class="hljs-keyword">is</span> <span class="hljs-built_in">line</span> <span class="hljs-keyword">number</span> <span class="hljs-number">3</span>.This <span class="hljs-keyword">is</span> test <span class="hljs-keyword">number</span> <span class="hljs-number">3</span>.<br></code></pre></td></tr></table></figure>
+<h3 id="4-7-写入命令：w"><a href="#4-7-写入命令：w" class="headerlink" title="4.7 写入命令：w"></a>4.7 写入命令：w</h3><p>w 命令用来将文本中指定行的内容写入文件中，如果不想让行直接输出，可以用 -n 选项</p>
+<p>可以看到，通过使用 w 脚本命令，sed 可以实现将包含文本模式的数据行写入目标文件。</p>
+<figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs vim">[root@node1 ~]# sed -n <span class="hljs-string">&#x27;1,2w test2.txt&#x27;</span> data2.txt[root@node1 ~]# <span class="hljs-keyword">cat</span> test2.txtThis <span class="hljs-keyword">is</span> <span class="hljs-built_in">line</span> <span class="hljs-keyword">number</span> <span class="hljs-number">1</span>.This <span class="hljs-keyword">is</span> <span class="hljs-built_in">line</span> <span class="hljs-keyword">number</span> <span class="hljs-number">2</span>.<br></code></pre></td></tr></table></figure>
+<h3 id="4-8-插入文件命令：r"><a href="#4-8-插入文件命令：r" class="headerlink" title="4.8 插入文件命令：r"></a>4.8 插入文件命令：r</h3><p>r 命令用于将一个独立文件的数据插入到当前数据流的指定位置</p>
+<figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs vim">[root@node1 ~]# <span class="hljs-keyword">cat</span> test2.txthello worldThis <span class="hljs-keyword">is</span> <span class="hljs-built_in">line</span> <span class="hljs-keyword">number</span> <span class="hljs-number">2</span>.[root@node1 ~]# sed <span class="hljs-string">&#x27;2r test2.txt&#x27;</span> data2.txtThis <span class="hljs-keyword">is</span> <span class="hljs-built_in">line</span> <span class="hljs-keyword">number</span> <span class="hljs-number">1</span>.This <span class="hljs-keyword">is</span> <span class="hljs-built_in">line</span> <span class="hljs-keyword">number</span> <span class="hljs-number">2</span>.hello worldThis <span class="hljs-keyword">is</span> <span class="hljs-built_in">line</span> <span class="hljs-keyword">number</span> <span class="hljs-number">2</span>.This <span class="hljs-keyword">is</span> <span class="hljs-built_in">line</span> <span class="hljs-keyword">number</span> <span class="hljs-number">3</span>.This <span class="hljs-keyword">is</span> <span class="hljs-built_in">line</span> <span class="hljs-keyword">number</span> <span class="hljs-number">4</span>.<br></code></pre></td></tr></table></figure>
+<p>如果你想将指定文件中的数据插入到数据流的末尾，可以使用 $ 地址符</p>
+<h3 id="4-9-退出命令：q"><a href="#4-9-退出命令：q" class="headerlink" title="4.9 退出命令：q"></a>4.9 退出命令：q</h3><p>q 命令的作用是使 sed 命令在第一次匹配任务结束后，退出 sed 程序，不再进行对后续数据的处理。</p>
+<figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs vim">[root@node1 ~]# sed <span class="hljs-string">&#x27;2q&#x27;</span> data2.txtThis <span class="hljs-keyword">is</span> <span class="hljs-built_in">line</span> <span class="hljs-keyword">number</span> <span class="hljs-number">1</span>.This <span class="hljs-keyword">is</span> <span class="hljs-built_in">line</span> <span class="hljs-keyword">number</span> <span class="hljs-number">2</span>.<br></code></pre></td></tr></table></figure>
+<h3 id="4-10-多点编辑：e"><a href="#4-10-多点编辑：e" class="headerlink" title="4.10 多点编辑：e"></a>4.10 多点编辑：e</h3><p>允许在同一行里执行多条命令：</p>
+<figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs vim">[root@node1 ~]# sed -<span class="hljs-keyword">e</span> <span class="hljs-string">&#x27;1d&#x27;</span> -<span class="hljs-keyword">e</span> <span class="hljs-string">&#x27;s/line/hello/&#x27;</span> data2.txtThis <span class="hljs-keyword">is</span> hello <span class="hljs-keyword">number</span> <span class="hljs-number">2</span>.This <span class="hljs-keyword">is</span> hello <span class="hljs-keyword">number</span> <span class="hljs-number">3</span>.This <span class="hljs-keyword">is</span> hello <span class="hljs-keyword">number</span> <span class="hljs-number">4</span>.<br></code></pre></td></tr></table></figure>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/Linux/">Linux</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/Shell/">Shell</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2021/05/10/Linux%E4%B8%89%E5%89%91%E5%AE%A2%E4%B9%8BGrep/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">Linux三剑客之Grep</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2021/05/10/Linux-rsync%E5%91%BD%E4%BB%A4%E7%94%A8%E6%B3%95/">
+                        <span class="hidden-mobile">Linux rsync命令用法</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <article class="comments" id="comments">
+                
+                
+  <div id="vcomments"></div>
+  <script type="text/javascript">
+    Fluid.utils.waitElementVisible('vcomments', function() {
+      Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js', function () {
+        new Valine({
+          el: "#vcomments",
+          app_id: "hPHtsN0Gt7U2zB2AllYqbucc-9Nh9j0Va",
+          app_key: "TVUER8rWijR8cD1STqzd2d4E",
+          placeholder: "你有故事，我有酒，我们一起勇闯天涯。。。",
+          path: window.location.pathname,
+          avatar: "retro",
+          meta: ["nick","mail","link"],
+          pageSize: "10",
+          lang: "zh-CN",
+          highlight: false,
+          recordIP: false,
+          serverURLs: "",
+        });
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the
+    <a target="_blank" href="https://valine.js.org" rel="nofollow noopener noopener">comments powered by Valine.</a>
+  </noscript>
+
+
+              </article>
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- 不蒜子统计PV -->
+        <span id="busuanzi_container_site_pv" style="display: none">
+            总访问量 
+            <span id="busuanzi_value_site_pv"></span>
+             次
+          </span>
+      
+      
+        <!-- 不蒜子统计UV -->
+        <span id="busuanzi_container_site_uv" style="display: none">
+            总访客数 
+            <span id="busuanzi_value_site_uv"></span>
+             人
+          </span>
+      
+    
+  </div>
+
+
+  
+
+  
+</footer>
+
+<!-- SCRIPTS -->
+
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.0/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.0/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js" ></script>
+
+
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    (function () {
+      var path = "/local-search.xml";
+      var inputArea = document.querySelector("#local-search-input");
+      inputArea.onclick = function () {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+        this.onclick = null
+      }
+    })()
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+
+</body>
+</html>

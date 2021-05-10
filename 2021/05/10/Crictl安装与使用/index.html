@@ -1,0 +1,619 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" type="image/png" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="羊皮裘老头">
+  <meta name="keywords" content="">
+  <title>Crictl安装与使用 - 羊皮裘老头</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.4.0/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.8.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"onlypost":false},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}}};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.3.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>羊皮裘老头</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="iconfont icon-books"></i>
+                文档
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" target="_blank" rel="noopener" href="https://hexo.fluid-dev.com/">
+                    
+                    主题博客
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" target="_blank" rel="noopener" href="https://hexo.fluid-dev.com/docs/guide/">
+                    
+                    配置指南
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" target="_blank" rel="noopener" href="https://hexo.fluid-dev.com/docs/icon/">
+                    
+                    图标用法
+                  </a>
+                
+              </div>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" href="javascript:">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/ss.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="Crictl安装与使用">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2021-05-10 15:30" pubdate>
+        2021年5月10日 下午
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      1.3k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      16
+       分钟
+    </span>
+  
+
+  
+  
+    
+      <!-- LeanCloud 统计文章PV -->
+      <span id="leancloud-page-views-container" class="post-meta" style="display: none">
+        <i class="iconfont icon-eye" aria-hidden="true"></i>
+        <span id="leancloud-page-views"></span> 次
+      </span>
+    
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">Crictl安装与使用</h1>
+            
+            <div class="markdown-body">
+              <h2 id="1、介绍"><a href="#1、介绍" class="headerlink" title="1、介绍"></a>1、介绍</h2><p><code>crictl</code> 是 CRI 兼容的容器运行时命令行接口。 可以使用它来检查和调试 Kubernetes 节点上的容器运行时和应用程序。</p>
+<h2 id="2、安装"><a href="#2、安装" class="headerlink" title="2、安装"></a>2、安装</h2><h3 id="2-1-使用yum安装"><a href="#2-1-使用yum安装" class="headerlink" title="2.1 使用yum安装"></a>2.1 使用yum安装</h3><p>安装<code>containerd.io</code>软件包就自带了<code>crictl</code>命令</p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs awk">yum install -y yum-utils<br>yum-config-manager \<br>    --add-repo \<br>    https:<span class="hljs-regexp">//</span>download.docker.com<span class="hljs-regexp">/linux/</span>centos/docker-ce.repo<br>yum install -y containerd.io<br></code></pre></td></tr></table></figure>
+<h3 id="2-2-使用二进制包"><a href="#2-2-使用二进制包" class="headerlink" title="2.2 使用二进制包"></a>2.2 使用二进制包</h3><p>在github下载安装包：<a target="_blank" rel="noopener" href="https://github.com/kubernetes-sigs/cri-tools/releases/tag/v1.21.0">https://github.com/kubernetes-sigs/cri-tools/releases/tag/v1.21.0</a></p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs awk">VERSION=<span class="hljs-string">&quot;v1.21.0&quot;</span><br>wget https:<span class="hljs-regexp">//gi</span>thub.com<span class="hljs-regexp">/kubernetes-sigs/</span>cri-tools<span class="hljs-regexp">/releases/</span>download<span class="hljs-regexp">/$VERSION/</span>crictl-<span class="hljs-variable">$VERSION</span>-linux-amd64.tar.gz<br>sudo tar zxvf crictl-<span class="hljs-variable">$VERSION</span>-linux-amd64.tar.gz -C <span class="hljs-regexp">/usr/</span>local/bin<br>rm -f crictl-<span class="hljs-variable">$VERSION</span>-linux-amd64.tar.gz<br></code></pre></td></tr></table></figure>
+<h2 id="3、设置配置文件"><a href="#3、设置配置文件" class="headerlink" title="3、设置配置文件"></a>3、设置配置文件</h2><h3 id="3-1-配置文件"><a href="#3-1-配置文件" class="headerlink" title="3.1 配置文件"></a>3.1 配置文件</h3><p><code>crictl</code> 默认连接到 <code>unix:///var/run/dockershim.sock</code>。 对于其他的运行时，可以用多种不同的方法设置端点：</p>
+<ul>
+<li>通过设置参数 <code>--runtime-endpoint</code> 和 <code>--image-endpoint</code></li>
+<li>通过设置环境变量 <code>CONTAINER_RUNTIME_ENDPOINT</code> 和 <code>IMAGE_SERVICE_ENDPOINT</code></li>
+<li>通过在配置文件中设置端点 <code>--config=/etc/crictl.yaml</code></li>
+</ul>
+<p>还可以在连接到服务器并启用或禁用调试时指定超时值，方法是在配置文件中指定 <code>timeout</code> 或 <code>debug</code> 值，或者使用 <code>--timeout</code> 和 <code>--debug</code> 命令行参数。</p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs awk">cat &gt;&gt; <span class="hljs-regexp">/etc/</span>crictl.yaml &lt;&lt; EOF    <span class="hljs-comment">#这里使用containerd</span><br>runtime-endpoint: unix:<span class="hljs-regexp">//</span><span class="hljs-regexp">/run/</span>containerd/containerd.sock<br>image-endpoint: unix:<span class="hljs-regexp">//</span><span class="hljs-regexp">/run/</span>containerd/containerd.sock<br>timeout: <span class="hljs-number">3</span><br>debug: true<br>EOF<br></code></pre></td></tr></table></figure>
+<h3 id="3-2-命令行"><a href="#3-2-命令行" class="headerlink" title="3.2 命令行"></a>3.2 命令行</h3><p>使用crictl config命令获取并设置crictl客户端配置选项</p>
+<figure class="highlight fsharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs fsharp">crictl config [command options] <span class="hljs-meta">[&lt;crictl options&gt;]</span><br></code></pre></td></tr></table></figure>
+<p>例如，<code>crictl config --set debug=true</code>在提供后续crictl命令时将启用调试模式。</p>
+<p>可选选项：</p>
+<figure class="highlight pgsql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs pgsql">runtime-endpoint:       Container runtime endpoint<br>image-endpoint:         Image endpoint<br>timeout:                Timeout <span class="hljs-keyword">of</span> connecting <span class="hljs-keyword">to</span> <span class="hljs-keyword">server</span> (<span class="hljs-keyword">default</span>: <span class="hljs-number">2</span>s)<br><span class="hljs-keyword">debug</span>:                  <span class="hljs-keyword">Enable</span> <span class="hljs-keyword">debug</span> output (<span class="hljs-keyword">default</span>: <span class="hljs-keyword">false</span>)<br>pull-image-<span class="hljs-keyword">on</span>-<span class="hljs-keyword">create</span>:   <span class="hljs-keyword">Enable</span> pulling image <span class="hljs-keyword">on</span> <span class="hljs-keyword">create</span> requests (<span class="hljs-keyword">default</span>: <span class="hljs-keyword">false</span>)<br><span class="hljs-keyword">disable</span>-pull-<span class="hljs-keyword">on</span>-run:    <span class="hljs-keyword">Disable</span> pulling image <span class="hljs-keyword">on</span> run requests (<span class="hljs-keyword">default</span>: <span class="hljs-keyword">false</span>)<br></code></pre></td></tr></table></figure>
+<p>选项：</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs routeros">--<span class="hljs-builtin-name">get</span> value  show the option value<br>--<span class="hljs-builtin-name">set</span> value  <span class="hljs-builtin-name">set</span> option (can specify multiple <span class="hljs-keyword">or</span> separate values with commas: <span class="hljs-attribute">opt1</span>=val1,opt2=val2)<br>--help, -h   show help (default: <span class="hljs-literal">false</span>)<br></code></pre></td></tr></table></figure>
+<blockquote>
+<p>启用后，<code>pull-image-on-create</code>将修改create container命令以首先拉出容器的映像。此功能用作帮助使创建容器更容易，更快的助手。<code>crictl</code>可能希望不要提取创建容器所需的图像。例如，图像可能已经被拉出或以其他方式加载到容器运行时中，或者用户可能在没有网络的情况下运行。因此，默认值for<code>pull-image-on-create</code>为false。</p>
+</blockquote>
+<blockquote>
+<p>默认情况下，运行命令首先提取容器映像，并且<code>disable-pull-on-run</code>为false。的某些用户<code>crictl</code>可能希望将其设置<code>disable-pull-on-run</code>为true，以在使用run命令时默认情况下不拉取图像。</p>
+</blockquote>
+<blockquote>
+<p>要覆盖这些默认的拉取配置设置，<code>--no-pull</code>并<code>--with-pull</code>为create和run命令提供了选项。</p>
+</blockquote>
+<h2 id="4、用法"><a href="#4、用法" class="headerlink" title="4、用法"></a>4、用法</h2><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs css"><span class="hljs-selector-tag">crictl</span> <span class="hljs-selector-attr">[全局选项]</span>命令<span class="hljs-selector-attr">[命令选项]</span> <span class="hljs-selector-attr">[参数...]</span><br></code></pre></td></tr></table></figure>
+<p><strong>指令</strong>：</p>
+<ul>
+<li><code>attach</code>：附加到正在运行的容器</li>
+<li><code>create</code>：创建一个新的容器</li>
+<li><code>exec</code>：在正在运行的容器中运行命令</li>
+<li><code>version</code>：显示运行时版本信息</li>
+<li><code>images</code>：列出镜像</li>
+<li><code>inspect</code>：显示一个或多个容器的状态</li>
+<li><code>inspecti</code>：返回一个或多个镜像的状态</li>
+<li><code>imagefsinfo</code>：返回镜像文件系统信息</li>
+<li><code>inspectp</code>：显示一个或多个pods的状态</li>
+<li><code>logs</code>：获取容器的日志</li>
+<li><code>port-forward</code>：将本地端口转发到Pod</li>
+<li><code>ps</code>：列出容器</li>
+<li><code>pull</code>：从镜像库拉取镜像</li>
+<li><code>runp</code>：运行一个新的pod</li>
+<li><code>rm</code>：删除一个或多个容器</li>
+<li><code>rmi</code>：删除一个或多个镜像</li>
+<li><code>rmp</code>：删除一个或多个pod</li>
+<li><code>pods</code>：列出pods</li>
+<li><code>start</code>：启动一个或多个已创建的容器</li>
+<li><code>info</code>：显示容器运行时的信息</li>
+<li><code>stop</code>：停止一个或多个运行中的容器</li>
+<li><code>stopp</code>：停止一个或多个正在运行的Pod</li>
+<li><code>update</code>：更新一个或多个正在运行的容器</li>
+<li><code>config</code>：获取并设置crictl客户端配置选项</li>
+<li><code>stats</code>：列出容器资源使用情况统计信息</li>
+<li><code>completion</code>：输出bash shell完成代码</li>
+<li><code>help, h</code>：显示命令列表或一个命令的帮助</li>
+</ul>
+<p><strong>其他指令</strong>：</p>
+<ul>
+<li><code>--timeout</code>，<code>-t</code>：连接服务器的超时时间（以秒为单位）（默认值：10s）。0或更少将被解释为未设置并转换为默认值。没有设置超时值的选项，支持的最小超时为<code>1s</code></li>
+<li><code>--debug</code>，<code>-D</code>：启用调试输出</li>
+<li><code>--help</code>，<code>-h</code>：显示帮助</li>
+<li><code>--version</code>，<code>-v</code>：打印crictl的版本信息</li>
+<li><code>--config</code>，<code>-c</code>：客户端配置文件的位置。如果未指定并且默认目录不存在，则也会搜索该程序的目录（默认目录：“ / etc / crictl.yaml”）[$ CRI_CONFIG_FILE]</li>
+</ul>
+<h2 id="5、创建pod报错"><a href="#5、创建pod报错" class="headerlink" title="5、创建pod报错"></a>5、创建pod报错</h2><figure class="highlight autoit"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs autoit">[root<span class="hljs-symbol">@node2</span> ~]<span class="hljs-meta"># cat pod-config.json</span><br>&#123;<br>    <span class="hljs-string">&quot;metadata&quot;</span>: &#123;<br>        <span class="hljs-string">&quot;name&quot;</span>: <span class="hljs-string">&quot;sandbox&quot;</span>,<br>        <span class="hljs-string">&quot;namespace&quot;</span>: <span class="hljs-string">&quot;default&quot;</span>,<br>        <span class="hljs-string">&quot;attempt&quot;</span>: <span class="hljs-number">1</span>,<br>        <span class="hljs-string">&quot;uid&quot;</span>: <span class="hljs-string">&quot;hdishd83djaidwnduwk28bcsb&quot;</span><br>    &#125;,<br>    <span class="hljs-string">&quot;log_directory&quot;</span>: <span class="hljs-string">&quot;/tmp&quot;</span>,<br>    <span class="hljs-string">&quot;linux&quot;</span>: &#123;<br>    &#125;<br>&#125;<br>[root<span class="hljs-symbol">@node2</span> ~]<span class="hljs-meta"># crictl runp  pod-config.json</span><br>FATA[<span class="hljs-number">0000</span>] <span class="hljs-built_in">run</span> pod sandbox failed: rpc error: code = Unknown desc = failed <span class="hljs-keyword">to</span> setup network <span class="hljs-keyword">for</span> sandbox <span class="hljs-string">&quot;b20591a4fcb681975ed3f906de91455ad793f18dafc98630b23e64548ade90a6&quot;</span>: pods <span class="hljs-string">&quot;sandbox&quot;</span> <span class="hljs-literal">not</span> found<br></code></pre></td></tr></table></figure>
+<p>报错原因：calico daemonset监视apiserver以获取Pod列表，并根据Pod规范应用网络配置。自己使用沙盒，则apiserver上将没有相应的Pod，因此calico报告该错误。不建议用户运行<code>crictl runs</code>和<code>crictl create</code>一个Kubernetes节点上，这些命令在那里只是一些特殊的调试情况。即使您能够创建沙箱，<code>kubelet</code>也将最终停止并删除它，因为它在apiserver上看不到相应的pod。</p>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/%E5%AE%B9%E5%99%A8/">容器</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/Containerd/">Containerd</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2021/05/10/Containerd%E7%9A%84%E4%BD%BF%E7%94%A8/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">Containerd的使用</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2021/05/10/%E4%BD%BF%E7%94%A8containerd%E5%AE%89%E8%A3%85k8s%E7%9A%841-21%E7%89%88%E6%9C%AC/">
+                        <span class="hidden-mobile">使用containerd安装k8s的1.21版本</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <article class="comments" id="comments">
+                
+                
+  <div id="vcomments"></div>
+  <script type="text/javascript">
+    Fluid.utils.waitElementVisible('vcomments', function() {
+      Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js', function () {
+        new Valine({
+          el: "#vcomments",
+          app_id: "hPHtsN0Gt7U2zB2AllYqbucc-9Nh9j0Va",
+          app_key: "TVUER8rWijR8cD1STqzd2d4E",
+          placeholder: "你有故事，我有酒，我们一起勇闯天涯。。。",
+          path: window.location.pathname,
+          avatar: "retro",
+          meta: ["nick","mail","link"],
+          pageSize: "10",
+          lang: "zh-CN",
+          highlight: false,
+          recordIP: false,
+          serverURLs: "",
+        });
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the
+    <a target="_blank" href="https://valine.js.org" rel="nofollow noopener noopener">comments powered by Valine.</a>
+  </noscript>
+
+
+              </article>
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- 不蒜子统计PV -->
+        <span id="busuanzi_container_site_pv" style="display: none">
+            总访问量 
+            <span id="busuanzi_value_site_pv"></span>
+             次
+          </span>
+      
+      
+        <!-- 不蒜子统计UV -->
+        <span id="busuanzi_container_site_uv" style="display: none">
+            总访客数 
+            <span id="busuanzi_value_site_uv"></span>
+             人
+          </span>
+      
+    
+  </div>
+
+
+  
+
+  
+</footer>
+
+<!-- SCRIPTS -->
+
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.0/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.0/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js" ></script>
+
+
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    (function () {
+      var path = "/local-search.xml";
+      var inputArea = document.querySelector("#local-search-input");
+      inputArea.onclick = function () {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+        this.onclick = null
+      }
+    })()
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+
+</body>
+</html>
