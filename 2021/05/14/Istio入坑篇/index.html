@@ -1,0 +1,597 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" type="image/png" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="羊皮裘老头">
+  <meta name="keywords" content="">
+  <title>Istio入坑篇 - 羊皮裘老头</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.4.0/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.8.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"onlypost":false},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}}};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.3.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>羊皮裘老头</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="iconfont icon-books"></i>
+                文档
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" target="_blank" rel="noopener" href="https://hexo.fluid-dev.com/">
+                    
+                    主题博客
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" target="_blank" rel="noopener" href="https://hexo.fluid-dev.com/docs/guide/">
+                    
+                    配置指南
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" target="_blank" rel="noopener" href="https://hexo.fluid-dev.com/docs/icon/">
+                    
+                    图标用法
+                  </a>
+                
+              </div>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" href="javascript:">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/ss.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="Istio入坑篇">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2021-05-14 10:34" pubdate>
+        2021年5月14日 上午
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      1.4k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      14
+       分钟
+    </span>
+  
+
+  
+  
+    
+      <!-- LeanCloud 统计文章PV -->
+      <span id="leancloud-page-views-container" class="post-meta" style="display: none">
+        <i class="iconfont icon-eye" aria-hidden="true"></i>
+        <span id="leancloud-page-views"></span> 次
+      </span>
+    
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">Istio入坑篇</h1>
+            
+            <div class="markdown-body">
+              <blockquote>
+<p><a target="_blank" rel="noopener" href="https://istio.io/docs/concepts">https://istio.io/docs/concepts</a></p>
+</blockquote>
+<h2 id="1、什么是Istio"><a href="#1、什么是Istio" class="headerlink" title="1、什么是Istio"></a>1、什么是Istio</h2><p>云平台为使用它们的组织提供了很多好处。但是，不可否认的是，采用云技术会对DevOps团队造成压力。开发人员必须使用微服务来构建可移植性，同时运营商正在管理超大型混合和多云部署。Istio使您可以连接，保护，控制和观察服务。</p>
+<p>从较高的角度来看，Istio有助于降低这些部署的复杂性，并减轻开发团队的负担。它是一个完全开源的服务网格，可以透明地分层到现有的分布式应用程序上。它也是一个平台，包括可将其集成到任何日志记录平台，遥测或策略系统中的API。Istio的多样化功能集使您能够成功，高效地运行分布式微服务架构，并提供一种统一的方式来保护，连接和监视微服务。</p>
+<h2 id="2、为什么要使用Istio"><a href="#2、为什么要使用Istio" class="headerlink" title="2、为什么要使用Istio"></a>2、为什么要使用Istio</h2><p>Istio可以轻松创建带有负载平衡，服务到服务的身份验证，监视等功能的已部署服务网络，而服务代码中的代码更改<a target="_blank" rel="noopener" href="https://istio.io/docs/tasks/observability/distributed-tracing/overview/#trace-context-propagation">很少</a>或没有更改。通过在整个环境中部署一个特殊的sidecar代理来拦截微服务之间的所有网络通信，然后使用其控制平面功能配置和管理Istio，可以为服务添加Istio支持，包括：</p>
+<ul>
+<li>HTTP，gRPC，WebSocket和TCP通信的自动负载平衡。</li>
+<li>通过丰富的路由规则，重试，故障转移和故障注入对流量行为进行细粒度控制。</li>
+<li>可插拔的策略层和配置API，支持访问控制，速率限制和配额。</li>
+<li>集群内所有流量的自动度量，日志和跟踪，包括集群的入口和出口。</li>
+<li>通过强大的基于身份的身份验证和授权，在群集中进行安全的服务间通信。</li>
+</ul>
+<p>Istio专为可扩展性而设计，可满足多种部署需求。</p>
+<h2 id="3、核心功能"><a href="#3、核心功能" class="headerlink" title="3、核心功能"></a>3、核心功能</h2><p>Istio在服务网络中统一提供了许多关键功能：</p>
+<h3 id="3-1-流量管理"><a href="#3-1-流量管理" class="headerlink" title="3.1 流量管理"></a>3.1 流量管理</h3><p>Istio的简单规则配置和流量路由使您可以控制服务之间流量和API调用的流。Istio简化了诸如断路器，超时和重试之类的服务级别属性的配置，并使其轻而易举地设置了重要任务（如A / B测试，canary部署和基于百分比的流量拆分的分阶段部署）。</p>
+<p>借助对流量的更好可见性和开箱即用的故障恢复功能，无论遇到什么情况，您都可以在问题引起问题之前及时发现问题，使呼叫更加可靠，网络也更加强大。</p>
+<blockquote>
+<p>流量管理概念指南：<a target="_blank" rel="noopener" href="https://istio.io/docs/concepts/traffic-management/">https://istio.io/docs/concepts/traffic-management/</a></p>
+</blockquote>
+<h3 id="3-2-安全"><a href="#3-2-安全" class="headerlink" title="3.2 安全"></a>3.2 安全</h3><p>Istio的安全功能使开发人员可以将精力集中在应用程序级别上。Istio提供基础安全通信通道，并大规模管理服务通信的身份验证，授权和加密。借助Istio，默认情况下可以保护服务通信的安全，从而使您能够在各种协议和运行时之间一致地实施策略-所有这些操作几乎不需要更改应用程序。</p>
+<p>尽管Istio是独立于平台的，但将其与Kubernetes（或基础架构）网络策略配合使用，其好处更大，包括能够在网络和应用程序层保护Pod到Pod或服务到服务的通信的能力。</p>
+<blockquote>
+<p>安全性概念指南：<a target="_blank" rel="noopener" href="https://istio.io/docs/concepts/security/">https://istio.io/docs/concepts/security/</a></p>
+</blockquote>
+<h3 id="3-3-策略规定"><a href="#3-3-策略规定" class="headerlink" title="3.3 策略规定"></a>3.3 策略规定</h3><p>Istio允许您为应用程序配置自定义策略，以在运行时强制执行规则，例如：</p>
+<ul>
+<li>速率限制以动态限制服务流量</li>
+<li>拒绝，白名单和黑名单，以限制对服务的访问</li>
+<li>标头重写和重定向</li>
+</ul>
+<p>Istio还允许您创建自己的<a target="_blank" rel="noopener" href="https://istio.io/docs/tasks/policy-enforcement/control-headers">策略适配器，</a>以添加例如自己的自定义授权行为。</p>
+<blockquote>
+<p>策略概念指南：<a target="_blank" rel="noopener" href="https://istio.io/docs/concepts/policies/">https://istio.io/docs/concepts/policies/</a></p>
+</blockquote>
+<h3 id="3-4-可观察性"><a href="#3-4-可观察性" class="headerlink" title="3.4 可观察性"></a>3.4 可观察性</h3><p>Istio强大的跟踪，监视和日志记录功能使您可以深入了解服务网格部署。借助Istio的监视功能，可以真正了解服务性能如何影响上游和下游事物，而其自定义仪表板可提供对所有服务性能的可视性，并让您了解该性能如何影响您的其他流程。</p>
+<p>Istio的Mixer组件负责策略控制和遥测收集。它提供了后端抽象和中介，使Istio的其余部分与各个基础架构后端的实现细节隔离开来，并为操作员提供了对网格和基础架构后端之间所有交互的精细控制。</p>
+<p>所有这些功能使您可以更有效地设置，监视和实施服务上的SLO。当然，最重要的是您可以快速有效地检测和修复问题。</p>
+<blockquote>
+<p>可观察性概念指南：<a target="_blank" rel="noopener" href="https://istio.io/docs/concepts/observability/">https://istio.io/docs/concepts/observability/</a></p>
+</blockquote>
+<h3 id="3-5-平台支援"><a href="#3-5-平台支援" class="headerlink" title="3.5 平台支援"></a>3.5 平台支援</h3><p>Istio是独立于平台的，旨在在多种环境中运行，包括跨Cloud，本地，Kubernetes，Mesos等的环境。您可以在Kubernetes或Consul的Nomad上部署Istio。Istio当前支持：</p>
+<ul>
+<li>Kubernetes上的服务部署</li>
+<li>向领事注册的服务</li>
+<li>在单个虚拟机上运行的服务</li>
+</ul>
+<h3 id="3-6-集成和定制"><a href="#3-6-集成和定制" class="headerlink" title="3.6 集成和定制"></a>3.6 集成和定制</h3><p>Istio的策略执行组件可以扩展和定制，以与现有的ACL，日志记录，监视，配额，审核等解决方案集成。</p>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/Istio/">Istio</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/Istio/">Istio</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2021/05/14/%E5%AE%89%E8%A3%85Istio/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">安装Istio</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2021/05/10/Containerd%E7%9A%84%E4%BD%BF%E7%94%A8/">
+                        <span class="hidden-mobile">Containerd的使用</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <article class="comments" id="comments">
+                
+                
+  <div id="vcomments"></div>
+  <script type="text/javascript">
+    Fluid.utils.waitElementVisible('vcomments', function() {
+      Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js', function () {
+        new Valine({
+          el: "#vcomments",
+          app_id: "hPHtsN0Gt7U2zB2AllYqbucc-9Nh9j0Va",
+          app_key: "TVUER8rWijR8cD1STqzd2d4E",
+          placeholder: "你有故事，我有酒，我们一起勇闯天涯。。。",
+          path: window.location.pathname,
+          avatar: "retro",
+          meta: ["nick","mail","link"],
+          pageSize: "10",
+          lang: "zh-CN",
+          highlight: false,
+          recordIP: false,
+          serverURLs: "",
+        });
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the
+    <a target="_blank" href="https://valine.js.org" rel="nofollow noopener noopener">comments powered by Valine.</a>
+  </noscript>
+
+
+              </article>
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- 不蒜子统计PV -->
+        <span id="busuanzi_container_site_pv" style="display: none">
+            总访问量 
+            <span id="busuanzi_value_site_pv"></span>
+             次
+          </span>
+      
+      
+        <!-- 不蒜子统计UV -->
+        <span id="busuanzi_container_site_uv" style="display: none">
+            总访客数 
+            <span id="busuanzi_value_site_uv"></span>
+             人
+          </span>
+      
+    
+  </div>
+
+
+  
+
+  
+</footer>
+
+<!-- SCRIPTS -->
+
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.0/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.0/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js" ></script>
+
+
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    (function () {
+      var path = "/local-search.xml";
+      var inputArea = document.querySelector("#local-search-input");
+      inputArea.onclick = function () {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+        this.onclick = null
+      }
+    })()
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+
+</body>
+</html>

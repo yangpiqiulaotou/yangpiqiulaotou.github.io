@@ -220,6 +220,220 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
+        <a href="/2021/05/10/Linux-rsync%E5%91%BD%E4%BB%A4%E7%94%A8%E6%B3%95/">Linux rsync命令用法</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2021/05/10/Linux-rsync%E5%91%BD%E4%BB%A4%E7%94%A8%E6%B3%95/">
+          
+          
+            
+          
+          1、介绍​        从字面意思上，rsync 可以理解为 remote sync（远程同步），但它不仅可以远程同步数据（类似于 scp 命令），还可以本地同步数据（类似于 cp 命令）。不同于 cp 或 scp 的一点是，使用 rsync 命令备份数据时，不会直接覆盖以前的数据（如果数据已经存在），而是先判断已经存在的数据和新数据的差异，只有数据不同时才会把不相同的部分覆盖。
+2、安装在Ce
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-05-10 15:23" pubdate>
+              2021-05-10
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/Linux/">Linux</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/Shell/">Shell</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2021/05/10/Shell%E8%84%9A%E6%9C%AC/">Shell脚本</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2021/05/10/Shell%E8%84%9A%E6%9C%AC/">
+          
+          
+            
+          
+          1、Shell变量介绍​        Linux中的变量分为系统变量和自定义变量
+2、Shell变量的定义基本语法
+定义变量：变量=值
+撤销变量：unset 变量
+声明静态变量：readonly变量（不能unset）readonly   city=beijing
+
+定义变量的规则
+变量名称可以由字母、数字和下划线组成，但不能使用数字开头
+变量两侧不能有空格
+变量名称一般习惯为大写
+
+将命令的返回
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-05-10 15:22" pubdate>
+              2021-05-10
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/Linux/">Linux</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/Shell/">Shell</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2021/04/23/K8s%E9%85%8D%E7%BD%AE%E5%9F%9F%E5%90%8D%E8%A7%A3%E6%9E%90/">K8s配置域名解析</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2021/04/23/K8s%E9%85%8D%E7%BD%AE%E5%9F%9F%E5%90%8D%E8%A7%A3%E6%9E%90/">
+          
+          
+            
+          
+          有的时候pod里面调域名，需要写到 /etc/hosts 里面进行域名解析，但很不幸，/etc/hosts 被 k8s 征用了，无法修改。
+但 k8s 给我们提供了 hostAliases 来解决此问题。
+123456789101112131415161718192021222324252627apiVersion: apps/v1kind: Deploymentmetadata:  name: 
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-04-23 14:17" pubdate>
+              2021-04-23
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/Kubernetes/">Kubernetes</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/Kubernetes/">Kubernetes</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2021/04/21/Go%E8%AF%AD%E8%A8%80%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95/">Go语言单元测试</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2021/04/21/Go%E8%AF%AD%E8%A8%80%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95/">
+          
+          
+            
+          
+          传统方法的缺点分析
+不方便, 我们需要在 main 函数中去调用，这样就需要去修改 main 函数，如果现在项目正在运 行，就可能去停止项目。
+
+不利于管理，因为当我们测试多个函数或者多个模块时，都需要写在 main 函数，不利于我们管 理和清晰我们思路
+
+引出单元测试。-&gt; testing 测试框架 可以很好解决问题
+
+
+单元测试-基本介绍​        Go 语言中自带有一个轻量级的测
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-04-21 11:03" pubdate>
+              2021-04-21
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/Golang/">Golang</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/Golang/">Golang</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
         <a href="/2021/04/21/Go%E8%AF%AD%E8%A8%80JSON%E6%A0%BC%E5%BC%8F/">Go语言JSON格式</a>
       </h1>
 
@@ -503,221 +717,6 @@ channel 有类型的，一个 string 的 channel 只能存放 string 类型数�
             <i class="iconfont icon-date"></i>
             <time datetime="2021-04-19 15:21" pubdate>
               2021-04-19
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/Golang/">Golang</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/Golang/">Golang</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2021/04/19/Go%E8%AF%AD%E8%A8%80%E6%96%B9%E6%B3%95/">Go语言方法</a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2021/04/19/Go%E8%AF%AD%E8%A8%80%E6%96%B9%E6%B3%95/">
-          
-          
-            
-          
-          基本介绍​        在某些情况下，我们要需要声明(定义)方法。比如 Person 结构体:除了有一些字段外( 年龄，姓名..),Person 结构体还有一些行为比如:可以说话、跑步..,通过学习，还可以做算术题。这时就要用方法才能完成。
-​        Golang 中的方法是作用在指定的数据类型上的(即：和指定的数据类型绑定)，因此自定义类型，都可以有方法，而不仅仅是 struct。
-方
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2021-04-19 15:19" pubdate>
-              2021-04-19
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/Golang/">Golang</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/Golang/">Golang</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2021/04/19/Go%E8%AF%AD%E8%A8%80%E7%BB%93%E6%9E%84%E4%BD%93/">Go语言结构体</a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2021/04/19/Go%E8%AF%AD%E8%A8%80%E7%BB%93%E6%9E%84%E4%BD%93/">
-          
-          
-            
-          
-          面向对象编程说明
-Golang 也支持面向对象编程(OOP)，但是和传统的面向对象编程有区别，并不是纯粹的面向对象语言。所以我们说 Golang 支持面向对象编程特性是比较准确的。
-
-Golang 没有类(class)，Go 语言的结构体(struct)和其它编程语言的类(class)有同等的地位，你可以理解 Golang 是基于 struct 来实现 OOP 特性的。
-
-Golang 面向对象编
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2021-04-19 15:18" pubdate>
-              2021-04-19
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/Golang/">Golang</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/Golang/">Golang</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2021/04/19/Go%E8%AF%AD%E8%A8%80Map/">Go语言Map</a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2021/04/19/Go%E8%AF%AD%E8%A8%80Map/">
-          
-          
-            
-          
-          map 的基本介绍map 是 key-value 数据结构，又称为字段或者关联数组。类似其它编程语言的集合
-map 的声明基本语法1var map 变量名 map[keytype]valuetype
-key 类型golang 中的 map，的 key 可以是很多种类型，比如 bool, 数字，string, 指针, channel , 还可以是只包含前面几个类型的 接口, 结构体, 数组
-通常 k
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2021-04-19 15:13" pubdate>
-              2021-04-19
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/Golang/">Golang</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/Golang/">Golang</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2021/04/15/Go%E8%AF%AD%E8%A8%80%E5%88%87%E7%89%87/">Go语言切片</a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2021/04/15/Go%E8%AF%AD%E8%A8%80%E5%88%87%E7%89%87/">
-          
-          
-            
-          
-          切片的基本介绍
-切片的英文是 slice
-
-切片是数组的一个引用，因此 切片是引用类型，在进行传递时，遵守引用传递的机制。
-
-切片的 使用和数组类似，遍历切片、访问切片的元素和求切片长度 len(slice)都一样。
-
-切片的长度是可以变化的，因此切片是一个 可以动态变化数组。
-
-切片定义的基本语法:
-
-
-12var 切片名 []类型比如：var a [] int
-1234567891011121
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2021-04-15 14:44" pubdate>
-              2021-04-15
             </time>
           </div>
         

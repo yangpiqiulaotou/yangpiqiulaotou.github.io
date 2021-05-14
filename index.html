@@ -220,6 +220,214 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
+        <a href="/2021/05/14/%E9%83%A8%E7%BD%B2istio-Bookinfo%E5%BA%94%E7%94%A8/">部署istio Bookinfo应用</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2021/05/14/%E9%83%A8%E7%BD%B2istio-Bookinfo%E5%BA%94%E7%94%A8/">
+          
+          
+            
+          
+          1、bookinfo 架构介绍​        bookinfo 是 istio 的学习样例，通过 bookinfo 你可以对 istio 提供的路由、遥测等功能有更加深入的理解。下图是 bookinfo 在没有嵌入 istio 前的物理架构图：
+
+     bookinfo 是一个在线书店应用，该应用由 4 个微服务组成，分别为 Product page、Reviews、Details 和  R
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-05-14 10:40" pubdate>
+              2021-05-14
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/Istio/">Istio</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/Istio/">Istio</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2021/05/14/Istio%E6%B3%A8%E5%85%A5sidecar/">Istio注入sidecar</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2021/05/14/Istio%E6%B3%A8%E5%85%A5sidecar/">
+          
+          
+            
+          
+          1、注入为了充分利用 Istio 的所有特性，网格中的 pod 必须运行一个 Istio sidecar 代理。
+向 pod 中注入 Istio sidecar 的两种方法：使用 istioctl 手动注入或启用 pod 所属命名空间的 Istio sidecar 注入器自动注入。
+手动注入直接修改配置，如 deployment，并将代理配置注入其中。
+当 pod 所属命名空间启用自动注入后，自动
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-05-14 10:38" pubdate>
+              2021-05-14
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/Istio/">Istio</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/Istio/">Istio</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2021/05/14/%E5%AE%89%E8%A3%85Istio/">安装Istio</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2021/05/14/%E5%AE%89%E8%A3%85Istio/">
+          
+          
+            
+          
+          1、环境介绍
+2、运行以下命令来自动下载并解压缩最新版本：1curl -L https://istio.io/downloadIstio | sh -
+说明：由于k8s集群是1.21.0版本，这里使用的是istio最新测试版本
+3、安装目录包含：
+samples/ 目录下的示例应用程序
+bin/ 目录下的 istioctl 客户端二进制文件
+
+4、设置环境变量123456789101112cd c
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-05-14 10:36" pubdate>
+              2021-05-14
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/Istio/">Istio</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/Istio/">Istio</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2021/05/14/Istio%E5%85%A5%E5%9D%91%E7%AF%87/">Istio入坑篇</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2021/05/14/Istio%E5%85%A5%E5%9D%91%E7%AF%87/">
+          
+          
+            
+          
+          
+https://istio.io/docs/concepts
+
+1、什么是Istio云平台为使用它们的组织提供了很多好处。但是，不可否认的是，采用云技术会对DevOps团队造成压力。开发人员必须使用微服务来构建可移植性，同时运营商正在管理超大型混合和多云部署。Istio使您可以连接，保护，控制和观察服务。
+从较高的角度来看，Istio有助于降低这些部署的复杂性，并减轻开发团队的负担。它是一个完全
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-05-14 10:34" pubdate>
+              2021-05-14
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/Istio/">Istio</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/Istio/">Istio</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
         <a href="/2021/05/10/Containerd%E7%9A%84%E4%BD%BF%E7%94%A8/">Containerd的使用</a>
       </h1>
 
@@ -520,220 +728,6 @@ cri是Kubernetes[容器运行时接口（CRI）的容器化插件实现
             <i class="iconfont icon-tags"></i>
             
               <a href="/tags/Shell/">Shell</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2021/05/10/Linux-rsync%E5%91%BD%E4%BB%A4%E7%94%A8%E6%B3%95/">Linux rsync命令用法</a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2021/05/10/Linux-rsync%E5%91%BD%E4%BB%A4%E7%94%A8%E6%B3%95/">
-          
-          
-            
-          
-          1、介绍​        从字面意思上，rsync 可以理解为 remote sync（远程同步），但它不仅可以远程同步数据（类似于 scp 命令），还可以本地同步数据（类似于 cp 命令）。不同于 cp 或 scp 的一点是，使用 rsync 命令备份数据时，不会直接覆盖以前的数据（如果数据已经存在），而是先判断已经存在的数据和新数据的差异，只有数据不同时才会把不相同的部分覆盖。
-2、安装在Ce
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2021-05-10 15:23" pubdate>
-              2021-05-10
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/Linux/">Linux</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/Shell/">Shell</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2021/05/10/Shell%E8%84%9A%E6%9C%AC/">Shell脚本</a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2021/05/10/Shell%E8%84%9A%E6%9C%AC/">
-          
-          
-            
-          
-          1、Shell变量介绍​        Linux中的变量分为系统变量和自定义变量
-2、Shell变量的定义基本语法
-定义变量：变量=值
-撤销变量：unset 变量
-声明静态变量：readonly变量（不能unset）readonly   city=beijing
-
-定义变量的规则
-变量名称可以由字母、数字和下划线组成，但不能使用数字开头
-变量两侧不能有空格
-变量名称一般习惯为大写
-
-将命令的返回
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2021-05-10 15:22" pubdate>
-              2021-05-10
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/Linux/">Linux</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/Shell/">Shell</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2021/04/23/K8s%E9%85%8D%E7%BD%AE%E5%9F%9F%E5%90%8D%E8%A7%A3%E6%9E%90/">K8s配置域名解析</a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2021/04/23/K8s%E9%85%8D%E7%BD%AE%E5%9F%9F%E5%90%8D%E8%A7%A3%E6%9E%90/">
-          
-          
-            
-          
-          有的时候pod里面调域名，需要写到 /etc/hosts 里面进行域名解析，但很不幸，/etc/hosts 被 k8s 征用了，无法修改。
-但 k8s 给我们提供了 hostAliases 来解决此问题。
-123456789101112131415161718192021222324252627apiVersion: apps/v1kind: Deploymentmetadata:  name: 
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2021-04-23 14:17" pubdate>
-              2021-04-23
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/Kubernetes/">Kubernetes</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/Kubernetes/">Kubernetes</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2021/04/21/Go%E8%AF%AD%E8%A8%80%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95/">Go语言单元测试</a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2021/04/21/Go%E8%AF%AD%E8%A8%80%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95/">
-          
-          
-            
-          
-          传统方法的缺点分析
-不方便, 我们需要在 main 函数中去调用，这样就需要去修改 main 函数，如果现在项目正在运 行，就可能去停止项目。
-
-不利于管理，因为当我们测试多个函数或者多个模块时，都需要写在 main 函数，不利于我们管 理和清晰我们思路
-
-引出单元测试。-&gt; testing 测试框架 可以很好解决问题
-
-
-单元测试-基本介绍​        Go 语言中自带有一个轻量级的测
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2021-04-21 11:03" pubdate>
-              2021-04-21
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/Golang/">Golang</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/Golang/">Golang</a>
             
           </div>
         
