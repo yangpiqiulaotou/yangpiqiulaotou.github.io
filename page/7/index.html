@@ -220,6 +220,308 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
+        <a href="/2021/04/01/Rancher%E5%AE%95%E6%9C%BA%E5%90%8E%E5%91%BD%E4%BB%A4%E8%A1%8C%E6%8E%A5%E7%AE%A1K8s%E9%9B%86%E7%BE%A4/">Rancher宕机后命令行接管K8s集群</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2021/04/01/Rancher%E5%AE%95%E6%9C%BA%E5%90%8E%E5%91%BD%E4%BB%A4%E8%A1%8C%E6%8E%A5%E7%AE%A1K8s%E9%9B%86%E7%BE%A4/">
+          
+          
+            
+          
+          ​        使用rancher创建的k8s集群，当rancher的UI宕机不能访问后，不能接续使用kubectl接管集群，从 Rancher v2.2.2 开始，从 Rancher UI 创建的集群默认开启授权集群访问地址。创建好集群后 Rancher UI 生成的 kubecfg 文件中将显示多个 master 节点 IP 对应的 server。
+
+1、命令行访问集群​        自行
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-04-01 15:15" pubdate>
+              2021-04-01
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/Rancher/">Rancher</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/Rancher/">Rancher</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2021/03/25/gitlab%E4%BD%BF%E7%94%A8minio%E5%AE%9E%E7%8E%B0%E5%88%86%E5%B8%83%E5%BC%8F%E5%AD%98%E5%82%A8/">gitlab使用minio实现分布式存储</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2021/03/25/gitlab%E4%BD%BF%E7%94%A8minio%E5%AE%9E%E7%8E%B0%E5%88%86%E5%B8%83%E5%BC%8F%E5%AD%98%E5%82%A8/">
+          
+          
+            
+          
+          1、分布式优势1.minio分布式介绍​        分布式模式下的MinIO使您可以将多个驱动器（甚至在不同的计算机上）合并到一个对象存储服务器中。由于驱动器分布在多个节点上，因此分布式MinIO可以承受多个节点故障，但仍可以确保完整的数据保护。
+​        分布式模式下的MinIO可以帮助您通过单个对象存储部署来设置高可用性存储系统。借助分布式MinIO，无论存储设备在网络中的位置如何
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-03-25 11:25" pubdate>
+              2021-03-25
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/Helm/">Helm</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/Gitlab/">Gitlab</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2021/03/25/helm3%E4%BD%BF%E7%94%A8minio%E8%87%AA%E5%BB%BA%E4%BB%93%E5%BA%93/">helm3使用minio自建仓库</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2021/03/25/helm3%E4%BD%BF%E7%94%A8minio%E8%87%AA%E5%BB%BA%E4%BB%93%E5%BA%93/">
+          
+          
+            
+          
+          1、helm3存储库更改​    在Helm 2中，默认情况下包括稳定的图表存储库。在Helm 3中，默认情况下不包含任何存储库。因此需要做的第一件事就是添加一个存储库。官方图表存储库将在有限的时间内继续接收补丁，但是将不再作为默认存储库包含在Helm客户端中。
+2、minio介绍​    MinIO 是一个基于Apache License  v2.0开源协议的对象存储服务。它兼容亚马逊S3云存储
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-03-25 11:24" pubdate>
+              2021-03-25
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/Helm/">Helm</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/Minio/">Minio</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2021/03/25/helm3%E5%AE%89%E8%A3%85gitlab/">helm3安装gitlab</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2021/03/25/helm3%E5%AE%89%E8%A3%85gitlab/">
+          
+          
+            
+          
+          1、添加helm源123helm repo add stable https://kubernetes-charts.storage.googleapis.comhelm repo add aliyun https://kubernetes.oss-cn-hangzhou.aliyuncs.com/chartshelm repo add  apphub https://apphub.aliyunc
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-03-25 11:22" pubdate>
+              2021-03-25
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/Helm/">Helm</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/Gitlab/">Gitlab</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2021/03/25/helm3%E5%AE%89%E8%A3%85harbor/">helm3安装harbor</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2021/03/25/helm3%E5%AE%89%E8%A3%85harbor/">
+          
+          
+            
+          
+          1、下载并修改123helm repo add harbor https://helm.goharbor.iohelm pull harbor/harbor --version 1.2.3
+修改values.yaml文件
+
+
+
+2、安装123helm install harbor ./harborError: unable to build kubernetes objects from rele
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-03-25 11:21" pubdate>
+              2021-03-25
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/Helm/">Helm</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/Harbor/">Harbor</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2021/03/25/helm3%E5%AE%89%E8%A3%85nexus/">helm3安装nexus</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2021/03/25/helm3%E5%AE%89%E8%A3%85nexus/">
+          
+          
+            
+          
+          1、环境介绍
+2、安装nexus1234helm search repo nexushelm  pull  stable/sonatype-nexustar  xvf  sonatype-nexus-1.21.2.tgzhelm  install  nexus  ./sonatype-nexus
+
+1kubectl  get  pod
+
+1kubectl describe pod nexus-so
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-03-25 11:20" pubdate>
+              2021-03-25
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/Helm/">Helm</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/Nexus/">Nexus</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
         <a href="/2021/03/25/helm3%E5%AE%89%E8%A3%85sonarqube/">helm3安装sonarqube</a>
       </h1>
 
@@ -426,310 +728,11 @@ AOF，则是换了一个角度来实现持久化，那就是将redis执行过的
     </article>
   </div>
 
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2021/03/22/MetalLB/">MetalLB</a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2021/03/22/MetalLB/">
-          
-          
-            
-          
-          1、概念​        MetalLB挂接到您的Kubernetes集群中，并提供了网络负载平衡器实现。简而言之，它允许您在未在云提供商上运行的集群中创建类型为“ LoadBalancer”的Kubernetes服务。
-​        它具有两个可以共同提供此服务的功能：地址分配和外部通知
-1.1 地址分配​        在启用了云的Kubernetes集群中，您需要一个负载均衡器，然后您的
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2021-03-22 15:07" pubdate>
-              2021-03-22
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/Kubernetes/">Kubernetes</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/MetalLB/">MetalLB</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2021/03/22/Docker-%E6%9C%80%E5%AE%9E%E7%94%A8%E5%91%BD%E4%BB%A4%E8%A1%8C/">Docker 最实用命令行</a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2021/03/22/Docker-%E6%9C%80%E5%AE%9E%E7%94%A8%E5%91%BD%E4%BB%A4%E8%A1%8C/">
-          
-          
-            
-          
-          管理命令为了整理CLI，Docker 1.13引进了新的管理命令，如下：
-
-system
-container
-image
-
-Docker的老版本中已经有了 network, node, service, swarm 和 volume 。这些新命令组子命令过去作为root命令直接实现。
-Docker系统​        现在有一个新管理命令 system 。它有4个子命令分别是 df, events
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2021-03-22 15:06" pubdate>
-              2021-03-22
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/%E5%AE%B9%E5%99%A8/">容器</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/Docker/">Docker</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2021/03/22/prometheus%E5%AF%B9%E6%8E%A5%E9%92%89%E9%92%89/">prometheus对接钉钉</a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2021/03/22/prometheus%E5%AF%B9%E6%8E%A5%E9%92%89%E9%92%89/">
-          
-          
-            
-          
-          123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960616263646566676869apiVersion: apps/v1kind: Deploymentmetadata:  name: dingtalk  namespace
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2021-03-22 15:04" pubdate>
-              2021-03-22
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/Prometheus/">Prometheus</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/Prometheus/">Prometheus</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2021/03/22/Prometheus%E7%9B%91%E6%8E%A7MySQL/">Prometheus监控MySQL</a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2021/03/22/Prometheus%E7%9B%91%E6%8E%A7MySQL/">
-          
-          
-            
-          
-          官方地址：https://github.com/prometheus/mysqld_exporter
-软件包下载地址：https://github.com/prometheus/mysqld_exporter/releases
-1、进入数据库创建用户123CREATE USER &#x27;exporter&#x27;@&#x27;localhost&#x27; IDENTIFIED BY &#x
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2021-03-22 15:03" pubdate>
-              2021-03-22
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/Prometheus/">Prometheus</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/Prometheus/">Prometheus</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2021/03/22/Prometheus%E7%9B%91%E6%8E%A7Redis/">Prometheus监控Redis</a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2021/03/22/Prometheus%E7%9B%91%E6%8E%A7Redis/">
-          
-          
-            
-          
-          1、安装12345678tar xvf redis_exporter-v1.6.0.linux-amd64.tar.gz -C /usr/local/mv redis_exporter-v1.6.0.linux-amd64 redis_exporter## 无密码nohup ./redis_exporter -redis.addr 192.168.1.120:6379 &amp;## 有密码noh
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2021-03-22 15:01" pubdate>
-              2021-03-22
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/Prometheus/">Prometheus</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/Prometheus/">Prometheus</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2021/03/22/alertmanager%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6%E8%AF%A6%E8%A7%A3/">alertmanager配置文件详解</a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2021/03/22/alertmanager%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6%E8%AF%A6%E8%A7%A3/">
-          
-          
-            
-          
-          123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354global:  smtp_smarthost: &#x27;localhost:25&#x27;  smtp_from: &#x27;alertmanager@example.org&#x27;   
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2021-03-22 14:59" pubdate>
-              2021-03-22
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/Prometheus/">Prometheus</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/Prometheus/">Prometheus</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
 
 
   <nav aria-label="navigation">
     <span class="pagination" id="pagination">
-      <a class="extend prev" rel="prev" href="/page/6/"><i class="iconfont icon-arrowleft"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><a class="page-number" href="/page/6/">6</a><span class="page-number current">7</span><a class="page-number" href="/page/8/">8</a><a class="page-number" href="/page/9/">9</a><span class="space">&hellip;</span><a class="page-number" href="/page/11/">11</a><a class="extend next" rel="next" href="/page/8/"><i class="iconfont icon-arrowright"></i></a>
+      <a class="extend prev" rel="prev" href="/page/6/"><i class="iconfont icon-arrowleft"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><a class="page-number" href="/page/6/">6</a><span class="page-number current">7</span><a class="page-number" href="/page/8/">8</a><a class="page-number" href="/page/9/">9</a><span class="space">&hellip;</span><a class="page-number" href="/page/12/">12</a><a class="extend next" rel="next" href="/page/8/"><i class="iconfont icon-arrowright"></i></a>
     </span>
   </nav>
   

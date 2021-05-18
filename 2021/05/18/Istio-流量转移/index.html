@@ -1,0 +1,592 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" type="image/png" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="羊皮裘老头">
+  <meta name="keywords" content="">
+  <title>Istio 流量转移 - 羊皮裘老头</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.4.0/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.8.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"onlypost":false},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}}};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.3.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>羊皮裘老头</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="iconfont icon-books"></i>
+                文档
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" target="_blank" rel="noopener" href="https://hexo.fluid-dev.com/">
+                    
+                    主题博客
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" target="_blank" rel="noopener" href="https://hexo.fluid-dev.com/docs/guide/">
+                    
+                    配置指南
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" target="_blank" rel="noopener" href="https://hexo.fluid-dev.com/docs/icon/">
+                    
+                    图标用法
+                  </a>
+                
+              </div>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" href="javascript:">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/ss.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="Istio 流量转移">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2021-05-18 16:13" pubdate>
+        2021年5月18日 下午
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      1.3k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      15
+       分钟
+    </span>
+  
+
+  
+  
+    
+      <!-- LeanCloud 统计文章PV -->
+      <span id="leancloud-page-views-container" class="post-meta" style="display: none">
+        <i class="iconfont icon-eye" aria-hidden="true"></i>
+        <span id="leancloud-page-views"></span> 次
+      </span>
+    
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">Istio 流量转移</h1>
+            
+            <div class="markdown-body">
+              <h2 id="1、虚拟服务-Virtual-Service"><a href="#1、虚拟服务-Virtual-Service" class="headerlink" title="1、虚拟服务(Virtual  Service)"></a>1、虚拟服务(Virtual  Service)</h2><p>​    虚拟服务（Virtual Service）以及目标规则（Destination Rule）是 Istio 流量路由的两大基石。虚拟服务可以将流量路由到 Istio 服务网格中的服务。每个虚拟服务由一组路由规则组成，这些路由规则按顺序进行评估。</p>
+<p>​    如果没有 Istio virtual service，仅仅使用 k8s service 的话，那么只能实现最基本的流量负载均衡转发，但是就不能实现类似按百分比来分配流量等更加复杂、丰富、细粒度的流量控制了。</p>
+<p>备注：虚拟服务相当于 K8s 服务的 sidecar，在原本 K8s 服务的功能之上，提供了更加丰富的路由控制。</p>
+<h2 id="2、虚拟服务示例"><a href="#2、虚拟服务示例" class="headerlink" title="2、虚拟服务示例"></a>2、虚拟服务示例</h2><p>​    以下介绍使用 “虚拟服务（virtual service）+目标规则（destination rule）” 实现一个流量分流的例子。本示例共需要四种资源，k8s 和 istio 各两种：</p>
+<p>​    k8s 资源介绍如下：</p>
+<figure class="highlight jboss-cli"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs jboss-cli">1、两个deployment，一个nginx，一个tomcat<br>2、一个service关联上面两个<span class="hljs-keyword">deploy</span><br></code></pre></td></tr></table></figure>
+<p>​    istio资源介绍如下：</p>
+<figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs crmsh"><span class="hljs-number">1</span>、一个destination  <span class="hljs-keyword">rule</span>       <span class="hljs-comment">#设置目标规则定义</span><br><span class="hljs-number">2</span>、一个VirtualService关联上面的svc，用来设置分流权重，以及设置分流目标规则定义<br></code></pre></td></tr></table></figure>
+<h2 id="3、部署k8s资源"><a href="#3、部署k8s资源" class="headerlink" title="3、部署k8s资源"></a>3、部署k8s资源</h2><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br></pre></td><td class="code"><pre><code class="hljs yaml"><span class="hljs-attr">apiVersion:</span> <span class="hljs-string">apps/v1</span><br><span class="hljs-attr">kind:</span> <span class="hljs-string">Deployment</span><br><span class="hljs-attr">metadata:</span><br>  <span class="hljs-attr">name:</span> <span class="hljs-string">nginx-deploy</span><br>  <span class="hljs-attr">namespace:</span> <span class="hljs-string">test</span><br><span class="hljs-attr">spec:</span><br>  <span class="hljs-attr">replicas:</span> <span class="hljs-number">1</span><br>  <span class="hljs-attr">selector:</span><br>    <span class="hljs-attr">matchLabels:</span><br>      <span class="hljs-attr">type:</span> <span class="hljs-string">web</span><br>      <span class="hljs-attr">app:</span> <span class="hljs-string">nginx</span><br>  <span class="hljs-attr">template:</span><br>    <span class="hljs-attr">metadata:</span><br>      <span class="hljs-attr">labels:</span><br>        <span class="hljs-attr">type:</span> <span class="hljs-string">web</span><br>        <span class="hljs-attr">app:</span> <span class="hljs-string">nginx</span><br>    <span class="hljs-attr">spec:</span><br>      <span class="hljs-attr">containers:</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-attr">image:</span> <span class="hljs-string">nginx:1.14-alpine</span><br>        <span class="hljs-attr">imagePullPolicy:</span> <span class="hljs-string">IfNotPresent</span><br>        <span class="hljs-attr">name:</span> <span class="hljs-string">nginx</span><br>        <span class="hljs-attr">ports:</span><br>        <span class="hljs-bullet">-</span> <span class="hljs-attr">containerPort:</span> <span class="hljs-number">80</span><br>          <span class="hljs-attr">name:</span> <span class="hljs-string">port</span><br>          <span class="hljs-attr">protocol:</span> <span class="hljs-string">TCP</span><br><span class="hljs-meta">---</span><br><span class="hljs-attr">apiVersion:</span> <span class="hljs-string">apps/v1</span><br><span class="hljs-attr">kind:</span> <span class="hljs-string">Deployment</span><br><span class="hljs-attr">metadata:</span><br>  <span class="hljs-attr">name:</span> <span class="hljs-string">tomcat-deploy</span><br>  <span class="hljs-attr">namespace:</span> <span class="hljs-string">test</span><br><span class="hljs-attr">spec:</span><br>  <span class="hljs-attr">replicas:</span> <span class="hljs-number">1</span><br>  <span class="hljs-attr">selector:</span><br>    <span class="hljs-attr">matchLabels:</span><br>      <span class="hljs-attr">type:</span> <span class="hljs-string">web</span><br>      <span class="hljs-attr">app:</span> <span class="hljs-string">tomcat</span><br>  <span class="hljs-attr">template:</span><br>    <span class="hljs-attr">metadata:</span><br>      <span class="hljs-attr">labels:</span><br>        <span class="hljs-attr">type:</span> <span class="hljs-string">web</span><br>        <span class="hljs-attr">app:</span> <span class="hljs-string">tomcat</span><br>    <span class="hljs-attr">spec:</span><br>      <span class="hljs-attr">containers:</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-attr">image:</span> <span class="hljs-string">docker.io/kubeguide/tomcat-app:v1</span><br>        <span class="hljs-attr">imagePullPolicy:</span> <span class="hljs-string">IfNotPresent</span><br>        <span class="hljs-attr">name:</span> <span class="hljs-string">tomcat</span><br>        <span class="hljs-attr">ports:</span><br>        <span class="hljs-bullet">-</span> <span class="hljs-attr">containerPort:</span> <span class="hljs-number">8080</span><br>          <span class="hljs-attr">name:</span> <span class="hljs-string">port</span><br>          <span class="hljs-attr">protocol:</span> <span class="hljs-string">TCP</span><br><span class="hljs-meta">---</span><br><span class="hljs-attr">apiVersion:</span> <span class="hljs-string">v1</span><br><span class="hljs-attr">kind:</span> <span class="hljs-string">Service</span><br><span class="hljs-attr">metadata:</span><br>  <span class="hljs-attr">name:</span> <span class="hljs-string">web-svc</span><br>  <span class="hljs-attr">namespace:</span> <span class="hljs-string">test</span><br><span class="hljs-attr">spec:</span><br>  <span class="hljs-attr">ports:</span><br>  <span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">port</span><br>    <span class="hljs-attr">port:</span> <span class="hljs-number">8080</span><br>    <span class="hljs-attr">protocol:</span> <span class="hljs-string">TCP</span><br>    <span class="hljs-attr">targetPort:</span> <span class="hljs-number">8080</span><br>  <span class="hljs-attr">selector:</span><br>    <span class="hljs-attr">type:</span> <span class="hljs-string">web</span><br>  <span class="hljs-attr">sessionAffinity:</span> <span class="hljs-string">None</span><br>  <span class="hljs-attr">type:</span> <span class="hljs-string">NodePort</span><br></code></pre></td></tr></table></figure>
+<p>​    自此，k8s 层面的资源文件准备完毕，现在通过访问 service，可以发现自动实现了RoundBin的负载均衡策略，即分配到 tomcat 和 nginx 的流量各为 50%。</p>
+<h2 id="4、部署istio资源"><a href="#4、部署istio资源" class="headerlink" title="4、部署istio资源"></a>4、部署istio资源</h2><p>​    Istio 资源共有两类，分别为虚拟服务（Virtual Service）和目的地规则（Destination Rule）。虚拟服务作用在 k8s 服务之上，并加强了原 k8s 服务的功能：</p>
+<ol>
+<li>指定目的地（tomcat 或 nginx）</li>
+<li>重新分配流量（即不再是 50% / 50%，而是 75% / 25%）</li>
+</ol>
+<h3 id="4-1-目的地规则文件"><a href="#4-1-目的地规则文件" class="headerlink" title="4.1 目的地规则文件"></a>4.1 目的地规则文件</h3><figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs less"><span class="hljs-attribute">apiVersion</span>: networking.istio.io/v1alpha3<br><span class="hljs-attribute">kind</span>: DestinationRule<br><span class="hljs-attribute">metadata</span>:<br>  <span class="hljs-attribute">name</span>: test-dr<br><span class="hljs-attribute">spec</span>:<br>  <span class="hljs-attribute">host</span>: web-svc<br>  <span class="hljs-attribute">subsets</span>:<br>  - <span class="hljs-attribute">name</span>: tomcat<br>    <span class="hljs-attribute">labels</span>:<br>      <span class="hljs-attribute">app</span>: tomcat<br>  - <span class="hljs-attribute">name</span>: nginx<br>    <span class="hljs-attribute">labels</span>:<br>      <span class="hljs-attribute">app</span>: nginx<br></code></pre></td></tr></table></figure>
+<p>​    上面的目的地资源文件作用在 web-svc 这个 k8s 服务上，通过 labels 字段指定不同的 pod，然后通过 name 字段提供给下面的 virtual service，起到关联到具体 pod 的作用。</p>
+<h3 id="4-2-虚拟服务文件"><a href="#4-2-虚拟服务文件" class="headerlink" title="4.2 虚拟服务文件"></a>4.2 虚拟服务文件</h3><figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs less"><span class="hljs-attribute">apiVersion</span>: networking.istio.io/v1alpha3<br><span class="hljs-attribute">kind</span>: VirtualService<br><span class="hljs-attribute">metadata</span>:<br>  <span class="hljs-attribute">name</span>: test-virtual-svc<br><span class="hljs-attribute">spec</span>:<br>  <span class="hljs-attribute">hosts</span>:<br>  - <span class="hljs-string">&quot;web-svc&quot;</span><br>  <span class="hljs-attribute">http</span>:<br>  - <span class="hljs-attribute">route</span>:<br>    - <span class="hljs-attribute">destination</span>:<br>        <span class="hljs-attribute">host</span>: web-svc<br>        <span class="hljs-attribute">subset</span>: nginx<br>      <span class="hljs-attribute">weight</span>: <span class="hljs-number">25</span><br>    - <span class="hljs-attribute">destination</span>:<br>        <span class="hljs-attribute">host</span>: web-svc<br>        <span class="hljs-attribute">subset</span>: tomcat<br>      <span class="hljs-attribute">weight</span>: <span class="hljs-number">75</span><br></code></pre></td></tr></table></figure>
+<h3 id="4-3-istio注入"><a href="#4-3-istio注入" class="headerlink" title="4.3 istio注入"></a>4.3 istio注入</h3><p>执行如下命令进行 Istio 注入：</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs powershell">istioctl kube<span class="hljs-literal">-inject</span> <span class="hljs-operator">-f</span>  <span class="hljs-built_in">test-deploy</span>.yaml |kubectl  apply  <span class="hljs-operator">-f</span>  -<br></code></pre></td></tr></table></figure>
+<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/20210518161244.png" srcset="/img/loading.gif" alt="image-20200511140020661"></p>
+<p>然后exec进入nginx-deploy的pod中修改配置文件监听端口为8080</p>
+<figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs gradle">vi <span class="hljs-regexp">/etc/</span>nginx<span class="hljs-regexp">/conf.d/</span><span class="hljs-keyword">default</span>.conf<br></code></pre></td></tr></table></figure>
+<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/20210518161247.png" srcset="/img/loading.gif" alt="image-20200511113829313"></p>
+<p>修改完保存退出，并重新加载nginx配置：</p>
+<figure class="highlight jboss-cli"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs jboss-cli">nginx -s <span class="hljs-keyword">reload</span><br>netstat -auntlp            <span class="hljs-comment">#查看监听端口</span><br></code></pre></td></tr></table></figure>
+<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/20210518161250.png" srcset="/img/loading.gif" alt="image-20200511114004584"></p>
+<p>备注：如果不想每次注入，就给ns注入sidecar</p>
+<figure class="highlight maxima"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs maxima">kubectl <span class="hljs-built_in">label</span> namespaces test istio-injection=enabled<br>kubectl <span class="hljs-built_in">get</span> ns test --<span class="hljs-built_in">show</span>-<span class="hljs-built_in">labels</span><br></code></pre></td></tr></table></figure>
+<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/20210518161253.png" srcset="/img/loading.gif" alt="image-20200511140620317"></p>
+<h3 id="4-4-通过客户端访问测试"><a href="#4-4-通过客户端访问测试" class="headerlink" title="4.4 通过客户端访问测试"></a>4.4 通过客户端访问测试</h3><figure class="highlight jboss-cli"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs jboss-cli">kubectl run <span class="hljs-params">--namespace=test</span> busybox <span class="hljs-params">--rm</span> -ti <span class="hljs-params">--image</span> busybox <span class="hljs-string">/bin/sh</span><br>wget -q -O - http:<span class="hljs-string">//web-svc</span><span class="hljs-function">:8080</span><br></code></pre></td></tr></table></figure>
+<p>​    会发现出现页面的比例和设置的权重是一致的。</p>
+<p>​    emmmm…不想麻烦就直接在nginx的pod中去测试，这样能看到welcome  nginx的页面，在其他pod中访问nginx页面503，没研究出来为啥看不到nginx欢迎界面！</p>
+<h2 id="5、destination-rule介绍"><a href="#5、destination-rule介绍" class="headerlink" title="5、destination rule介绍"></a>5、destination rule介绍</h2><p>​    destination rules 是 Istio 流量路由的关键功能，它不能独自使用，必须跟 Virtual  Service 共同发挥作用。当 destination rules 跟 virtual service 共同使用的时候，virtual  service 决定将流量路由到逻辑地址，而 destination rules 则决定流量路由到物理地址。</p>
+<p>​    virtual service 跟 destination rules 路由关系就像变量到内存的地址映射一样，destination 代表内存实际地址，而 virtual service 作用就像程序的指针。</p>
+<p>​    destination rules 通常用在微服务的版本分组上（例如可以通过 version 标签将微服务进行分组）。通过 destination rules  的分组规则可以实现将流量路由到服务的不同版本中，进而实现类似灰度、金丝雀、蓝绿等版本分流的策略。</p>
+<p>​    destination rules 不仅可以决定把流量路由到何处，还可以制定如何路由流量（比如是轮询路由流量，还是随机路由流量等等）</p>
+<h2 id="6、路由策略"><a href="#6、路由策略" class="headerlink" title="6、路由策略"></a>6、路由策略</h2><p>​    默认情况下，Istio 使用轮询的负载均衡路由策略（round-robin），也就是说服务所有实例按顺序接收请求。当然 Istio 也支持如下的模型，这些模型都可以通过在 destination rule 中进行指定：</p>
+<ol>
+<li>Random：请求被随机分配给服务的实例</li>
+<li>Weighted：请求基于权重被分配给服务的实例</li>
+<li>Least requests：请求被分配给服务最少被访问的实例</li>
+</ol>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/Istio/">Istio</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/Istio/">Istio</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2021/05/18/Istio%E7%BD%91%E7%BB%9C%E5%BC%B9%E6%80%A7%E4%B9%8B%E8%B6%85%E6%97%B6/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">Istio网络弹性之超时</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2021/05/18/Istio-%E6%95%85%E9%9A%9C%E6%B3%A8%E5%85%A5/">
+                        <span class="hidden-mobile">Istio 故障注入</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <article class="comments" id="comments">
+                
+                
+  <div id="vcomments"></div>
+  <script type="text/javascript">
+    Fluid.utils.waitElementVisible('vcomments', function() {
+      Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js', function () {
+        new Valine({
+          el: "#vcomments",
+          app_id: "hPHtsN0Gt7U2zB2AllYqbucc-9Nh9j0Va",
+          app_key: "TVUER8rWijR8cD1STqzd2d4E",
+          placeholder: "你有故事，我有酒，我们一起勇闯天涯。。。",
+          path: window.location.pathname,
+          avatar: "retro",
+          meta: ["nick","mail","link"],
+          pageSize: "10",
+          lang: "zh-CN",
+          highlight: false,
+          recordIP: false,
+          serverURLs: "",
+        });
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the
+    <a target="_blank" href="https://valine.js.org" rel="nofollow noopener noopener">comments powered by Valine.</a>
+  </noscript>
+
+
+              </article>
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- 不蒜子统计PV -->
+        <span id="busuanzi_container_site_pv" style="display: none">
+            总访问量 
+            <span id="busuanzi_value_site_pv"></span>
+             次
+          </span>
+      
+      
+        <!-- 不蒜子统计UV -->
+        <span id="busuanzi_container_site_uv" style="display: none">
+            总访客数 
+            <span id="busuanzi_value_site_uv"></span>
+             人
+          </span>
+      
+    
+  </div>
+
+
+  
+
+  
+</footer>
+
+<!-- SCRIPTS -->
+
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.0/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.0/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js" ></script>
+
+
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    (function () {
+      var path = "/local-search.xml";
+      var inputArea = document.querySelector("#local-search-input");
+      inputArea.onclick = function () {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+        this.onclick = null
+      }
+    })()
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+
+</body>
+</html>

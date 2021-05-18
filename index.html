@@ -220,6 +220,306 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
+        <a href="/2021/05/18/Istio-%E7%86%94%E6%96%AD/">Istio 熔断</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2021/05/18/Istio-%E7%86%94%E6%96%AD/">
+          
+          
+            
+          
+          1、介绍        断路器是 Istio 提供的一个有用的技术。在微服务设置断路器可以有效保障微服务的抗操性。比如在断路器中，你可以设置服务并发连接次数限制或者服务调用失败次数，一旦达到设置的阈值，断路器将“跳闸”并停止与该主机的进一步连接。
+
+         因为断路器适用于负载平衡池中“真正”的服务网格（Istio 资源注入后的 Pod），因此可以在 Destination Rule 配
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-05-18 16:17" pubdate>
+              2021-05-18
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/Istio/">Istio</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/Istio/">Istio</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2021/05/18/Fortio-%E9%83%A8%E7%BD%B2/">Fortio 部署</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2021/05/18/Fortio-%E9%83%A8%E7%BD%B2/">
+          
+          
+            
+          
+          1、介绍        Fortio 是 Istio 的负载测试工具，它提供了 web 控制台和命令行控制台的操作方式。因为后期我们在 Istio 断路器介绍中会使用到 Fortio，因此这节需要对 Fortio 进行安装和简单地操作。
+2、安装这里使用rpm装
+12curl -L https://github.com/fortio/fortio/releases/download/v1.3.1/
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-05-18 16:15" pubdate>
+              2021-05-18
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/Istio/">Istio</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/Istio/">Istio</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2021/05/18/Istio%E7%BD%91%E7%BB%9C%E5%BC%B9%E6%80%A7%E4%B9%8B%E8%B6%85%E6%97%B6/">Istio网络弹性之超时</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2021/05/18/Istio%E7%BD%91%E7%BB%9C%E5%BC%B9%E6%80%A7%E4%B9%8B%E8%B6%85%E6%97%B6/">
+          
+          
+            
+          
+          1、网络弹性介绍​                网络弹性也称为运维弹性，是指网络在遇到灾难事件时快速恢复和继续运行的能力。灾难事件的范畴很广泛，比如长时间停电、网络设备故障、恶意入侵等
+2、Istio 超时实例​    需要结合 Istio 故障注入模拟被调用方响应请求慢的场景，该实例的架构图如下：
+
+​            架构说明如下，本实例就是模拟客户端调用 nginx，nginx 将请
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-05-18 16:14" pubdate>
+              2021-05-18
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/Istio/">Istio</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/Istio/">Istio</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2021/05/18/Istio-%E6%B5%81%E9%87%8F%E8%BD%AC%E7%A7%BB/">Istio 流量转移</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2021/05/18/Istio-%E6%B5%81%E9%87%8F%E8%BD%AC%E7%A7%BB/">
+          
+          
+            
+          
+          1、虚拟服务(Virtual  Service)​    虚拟服务（Virtual Service）以及目标规则（Destination Rule）是 Istio 流量路由的两大基石。虚拟服务可以将流量路由到 Istio 服务网格中的服务。每个虚拟服务由一组路由规则组成，这些路由规则按顺序进行评估。
+​    如果没有 Istio virtual service，仅仅使用 k8s service 
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-05-18 16:13" pubdate>
+              2021-05-18
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/Istio/">Istio</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/Istio/">Istio</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2021/05/18/Istio-%E6%95%85%E9%9A%9C%E6%B3%A8%E5%85%A5/">Istio 故障注入</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2021/05/18/Istio-%E6%95%85%E9%9A%9C%E6%B3%A8%E5%85%A5/">
+          
+          
+            
+          
+          1、介绍​    Istio 故障注入与其他在网络层引入错误（例如延迟数据包或者直接杀死 Pod）的机制不同，Istio 允许在应用程序层注入故障。这使得可以注入更多相关的故障，比如 HTTP 错误代码等。
+​    Istio 可以注入两种类型的故障，而这两种故障都是使用虚拟服务来配置的：
+123延迟：模拟增加网络延迟或上游服务过载。中止：模拟服务故障而导致调用服务不可用。中止通常以 HTTP 
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-05-18 16:10" pubdate>
+              2021-05-18
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/Istio/">Istio</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/Istio/">Istio</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2021/05/18/Istio-Gateway-%E8%AE%BE%E7%BD%AE%E8%B7%AF%E7%94%B1/">Istio Gateway 设置路由</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2021/05/18/Istio-Gateway-%E8%AE%BE%E7%BD%AE%E8%B7%AF%E7%94%B1/">
+          
+          
+            
+          
+          1、命名空间注入sidecar12kubectl label namespaces test istio-injection=enabledkubectl get ns test --show-labels
+2、使用默认文件2.1 安装说明：istio有默认文件，也可自己写，默认的安装与查看如下
+123kubectl apply -f samples/bookinfo/networking/vir
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-05-18 16:08" pubdate>
+              2021-05-18
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/Istio/">Istio</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/Istio/">Istio</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
         <a href="/2021/05/14/%E9%83%A8%E7%BD%B2istio-Bookinfo%E5%BA%94%E7%94%A8/">部署istio Bookinfo应用</a>
       </h1>
 
@@ -422,324 +722,11 @@ https://istio.io/docs/concepts
     </article>
   </div>
 
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2021/05/10/Containerd%E7%9A%84%E4%BD%BF%E7%94%A8/">Containerd的使用</a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2021/05/10/Containerd%E7%9A%84%E4%BD%BF%E7%94%A8/">
-          
-          
-            
-          
-          1、简介containerd是行业标准的容器运行时，重点是简单性，健壮性和可移植性。它可以作为Linux和Windows的守护程序使用，可以管理其主机系统的完整容器生命周期：图像传输和存储，容器执行和监控，低级存储和网络附件等。
-容器化的设计旨在嵌入到更大的系统中，而不是由开发人员或最终用户直接使用。
-
-cri是Kubernetes[容器运行时接口（CRI）的容器化插件实现
-
-2、配置contai
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2021-05-10 15:32" pubdate>
-              2021-05-10
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/%E5%AE%B9%E5%99%A8/">容器</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/Containerd/">Containerd</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2021/05/10/Crictl%E5%AE%89%E8%A3%85%E4%B8%8E%E4%BD%BF%E7%94%A8/">Crictl安装与使用</a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2021/05/10/Crictl%E5%AE%89%E8%A3%85%E4%B8%8E%E4%BD%BF%E7%94%A8/">
-          
-          
-            
-          
-          1、介绍crictl 是 CRI 兼容的容器运行时命令行接口。 可以使用它来检查和调试 Kubernetes 节点上的容器运行时和应用程序。
-2、安装2.1 使用yum安装安装containerd.io软件包就自带了crictl命令
-12345yum install -y yum-utilsyum-config-manager \    --add-repo \    https://downlo
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2021-05-10 15:30" pubdate>
-              2021-05-10
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/%E5%AE%B9%E5%99%A8/">容器</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/Containerd/">Containerd</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2021/05/10/%E4%BD%BF%E7%94%A8containerd%E5%AE%89%E8%A3%85k8s%E7%9A%841-21%E7%89%88%E6%9C%AC/">使用containerd安装k8s的1.21版本</a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2021/05/10/%E4%BD%BF%E7%94%A8containerd%E5%AE%89%E8%A3%85k8s%E7%9A%841-21%E7%89%88%E6%9C%AC/">
-          
-          
-            
-          
-          1、准备
-每台机器 2 GB 或更多的 RAM
-2 CPU 核或更多
-集群中的所有机器的网络彼此均能相互连接
-关闭selinux和firewalld
-关闭swap分区
-添加hosts解析
-
-2、确保每个节点上 MAC 地址和 product_uuid 的唯一性
-使用命令 ip link 或 ifconfig -a 来获取网络接口的 MAC 地址
-使用 cat /sys/class/dmi/id/p
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2021-05-10 15:29" pubdate>
-              2021-05-10
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/Kubernetes/">Kubernetes</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/Kubernetes/">Kubernetes</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2021/05/10/Linux%E4%B8%89%E5%89%91%E5%AE%A2%E4%B9%8Bawk/">Linux三剑客之awk</a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2021/05/10/Linux%E4%B8%89%E5%89%91%E5%AE%A2%E4%B9%8Bawk/">
-          
-          
-            
-          
-          1、介绍​            此命令的设计者有 3 位，他们的姓分别是 Aho、Weingberger 和 Kernighan，awk 就取自这 3 为大师姓的首字母。和 sed 命令类似，awk 命令也是逐行扫描文件（从第 1 行到最后一行），寻找含有目标文本的行，如果匹配成功，则会在该行上执行用户想要的操作；反之，则不对行做任何处理。
-2、基本语法awk 命令的基本格式为：
-1[root@
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2021-05-10 15:27" pubdate>
-              2021-05-10
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/Linux/">Linux</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/Shell/">Shell</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2021/05/10/Linux%E4%B8%89%E5%89%91%E5%AE%A2%E4%B9%8BGrep/">Linux三剑客之Grep</a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2021/05/10/Linux%E4%B8%89%E5%89%91%E5%AE%A2%E4%B9%8BGrep/">
-          
-          
-            
-          
-          ​        grep 命令的由来可以追溯到 UNIX 诞生的早期，在 UNIX 系统中，搜索的模式（patterns）被称为正则表达式（regular expressions），为了要彻底搜索一个文件，有的用户在要搜索的字符串前加上前缀 global（全面的），一旦找到相匹配的内容，用户就像将其输出（print）到屏幕上，而将这一系列的操作整合到一起就是 global regular exp
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2021-05-10 15:25" pubdate>
-              2021-05-10
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/Linux/">Linux</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/Shell/">Shell</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2021/05/10/Linux%E4%B8%89%E5%89%91%E5%AE%A2%E4%B9%8BSed/">Linux三剑客之Sed</a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2021/05/10/Linux%E4%B8%89%E5%89%91%E5%AE%A2%E4%B9%8BSed/">
-          
-          
-            
-          
-          1、介绍sed 会根据脚本命令来处理文本文件中的数据，这些命令要么从命令行中输入，要么存储在一个文本文件中，此命令执行数据的顺序如下：
-
-每次仅读取一行内容；
-根据提供的规则命令匹配并修改数据。注意，sed 默认不会直接修改源文件数据，而是会将数据复制到缓冲区中，修改也仅限于缓冲区中的数据；
-将执行结果输出。
-
-当一行数据匹配完成后，它会继续读取下一行数据，并重复这个过程，直到将文件中所有数据处理
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2021-05-10 15:24" pubdate>
-              2021-05-10
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/Linux/">Linux</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/Shell/">Shell</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
 
 
   <nav aria-label="navigation">
     <span class="pagination" id="pagination">
-      <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/11/">11</a><a class="extend next" rel="next" href="/page/2/"><i class="iconfont icon-arrowright"></i></a>
+      <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/12/">12</a><a class="extend next" rel="next" href="/page/2/"><i class="iconfont icon-arrowright"></i></a>
     </span>
   </nav>
   
