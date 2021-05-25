@@ -229,9 +229,8 @@
           
             
           
-          1、介绍        断路器是 Istio 提供的一个有用的技术。在微服务设置断路器可以有效保障微服务的抗操性。比如在断路器中，你可以设置服务并发连接次数限制或者服务调用失败次数，一旦达到设置的阈值，断路器将“跳闸”并停止与该主机的进一步连接。
-
-         因为断路器适用于负载平衡池中“真正”的服务网格（Istio 资源注入后的 Pod），因此可以在 Destination Rule 配
+          1、介绍断路器是 Istio 提供的一个有用的技术。在微服务设置断路器可以有效保障微服务的抗操性。比如在断路器中，你可以设置服务并发连接次数限制或者服务调用失败次数，一旦达到设置的阈值，断路器将“跳闸”并停止与该主机的进一步连接。
+因为断路器适用于负载平衡池中“真正”的服务网格（Istio 资源注入后的 Pod），因此可以在 Destination Rule 配置断路器，而 Destination
         </a>
       </p>
 
@@ -279,9 +278,9 @@
           
             
           
-          1、介绍        Fortio 是 Istio 的负载测试工具，它提供了 web 控制台和命令行控制台的操作方式。因为后期我们在 Istio 断路器介绍中会使用到 Fortio，因此这节需要对 Fortio 进行安装和简单地操作。
+          1、介绍Fortio 是 Istio 的负载测试工具，它提供了 web 控制台和命令行控制台的操作方式。因为后期我们在 Istio 断路器介绍中会使用到 Fortio，因此这节需要对 Fortio 进行安装和简单地操作。
 2、安装这里使用rpm装
-12curl -L https://github.com/fortio/fortio/releases/download/v1.3.1/
+12curl -L https://github.com/fortio/fortio/releases/download/v1.3.1/fortio-1
         </a>
       </p>
 
