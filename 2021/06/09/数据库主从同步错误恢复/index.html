@@ -17,7 +17,7 @@
   <meta name="description" content="">
   <meta name="author" content="羊皮裘老头">
   <meta name="keywords" content="">
-  <title>Istio 熔断 - 羊皮裘老头</title>
+  <title>数据库主从同步错误恢复 - 羊皮裘老头</title>
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
 
@@ -201,7 +201,7 @@
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
           <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="Istio 熔断">
+            <span class="h2" id="subtitle" title="数据库主从同步错误恢复">
               
             </span>
 
@@ -211,8 +211,8 @@
   
     <span class="post-meta">
       <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-      <time datetime="2021-05-18 16:17" pubdate>
-        2021年5月18日 下午
+      <time datetime="2021-06-09 10:18" pubdate>
+        2021年6月9日 上午
       </time>
     </span>
   
@@ -223,7 +223,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      470 字
+      460 字
     </span>
   
 
@@ -271,23 +271,45 @@
         <div class="py-5" id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">Istio 熔断</h1>
+            <h1 style="display: none">数据库主从同步错误恢复</h1>
             
             <div class="markdown-body">
-              <h2 id="1、介绍"><a href="#1、介绍" class="headerlink" title="1、介绍"></a>1、介绍</h2><p>断路器是 Istio 提供的一个有用的技术。在微服务设置断路器可以有效保障微服务的抗操性。比如在断路器中，你可以设置服务并发连接次数限制或者服务调用失败次数，一旦达到设置的阈值，断路器将“跳闸”并停止与该主机的进一步连接。</p>
-<p>因为断路器适用于负载平衡池中“真正”的服务网格（Istio 资源注入后的 Pod），因此可以在 Destination Rule 配置断路器，而 Destination Rule 最终会被翻译成  Envoy 的配置，然后作用在 Envoy 上。这样当流量进入到被 Istio 注入后的 Pod，流量就会被 Envoy  拦截，这样断路器就会针对流量发生作用。</p>
-<h2 id="2、Circuit-breakers实例"><a href="#2、Circuit-breakers实例" class="headerlink" title="2、Circuit breakers实例"></a>2、Circuit breakers实例</h2><h3 id="2-1-部署deploy资源"><a href="#2-1-部署deploy资源" class="headerlink" title="2.1 部署deploy资源"></a>2.1 部署deploy资源</h3><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><code class="hljs yaml"><span class="hljs-attr">apiVersion:</span> <span class="hljs-string">v1</span><br><span class="hljs-attr">kind:</span> <span class="hljs-string">Service</span><br><span class="hljs-attr">metadata:</span><br>  <span class="hljs-attr">name:</span> <span class="hljs-string">nginx-svc</span><br><span class="hljs-attr">spec:</span><br>  <span class="hljs-attr">selector:</span><br>    <span class="hljs-attr">server:</span> <span class="hljs-string">nginx</span><br>  <span class="hljs-attr">ports:</span><br>  <span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">http</span><br>    <span class="hljs-attr">port:</span> <span class="hljs-number">80</span><br>    <span class="hljs-attr">targetPort:</span> <span class="hljs-number">80</span><br>    <span class="hljs-attr">protocol:</span> <span class="hljs-string">TCP</span><br><span class="hljs-meta">---</span><br><span class="hljs-attr">apiVersion:</span> <span class="hljs-string">apps/v1</span><br><span class="hljs-attr">kind:</span> <span class="hljs-string">Deployment</span><br><span class="hljs-attr">metadata:</span><br>  <span class="hljs-attr">name:</span> <span class="hljs-string">nginx</span><br>  <span class="hljs-attr">labels:</span><br>    <span class="hljs-attr">server:</span> <span class="hljs-string">nginx</span><br><span class="hljs-attr">spec:</span><br>  <span class="hljs-attr">replicas:</span> <span class="hljs-number">1</span><br>  <span class="hljs-attr">selector:</span><br>    <span class="hljs-attr">matchLabels:</span><br>      <span class="hljs-attr">server:</span> <span class="hljs-string">nginx</span><br>  <span class="hljs-attr">template:</span><br>    <span class="hljs-attr">metadata:</span><br>      <span class="hljs-attr">labels:</span><br>        <span class="hljs-attr">server:</span> <span class="hljs-string">nginx</span><br>    <span class="hljs-attr">spec:</span><br>      <span class="hljs-attr">containers:</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">nginx</span><br>        <span class="hljs-attr">image:</span> <span class="hljs-string">nginx:1.14-alpine</span><br>        <span class="hljs-attr">imagePullPolicy:</span> <span class="hljs-string">IfNotPresent</span><br></code></pre></td></tr></table></figure>
-<h3 id="2-2-部署Dr资源"><a href="#2-2-部署Dr资源" class="headerlink" title="2.2 部署Dr资源"></a>2.2 部署Dr资源</h3><figure class="highlight dts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs dts"><span class="hljs-symbol">apiVersion:</span> networking.istio.io/v1alpha3<br><span class="hljs-symbol">kind:</span> DestinationRule<br><span class="hljs-symbol">metadata:</span><br><span class="hljs-symbol">  name:</span> test-dr<br><span class="hljs-symbol">spec:</span><br><span class="hljs-symbol">  host:</span> nginx-svc<br><span class="hljs-symbol">  trafficPolicy:</span><br><span class="hljs-symbol">    connectionPool:</span><br><span class="hljs-symbol">      http:</span><br><span class="hljs-symbol">        http1MaxPendingRequests:</span> <span class="hljs-number">1</span><br><span class="hljs-symbol">        maxRequestsPerConnection:</span> <span class="hljs-number">1</span><br><span class="hljs-symbol">    outlierDetection:</span><br><span class="hljs-symbol">      consecutiveErrors:</span> <span class="hljs-number">1</span><br><span class="hljs-symbol">      intercal:</span> <span class="hljs-number">10</span>s<br><span class="hljs-symbol">      baseEjectionTime:</span> <span class="hljs-number">10</span>s<br><span class="hljs-symbol">      masEjectionPercent:</span> <span class="hljs-number">100</span><br></code></pre></td></tr></table></figure>
-<p>​    详细说明如下：</p>
-<figure class="highlight avrasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs avrasm"><span class="hljs-symbol">http1MaxPendingRequests:</span> http 请求挂起状态的最大请求数<br><span class="hljs-symbol">maxRequestsPerConnection:</span> 一定时间内限制对后端服务发起的最大请求数，如果超过了此配置，就会出现限流。<br><span class="hljs-symbol">outlierDetection.consecutiveErrors:</span> 拒绝连接的最大失败次数<br><span class="hljs-symbol">outlierDetection.interval:</span> 触发熔断的时间间隔，在 interval 时间间隔内，达到 consecutiveErrors 即触发熔断<br><span class="hljs-symbol">outlierDetection.baseEjectionTime:</span> 熔断时长<br><span class="hljs-symbol">maxEjectionPercent:</span> 熔断连接最大百分比<br></code></pre></td></tr></table></figure>
-<p>部署以上资源，并将deploy资源进行istio注入</p>
-<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs powershell">istioctl kube<span class="hljs-literal">-inject</span> <span class="hljs-operator">-f</span> <span class="hljs-built_in">test-deploy</span>.yaml |kubectl apply <span class="hljs-operator">-f</span> -<br></code></pre></td></tr></table></figure>
-<h2 id="3、验证断路器"><a href="#3、验证断路器" class="headerlink" title="3、验证断路器"></a>3、验证断路器</h2><figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">fortio</span> load -c <span class="hljs-number">10</span> -n <span class="hljs-number">50</span> -qps <span class="hljs-number">0</span> http://<span class="hljs-number">10.106.31.6</span><br></code></pre></td></tr></table></figure>
-<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/20210518145650.png" srcset="/img/loading.gif" alt="image-20200601152441657"></p>
-<p>执行结果如下</p>
-<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/20210518145653.png" srcset="/img/loading.gif" alt="image-20200601152656744"></p>
-<p>由上图可知有34个报错，说明断路器生效</p>
-
+              <h1 id="数据库主从同步错误恢复"><a href="#数据库主从同步错误恢复" class="headerlink" title="数据库主从同步错误恢复"></a>数据库主从同步错误恢复</h1><h2 id="方法一：忽略错误后，继续同步"><a href="#方法一：忽略错误后，继续同步" class="headerlink" title="方法一：忽略错误后，继续同步"></a>方法一：忽略错误后，继续同步</h2><blockquote>
+<p>备注：适用于主从数据库相差不大的情况</p>
+</blockquote>
+<p>1、master端执行命令，将数据库设置为全局读锁，不允许写入新数据。</p>
+<figure class="highlight pgsql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs pgsql">MariaDB [(<span class="hljs-keyword">none</span>)]&gt;flush <span class="hljs-keyword">tables</span> <span class="hljs-keyword">with</span> <span class="hljs-keyword">read</span> <span class="hljs-keyword">lock</span>;<br></code></pre></td></tr></table></figure>
+<p>2、slave端停止slave的I/O及SQL线程。</p>
+<figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs crmsh">MariaDB [(none)]&gt;<span class="hljs-literal">stop</span>  <span class="hljs-literal">slave</span>;<br></code></pre></td></tr></table></figure>
+<p>3、slave端将同步错误的sql跳过一次（跳过操作会导致主从数据不一致）。</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs routeros">MariaDB [(none)]&gt;<span class="hljs-builtin-name">set</span>  global  <span class="hljs-attribute">sql_slave_skip_counter</span>=1;<br></code></pre></td></tr></table></figure>
+<p>4、slave端启动slave，恢复同步状态。</p>
+<figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs crmsh">MariaDB [(none)]&gt;<span class="hljs-literal">start</span>   <span class="hljs-literal">slave</span>;<br></code></pre></td></tr></table></figure>
+<p>5、master端解除数据库全局读锁。</p>
+<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs nginx"><span class="hljs-attribute">MariaDB</span> [(<span class="hljs-literal">none</span>)]&gt;unlock tables;<br></code></pre></td></tr></table></figure>
+<h2 id="方法二：重新做主从同步，使数据完全同步"><a href="#方法二：重新做主从同步，使数据完全同步" class="headerlink" title="方法二：重新做主从同步，使数据完全同步"></a>方法二：重新做主从同步，使数据完全同步</h2><blockquote>
+<p>备注：适用于主从数据库相差很大的情况</p>
+</blockquote>
+<p>1、master端执行命令，将数据库设置为全局读锁，不允许写入新数据。</p>
+<figure class="highlight pgsql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs pgsql">MariaDB [(<span class="hljs-keyword">none</span>)]&gt; flush <span class="hljs-keyword">tables</span> <span class="hljs-keyword">with</span> <span class="hljs-keyword">read</span> <span class="hljs-keyword">lock</span>;<br></code></pre></td></tr></table></figure>
+<p>2、master端查看master状态。</p>
+<figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs crmsh">MariaDB [(none)]&gt; show <span class="hljs-keyword">master</span> <span class="hljs-title">status</span>\G<br></code></pre></td></tr></table></figure>
+<p>3、master端对数据库进行完整备份。</p>
+<figure class="highlight haxe"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs haxe">mysqldump -uroot -pserver8 --databases  <span class="hljs-keyword">new</span><span class="hljs-type">db</span> &gt; /root/<span class="hljs-keyword">new</span><span class="hljs-type">db</span>.sql;<br></code></pre></td></tr></table></figure>
+<p>4、master端使用scp命令传输数据库文件newdb.sql到从服务器/root根目录。</p>
+<figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs elixir">scp /root/newdb.sql root<span class="hljs-variable">@192</span>.<span class="hljs-number">168.1</span>.<span class="hljs-number">210</span><span class="hljs-symbol">:/root</span><br></code></pre></td></tr></table></figure>
+<p>5、slave端导入master端复制过来的数据库。</p>
+<figure class="highlight arcade"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs arcade">mysql  -uroot  -pclient8a  &lt;  <span class="hljs-regexp">/root/</span>newdb.sql<br></code></pre></td></tr></table></figure>
+<p>6、slave端登录数据库，停止slave的I/O及SQL线程。</p>
+<figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs crmsh">mysql -uroot -p<br>MariaDB [(none)]&gt;<span class="hljs-literal">stop</span>   <span class="hljs-literal">slave</span>;<br></code></pre></td></tr></table></figure>
+<p>7、slave端重新配置主从关系(master_log_file与master_log_pos是主服务器master状态下的File与Position)。</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs routeros">MariaDB [(none)]&gt; use mysql; #切换数据库<br>MariaDB [mysql]&gt; change master <span class="hljs-keyword">to</span><br><span class="hljs-attribute">master_host</span>=<span class="hljs-string">&#x27;192.168.1.200&#x27;</span>,<br><span class="hljs-attribute">master_user</span>=<span class="hljs-string">&#x27;new&#x27;</span>,<br><span class="hljs-attribute">master_password</span>=<span class="hljs-string">&#x27;new&#x27;</span>,<br><span class="hljs-attribute">master_log_file</span>=<span class="hljs-string">&#x27;mysql-bin.000001&#x27;</span>,<br><span class="hljs-attribute">master_log_pos</span>=653; #配置主从同步参数<br></code></pre></td></tr></table></figure>
+<p>8、slave端启动slave。</p>
+<figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs crmsh">MariaDB [mysql]&gt;<span class="hljs-literal">start</span>   <span class="hljs-literal">slave</span>;<br></code></pre></td></tr></table></figure>
+<p>9、slave端查看slave状态，确认slave端I/O线程和SQL线程均为yes。</p>
+<figure class="highlight maxima"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs maxima">MariaDB [mysql]&gt;<span class="hljs-built_in">show</span> slave <span class="hljs-built_in">status</span>\G<br></code></pre></td></tr></table></figure>
+<p>10、master端解除数据库全局读锁。</p>
+<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs nginx"><span class="hljs-attribute">MariaDB</span> [(<span class="hljs-literal">none</span>)]&gt;unlock tables;<br></code></pre></td></tr></table></figure>
             </div>
             <hr>
             <div>
@@ -296,7 +318,7 @@
                   <div class="post-meta mr-3">
                     <i class="iconfont icon-category"></i>
                     
-                      <a class="hover-with-bg" href="/categories/Istio/">Istio</a>
+                      <a class="hover-with-bg" href="/categories/%E5%85%B3%E7%B3%BB%E5%9E%8B%E6%95%B0%E6%8D%AE%E5%BA%93/">关系型数据库</a>
                     
                   </div>
                 
@@ -304,7 +326,7 @@
                   <div class="post-meta">
                     <i class="iconfont icon-tags"></i>
                     
-                      <a class="hover-with-bg" href="/tags/Istio/">Istio</a>
+                      <a class="hover-with-bg" href="/tags/Mysql/">Mysql</a>
                     
                   </div>
                 
@@ -317,18 +339,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2021/06/09/%E6%95%B0%E6%8D%AE%E5%BA%93%E4%B8%BB%E4%BB%8E%E5%90%8C%E6%AD%A5%E9%94%99%E8%AF%AF%E6%81%A2%E5%A4%8D/">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">数据库主从同步错误恢复</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2021/05/18/Fortio-%E9%83%A8%E7%BD%B2/">
-                        <span class="hidden-mobile">Fortio 部署</span>
+                      <a href="/2021/05/18/Istio-%E7%86%94%E6%96%AD/">
+                        <span class="hidden-mobile">Istio 熔断</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>

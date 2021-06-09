@@ -220,6 +220,61 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
+        <a href="/2021/06/09/%E6%95%B0%E6%8D%AE%E5%BA%93%E4%B8%BB%E4%BB%8E%E5%90%8C%E6%AD%A5%E9%94%99%E8%AF%AF%E6%81%A2%E5%A4%8D/">数据库主从同步错误恢复</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2021/06/09/%E6%95%B0%E6%8D%AE%E5%BA%93%E4%B8%BB%E4%BB%8E%E5%90%8C%E6%AD%A5%E9%94%99%E8%AF%AF%E6%81%A2%E5%A4%8D/">
+          
+          
+            
+          
+          数据库主从同步错误恢复方法一：忽略错误后，继续同步
+备注：适用于主从数据库相差不大的情况
+
+1、master端执行命令，将数据库设置为全局读锁，不允许写入新数据。
+1MariaDB [(none)]&gt;flush tables with read lock;
+2、slave端停止slave的I/O及SQL线程。
+1MariaDB [(none)]&gt;stop  slave;
+3、slave
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-06-09 10:18" pubdate>
+              2021-06-09
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/%E5%85%B3%E7%B3%BB%E5%9E%8B%E6%95%B0%E6%8D%AE%E5%BA%93/">关系型数据库</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/Mysql/">Mysql</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
         <a href="/2021/05/18/Istio-%E7%86%94%E6%96%AD/">Istio 熔断</a>
       </h1>
 
@@ -645,58 +700,6 @@ bin/ 目录下的 istioctl 客户端二进制文件
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
             <time datetime="2021-05-14 10:36" pubdate>
-              2021-05-14
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/Istio/">Istio</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/Istio/">Istio</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2021/05/14/Istio%E5%85%A5%E5%9D%91%E7%AF%87/">Istio入坑篇</a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2021/05/14/Istio%E5%85%A5%E5%9D%91%E7%AF%87/">
-          
-          
-            
-          
-          
-https://istio.io/docs/concepts
-
-1、什么是Istio云平台为使用它们的组织提供了很多好处。但是，不可否认的是，采用云技术会对DevOps团队造成压力。开发人员必须使用微服务来构建可移植性，同时运营商正在管理超大型混合和多云部署。Istio使您可以连接，保护，控制和观察服务。
-从较高的角度来看，Istio有助于降低这些部署的复杂性，并减轻开发团队的负担。它是一个完全
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2021-05-14 10:34" pubdate>
               2021-05-14
             </time>
           </div>

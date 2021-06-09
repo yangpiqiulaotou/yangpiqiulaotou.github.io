@@ -220,6 +220,62 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
+        <a href="/2021/04/01/Jenkins%E6%9E%84%E5%BB%BA%E6%97%B6%E9%80%89%E6%8B%A9Git%E5%88%86%E6%94%AF/">Jenkins构建时选择Git分支</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2021/04/01/Jenkins%E6%9E%84%E5%BB%BA%E6%97%B6%E9%80%89%E6%8B%A9Git%E5%88%86%E6%94%AF/">
+          
+          
+            
+          
+          1、安装Git Parameter插件在系统管理中的插件管理下载Git Parameter，下图是我已经安装
+
+2、配置参数化构建
+在源代码库选择分支中使用变量接收
+
+点击构建项目就能选择特性分支进行构建
+
+备注：如果配置了自动化构建，默认拉取的是master分支的代码！
+
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-04-01 15:16" pubdate>
+              2021-04-01
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/Linux/">Linux</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/Jenkins/">Jenkins</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
         <a href="/2021/04/01/Rancher%E5%AE%95%E6%9C%BA%E5%90%8E%E5%91%BD%E4%BB%A4%E8%A1%8C%E6%8E%A5%E7%AE%A1K8s%E9%9B%86%E7%BE%A4/">Rancher宕机后命令行接管K8s集群</a>
       </h1>
 
@@ -670,57 +726,6 @@ AOF，则是换了一个角度来实现持久化，那就是将redis执行过的
             <i class="iconfont icon-tags"></i>
             
               <a href="/tags/Redis/">Redis</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2021/03/22/%E5%AE%89%E8%A3%85MetalLB/">安装MetalLB</a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2021/03/22/%E5%AE%89%E8%A3%85MetalLB/">
-          
-          
-            
-          
-          1、准备如果您在IPVS模式下使用kube-proxy，则从Kubernetes v1.14.2开始，必须启用严格的ARP模式。
-1请注意，如果您将kube-router用作服务代理，则不需要此设置，因为默认情况下它会启用严格的arp。
-可以通过在当前集群中编辑kube-proxy配置来实现：
-1234567kubectl edit configmap -n kube-system kube-pr
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2021-03-22 15:09" pubdate>
-              2021-03-22
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/Kubernetes/">Kubernetes</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/MetalLB/">MetalLB</a>
             
           </div>
         

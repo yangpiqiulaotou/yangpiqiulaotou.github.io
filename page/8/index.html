@@ -220,6 +220,57 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
+        <a href="/2021/03/22/%E5%AE%89%E8%A3%85MetalLB/">安装MetalLB</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2021/03/22/%E5%AE%89%E8%A3%85MetalLB/">
+          
+          
+            
+          
+          1、准备如果您在IPVS模式下使用kube-proxy，则从Kubernetes v1.14.2开始，必须启用严格的ARP模式。
+1请注意，如果您将kube-router用作服务代理，则不需要此设置，因为默认情况下它会启用严格的arp。
+可以通过在当前集群中编辑kube-proxy配置来实现：
+1234567kubectl edit configmap -n kube-system kube-pr
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-03-22 15:09" pubdate>
+              2021-03-22
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/Kubernetes/">Kubernetes</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/MetalLB/">MetalLB</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
         <a href="/2021/03/22/MetalLB/">MetalLB</a>
       </h1>
 
@@ -663,58 +714,6 @@ PromQL，一种灵活的查询语言 ，可利用此维度
             <i class="iconfont icon-tags"></i>
             
               <a href="/tags/Docker/">Docker</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2021/03/18/Kubernetes%E5%AE%89%E8%A3%85Ingress/">Kubernetes安装Ingress</a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2021/03/18/Kubernetes%E5%AE%89%E8%A3%85Ingress/">
-          
-          
-            
-          
-          1、Ingress 介绍​    ingress是一个kubernetes资源，可让你为运行在kubernetes上的应用程序（由一个或多个Services表示）配置HTTP负载平衡器。这样的负载平衡器对于将这些应用程序交付给Kubernetes集群之外的客户端是必需的
-ingress支持以下的路由：
-​    基于主机域名的路由
-​    基于服务路径的路由
-2、Ingress Controll
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2021-03-18 17:25" pubdate>
-              2021-03-18
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/Kubernetes/">Kubernetes</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/Kubernetes/">Kubernetes</a>
             
           </div>
         
