@@ -55,7 +55,7 @@
 
   <script id="fluid-configs">
     var Fluid = window.Fluid || {};
-    var CONFIG = {"hostname":"example.com","root":"/","version":"1.8.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"onlypost":false},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}}};
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.8.7","typing":{"enable":false,"typeSpeed":70,"cursorChar":" ","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"onlypost":false},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}}};
   </script>
   <script  src="/js/utils.js" ></script>
   <script  src="/js/color-schema.js" ></script>
@@ -203,6 +203,8 @@
           <div class="page-header text-center fade-in-up">
             <span class="h2" id="subtitle" title="Go语言上手简单">
               
+                Go语言上手简单
+              
             </span>
 
             
@@ -273,6 +275,12 @@
             <!-- SEO header -->
             <h1 style="display: none">Go语言上手简单</h1>
             
+              <p class="note note-info">
+                
+                  本文最后更新于：2021年4月7日 中午
+                
+              </p>
+            
             <div class="markdown-body">
               <p>​        Go语言语法简单易懂，学习曲线平缓，不需要像 C/<a target="_blank" rel="noopener" href="http://c.biancheng.net/cplus/">C++</a> 语言动辄需要两到三年的学习期。Go语言被称为“互联网时代的C语言”。互联网的短、频、快特性在Go语言中体现得淋漓尽致。一个熟练的开发者只需要短短的一周时间就可以从学习阶段转到开发阶段，并完成一个高并发的服务器开发。</p>
 <p>​         Go语言是 Google 公司开发的一种静态型、编译型并自带垃圾回收和并发的编程语言。所以它是一门类型安全的语言，加上通过构建到本地代码，程序的执行速度也非常快。</p>
@@ -282,9 +290,9 @@
 <p>​         Go语言这种从零开始使用到解决问题的速度，在其他语言中是完全不可想象的。学过 C++ 的朋友都知道，一到两年大强度的理论学习和实战操练也只能学到这门语言的皮毛，以及知道一些基本的避免错误的方法。</p>
 <p>​         那么，Go语言到底有多么简单？下面通过实现一个 HTTP 服务器来了解一下。</p>
 <p>【实例】HTTP 文件服务器是常见的 Web 服务之一。开发阶段为了测试，需要自行安装 Apache 或 Nginx 服务器，下载安装配置需要大量的时间。使用Go语言实现一个简单的 HTTP 服务器只需要几行代码，如下所示。</p>
-<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs awk"><span class="hljs-regexp">//</span>标记当前文件为 main 包，main 包也是 Go 程序的入口包<br>package main<br><br><span class="hljs-regexp">//</span>导入 net/http 包，这个包的作用是 HTTP 的基础封装和访问<br>import (<br>    <span class="hljs-string">&quot;net/http&quot;</span><br>)<br><br><span class="hljs-regexp">//</span>程序执行的入口函数 main()<br><span class="hljs-keyword">func</span> main() &#123;<br><span class="hljs-regexp">//</span>使用 http.FileServer 文件服务器将当前目录作为根目录（`/`目录）的处理器，访问根目录，就会进入当前目录<br>    http.Handle(<span class="hljs-string">&quot;/&quot;</span>, http.FileServer(http.Dir(<span class="hljs-string">&quot;.&quot;</span>)))<br><span class="hljs-regexp">//</span>默认的 HTTP 服务侦听在本机 <span class="hljs-number">8080</span> 端口<br>    http.ListenAndServe(<span class="hljs-string">&quot;:8080&quot;</span>, nil)<br>&#125;<br></code></pre></td></tr></table></figure>
+<figure class="highlight awk"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs awk"><span class="hljs-regexp">//</span>标记当前文件为 main 包，main 包也是 Go 程序的入口包<br>package main<br><br><span class="hljs-regexp">//</span>导入 net/http 包，这个包的作用是 HTTP 的基础封装和访问<br>import (<br>    <span class="hljs-string">&quot;net/http&quot;</span><br>)<br><br><span class="hljs-regexp">//</span>程序执行的入口函数 main()<br><span class="hljs-keyword">func</span> main() &#123;<br><span class="hljs-regexp">//</span>使用 http.FileServer 文件服务器将当前目录作为根目录（`/`目录）的处理器，访问根目录，就会进入当前目录<br>    http.Handle(<span class="hljs-string">&quot;/&quot;</span>, http.FileServer(http.Dir(<span class="hljs-string">&quot;.&quot;</span>)))<br><span class="hljs-regexp">//</span>默认的 HTTP 服务侦听在本机 <span class="hljs-number">8080</span> 端口<br>    http.ListenAndServe(<span class="hljs-string">&quot;:8080&quot;</span>, nil)<br>&#125;<br></code></pre></div></td></tr></table></figure>
 <p>​        把这个源码保存为 main.go（Go语言的源文件后缀就是<code>.go</code>），安装Go语言的开发包（后续我们会讲解如何安装），在命令行输入如下命令：</p>
-<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs dockerfile">go <span class="hljs-keyword">run</span><span class="bash"> main.go</span><br></code></pre></td></tr></table></figure>
+<figure class="highlight dockerfile"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs dockerfile">go <span class="hljs-keyword">run</span><span class="bash"> main.go</span><br></code></pre></div></td></tr></table></figure>
 <p>在浏览器里输入<code>http://127.0.0.1:8080</code>即可浏览文件，这些文件正是当前目录在HTTP服务器上的映射目录。</p>
 <p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20200707112003819.png" srcset="/img/loading.gif" alt="image-20200707112003819"></p>
 <h2 id="Go语言工程结构简单"><a href="#Go语言工程结构简单" class="headerlink" title="Go语言工程结构简单"></a>Go语言工程结构简单</h2><p>​        Go语言的源码无须头文件，编译的文件都来自于后缀名为<code>.go</code>的源码文件。</p>
@@ -517,17 +525,6 @@
 
 
 
-
-  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11/lib/typed.min.js" ></script>
-  <script>
-    (function (window, document) {
-      var typing = Fluid.plugins.typing;
-      var title = document.getElementById('subtitle').title;
-      
-      typing(title)
-      
-    })(window, document);
-  </script>
 
 
 

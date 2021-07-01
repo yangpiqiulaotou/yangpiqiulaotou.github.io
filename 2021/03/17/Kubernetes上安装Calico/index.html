@@ -55,7 +55,7 @@
 
   <script id="fluid-configs">
     var Fluid = window.Fluid || {};
-    var CONFIG = {"hostname":"example.com","root":"/","version":"1.8.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"onlypost":false},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}}};
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.8.7","typing":{"enable":false,"typeSpeed":70,"cursorChar":" ","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"onlypost":false},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}}};
   </script>
   <script  src="/js/utils.js" ></script>
   <script  src="/js/color-schema.js" ></script>
@@ -203,6 +203,8 @@
           <div class="page-header text-center fade-in-up">
             <span class="h2" id="subtitle" title="Kubernetes上安装Calico">
               
+                Kubernetes上安装Calico
+              
             </span>
 
             
@@ -273,18 +275,24 @@
             <!-- SEO header -->
             <h1 style="display: none">Kubernetes上安装Calico</h1>
             
+              <p class="note note-info">
+                
+                  本文最后更新于：2021年3月17日 下午
+                
+              </p>
+            
             <div class="markdown-body">
-              <h2 id="1、使用以下命令初始化主机"><a href="#1、使用以下命令初始化主机" class="headerlink" title="1、使用以下命令初始化主机"></a>1、使用以下命令初始化主机</h2><figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">kubeadm</span> init --pod-network-cidr=<span class="hljs-number">192.168.0.0</span>/<span class="hljs-number">16</span><br></code></pre></td></tr></table></figure>
+              <h2 id="1、使用以下命令初始化主机"><a href="#1、使用以下命令初始化主机" class="headerlink" title="1、使用以下命令初始化主机"></a>1、使用以下命令初始化主机</h2><figure class="highlight apache"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs apache"><span class="hljs-attribute">kubeadm</span> init --pod-network-cidr=<span class="hljs-number">192.168.0.0</span>/<span class="hljs-number">16</span><br></code></pre></div></td></tr></table></figure>
 <p>初始化成功截图如下：</p>
 <p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master//img/image-20200424155104307.png" srcset="/img/loading.gif" alt="image-20200424155104307"></p>
-<h2 id="2、执行以下命令来配置kubectl"><a href="#2、执行以下命令来配置kubectl" class="headerlink" title="2、执行以下命令来配置kubectl"></a>2、执行以下命令来配置kubectl</h2><figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs awk">mkdir -p <span class="hljs-variable">$HOME</span>/.kube<br>sudo cp -i <span class="hljs-regexp">/etc/</span>kubernetes<span class="hljs-regexp">/admin.conf $HOME/</span>.kube/config<br>sudo chown $(id -u):$(id -g) <span class="hljs-variable">$HOME</span><span class="hljs-regexp">/.kube/</span>config<br></code></pre></td></tr></table></figure>
-<h2 id="3、使用以下命令安装Calico"><a href="#3、使用以下命令安装Calico" class="headerlink" title="3、使用以下命令安装Calico"></a>3、使用以下命令安装Calico</h2><figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs awk">kubectl apply -f https:<span class="hljs-regexp">//</span>docs.projectcalico.org<span class="hljs-regexp">/manifests/</span>calico.yaml<br></code></pre></td></tr></table></figure>
+<h2 id="2、执行以下命令来配置kubectl"><a href="#2、执行以下命令来配置kubectl" class="headerlink" title="2、执行以下命令来配置kubectl"></a>2、执行以下命令来配置kubectl</h2><figure class="highlight awk"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs awk">mkdir -p <span class="hljs-variable">$HOME</span>/.kube<br>sudo cp -i <span class="hljs-regexp">/etc/</span>kubernetes<span class="hljs-regexp">/admin.conf $HOME/</span>.kube/config<br>sudo chown $(id -u):$(id -g) <span class="hljs-variable">$HOME</span><span class="hljs-regexp">/.kube/</span>config<br></code></pre></div></td></tr></table></figure>
+<h2 id="3、使用以下命令安装Calico"><a href="#3、使用以下命令安装Calico" class="headerlink" title="3、使用以下命令安装Calico"></a>3、使用以下命令安装Calico</h2><figure class="highlight awk"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs awk">kubectl apply -f https:<span class="hljs-regexp">//</span>docs.projectcalico.org<span class="hljs-regexp">/manifests/</span>calico.yaml<br></code></pre></div></td></tr></table></figure>
 <p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master//img/image-20200424155306261.png" srcset="/img/loading.gif" alt="image-20200424155306261"></p>
-<h2 id="4、使用以下命令确认所有Pod正在运行"><a href="#4、使用以下命令确认所有Pod正在运行" class="headerlink" title="4、使用以下命令确认所有Pod正在运行"></a>4、使用以下命令确认所有Pod正在运行</h2><figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs applescript">kubectl <span class="hljs-keyword">get</span> pod <span class="hljs-comment">--all-namespaces</span><br></code></pre></td></tr></table></figure>
+<h2 id="4、使用以下命令确认所有Pod正在运行"><a href="#4、使用以下命令确认所有Pod正在运行" class="headerlink" title="4、使用以下命令确认所有Pod正在运行"></a>4、使用以下命令确认所有Pod正在运行</h2><figure class="highlight applescript"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs applescript">kubectl <span class="hljs-keyword">get</span> pod <span class="hljs-comment">--all-namespaces</span><br></code></pre></div></td></tr></table></figure>
 <p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master//img/image-20200424155448673.png" srcset="/img/loading.gif" alt="image-20200424155448673"></p>
-<h2 id="5、移除master的污点"><a href="#5、移除master的污点" class="headerlink" title="5、移除master的污点"></a>5、移除master的污点</h2><figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs crmsh">kubectl taint nodes --all <span class="hljs-keyword">node</span><span class="hljs-title">-role</span>.kubernetes.io/<span class="hljs-literal">master</span>-<br></code></pre></td></tr></table></figure>
+<h2 id="5、移除master的污点"><a href="#5、移除master的污点" class="headerlink" title="5、移除master的污点"></a>5、移除master的污点</h2><figure class="highlight crmsh"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs crmsh">kubectl taint nodes --all <span class="hljs-keyword">node</span><span class="hljs-title">-role</span>.kubernetes.io/<span class="hljs-literal">master</span>-<br></code></pre></div></td></tr></table></figure>
 <p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master//img/image-20200424155600490.png" srcset="/img/loading.gif" alt="image-20200424155600490"></p>
-<h2 id="6、使用以下命令确认集群中现在有一个节点"><a href="#6、使用以下命令确认集群中现在有一个节点" class="headerlink" title="6、使用以下命令确认集群中现在有一个节点"></a>6、使用以下命令确认集群中现在有一个节点</h2><figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs crmsh">kubectl get <span class="hljs-keyword">node</span> <span class="hljs-title">-o</span> wide<br></code></pre></td></tr></table></figure>
+<h2 id="6、使用以下命令确认集群中现在有一个节点"><a href="#6、使用以下命令确认集群中现在有一个节点" class="headerlink" title="6、使用以下命令确认集群中现在有一个节点"></a>6、使用以下命令确认集群中现在有一个节点</h2><figure class="highlight crmsh"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs crmsh">kubectl get <span class="hljs-keyword">node</span> <span class="hljs-title">-o</span> wide<br></code></pre></div></td></tr></table></figure>
 <p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master//img/image-20200424155645547.png" srcset="/img/loading.gif" alt="image-20200424155645547"></p>
 <p>配备Calico的单主机Kubernetes集群完成。</p>
 
@@ -513,17 +521,6 @@
 
 
 
-
-  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11/lib/typed.min.js" ></script>
-  <script>
-    (function (window, document) {
-      var typing = Fluid.plugins.typing;
-      var title = document.getElementById('subtitle').title;
-      
-      typing(title)
-      
-    })(window, document);
-  </script>
 
 
 

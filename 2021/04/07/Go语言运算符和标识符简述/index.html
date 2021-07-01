@@ -55,7 +55,7 @@
 
   <script id="fluid-configs">
     var Fluid = window.Fluid || {};
-    var CONFIG = {"hostname":"example.com","root":"/","version":"1.8.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"onlypost":false},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}}};
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.8.7","typing":{"enable":false,"typeSpeed":70,"cursorChar":" ","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"onlypost":false},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}}};
   </script>
   <script  src="/js/utils.js" ></script>
   <script  src="/js/color-schema.js" ></script>
@@ -203,6 +203,8 @@
           <div class="page-header text-center fade-in-up">
             <span class="h2" id="subtitle" title="Go语言运算符和标识符简述">
               
+                Go语言运算符和标识符简述
+              
             </span>
 
             
@@ -273,6 +275,12 @@
             <!-- SEO header -->
             <h1 style="display: none">Go语言运算符和标识符简述</h1>
             
+              <p class="note note-info">
+                
+                  本文最后更新于：2021年4月7日 下午
+                
+              </p>
+            
             <div class="markdown-body">
               <h2 id="运算符的基本介绍"><a href="#运算符的基本介绍" class="headerlink" title="运算符的基本介绍"></a>运算符的基本介绍</h2><p>运算符是一种特殊的符号，用以表示数据的运算、赋值和比较等</p>
 <ol>
@@ -290,7 +298,7 @@
 </li>
 </ol>
 <h2 id="算术运算符的一览表"><a href="#算术运算符的一览表" class="headerlink" title="算术运算符的一览表"></a>算术运算符的一览表</h2><p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20200804154531182.png" srcset="/img/loading.gif" alt="image-20200804154531182"></p>
-<h3 id="的使用"><a href="#的使用" class="headerlink" title="% 的使用"></a>% 的使用</h3><figure class="highlight erlang-repl"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs erlang-repl">公式 a <span class="hljs-comment">% b = a - a / b * b</span><br></code></pre></td></tr></table></figure>
+<h3 id="的使用"><a href="#的使用" class="headerlink" title="% 的使用"></a>% 的使用</h3><figure class="highlight erlang-repl"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs erlang-repl">公式 a <span class="hljs-comment">% b = a - a / b * b</span><br></code></pre></div></td></tr></table></figure>
 <h2 id="算术运算符使用的注意事项"><a href="#算术运算符使用的注意事项" class="headerlink" title="算术运算符使用的注意事项"></a>算术运算符使用的注意事项</h2><ol>
 <li><p>对于除号 “/“，它的整数除和小数除是有区别的：整数之间做除法时，只保留整数部分而舍弃<br>小数部分。</p>
 </li>
@@ -390,7 +398,7 @@
 </ol>
 <p>特别说明</p>
 <p>go语言明确不支持三元运算符，可以使用if…else实现</p>
-<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs stylus"><span class="hljs-keyword">if</span> <span class="hljs-selector-tag">a</span> &gt; <span class="hljs-selector-tag">b</span> &#123;<br>	c = a<br>&#125; <span class="hljs-keyword">else</span> &#123;<br>	c = b<br>&#125;<br></code></pre></td></tr></table></figure>
+<figure class="highlight stylus"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs stylus"><span class="hljs-keyword">if</span> <span class="hljs-selector-tag">a</span> &gt; <span class="hljs-selector-tag">b</span> &#123;<br>	c = a<br>&#125; <span class="hljs-keyword">else</span> &#123;<br>	c = b<br>&#125;<br></code></pre></div></td></tr></table></figure>
 <p>​        先计算乘法后计算加法，说明乘法运算符的优先级比加法运算符的优先级高。所谓优先级，就是当多个运算符出现在同一个表达式中时，先执行哪个运算符。</p>
 <p> Go语言有几十种运算符，被分成十几个级别，有的运算符优先级不同，有的运算符优先级相同，请看下表</p>
 <table>
@@ -535,7 +543,7 @@
 </tbody></table>
 <p>​        之所以刻意地将Go语言中的关键字保持的这么少，是为了简化在编译过程中的代码解析。和其它语言一样，关键字不能够作标识符使用。</p>
 <h2 id="标识符"><a href="#标识符" class="headerlink" title="标识符"></a>标识符</h2><p>​        标识符是指Go语言对各种变量、方法、函数等命名时使用的字符序列，标识符由若干个字母、下划线<code>_</code>、和数字组成，且第一个字符必须是字母。通俗的讲就是凡可以自己定义的名称都可以叫做标识符。</p>
-<pre><code>     下划线`_`是一个特殊的标识符，称为空白标识符，它可以像其他标识符那样用于变量的声明或赋值（任何类型都可以赋值给它），但任何赋给这个标识符的值都将被抛弃，因此这些值不能在后续的代码中使用，也不可以使用`_`作为变量对其它变量进行赋值或运算。</code></pre>
+<div class="hljs code-wrapper"><pre><code>     下划线`_`是一个特殊的标识符，称为空白标识符，它可以像其他标识符那样用于变量的声明或赋值（任何类型都可以赋值给它），但任何赋给这个标识符的值都将被抛弃，因此这些值不能在后续的代码中使用，也不可以使用`_`作为变量对其它变量进行赋值或运算。</code></pre></div>
 <p>​         在使用标识符之前必须进行声明，声明一个标识符就是将这个标识符与常量、类型、变量、函数或者代码包绑定在一起。在同一个代码块内标识符的名称不能重复。</p>
 <p> 标识符的命名需要遵守以下规则：</p>
 <ul>
@@ -828,17 +836,6 @@
 
 
 
-
-  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11/lib/typed.min.js" ></script>
-  <script>
-    (function (window, document) {
-      var typing = Fluid.plugins.typing;
-      var title = document.getElementById('subtitle').title;
-      
-      typing(title)
-      
-    })(window, document);
-  </script>
 
 
 

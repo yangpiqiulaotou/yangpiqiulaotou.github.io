@@ -55,7 +55,7 @@
 
   <script id="fluid-configs">
     var Fluid = window.Fluid || {};
-    var CONFIG = {"hostname":"example.com","root":"/","version":"1.8.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"onlypost":false},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}}};
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.8.7","typing":{"enable":false,"typeSpeed":70,"cursorChar":" ","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"onlypost":false},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}}};
   </script>
   <script  src="/js/utils.js" ></script>
   <script  src="/js/color-schema.js" ></script>
@@ -203,6 +203,8 @@
           <div class="page-header text-center fade-in-up">
             <span class="h2" id="subtitle" title="Jenkins主从配置">
               
+                Jenkins主从配置
+              
             </span>
 
             
@@ -273,13 +275,19 @@
             <!-- SEO header -->
             <h1 style="display: none">Jenkins主从配置</h1>
             
+              <p class="note note-info">
+                
+                  本文最后更新于：2021年3月16日 下午
+                
+              </p>
+            
             <div class="markdown-body">
-              <h3 id="1、环境介绍"><a href="#1、环境介绍" class="headerlink" title="1、环境介绍"></a>1、环境介绍</h3><figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs crmsh"><span class="hljs-keyword">master</span>        <span class="hljs-title">192</span>.<span class="hljs-number">168.0</span>.<span class="hljs-number">121</span><br><span class="hljs-literal">slave</span>         <span class="hljs-number">192.168</span>.<span class="hljs-number">0.76</span><br></code></pre></td></tr></table></figure>
+              <h3 id="1、环境介绍"><a href="#1、环境介绍" class="headerlink" title="1、环境介绍"></a>1、环境介绍</h3><figure class="highlight crmsh"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs crmsh"><span class="hljs-keyword">master</span>        <span class="hljs-title">192</span>.<span class="hljs-number">168.0</span>.<span class="hljs-number">121</span><br><span class="hljs-literal">slave</span>         <span class="hljs-number">192.168</span>.<span class="hljs-number">0.76</span><br></code></pre></div></td></tr></table></figure>
 <h3 id="2、生成密钥"><a href="#2、生成密钥" class="headerlink" title="2、生成密钥"></a>2、生成密钥</h3><p>部署jenkins master –slave 需要在master 服务器下 生成一个 秘钥文件</p>
-<figure class="highlight ebnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs ebnf"><span class="hljs-attribute">ssh-keygen  -t   rsa</span><br></code></pre></td></tr></table></figure>
+<figure class="highlight ebnf"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs ebnf"><span class="hljs-attribute">ssh-keygen  -t   rsa</span><br></code></pre></div></td></tr></table></figure>
 <p>什么都不用填，一直敲回车就可以，生成的秘钥会在用户目录下， root 用户生成的 在~./ssh/中</p>
 <p>有两个文件 id_rsa；id_rsa.pub</p>
-<figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs applescript">ssh-<span class="hljs-keyword">copy</span>-<span class="hljs-built_in">id</span>  -i  id_rsa.pub  <span class="hljs-number">192.168</span><span class="hljs-number">.0</span><span class="hljs-number">.76</span><br></code></pre></td></tr></table></figure>
+<figure class="highlight applescript"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs applescript">ssh-<span class="hljs-keyword">copy</span>-<span class="hljs-built_in">id</span>  -i  id_rsa.pub  <span class="hljs-number">192.168</span><span class="hljs-number">.0</span><span class="hljs-number">.76</span><br></code></pre></div></td></tr></table></figure>
 <h3 id="3、配置slave"><a href="#3、配置slave" class="headerlink" title="3、配置slave"></a>3、配置slave</h3><p>点击系统管理</p>
 <p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master//img/image-20200324111648391.png" srcset="/img/loading.gif" alt="image-20200324111648391"></p>
 <p>选择插件管理</p>
@@ -524,17 +532,6 @@
 
 
 
-
-  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11/lib/typed.min.js" ></script>
-  <script>
-    (function (window, document) {
-      var typing = Fluid.plugins.typing;
-      var title = document.getElementById('subtitle').title;
-      
-      typing(title)
-      
-    })(window, document);
-  </script>
 
 
 

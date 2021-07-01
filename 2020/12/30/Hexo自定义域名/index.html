@@ -55,7 +55,7 @@
 
   <script id="fluid-configs">
     var Fluid = window.Fluid || {};
-    var CONFIG = {"hostname":"example.com","root":"/","version":"1.8.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"onlypost":false},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}}};
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.8.7","typing":{"enable":false,"typeSpeed":70,"cursorChar":" ","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"onlypost":false},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}}};
   </script>
   <script  src="/js/utils.js" ></script>
   <script  src="/js/color-schema.js" ></script>
@@ -203,6 +203,8 @@
           <div class="page-header text-center fade-in-up">
             <span class="h2" id="subtitle" title="Hexo自定义域名">
               
+                Hexo自定义域名
+              
             </span>
 
             
@@ -223,7 +225,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      211 字
+      236 字
     </span>
   
 
@@ -273,10 +275,19 @@
             <!-- SEO header -->
             <h1 style="display: none">Hexo自定义域名</h1>
             
+              <p class="note note-info">
+                
+                  本文最后更新于：2021年7月1日 上午
+                
+              </p>
+            
             <div class="markdown-body">
               <h2 id="阿里云购买域名"><a href="#阿里云购买域名" class="headerlink" title="阿里云购买域名"></a>阿里云购买域名</h2><p>购买地址: <a target="_blank" rel="noopener" href="https://wanwang.aliyun.com/domain/searchresult/#/?keyword=&amp;suffix=com">https://wanwang.aliyun.com/domain/searchresult/#/?keyword=&amp;suffix=com</a></p>
 <h3 id="通过CNAME解析"><a href="#通过CNAME解析" class="headerlink" title="通过CNAME解析"></a>通过CNAME解析</h3><p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20201230094445258.png" srcset="/img/loading.gif" alt="image-20201230094445258"></p>
 <p>登录github仓库，在根目录下创建CNAME文件</p>
+<blockquote>
+<p>备注：因每次clean会删掉原来文章，需要将CNAME文件写入到source/目录下</p>
+</blockquote>
 <p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20201230094345833.png" srcset="/img/loading.gif" alt="image-20201230094345833"></p>
 <h2 id="Github配置HTTPS"><a href="#Github配置HTTPS" class="headerlink" title="Github配置HTTPS"></a>Github配置HTTPS</h2><p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20201230091906008.png" srcset="/img/loading.gif" alt="image-20201230091906008"></p>
 <p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20201230094113159.png" srcset="/img/loading.gif" alt="image-20201230094113159"></p>
@@ -545,17 +556,6 @@
 
 
 
-
-  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11/lib/typed.min.js" ></script>
-  <script>
-    (function (window, document) {
-      var typing = Fluid.plugins.typing;
-      var title = document.getElementById('subtitle').title;
-      
-      typing(title)
-      
-    })(window, document);
-  </script>
 
 
 

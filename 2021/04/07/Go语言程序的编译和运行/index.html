@@ -55,7 +55,7 @@
 
   <script id="fluid-configs">
     var Fluid = window.Fluid || {};
-    var CONFIG = {"hostname":"example.com","root":"/","version":"1.8.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"onlypost":false},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}}};
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.8.7","typing":{"enable":false,"typeSpeed":70,"cursorChar":" ","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"onlypost":false},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}}};
   </script>
   <script  src="/js/utils.js" ></script>
   <script  src="/js/color-schema.js" ></script>
@@ -203,6 +203,8 @@
           <div class="page-header text-center fade-in-up">
             <span class="h2" id="subtitle" title="Go语言程序的编译和运行">
               
+                Go语言程序的编译和运行
+              
             </span>
 
             
@@ -273,6 +275,12 @@
             <!-- SEO header -->
             <h1 style="display: none">Go语言程序的编译和运行</h1>
             
+              <p class="note note-info">
+                
+                  本文最后更新于：2021年4月7日 中午
+                
+              </p>
+            
             <div class="markdown-body">
               <p>Go语言是编译型的静态语言（和C语言一样），所以在运行Go语言程序之前，先要将其编译成二进制的可执行文件。</p>
 <p> 可以通过Go语言提供的<code>go build</code>或者<code>go run</code>命令对Go语言程序进行编译：</p>
@@ -291,15 +299,15 @@
 <p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/1-191022135453b2.gif" srcset="/img/loading.gif" alt="img"><br> Win7 下选择“在此处打开命令窗口”</p>
 <p> <img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/4-19101G64932535.gif" srcset="/img/loading.gif" alt="img"><br> Win10 下选择“在此处打开 Powershell 窗口”</p>
 <h3 id="go-build-命令"><a href="#go-build-命令" class="headerlink" title="go build 命令"></a>go build 命令</h3><p><code>go build </code>命令用来启动编译，它可以将Go语言程序与相关依赖编译成一个可执行文件，其语法格式如下。</p>
-<figure class="highlight ebnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs ebnf"><span class="hljs-attribute">go build fileName</span><br></code></pre></td></tr></table></figure>
+<figure class="highlight ebnf"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs ebnf"><span class="hljs-attribute">go build fileName</span><br></code></pre></div></td></tr></table></figure>
 <p>​        其中 fileName 为所需要的参数，可以是一个或者多个 Go 源文件名（当有多个参数时需要使用空格将两个相邻的参数隔开），也可以省略不写。</p>
 <p> 使用 go build 命令进行编译时，不同参数的执行结果也是不同的。</p>
 <h4 id="1-当参数不为空时"><a href="#1-当参数不为空时" class="headerlink" title="1) 当参数不为空时"></a>1) 当参数不为空时</h4><p>​        如果 fileName 为同一 main 包下的所有源文件名（可能有一个或者多个），编译器将生成一个与第一个 fileName 同名的可执行文件（如执行<code>go build abc.go def.go ...</code>会生成一个 abc.exe 文件）；如果 fileName 为非 main 包下的源文件名，编译器将只对该包进行语法检查，不生成可执行文件。</p>
 <h4 id="2-当参数为空时"><a href="#2-当参数为空时" class="headerlink" title="2) 当参数为空时"></a>2) 当参数为空时</h4><p>​        如果当前目录下存在 main 包，则会生成一个与当前目录名同名的“目录名.exe”可执行文件（如在 hello 目录中执行<code>go build</code>命令时，会生成 hello.exe 文件）；如果不存在 main 包，则只对当前目录下的程序源码进行语法检查，不会生成可执行文件。</p>
 <p> 使用<code>go build </code>命令对我们上一节编写的程序进行编译，运行结果如下所示：</p>
-<figure class="highlight livescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs livescript">D:<span class="hljs-string">\code&gt;</span> go build .<span class="hljs-string">\demo.go</span><br>D:<span class="hljs-string">\code&gt;</span> .<span class="hljs-string">\demo.exe</span><br>Hello World!<br></code></pre></td></tr></table></figure>
+<figure class="highlight livescript"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs livescript">D:<span class="hljs-string">\code&gt;</span> go build .<span class="hljs-string">\demo.go</span><br>D:<span class="hljs-string">\code&gt;</span> .<span class="hljs-string">\demo.exe</span><br>Hello World!<br></code></pre></div></td></tr></table></figure>
 <p>其中<code>D:\code&gt;</code>对应的是当前目录，也就是 D 盘下的 code 文件夹，它是命令行工具自动添加的，不属于编译命令的一部分。</p>
-<pre><code>     第 1 行`go build`命令后面的参数中，`.\`表示当前目录。在Windows 系统中，当前目录使用`.\`表示；在类 Unix 系统（例如 Linux、MacOS 等）中，当前目录使用`./`表示。</code></pre>
+<div class="hljs code-wrapper"><pre><code>     第 1 行`go build`命令后面的参数中，`.\`表示当前目录。在Windows 系统中，当前目录使用`.\`表示；在类 Unix 系统（例如 Linux、MacOS 等）中，当前目录使用`./`表示。</code></pre></div>
 <p>​        注意，这里的<code>go build </code>命令中<code> .\</code>可以省略不写，不会影响编译。</p>
 <p>​        另外，<code>go build </code>命令只有在执行出错的情况下才会有返回信息，执行成功的话是没有返回信息的，但是会在当前目录生成一个与 main 包文件同名的 .exe 可执行文件，如下图所示。</p>
 <p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/4-19101G64RA16.gif" srcset="/img/loading.gif" alt="img"></p>
@@ -307,10 +315,10 @@
 <p> 第 3 行则是 demo.exe 程序的运行结果。</p>
 <h3 id="go-run-命令"><a href="#go-run-命令" class="headerlink" title="go run 命令"></a>go run 命令</h3><p>​        除了使用<code>go build</code>命令外，Go语言还为我们提供了<code>go run</code>命令，<code>go run</code>命令将编译和执行指令合二为一，会在编译之后立即执行Go语言程序，但是不会生成可执行文件。</p>
 <p><code>go run </code>命令的语法格式如下：</p>
-<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs dockerfile">go <span class="hljs-keyword">run</span><span class="bash"> fileName</span><br></code></pre></td></tr></table></figure>
+<figure class="highlight dockerfile"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs dockerfile">go <span class="hljs-keyword">run</span><span class="bash"> fileName</span><br></code></pre></div></td></tr></table></figure>
 <p>其中 fileName 为所需要的参数，参数必须是同一 main 包下的所有源文件名，并且不能为空。</p>
 <p> 使用<code>go run</code>命令对我们上一节编写的程序进行编译，运行结果如下所示：</p>
-<figure class="highlight maxima"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs maxima">D:\code&gt; <span class="hljs-built_in">go</span> run <span class="hljs-built_in">demo</span>.<span class="hljs-built_in">go</span><br>Hello World!<br></code></pre></td></tr></table></figure>
+<figure class="highlight maxima"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs maxima">D:\code&gt; <span class="hljs-built_in">go</span> run <span class="hljs-built_in">demo</span>.<span class="hljs-built_in">go</span><br>Hello World!<br></code></pre></div></td></tr></table></figure>
 <p>可以看到第 1 行的<code>go run </code>命令执行后，直接在第 2 行输出了程序的运行结果。</p>
 
             </div>
@@ -538,17 +546,6 @@
 
 
 
-
-  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11/lib/typed.min.js" ></script>
-  <script>
-    (function (window, document) {
-      var typing = Fluid.plugins.typing;
-      var title = document.getElementById('subtitle').title;
-      
-      typing(title)
-      
-    })(window, document);
-  </script>
 
 
 

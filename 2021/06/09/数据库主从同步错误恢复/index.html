@@ -55,7 +55,7 @@
 
   <script id="fluid-configs">
     var Fluid = window.Fluid || {};
-    var CONFIG = {"hostname":"example.com","root":"/","version":"1.8.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"onlypost":false},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}}};
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.8.7","typing":{"enable":false,"typeSpeed":70,"cursorChar":" ","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"onlypost":false},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}}};
   </script>
   <script  src="/js/utils.js" ></script>
   <script  src="/js/color-schema.js" ></script>
@@ -203,6 +203,8 @@
           <div class="page-header text-center fade-in-up">
             <span class="h2" id="subtitle" title="数据库主从同步错误恢复">
               
+                数据库主从同步错误恢复
+              
             </span>
 
             
@@ -273,43 +275,49 @@
             <!-- SEO header -->
             <h1 style="display: none">数据库主从同步错误恢复</h1>
             
+              <p class="note note-info">
+                
+                  本文最后更新于：2021年6月9日 上午
+                
+              </p>
+            
             <div class="markdown-body">
               <h1 id="数据库主从同步错误恢复"><a href="#数据库主从同步错误恢复" class="headerlink" title="数据库主从同步错误恢复"></a>数据库主从同步错误恢复</h1><h2 id="方法一：忽略错误后，继续同步"><a href="#方法一：忽略错误后，继续同步" class="headerlink" title="方法一：忽略错误后，继续同步"></a>方法一：忽略错误后，继续同步</h2><blockquote>
 <p>备注：适用于主从数据库相差不大的情况</p>
 </blockquote>
 <p>1、master端执行命令，将数据库设置为全局读锁，不允许写入新数据。</p>
-<figure class="highlight pgsql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs pgsql">MariaDB [(<span class="hljs-keyword">none</span>)]&gt;flush <span class="hljs-keyword">tables</span> <span class="hljs-keyword">with</span> <span class="hljs-keyword">read</span> <span class="hljs-keyword">lock</span>;<br></code></pre></td></tr></table></figure>
+<figure class="highlight pgsql"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs pgsql">MariaDB [(<span class="hljs-keyword">none</span>)]&gt;flush <span class="hljs-keyword">tables</span> <span class="hljs-keyword">with</span> <span class="hljs-keyword">read</span> <span class="hljs-keyword">lock</span>;<br></code></pre></div></td></tr></table></figure>
 <p>2、slave端停止slave的I/O及SQL线程。</p>
-<figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs crmsh">MariaDB [(none)]&gt;<span class="hljs-literal">stop</span>  <span class="hljs-literal">slave</span>;<br></code></pre></td></tr></table></figure>
+<figure class="highlight crmsh"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs crmsh">MariaDB [(none)]&gt;<span class="hljs-literal">stop</span>  <span class="hljs-literal">slave</span>;<br></code></pre></div></td></tr></table></figure>
 <p>3、slave端将同步错误的sql跳过一次（跳过操作会导致主从数据不一致）。</p>
-<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs routeros">MariaDB [(none)]&gt;<span class="hljs-builtin-name">set</span>  global  <span class="hljs-attribute">sql_slave_skip_counter</span>=1;<br></code></pre></td></tr></table></figure>
+<figure class="highlight routeros"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs routeros">MariaDB [(none)]&gt;<span class="hljs-builtin-name">set</span>  global  <span class="hljs-attribute">sql_slave_skip_counter</span>=1;<br></code></pre></div></td></tr></table></figure>
 <p>4、slave端启动slave，恢复同步状态。</p>
-<figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs crmsh">MariaDB [(none)]&gt;<span class="hljs-literal">start</span>   <span class="hljs-literal">slave</span>;<br></code></pre></td></tr></table></figure>
+<figure class="highlight crmsh"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs crmsh">MariaDB [(none)]&gt;<span class="hljs-literal">start</span>   <span class="hljs-literal">slave</span>;<br></code></pre></div></td></tr></table></figure>
 <p>5、master端解除数据库全局读锁。</p>
-<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs nginx"><span class="hljs-attribute">MariaDB</span> [(<span class="hljs-literal">none</span>)]&gt;unlock tables;<br></code></pre></td></tr></table></figure>
+<figure class="highlight nginx"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs nginx"><span class="hljs-attribute">MariaDB</span> [(<span class="hljs-literal">none</span>)]&gt;unlock tables;<br></code></pre></div></td></tr></table></figure>
 <h2 id="方法二：重新做主从同步，使数据完全同步"><a href="#方法二：重新做主从同步，使数据完全同步" class="headerlink" title="方法二：重新做主从同步，使数据完全同步"></a>方法二：重新做主从同步，使数据完全同步</h2><blockquote>
 <p>备注：适用于主从数据库相差很大的情况</p>
 </blockquote>
 <p>1、master端执行命令，将数据库设置为全局读锁，不允许写入新数据。</p>
-<figure class="highlight pgsql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs pgsql">MariaDB [(<span class="hljs-keyword">none</span>)]&gt; flush <span class="hljs-keyword">tables</span> <span class="hljs-keyword">with</span> <span class="hljs-keyword">read</span> <span class="hljs-keyword">lock</span>;<br></code></pre></td></tr></table></figure>
+<figure class="highlight pgsql"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs pgsql">MariaDB [(<span class="hljs-keyword">none</span>)]&gt; flush <span class="hljs-keyword">tables</span> <span class="hljs-keyword">with</span> <span class="hljs-keyword">read</span> <span class="hljs-keyword">lock</span>;<br></code></pre></div></td></tr></table></figure>
 <p>2、master端查看master状态。</p>
-<figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs crmsh">MariaDB [(none)]&gt; show <span class="hljs-keyword">master</span> <span class="hljs-title">status</span>\G<br></code></pre></td></tr></table></figure>
+<figure class="highlight crmsh"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs crmsh">MariaDB [(none)]&gt; show <span class="hljs-keyword">master</span> <span class="hljs-title">status</span>\G<br></code></pre></div></td></tr></table></figure>
 <p>3、master端对数据库进行完整备份。</p>
-<figure class="highlight haxe"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs haxe">mysqldump -uroot -pserver8 --databases  <span class="hljs-keyword">new</span><span class="hljs-type">db</span> &gt; /root/<span class="hljs-keyword">new</span><span class="hljs-type">db</span>.sql;<br></code></pre></td></tr></table></figure>
+<figure class="highlight haxe"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs haxe">mysqldump -uroot -pserver8 --databases  <span class="hljs-keyword">new</span><span class="hljs-type">db</span> &gt; /root/<span class="hljs-keyword">new</span><span class="hljs-type">db</span>.sql;<br></code></pre></div></td></tr></table></figure>
 <p>4、master端使用scp命令传输数据库文件newdb.sql到从服务器/root根目录。</p>
-<figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs elixir">scp /root/newdb.sql root<span class="hljs-variable">@192</span>.<span class="hljs-number">168.1</span>.<span class="hljs-number">210</span><span class="hljs-symbol">:/root</span><br></code></pre></td></tr></table></figure>
+<figure class="highlight elixir"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs elixir">scp /root/newdb.sql root<span class="hljs-variable">@192</span>.<span class="hljs-number">168.1</span>.<span class="hljs-number">210</span><span class="hljs-symbol">:/root</span><br></code></pre></div></td></tr></table></figure>
 <p>5、slave端导入master端复制过来的数据库。</p>
-<figure class="highlight arcade"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs arcade">mysql  -uroot  -pclient8a  &lt;  <span class="hljs-regexp">/root/</span>newdb.sql<br></code></pre></td></tr></table></figure>
+<figure class="highlight arcade"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs arcade">mysql  -uroot  -pclient8a  &lt;  <span class="hljs-regexp">/root/</span>newdb.sql<br></code></pre></div></td></tr></table></figure>
 <p>6、slave端登录数据库，停止slave的I/O及SQL线程。</p>
-<figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs crmsh">mysql -uroot -p<br>MariaDB [(none)]&gt;<span class="hljs-literal">stop</span>   <span class="hljs-literal">slave</span>;<br></code></pre></td></tr></table></figure>
+<figure class="highlight crmsh"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs crmsh">mysql -uroot -p<br>MariaDB [(none)]&gt;<span class="hljs-literal">stop</span>   <span class="hljs-literal">slave</span>;<br></code></pre></div></td></tr></table></figure>
 <p>7、slave端重新配置主从关系(master_log_file与master_log_pos是主服务器master状态下的File与Position)。</p>
-<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs routeros">MariaDB [(none)]&gt; use mysql; #切换数据库<br>MariaDB [mysql]&gt; change master <span class="hljs-keyword">to</span><br><span class="hljs-attribute">master_host</span>=<span class="hljs-string">&#x27;192.168.1.200&#x27;</span>,<br><span class="hljs-attribute">master_user</span>=<span class="hljs-string">&#x27;new&#x27;</span>,<br><span class="hljs-attribute">master_password</span>=<span class="hljs-string">&#x27;new&#x27;</span>,<br><span class="hljs-attribute">master_log_file</span>=<span class="hljs-string">&#x27;mysql-bin.000001&#x27;</span>,<br><span class="hljs-attribute">master_log_pos</span>=653; #配置主从同步参数<br></code></pre></td></tr></table></figure>
+<figure class="highlight routeros"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs routeros">MariaDB [(none)]&gt; use mysql; #切换数据库<br>MariaDB [mysql]&gt; change master <span class="hljs-keyword">to</span><br><span class="hljs-attribute">master_host</span>=<span class="hljs-string">&#x27;192.168.1.200&#x27;</span>,<br><span class="hljs-attribute">master_user</span>=<span class="hljs-string">&#x27;new&#x27;</span>,<br><span class="hljs-attribute">master_password</span>=<span class="hljs-string">&#x27;new&#x27;</span>,<br><span class="hljs-attribute">master_log_file</span>=<span class="hljs-string">&#x27;mysql-bin.000001&#x27;</span>,<br><span class="hljs-attribute">master_log_pos</span>=653; #配置主从同步参数<br></code></pre></div></td></tr></table></figure>
 <p>8、slave端启动slave。</p>
-<figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs crmsh">MariaDB [mysql]&gt;<span class="hljs-literal">start</span>   <span class="hljs-literal">slave</span>;<br></code></pre></td></tr></table></figure>
+<figure class="highlight crmsh"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs crmsh">MariaDB [mysql]&gt;<span class="hljs-literal">start</span>   <span class="hljs-literal">slave</span>;<br></code></pre></div></td></tr></table></figure>
 <p>9、slave端查看slave状态，确认slave端I/O线程和SQL线程均为yes。</p>
-<figure class="highlight maxima"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs maxima">MariaDB [mysql]&gt;<span class="hljs-built_in">show</span> slave <span class="hljs-built_in">status</span>\G<br></code></pre></td></tr></table></figure>
+<figure class="highlight maxima"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs maxima">MariaDB [mysql]&gt;<span class="hljs-built_in">show</span> slave <span class="hljs-built_in">status</span>\G<br></code></pre></div></td></tr></table></figure>
 <p>10、master端解除数据库全局读锁。</p>
-<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs nginx"><span class="hljs-attribute">MariaDB</span> [(<span class="hljs-literal">none</span>)]&gt;unlock tables;<br></code></pre></td></tr></table></figure>
+<figure class="highlight nginx"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs nginx"><span class="hljs-attribute">MariaDB</span> [(<span class="hljs-literal">none</span>)]&gt;unlock tables;<br></code></pre></div></td></tr></table></figure>
             </div>
             <hr>
             <div>
@@ -529,17 +537,6 @@
 
 
 
-
-  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11/lib/typed.min.js" ></script>
-  <script>
-    (function (window, document) {
-      var typing = Fluid.plugins.typing;
-      var title = document.getElementById('subtitle').title;
-      
-      typing(title)
-      
-    })(window, document);
-  </script>
 
 
 

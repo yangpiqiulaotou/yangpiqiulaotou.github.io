@@ -55,7 +55,7 @@
 
   <script id="fluid-configs">
     var Fluid = window.Fluid || {};
-    var CONFIG = {"hostname":"example.com","root":"/","version":"1.8.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"onlypost":false},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}}};
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.8.7","typing":{"enable":false,"typeSpeed":70,"cursorChar":" ","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"onlypost":false},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}}};
   </script>
   <script  src="/js/utils.js" ></script>
   <script  src="/js/color-schema.js" ></script>
@@ -203,6 +203,8 @@
           <div class="page-header text-center fade-in-up">
             <span class="h2" id="subtitle" title="Go语言和其它编程语言的对比">
               
+                Go语言和其它编程语言的对比
+              
             </span>
 
             
@@ -273,9 +275,15 @@
             <!-- SEO header -->
             <h1 style="display: none">Go语言和其它编程语言的对比</h1>
             
+              <p class="note note-info">
+                
+                  本文最后更新于：2021年4月7日 中午
+                
+              </p>
+            
             <div class="markdown-body">
               <p>​        在软件行业做过一段时间的人都知道，没有万能的编程语言，也没有万能开发框架，更没有万能的解决方案。任何新技术的产生都应该归功于一部分人对老旧技术的强烈不满。Go语言也不例外。比如，C语言的依赖管理、C++ 的垃圾回收、Java 笨重的类型系统和厚重的 Java EE 规范，以及脚本语言（如 PHP、Python 和  Ruby）的性能，这些都是很多开发者社区经常争论和抱怨的问题。</p>
-<h2 id="Go语言的优势"><a href="#Go语言的优势" class="headerlink" title="Go语言的优势"></a>Go语言的优势</h2><pre><code>     Go语言是集多编程范式之大成者，体现了优秀的软件工程思想和原则，其特性可以使开发者快速地开发、测试和部署程序，大大提高了生产效率。下面我们来看看与其他主流语言相比，Go语言具有的优势。</code></pre>
+<h2 id="Go语言的优势"><a href="#Go语言的优势" class="headerlink" title="Go语言的优势"></a>Go语言的优势</h2><div class="hljs code-wrapper"><pre><code>     Go语言是集多编程范式之大成者，体现了优秀的软件工程思想和原则，其特性可以使开发者快速地开发、测试和部署程序，大大提高了生产效率。下面我们来看看与其他主流语言相比，Go语言具有的优势。</code></pre></div>
 <p>​         1) 相对于 C/C++ 来讲，Go语言拥有清晰的依赖管理和全自动的垃圾回收机制，因此其代码量大大降低，开发效率大大提高。</p>
 <p>​         2) 相对于 Java 来讲，Go语言拥有简明的类型系统、函数式编程范式和先进的并发编程模型。因此其代码块更小更简洁、可重用性更高，并可在多核计算环境下更快地运行。</p>
 <p>​         3) 对于 PHP 来讲，Go语言更具通用性和规范性。这使得其更适合构建大型的软件，并能够更好地将各个模块组织在一起。在性能方面，PHP 不可与 Go 同日而语。</p>
@@ -516,17 +524,6 @@
 
 
 
-
-  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11/lib/typed.min.js" ></script>
-  <script>
-    (function (window, document) {
-      var typing = Fluid.plugins.typing;
-      var title = document.getElementById('subtitle').title;
-      
-      typing(title)
-      
-    })(window, document);
-  </script>
 
 
 

@@ -55,7 +55,7 @@
 
   <script id="fluid-configs">
     var Fluid = window.Fluid || {};
-    var CONFIG = {"hostname":"example.com","root":"/","version":"1.8.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"onlypost":false},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}}};
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.8.7","typing":{"enable":false,"typeSpeed":70,"cursorChar":" ","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"onlypost":false},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}}};
   </script>
   <script  src="/js/utils.js" ></script>
   <script  src="/js/color-schema.js" ></script>
@@ -203,6 +203,8 @@
           <div class="page-header text-center fade-in-up">
             <span class="h2" id="subtitle" title="Kubernetes 弃用 Docker">
               
+                Kubernetes 弃用 Docker
+              
             </span>
 
             
@@ -273,6 +275,12 @@
             <!-- SEO header -->
             <h1 style="display: none">Kubernetes 弃用 Docker</h1>
             
+              <p class="note note-info">
+                
+                  本文最后更新于：2021年4月7日 上午
+                
+              </p>
+            
             <div class="markdown-body">
               <p><strong>什么？Kubernetes 决定弃用 Docker？</strong></p>
 <p>这是真的。Kubernetes 现已弃用 Docker。</p>
@@ -295,9 +303,9 @@
 <p>通过上边的图片我们可以看到，K8s 是通过 docker-shim 作为桥接服务，将 CRI 转换为 Docker API，然后与 Dokcer 进行通信的。</p>
 <h2 id="2、CRI-是啥？"><a href="#2、CRI-是啥？" class="headerlink" title="2、CRI 是啥？"></a>2、CRI 是啥？</h2><p>​            CRI（Container Runtime Interface）是 K8s 定义的一组与容器运行时进行交互的接口，用于将 K8s 平台与特定的容器实现解耦。在 K8s 早期的版本中，对于容器环境的支持是通过 hard code 方式直接调用 Docker API 的，后来为了支持更多的容器运行时和更精简的容器运行时，K8s 提出了CRI。</p>
 <p>CRI 运行时有两个实现方案：</p>
-<figure class="highlight mathematica"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs mathematica"><span class="hljs-variable">containerd</span>：<br><span class="hljs-variable">containerd</span> 是 <span class="hljs-variable">Docker</span> 的一部分，提供的 <span class="hljs-variable">CRI</span> 都是由 <span class="hljs-variable">Docker</span> 提供的。<br><br><span class="hljs-variable">CRI</span><span class="hljs-operator">-</span><span class="hljs-built_in">O</span>：<br><span class="hljs-variable">CRI</span><span class="hljs-operator">-</span><span class="hljs-built_in">O</span> 在本质上属于纯 <span class="hljs-variable">CRI</span> 运行时，因此不包含除 <span class="hljs-variable">CRI</span> 之外的任何其他内容。<br></code></pre></td></tr></table></figure>
+<figure class="highlight mathematica"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs mathematica"><span class="hljs-variable">containerd</span>：<br><span class="hljs-variable">containerd</span> 是 <span class="hljs-variable">Docker</span> 的一部分，提供的 <span class="hljs-variable">CRI</span> 都是由 <span class="hljs-variable">Docker</span> 提供的。<br><br><span class="hljs-variable">CRI</span><span class="hljs-operator">-</span><span class="hljs-built_in">O</span>：<br><span class="hljs-variable">CRI</span><span class="hljs-operator">-</span><span class="hljs-built_in">O</span> 在本质上属于纯 <span class="hljs-variable">CRI</span> 运行时，因此不包含除 <span class="hljs-variable">CRI</span> 之外的任何其他内容。<br></code></pre></div></td></tr></table></figure>
 <h2 id="3、OCI-是啥？"><a href="#3、OCI-是啥？" class="headerlink" title="3、OCI 是啥？"></a>3、OCI 是啥？</h2><p>当我们谈论「容器运行时」时，请注意我们到底是在谈论哪种类型的运行时，这里运行时分为两种：</p>
-<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs nginx"><span class="hljs-attribute">CRI</span> 运行时<br>OCI 运行时<br></code></pre></td></tr></table></figure>
+<figure class="highlight nginx"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs nginx"><span class="hljs-attribute">CRI</span> 运行时<br>OCI 运行时<br></code></pre></div></td></tr></table></figure>
 
 <p>​            OCI（Open Container Initiative），可以看做是「容器运行时」的一个标准，Ta 使用 Linux 内核系统调用（例如：cgroups 与命名空间）生成容器，按此标准实现的「容器运行时」有 runC 和 gVisor。</p>
 <h2 id="4、CRI、OCI-之间的关系？"><a href="#4、CRI、OCI-之间的关系？" class="headerlink" title="4、CRI、OCI 之间的关系？"></a>4、CRI、OCI 之间的关系？</h2><p>还是通过图片来说明下吧：</p>
@@ -582,17 +590,6 @@
 
 
 
-
-  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11/lib/typed.min.js" ></script>
-  <script>
-    (function (window, document) {
-      var typing = Fluid.plugins.typing;
-      var title = document.getElementById('subtitle').title;
-      
-      typing(title)
-      
-    })(window, document);
-  </script>
 
 
 

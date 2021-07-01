@@ -55,7 +55,7 @@
 
   <script id="fluid-configs">
     var Fluid = window.Fluid || {};
-    var CONFIG = {"hostname":"example.com","root":"/","version":"1.8.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"onlypost":false},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}}};
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.8.7","typing":{"enable":false,"typeSpeed":70,"cursorChar":" ","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"onlypost":false},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}}};
   </script>
   <script  src="/js/utils.js" ></script>
   <script  src="/js/color-schema.js" ></script>
@@ -203,6 +203,8 @@
           <div class="page-header text-center fade-in-up">
             <span class="h2" id="subtitle" title="VMware安装虚拟机">
               
+                VMware安装虚拟机
+              
             </span>
 
             
@@ -273,6 +275,12 @@
             <!-- SEO header -->
             <h1 style="display: none">VMware安装虚拟机</h1>
             
+              <p class="note note-info">
+                
+                  本文最后更新于：2021年4月1日 下午
+                
+              </p>
+            
             <div class="markdown-body">
               <h2 id="1、创建虚拟机"><a href="#1、创建虚拟机" class="headerlink" title="1、创建虚拟机"></a>1、创建虚拟机</h2><p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20210330165040949.png" srcset="/img/loading.gif" alt="image-20210330165040949"></p>
 <p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20210330165110723.png" srcset="/img/loading.gif" alt="image-20210330165110723"></p>
@@ -295,8 +303,8 @@
 <h2 id="2、配置网络"><a href="#2、配置网络" class="headerlink" title="2、配置网络"></a>2、配置网络</h2><p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20210330172715893.png" srcset="/img/loading.gif" alt="image-20210330172715893"></p>
 <p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20210330172908460.png" srcset="/img/loading.gif" alt="image-20210330172908460"></p>
 <p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20210330173034578.png" srcset="/img/loading.gif" alt="image-20210330173034578"></p>
-<h2 id="3、关闭防火墙和SElinux"><a href="#3、关闭防火墙和SElinux" class="headerlink" title="3、关闭防火墙和SElinux"></a>3、关闭防火墙和SElinux</h2><figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs routeros">systemctl stop firewalld<br>systemctl <span class="hljs-builtin-name">disable</span> firewalld<br><br>vim   /etc/selinux/config<br><span class="hljs-attribute">SELINUX</span>=disabled<br></code></pre></td></tr></table></figure>
-<h2 id="4、关机保存快照"><a href="#4、关机保存快照" class="headerlink" title="4、关机保存快照"></a>4、关机保存快照</h2><figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">init</span>  <span class="hljs-number">0</span><br></code></pre></td></tr></table></figure>
+<h2 id="3、关闭防火墙和SElinux"><a href="#3、关闭防火墙和SElinux" class="headerlink" title="3、关闭防火墙和SElinux"></a>3、关闭防火墙和SElinux</h2><figure class="highlight routeros"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs routeros">systemctl stop firewalld<br>systemctl <span class="hljs-builtin-name">disable</span> firewalld<br><br>vim   /etc/selinux/config<br><span class="hljs-attribute">SELINUX</span>=disabled<br></code></pre></div></td></tr></table></figure>
+<h2 id="4、关机保存快照"><a href="#4、关机保存快照" class="headerlink" title="4、关机保存快照"></a>4、关机保存快照</h2><figure class="highlight apache"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs apache"><span class="hljs-attribute">init</span>  <span class="hljs-number">0</span><br></code></pre></div></td></tr></table></figure>
 <p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20210330173400861.png" srcset="/img/loading.gif" alt="image-20210330173400861"></p>
 
             </div>
@@ -524,17 +532,6 @@
 
 
 
-
-  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11/lib/typed.min.js" ></script>
-  <script>
-    (function (window, document) {
-      var typing = Fluid.plugins.typing;
-      var title = document.getElementById('subtitle').title;
-      
-      typing(title)
-      
-    })(window, document);
-  </script>
 
 
 

@@ -55,7 +55,7 @@
 
   <script id="fluid-configs">
     var Fluid = window.Fluid || {};
-    var CONFIG = {"hostname":"example.com","root":"/","version":"1.8.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"onlypost":false},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}}};
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.8.7","typing":{"enable":false,"typeSpeed":70,"cursorChar":" ","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"onlypost":false},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}}};
   </script>
   <script  src="/js/utils.js" ></script>
   <script  src="/js/color-schema.js" ></script>
@@ -203,6 +203,8 @@
           <div class="page-header text-center fade-in-up">
             <span class="h2" id="subtitle" title="安装Calicoctl">
               
+                安装Calicoctl
+              
             </span>
 
             
@@ -273,17 +275,23 @@
             <!-- SEO header -->
             <h1 style="display: none">安装Calicoctl</h1>
             
+              <p class="note note-info">
+                
+                  本文最后更新于：2021年3月17日 下午
+                
+              </p>
+            
             <div class="markdown-body">
-              <h2 id="1、二进制安装calicoctl"><a href="#1、二进制安装calicoctl" class="headerlink" title="1、二进制安装calicoctl"></a>1、二进制安装calicoctl</h2><figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs awk">curl -O -L  https:<span class="hljs-regexp">//gi</span>thub.com<span class="hljs-regexp">/projectcalico/</span>calicoctl<span class="hljs-regexp">/releases/</span>download<span class="hljs-regexp">/v3.13.3/</span>calicoctl<br>mv calicoctl <span class="hljs-regexp">/usr/</span>local<span class="hljs-regexp">/bin/</span><br>chmod +x calicoctl<br></code></pre></td></tr></table></figure>
+              <h2 id="1、二进制安装calicoctl"><a href="#1、二进制安装calicoctl" class="headerlink" title="1、二进制安装calicoctl"></a>1、二进制安装calicoctl</h2><figure class="highlight awk"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs awk">curl -O -L  https:<span class="hljs-regexp">//gi</span>thub.com<span class="hljs-regexp">/projectcalico/</span>calicoctl<span class="hljs-regexp">/releases/</span>download<span class="hljs-regexp">/v3.13.3/</span>calicoctl<br>mv calicoctl <span class="hljs-regexp">/usr/</span>local<span class="hljs-regexp">/bin/</span><br>chmod +x calicoctl<br></code></pre></div></td></tr></table></figure>
 <h2 id="2、配置文件"><a href="#2、配置文件" class="headerlink" title="2、配置文件"></a>2、配置文件</h2><p>​        默认情况下，<code>calicoctl</code>将在上查找配置文件<code>/etc/calico/calicoctl.cfg</code>。您可以使用<code>--config</code>带有需要数据存储访问权限的命令的选项来覆盖此选项。</p>
 <p>​        如果<code>calicoctl</code>无法找到，读取或访问配置文件，它将检查一组特定的环境变量</p>
 <h2 id="3、配置calicoctl以连接到Kubernetes-API数据存储"><a href="#3、配置calicoctl以连接到Kubernetes-API数据存储" class="headerlink" title="3、配置calicoctl以连接到Kubernetes API数据存储"></a>3、配置calicoctl以连接到Kubernetes API数据存储</h2><p>Kubernetes API连接配置的完整列表，请查看官网：</p>
 <p><a target="_blank" rel="noopener" href="https://docs.projectcalico.org/getting-started/calicoctl/configure/kdd">https://docs.projectcalico.org/getting-started/calicoctl/configure/kdd</a></p>
 <p>通过命令行设置calicoctl所需的环境变量</p>
-<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs routeros"><span class="hljs-attribute">DATASTORE_TYPE</span>=kubernetes <span class="hljs-attribute">KUBECONFIG</span>=~/.kube/config calicoctl <span class="hljs-builtin-name">get</span> nodes<br><span class="hljs-builtin-name">export</span> <span class="hljs-attribute">CALICO_DATASTORE_TYPE</span>=kubernetes<br><span class="hljs-builtin-name">export</span> <span class="hljs-attribute">CALICO_KUBECONFIG</span>=~/.kube/config<br>calicoctl <span class="hljs-builtin-name">get</span> workloadendpoints<br></code></pre></td></tr></table></figure>
+<figure class="highlight routeros"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs routeros"><span class="hljs-attribute">DATASTORE_TYPE</span>=kubernetes <span class="hljs-attribute">KUBECONFIG</span>=~/.kube/config calicoctl <span class="hljs-builtin-name">get</span> nodes<br><span class="hljs-builtin-name">export</span> <span class="hljs-attribute">CALICO_DATASTORE_TYPE</span>=kubernetes<br><span class="hljs-builtin-name">export</span> <span class="hljs-attribute">CALICO_KUBECONFIG</span>=~/.kube/config<br>calicoctl <span class="hljs-builtin-name">get</span> workloadendpoints<br></code></pre></div></td></tr></table></figure>
 <p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master//img/image-20200506112145074.png" srcset="/img/loading.gif" alt="image-20200506112145074"></p>
 <p>命令使用</p>
-<figure class="highlight ebnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs ebnf"><span class="hljs-attribute">calicoctl  -h</span><br></code></pre></td></tr></table></figure>
+<figure class="highlight ebnf"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs ebnf"><span class="hljs-attribute">calicoctl  -h</span><br></code></pre></div></td></tr></table></figure>
 <p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master//img/image-20200507143342250.png" srcset="/img/loading.gif" alt="image-20200507143342250"></p>
 
             </div>
@@ -511,17 +519,6 @@
 
 
 
-
-  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11/lib/typed.min.js" ></script>
-  <script>
-    (function (window, document) {
-      var typing = Fluid.plugins.typing;
-      var title = document.getElementById('subtitle').title;
-      
-      typing(title)
-      
-    })(window, document);
-  </script>
 
 
 

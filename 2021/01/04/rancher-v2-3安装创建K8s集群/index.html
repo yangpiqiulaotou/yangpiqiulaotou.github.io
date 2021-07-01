@@ -55,7 +55,7 @@
 
   <script id="fluid-configs">
     var Fluid = window.Fluid || {};
-    var CONFIG = {"hostname":"example.com","root":"/","version":"1.8.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"onlypost":false},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}}};
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.8.7","typing":{"enable":false,"typeSpeed":70,"cursorChar":" ","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"onlypost":false},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}}};
   </script>
   <script  src="/js/utils.js" ></script>
   <script  src="/js/color-schema.js" ></script>
@@ -203,6 +203,8 @@
           <div class="page-header text-center fade-in-up">
             <span class="h2" id="subtitle" title="Rancher:v2.3安装创建K8s集群">
               
+                Rancher:v2.3安装创建K8s集群
+              
             </span>
 
             
@@ -273,6 +275,12 @@
             <!-- SEO header -->
             <h1 style="display: none">Rancher:v2.3安装创建K8s集群</h1>
             
+              <p class="note note-info">
+                
+                  本文最后更新于：2021年4月1日 下午
+                
+              </p>
+            
             <div class="markdown-body">
               <h3 id="1、rancher介绍"><a href="#1、rancher介绍" class="headerlink" title="1、rancher介绍"></a>1、rancher介绍</h3><p>每个团队都可以在他们选择的公共云或私有云上部署应用程序，Rancher 在 IT 和 DevOps 组织中扮演的角色如下：</p>
 <p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20191125105835491.png" srcset="/img/loading.gif" alt="image-20191125105835491"></p>
@@ -290,7 +298,7 @@
 <p>单节点</p>
 <p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20191125104610584.png" srcset="/img/loading.gif" alt="image-20191125104610584"></p>
 <h4 id="2-3Rancher与用户群集通信的端口要求"><a href="#2-3Rancher与用户群集通信的端口要求" class="headerlink" title="2.3Rancher与用户群集通信的端口要求"></a>2.3Rancher与用户群集通信的端口要求</h4><p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20191125104812067.png" srcset="/img/loading.gif" alt="image-20191125104812067"></p>
-<h3 id="3、单节点安装"><a href="#3、单节点安装" class="headerlink" title="3、单节点安装"></a>3、单节点安装</h3><figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs awk">docker run -d --restart=unless-stopped \<br>  -p <span class="hljs-number">80</span>:<span class="hljs-number">80</span> -p <span class="hljs-number">443</span>:<span class="hljs-number">443</span> \<br>  -v <span class="hljs-regexp">/usr/</span>local<span class="hljs-regexp">/rancher:/u</span>sr<span class="hljs-regexp">/local/</span>rancher \<br>  rancher/rancher:latest<br></code></pre></td></tr></table></figure>
+<h3 id="3、单节点安装"><a href="#3、单节点安装" class="headerlink" title="3、单节点安装"></a>3、单节点安装</h3><figure class="highlight awk"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs awk">docker run -d --restart=unless-stopped \<br>  -p <span class="hljs-number">80</span>:<span class="hljs-number">80</span> -p <span class="hljs-number">443</span>:<span class="hljs-number">443</span> \<br>  -v <span class="hljs-regexp">/usr/</span>local<span class="hljs-regexp">/rancher:/u</span>sr<span class="hljs-regexp">/local/</span>rancher \<br>  rancher/rancher:latest<br></code></pre></div></td></tr></table></figure>
 <h3 id="4、rancher的web界面"><a href="#4、rancher的web界面" class="headerlink" title="4、rancher的web界面"></a>4、rancher的web界面</h3><h4 id="4-1自定义集群"><a href="#4-1自定义集群" class="headerlink" title="4.1自定义集群"></a>4.1自定义集群</h4><p>通过宿主机的IP登录</p>
 <p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20191125110853326.png" srcset="/img/loading.gif" alt="image-20191125110853326"></p>
 <p>设置需要访问的URL地址</p>
@@ -318,7 +326,7 @@
 <p>所有容器运行好之后可以看到以下界面，表示你的集群已经好了</p>
 <p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20191125112358230.png" srcset="/img/loading.gif" alt="image-20191125112358230"></p>
 <p>复制kubeconfig文件在master节点下执行</p>
-<figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs elixir"><span class="hljs-comment"># 添加Kubernetes的yum源</span><br><span class="hljs-variable">$ </span>cat &gt;&gt; <span class="hljs-regexp">/etc/yum</span>.repos.d/kubernetes.repo &lt;&lt;EOF<br>[kubernetes]<br>name=Kubernetes<br>baseurl=<span class="hljs-symbol">https:</span>/<span class="hljs-regexp">/mirrors.aliyun.com/kubernetes</span><span class="hljs-regexp">/yum/repos</span><span class="hljs-regexp">/kubernetes-el7-x86_64/</span><br>enabled=<span class="hljs-number">1</span><br>gpgcheck=0<br>EOF<br><br><span class="hljs-comment"># 查看可安装的版本</span><br><span class="hljs-variable">$ </span>yum list kubectl –showduplicates<br><br><span class="hljs-comment"># yum方式安装kubectl</span><br><span class="hljs-variable">$ </span>yum install -y kubectl.x86_64<br><br>[root<span class="hljs-variable">@node1</span> ~]<span class="hljs-comment"># mkdir -p .kube</span><br>[root<span class="hljs-variable">@node1</span> ~]<span class="hljs-comment"># vim .kube/config</span><br></code></pre></td></tr></table></figure>
+<figure class="highlight elixir"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs elixir"><span class="hljs-comment"># 添加Kubernetes的yum源</span><br><span class="hljs-variable">$ </span>cat &gt;&gt; <span class="hljs-regexp">/etc/yum</span>.repos.d/kubernetes.repo &lt;&lt;EOF<br>[kubernetes]<br>name=Kubernetes<br>baseurl=<span class="hljs-symbol">https:</span>/<span class="hljs-regexp">/mirrors.aliyun.com/kubernetes</span><span class="hljs-regexp">/yum/repos</span><span class="hljs-regexp">/kubernetes-el7-x86_64/</span><br>enabled=<span class="hljs-number">1</span><br>gpgcheck=0<br>EOF<br><br><span class="hljs-comment"># 查看可安装的版本</span><br><span class="hljs-variable">$ </span>yum list kubectl –showduplicates<br><br><span class="hljs-comment"># yum方式安装kubectl</span><br><span class="hljs-variable">$ </span>yum install -y kubectl.x86_64<br><br>[root<span class="hljs-variable">@node1</span> ~]<span class="hljs-comment"># mkdir -p .kube</span><br>[root<span class="hljs-variable">@node1</span> ~]<span class="hljs-comment"># vim .kube/config</span><br></code></pre></div></td></tr></table></figure>
 <p>即可在master节点通过命令行查看整个集群信息。</p>
 <h4 id="4-2导入集群"><a href="#4-2导入集群" class="headerlink" title="4.2导入集群"></a>4.2导入集群</h4><p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20191125113210838.png" srcset="/img/loading.gif" alt="image-20191125113210838"></p>
 <p>随便定义一个集群名。</p>
@@ -553,17 +561,6 @@
 
 
 
-
-  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11/lib/typed.min.js" ></script>
-  <script>
-    (function (window, document) {
-      var typing = Fluid.plugins.typing;
-      var title = document.getElementById('subtitle').title;
-      
-      typing(title)
-      
-    })(window, document);
-  </script>
 
 
 

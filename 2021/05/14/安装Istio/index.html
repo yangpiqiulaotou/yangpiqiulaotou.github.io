@@ -55,7 +55,7 @@
 
   <script id="fluid-configs">
     var Fluid = window.Fluid || {};
-    var CONFIG = {"hostname":"example.com","root":"/","version":"1.8.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"onlypost":false},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}}};
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.8.7","typing":{"enable":false,"typeSpeed":70,"cursorChar":" ","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"onlypost":false},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}}};
   </script>
   <script  src="/js/utils.js" ></script>
   <script  src="/js/color-schema.js" ></script>
@@ -203,6 +203,8 @@
           <div class="page-header text-center fade-in-up">
             <span class="h2" id="subtitle" title="安装Istio">
               
+                安装Istio
+              
             </span>
 
             
@@ -273,15 +275,21 @@
             <!-- SEO header -->
             <h1 style="display: none">安装Istio</h1>
             
+              <p class="note note-info">
+                
+                  本文最后更新于：2021年5月14日 上午
+                
+              </p>
+            
             <div class="markdown-body">
               <h2 id="1、环境介绍"><a href="#1、环境介绍" class="headerlink" title="1、环境介绍"></a>1、环境介绍</h2><p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/20210513150749.png" srcset="/img/loading.gif" alt="image-20200116144218255"></p>
-<h2 id="2、运行以下命令来自动下载并解压缩最新版本："><a href="#2、运行以下命令来自动下载并解压缩最新版本：" class="headerlink" title="2、运行以下命令来自动下载并解压缩最新版本："></a>2、运行以下命令来自动下载并解压缩最新版本：</h2><figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs awk">curl -L https:<span class="hljs-regexp">//i</span>stio.io/downloadIstio | sh -<br></code></pre></td></tr></table></figure>
+<h2 id="2、运行以下命令来自动下载并解压缩最新版本："><a href="#2、运行以下命令来自动下载并解压缩最新版本：" class="headerlink" title="2、运行以下命令来自动下载并解压缩最新版本："></a>2、运行以下命令来自动下载并解压缩最新版本：</h2><figure class="highlight awk"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs awk">curl -L https:<span class="hljs-regexp">//i</span>stio.io/downloadIstio | sh -<br></code></pre></div></td></tr></table></figure>
 <p><strong>说明：由于k8s集群是1.21.0版本，这里使用的是istio最新测试版本</strong></p>
 <h2 id="3、安装目录包含："><a href="#3、安装目录包含：" class="headerlink" title="3、安装目录包含："></a>3、安装目录包含：</h2><ul>
 <li><code>samples/</code> 目录下的示例应用程序</li>
 <li><code>bin/</code> 目录下的 <a target="_blank" rel="noopener" href="https://istio.io/latest/zh/docs/reference/commands/istioctl"><code>istioctl</code></a> 客户端二进制文件</li>
 </ul>
-<h2 id="4、设置环境变量"><a href="#4、设置环境变量" class="headerlink" title="4、设置环境变量"></a>4、设置环境变量</h2><figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs routeros">cd cd istio-1.10.0-rc.1/<br><span class="hljs-builtin-name">export</span>  <span class="hljs-attribute">PATH</span>=<span class="hljs-variable">$PATH</span>:$PWD:/bin<br><br>vim tools/istioctl.bash<br><span class="hljs-attribute">PWD</span>=/root/istio-1.10.0-rc.1<br><span class="hljs-builtin-name">export</span> <span class="hljs-attribute">PATH</span>=<span class="hljs-variable">$PATH</span>:$PWD/bin<br><br>cp tools/istioctl.bash /root/<br>vim /root/.bash_profile<br>source ~/istioctl.bash<br><br>source ~/.bash_profile<br></code></pre></td></tr></table></figure>
+<h2 id="4、设置环境变量"><a href="#4、设置环境变量" class="headerlink" title="4、设置环境变量"></a>4、设置环境变量</h2><figure class="highlight routeros"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs routeros">cd cd istio-1.10.0-rc.1/<br><span class="hljs-builtin-name">export</span>  <span class="hljs-attribute">PATH</span>=<span class="hljs-variable">$PATH</span>:$PWD:/bin<br><br>vim tools/istioctl.bash<br><span class="hljs-attribute">PWD</span>=/root/istio-1.10.0-rc.1<br><span class="hljs-builtin-name">export</span> <span class="hljs-attribute">PATH</span>=<span class="hljs-variable">$PATH</span>:$PWD/bin<br><br>cp tools/istioctl.bash /root/<br>vim /root/.bash_profile<br>source ~/istioctl.bash<br><br>source ~/.bash_profile<br></code></pre></div></td></tr></table></figure>
 <h2 id="5、安装demo配置文件"><a href="#5、安装demo配置文件" class="headerlink" title="5、安装demo配置文件"></a>5、安装<code>demo</code>配置文件</h2><ol>
 <li><strong>default</strong>: 根据默认的安装选项启用组件 (建议用于生产部署)。</li>
 <li><strong>demo</strong>: 这一配置具有适度的资源需求，旨在展示 Istio 的功能。它适合运行 Bookinfo 应用程序和相关任务。</li>
@@ -289,13 +297,13 @@
 <li><strong>sds</strong>: 和 <strong>default</strong> 配置类似，但是启用了 Istio 的 SDS (secret discovery service) 功能。 这个配置文件默认启用了附带的认证功能 (Strict Mutual TLS)。</li>
 </ol>
 <p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/20210513155002.png" srcset="/img/loading.gif" alt="image-20210513155002143"></p>
-<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs routeros">istioctl install --<span class="hljs-builtin-name">set</span> <span class="hljs-attribute">profile</span>=demo -y<br></code></pre></td></tr></table></figure>
+<figure class="highlight routeros"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs routeros">istioctl install --<span class="hljs-builtin-name">set</span> <span class="hljs-attribute">profile</span>=demo -y<br></code></pre></div></td></tr></table></figure>
 <p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/20210513145607.png" srcset="/img/loading.gif" alt="image-20210513145557351"></p>
 <p>备注：这里有的镜像可能拉不下来，需要自己想办法，等待时间可能有点长</p>
-<h2 id="6、通过确保已部署以下Kubernetes服务来验证安装"><a href="#6、通过确保已部署以下Kubernetes服务来验证安装" class="headerlink" title="6、通过确保已部署以下Kubernetes服务来验证安装"></a>6、通过确保已部署以下Kubernetes服务来验证安装</h2><figure class="highlight livecodeserver"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs livecodeserver">kubectl <span class="hljs-built_in">get</span> pod -n istio-<span class="hljs-keyword">system</span><br>kubectl <span class="hljs-built_in">get</span> svc -n istio-<span class="hljs-keyword">system</span><br></code></pre></td></tr></table></figure>
+<h2 id="6、通过确保已部署以下Kubernetes服务来验证安装"><a href="#6、通过确保已部署以下Kubernetes服务来验证安装" class="headerlink" title="6、通过确保已部署以下Kubernetes服务来验证安装"></a>6、通过确保已部署以下Kubernetes服务来验证安装</h2><figure class="highlight livecodeserver"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs livecodeserver">kubectl <span class="hljs-built_in">get</span> pod -n istio-<span class="hljs-keyword">system</span><br>kubectl <span class="hljs-built_in">get</span> svc -n istio-<span class="hljs-keyword">system</span><br></code></pre></div></td></tr></table></figure>
 <p>说明：由于自建集群没有lb，所以会ingressgateway会处于pending状态，改成NodePort即可</p>
 <p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/20210513145858.png" srcset="/img/loading.gif" alt="image-20210513145858343"></p>
-<h2 id="7、卸载会删除RBAC权限，istio-system名称空间以及它下面的层次结构中的所有资源"><a href="#7、卸载会删除RBAC权限，istio-system名称空间以及它下面的层次结构中的所有资源" class="headerlink" title="7、卸载会删除RBAC权限，istio-system名称空间以及它下面的层次结构中的所有资源"></a>7、卸载会删除RBAC权限，<code>istio-system</code>名称空间以及它下面的层次结构中的所有资源</h2><figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs verilog">istioctl manifest <span class="hljs-keyword">generate</span> --set profile=demo | kubectl delete -f -<br></code></pre></td></tr></table></figure>
+<h2 id="7、卸载会删除RBAC权限，istio-system名称空间以及它下面的层次结构中的所有资源"><a href="#7、卸载会删除RBAC权限，istio-system名称空间以及它下面的层次结构中的所有资源" class="headerlink" title="7、卸载会删除RBAC权限，istio-system名称空间以及它下面的层次结构中的所有资源"></a>7、卸载会删除RBAC权限，<code>istio-system</code>名称空间以及它下面的层次结构中的所有资源</h2><figure class="highlight verilog"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs verilog">istioctl manifest <span class="hljs-keyword">generate</span> --set profile=demo | kubectl delete -f -<br></code></pre></div></td></tr></table></figure>
 
             </div>
             <hr>
@@ -522,17 +530,6 @@
 
 
 
-
-  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11/lib/typed.min.js" ></script>
-  <script>
-    (function (window, document) {
-      var typing = Fluid.plugins.typing;
-      var title = document.getElementById('subtitle').title;
-      
-      typing(title)
-      
-    })(window, document);
-  </script>
 
 
 

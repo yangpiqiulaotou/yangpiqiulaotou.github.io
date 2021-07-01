@@ -55,7 +55,7 @@
 
   <script id="fluid-configs">
     var Fluid = window.Fluid || {};
-    var CONFIG = {"hostname":"example.com","root":"/","version":"1.8.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"onlypost":false},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}}};
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.8.7","typing":{"enable":false,"typeSpeed":70,"cursorChar":" ","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"onlypost":false},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}}};
   </script>
   <script  src="/js/utils.js" ></script>
   <script  src="/js/color-schema.js" ></script>
@@ -203,6 +203,8 @@
           <div class="page-header text-center fade-in-up">
             <span class="h2" id="subtitle" title="Centos记录所有用户登录和操作的详细日志">
               
+                Centos记录所有用户登录和操作的详细日志
+              
             </span>
 
             
@@ -273,14 +275,20 @@
             <!-- SEO header -->
             <h1 style="display: none">Centos记录所有用户登录和操作的详细日志</h1>
             
+              <p class="note note-info">
+                
+                  本文最后更新于：2021年1月20日 上午
+                
+              </p>
+            
             <div class="markdown-body">
               <h2 id="1、起因"><a href="#1、起因" class="headerlink" title="1、起因"></a>1、起因</h2><p>​        最近Linux服务器上一些文件被篡改，想追查已经查不到记录了，所以得想个办法记录下所有用户的操作记录。</p>
 <p>​        一般大家通常会采用history来记录，但是history有个缺陷就是默认是1000行，当然你也可以vim /etc/profile将1000修改成1000000行，但是这只是比较笼统的做法，看不到详细的用户来源已经操作记录，比如来源ip地址、操作时间、操作用户等。</p>
-<h2 id="2、环境准备"><a href="#2、环境准备" class="headerlink" title="2、环境准备"></a>2、环境准备</h2><figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs awk">cat  <span class="hljs-regexp">/etc/</span>passwd              <span class="hljs-comment">#查看可以登录的用户</span><br>mkdir  -p  <span class="hljs-regexp">/var/</span>log<span class="hljs-regexp">/history/</span>admin           <span class="hljs-comment">#创建可登录用户的目录</span><br>chown  -R admin:admin  <span class="hljs-regexp">/var/</span>log<span class="hljs-regexp">/history/</span>admin         <span class="hljs-comment">#给各个用户赋予权限</span><br></code></pre></td></tr></table></figure>
+<h2 id="2、环境准备"><a href="#2、环境准备" class="headerlink" title="2、环境准备"></a>2、环境准备</h2><figure class="highlight awk"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs awk">cat  <span class="hljs-regexp">/etc/</span>passwd              <span class="hljs-comment">#查看可以登录的用户</span><br>mkdir  -p  <span class="hljs-regexp">/var/</span>log<span class="hljs-regexp">/history/</span>admin           <span class="hljs-comment">#创建可登录用户的目录</span><br>chown  -R admin:admin  <span class="hljs-regexp">/var/</span>log<span class="hljs-regexp">/history/</span>admin         <span class="hljs-comment">#给各个用户赋予权限</span><br></code></pre></div></td></tr></table></figure>
 <h2 id="3、自动记录脚本"><a href="#3、自动记录脚本" class="headerlink" title="3、自动记录脚本"></a>3、自动记录脚本</h2><p>在/etc/profile文件的末尾追加编写脚本如下：</p>
-<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><code class="hljs awk"><span class="hljs-comment">#set user history</span><br>history<br>USER=`whoami`<br>USER_IP=`who -u am i <span class="hljs-number">2</span>&gt;<span class="hljs-regexp">/dev/</span>null| awk <span class="hljs-string">&#x27;&#123;print $NF&#125;&#x27;</span>|sed -e <span class="hljs-string">&#x27;s/[()]//g&#x27;</span>`<br><span class="hljs-keyword">if</span> [ <span class="hljs-string">&quot;$USER_IP&quot;</span> = <span class="hljs-string">&quot;&quot;</span> ]; then<br>    USER_IP=`hostname`<br>fi<br><span class="hljs-keyword">if</span> [ ! -d <span class="hljs-regexp">/var/</span>log/history ]; then<br>    mkdir <span class="hljs-regexp">/var/</span>log/history<br>    chmod <span class="hljs-number">777</span> <span class="hljs-regexp">/var/</span>log/history<br>fi<br><span class="hljs-keyword">if</span> [ ! -d <span class="hljs-regexp">/var/</span>log<span class="hljs-regexp">/history/</span><span class="hljs-variable">$&#123;LOGNAME&#125;</span> ]; then<br>    mkdir <span class="hljs-regexp">/var/</span>log<span class="hljs-regexp">/history/</span><span class="hljs-variable">$&#123;LOGNAME&#125;</span><br>    chown -R <span class="hljs-variable">$&#123;LOGNAME&#125;</span>:<span class="hljs-variable">$&#123;LOGNAME&#125;</span> <span class="hljs-regexp">/var/</span>log<span class="hljs-regexp">/history/</span><span class="hljs-variable">$&#123;LOGNAME&#125;</span><br>    chmod <span class="hljs-number">770</span> <span class="hljs-regexp">/var/</span>log<span class="hljs-regexp">/history/</span><span class="hljs-variable">$&#123;LOGNAME&#125;</span><br>fi<br>export HISTSIZE=<span class="hljs-number">4096</span><br>DT=`date +<span class="hljs-string">&quot;%Y%m%d_%H:%M:%S&quot;</span>`<br>export HISTFILE=<span class="hljs-string">&quot;/var/log/history/$&#123;LOGNAME&#125;/$&#123;USER&#125;@$&#123;USER_IP&#125;_$DT&quot;</span><br>chmod <span class="hljs-number">660</span> <span class="hljs-regexp">/var/</span>log<span class="hljs-regexp">/history/</span><span class="hljs-variable">$&#123;LOGNAME&#125;</span><span class="hljs-regexp">/*history* 2&gt;/</span>dev/null<br></code></pre></td></tr></table></figure>
+<figure class="highlight awk"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs awk"><span class="hljs-comment">#set user history</span><br>history<br>USER=`whoami`<br>USER_IP=`who -u am i <span class="hljs-number">2</span>&gt;<span class="hljs-regexp">/dev/</span>null| awk <span class="hljs-string">&#x27;&#123;print $NF&#125;&#x27;</span>|sed -e <span class="hljs-string">&#x27;s/[()]//g&#x27;</span>`<br><span class="hljs-keyword">if</span> [ <span class="hljs-string">&quot;$USER_IP&quot;</span> = <span class="hljs-string">&quot;&quot;</span> ]; then<br>    USER_IP=`hostname`<br>fi<br><span class="hljs-keyword">if</span> [ ! -d <span class="hljs-regexp">/var/</span>log/history ]; then<br>    mkdir <span class="hljs-regexp">/var/</span>log/history<br>    chmod <span class="hljs-number">777</span> <span class="hljs-regexp">/var/</span>log/history<br>fi<br><span class="hljs-keyword">if</span> [ ! -d <span class="hljs-regexp">/var/</span>log<span class="hljs-regexp">/history/</span><span class="hljs-variable">$&#123;LOGNAME&#125;</span> ]; then<br>    mkdir <span class="hljs-regexp">/var/</span>log<span class="hljs-regexp">/history/</span><span class="hljs-variable">$&#123;LOGNAME&#125;</span><br>    chown -R <span class="hljs-variable">$&#123;LOGNAME&#125;</span>:<span class="hljs-variable">$&#123;LOGNAME&#125;</span> <span class="hljs-regexp">/var/</span>log<span class="hljs-regexp">/history/</span><span class="hljs-variable">$&#123;LOGNAME&#125;</span><br>    chmod <span class="hljs-number">770</span> <span class="hljs-regexp">/var/</span>log<span class="hljs-regexp">/history/</span><span class="hljs-variable">$&#123;LOGNAME&#125;</span><br>fi<br>export HISTSIZE=<span class="hljs-number">4096</span><br>DT=`date +<span class="hljs-string">&quot;%Y%m%d_%H:%M:%S&quot;</span>`<br>export HISTFILE=<span class="hljs-string">&quot;/var/log/history/$&#123;LOGNAME&#125;/$&#123;USER&#125;@$&#123;USER_IP&#125;_$DT&quot;</span><br>chmod <span class="hljs-number">660</span> <span class="hljs-regexp">/var/</span>log<span class="hljs-regexp">/history/</span><span class="hljs-variable">$&#123;LOGNAME&#125;</span><span class="hljs-regexp">/*history* 2&gt;/</span>dev/null<br></code></pre></div></td></tr></table></figure>
 <p>最后刷新配置</p>
-<figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs gradle"><span class="hljs-keyword">source</span>   <span class="hljs-regexp">/etc/</span>profile<br></code></pre></td></tr></table></figure>
+<figure class="highlight gradle"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs gradle"><span class="hljs-keyword">source</span>   <span class="hljs-regexp">/etc/</span>profile<br></code></pre></div></td></tr></table></figure>
 <p>而每次用户登录到退出都会产生以用户名、登录ip地址、操作时间为文件名的文件，文件里面包含本次用户的所有操作记录。</p>
 <p>参考文章：<a target="_blank" rel="noopener" href="https://www.cnblogs.com/harlanzhang/p/10273379.html">https://www.cnblogs.com/harlanzhang/p/10273379.html</a></p>
 
@@ -509,17 +517,6 @@
 
 
 
-
-  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11/lib/typed.min.js" ></script>
-  <script>
-    (function (window, document) {
-      var typing = Fluid.plugins.typing;
-      var title = document.getElementById('subtitle').title;
-      
-      typing(title)
-      
-    })(window, document);
-  </script>
 
 
 

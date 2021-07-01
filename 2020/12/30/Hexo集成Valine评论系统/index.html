@@ -55,7 +55,7 @@
 
   <script id="fluid-configs">
     var Fluid = window.Fluid || {};
-    var CONFIG = {"hostname":"example.com","root":"/","version":"1.8.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"onlypost":false},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}}};
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.8.7","typing":{"enable":false,"typeSpeed":70,"cursorChar":" ","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"onlypost":false},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}}};
   </script>
   <script  src="/js/utils.js" ></script>
   <script  src="/js/color-schema.js" ></script>
@@ -203,6 +203,8 @@
           <div class="page-header text-center fade-in-up">
             <span class="h2" id="subtitle" title="Hexo集成Valine评论系统">
               
+                Hexo集成Valine评论系统
+              
             </span>
 
             
@@ -273,6 +275,12 @@
             <!-- SEO header -->
             <h1 style="display: none">Hexo集成Valine评论系统</h1>
             
+              <p class="note note-info">
+                
+                  本文最后更新于：2020年12月30日 下午
+                
+              </p>
+            
             <div class="markdown-body">
               <h2 id="注册Leancloud"><a href="#注册Leancloud" class="headerlink" title="注册Leancloud"></a>注册Leancloud</h2><p>评论系统其实是放在Leancloud上的，因此首先需要去注册一个账号</p>
 <p>官网：<a target="_blank" rel="noopener" href="https://leancloud.cn/">https://leancloud.cn/</a></p>
@@ -282,9 +290,9 @@
 <p>点击设置获取appid 和 appkey</p>
 <p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20201230150940084.png" srcset="/img/loading.gif" alt="image-20201230150940084"></p>
 <h2 id="修改配置文件"><a href="#修改配置文件" class="headerlink" title="修改配置文件"></a>修改配置文件</h2><p>打开主题配置文件 搜索 valine，填入appid 和 appkey</p>
-<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs yaml"><span class="hljs-attr">valine:</span><br>  <span class="hljs-attr">appid:</span>  <span class="hljs-comment"># 从 LeanCloud 的应用中得到的 appId</span><br>  <span class="hljs-attr">appkey:</span>  <span class="hljs-comment"># 从 LeanCloud 的应用中得到的 APP Key</span><br>  <span class="hljs-attr">placeholder:</span> <span class="hljs-string">吐槽</span> <span class="hljs-comment"># 评论框占位提示符</span><br>  <span class="hljs-attr">path:</span> <span class="hljs-string">window.location.pathname</span> <span class="hljs-comment"># 当前文章页路径，用于区分不同的文章页，以保证正确读取该文章页下的评论列表</span><br>  <span class="hljs-attr">avatar:</span> <span class="hljs-string">retro</span> <span class="hljs-comment"># Gravatar 头像展示方式</span><br>  <span class="hljs-attr">meta:</span> [<span class="hljs-string">&#x27;nick&#x27;</span>, <span class="hljs-string">&#x27;mail&#x27;</span>, <span class="hljs-string">&#x27;link&#x27;</span>]  <span class="hljs-comment"># 评论者相关属性</span><br>  <span class="hljs-attr">pageSize:</span> <span class="hljs-number">10</span> <span class="hljs-comment"># 评论列表分页，每页条数</span><br>  <span class="hljs-attr">lang:</span> <span class="hljs-string">zh-CN</span> <span class="hljs-comment"># zh-CN | zh-TW | en | ja</span><br>  <span class="hljs-attr">highlight:</span> <span class="hljs-literal">false</span> <span class="hljs-comment"># 代码高亮</span><br>  <span class="hljs-attr">recordIP:</span> <span class="hljs-literal">false</span> <span class="hljs-comment"># 是否记录评论者IP</span><br>  <span class="hljs-attr">serverURLs:</span>  <span class="hljs-comment"># REST API 服务器地址，国际版不填</span><br></code></pre></td></tr></table></figure>
+<figure class="highlight yaml"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs yaml"><span class="hljs-attr">valine:</span><br>  <span class="hljs-attr">appid:</span>  <span class="hljs-comment"># 从 LeanCloud 的应用中得到的 appId</span><br>  <span class="hljs-attr">appkey:</span>  <span class="hljs-comment"># 从 LeanCloud 的应用中得到的 APP Key</span><br>  <span class="hljs-attr">placeholder:</span> <span class="hljs-string">吐槽</span> <span class="hljs-comment"># 评论框占位提示符</span><br>  <span class="hljs-attr">path:</span> <span class="hljs-string">window.location.pathname</span> <span class="hljs-comment"># 当前文章页路径，用于区分不同的文章页，以保证正确读取该文章页下的评论列表</span><br>  <span class="hljs-attr">avatar:</span> <span class="hljs-string">retro</span> <span class="hljs-comment"># Gravatar 头像展示方式</span><br>  <span class="hljs-attr">meta:</span> [<span class="hljs-string">&#x27;nick&#x27;</span>, <span class="hljs-string">&#x27;mail&#x27;</span>, <span class="hljs-string">&#x27;link&#x27;</span>]  <span class="hljs-comment"># 评论者相关属性</span><br>  <span class="hljs-attr">pageSize:</span> <span class="hljs-number">10</span> <span class="hljs-comment"># 评论列表分页，每页条数</span><br>  <span class="hljs-attr">lang:</span> <span class="hljs-string">zh-CN</span> <span class="hljs-comment"># zh-CN | zh-TW | en | ja</span><br>  <span class="hljs-attr">highlight:</span> <span class="hljs-literal">false</span> <span class="hljs-comment"># 代码高亮</span><br>  <span class="hljs-attr">recordIP:</span> <span class="hljs-literal">false</span> <span class="hljs-comment"># 是否记录评论者IP</span><br>  <span class="hljs-attr">serverURLs:</span>  <span class="hljs-comment"># REST API 服务器地址，国际版不填</span><br></code></pre></div></td></tr></table></figure>
 <p>并修改评论插件为valine</p>
-<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs yaml"><span class="hljs-attr">comments:</span>  <span class="hljs-comment"># 评论</span><br>  <span class="hljs-attr">enable:</span> <span class="hljs-literal">true</span>  <span class="hljs-comment"># 开启评论</span><br>  <span class="hljs-attr">type:</span> <span class="hljs-string">valine</span>  <span class="hljs-comment"># 指定使用的评论模块</span><br></code></pre></td></tr></table></figure>
+<figure class="highlight yaml"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs yaml"><span class="hljs-attr">comments:</span>  <span class="hljs-comment"># 评论</span><br>  <span class="hljs-attr">enable:</span> <span class="hljs-literal">true</span>  <span class="hljs-comment"># 开启评论</span><br>  <span class="hljs-attr">type:</span> <span class="hljs-string">valine</span>  <span class="hljs-comment"># 指定使用的评论模块</span><br></code></pre></div></td></tr></table></figure>
             </div>
             <hr>
             <div>
@@ -510,17 +518,6 @@
 
 
 
-
-  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11/lib/typed.min.js" ></script>
-  <script>
-    (function (window, document) {
-      var typing = Fluid.plugins.typing;
-      var title = document.getElementById('subtitle').title;
-      
-      typing(title)
-      
-    })(window, document);
-  </script>
 
 
 

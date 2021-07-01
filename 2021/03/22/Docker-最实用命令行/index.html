@@ -55,7 +55,7 @@
 
   <script id="fluid-configs">
     var Fluid = window.Fluid || {};
-    var CONFIG = {"hostname":"example.com","root":"/","version":"1.8.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"onlypost":false},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}}};
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.8.7","typing":{"enable":false,"typeSpeed":70,"cursorChar":" ","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"onlypost":false},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}}};
   </script>
   <script  src="/js/utils.js" ></script>
   <script  src="/js/color-schema.js" ></script>
@@ -203,6 +203,8 @@
           <div class="page-header text-center fade-in-up">
             <span class="h2" id="subtitle" title="Docker 最实用命令行">
               
+                Docker 最实用命令行
+              
             </span>
 
             
@@ -273,6 +275,12 @@
             <!-- SEO header -->
             <h1 style="display: none">Docker 最实用命令行</h1>
             
+              <p class="note note-info">
+                
+                  本文最后更新于：2021年5月10日 下午
+                
+              </p>
+            
             <div class="markdown-body">
               <h2 id="管理命令"><a href="#管理命令" class="headerlink" title="管理命令"></a>管理命令</h2><p>为了整理CLI，Docker 1.13引进了新的管理命令，如下：</p>
 <ul>
@@ -283,20 +291,20 @@
 <p>Docker的老版本中已经有了 network, node, service, swarm 和 volume 。这些新命令组子命令过去作为root命令直接实现。</p>
 <h2 id="Docker系统"><a href="#Docker系统" class="headerlink" title="Docker系统"></a>Docker系统</h2><p>​        现在有一个新管理命令 system 。它有4个子命令分别是 df, events, info 和 prune  。命令 docker system df  提供Docker整体磁盘使用率的概况，包括镜像、容器和（本地）volume。所以我们现在随时都可以查看Docker使用了多少资源。</p>
 <p>​        如果之前的命令展示出 docker 已经占用了太多空间，我们会开始清理。有一个包办一切的命令：</p>
-<figure class="highlight clean"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs clean">docker <span class="hljs-keyword">system</span> prune<br></code></pre></td></tr></table></figure>
+<figure class="highlight clean"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs clean">docker <span class="hljs-keyword">system</span> prune<br></code></pre></div></td></tr></table></figure>
 <p>​        这个命令会删除当前没有被使用的一切项目，它按照一种正确的序列进行清理，所以会达到最大化的输出结果。首先删除没有被使用的容器，然后是volume和网络，最后是挂起的镜像。通过使用 y 回复来确认操作。如果想在脚本中使用这个命令，可以使用参数 –force 或者 -f 告诉Docker不要发来确认请求。</p>
-<figure class="highlight livecodeserver"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs livecodeserver">docker <span class="hljs-keyword">system</span> prune后可以加额外的参数，如：<br>docker <span class="hljs-keyword">system</span> prune -<span class="hljs-keyword">a</span> ： 一并清除所有未被使用的镜像和没有tag镜像。<br>docker <span class="hljs-keyword">system</span> prune -f ： 用以强制删除，不提示信息。<br></code></pre></td></tr></table></figure>
+<figure class="highlight livecodeserver"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs livecodeserver">docker <span class="hljs-keyword">system</span> prune后可以加额外的参数，如：<br>docker <span class="hljs-keyword">system</span> prune -<span class="hljs-keyword">a</span> ： 一并清除所有未被使用的镜像和没有tag镜像。<br>docker <span class="hljs-keyword">system</span> prune -f ： 用以强制删除，不提示信息。<br></code></pre></div></td></tr></table></figure>
 <h2 id="Docker容器"><a href="#Docker容器" class="headerlink" title="Docker容器"></a>Docker容器</h2><p>​        我们已经知道许多 docker container 的子命令。它们过去（现在也是）是 docker 的直接子命令。可以通过下面的命令得到完整的子命令列表：</p>
-<figure class="highlight axapta"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs axapta">docker <span class="hljs-built_in">container</span> prune<br></code></pre></td></tr></table></figure>
+<figure class="highlight axapta"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs axapta">docker <span class="hljs-built_in">container</span> prune<br></code></pre></div></td></tr></table></figure>
 <p>​        在列表中会看到一个 prune 命令。如果使用它，那么只会删除无用的容器。因此这条命令比 docker system prune 命令更局限。使用 –force 或者 -f 同意可以让CLI不再进行确认请求。</p>
 <h2 id="Docker网络"><a href="#Docker网络" class="headerlink" title="Docker网络"></a>Docker网络</h2><p>这里也有一个 prune 命令：</p>
-<figure class="highlight ebnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs ebnf"><span class="hljs-attribute">docker network prune</span><br></code></pre></td></tr></table></figure>
+<figure class="highlight ebnf"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs ebnf"><span class="hljs-attribute">docker network prune</span><br></code></pre></div></td></tr></table></figure>
 <p>删除所有没有使用的网络。</p>
 <h2 id="Docker-Volume"><a href="#Docker-Volume" class="headerlink" title="Docker Volume"></a>Docker Volume</h2><p>volume也有新的 prune 命令了：</p>
-<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs dockerfile">docker <span class="hljs-keyword">volume</span><span class="bash"> prune</span><br></code></pre></td></tr></table></figure>
+<figure class="highlight dockerfile"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs dockerfile">docker <span class="hljs-keyword">volume</span><span class="bash"> prune</span><br></code></pre></div></td></tr></table></figure>
 <p>删除所有（本地）没有被容器使用的volume。</p>
 <h2 id="Docker镜像"><a href="#Docker镜像" class="headerlink" title="Docker镜像"></a>Docker镜像</h2><p>新的镜像命令也是 prune 子命令。–force 用法如上面一样， –all 可以删除所有不用的镜像，不只挂起的镜像。</p>
-<figure class="highlight brainfuck"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs brainfuck"><span class="hljs-comment">docker</span> <span class="hljs-comment">image</span> <span class="hljs-comment">prune</span> --<span class="hljs-comment">force</span> --<span class="hljs-comment">all</span><br></code></pre></td></tr></table></figure>
+<figure class="highlight brainfuck"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs brainfuck"><span class="hljs-comment">docker</span> <span class="hljs-comment">image</span> <span class="hljs-comment">prune</span> --<span class="hljs-comment">force</span> --<span class="hljs-comment">all</span><br></code></pre></div></td></tr></table></figure>
 <p>这个命令可以删除所有不使用的镜像并且不再请求确认。</p>
 
             </div>
@@ -524,17 +532,6 @@
 
 
 
-
-  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11/lib/typed.min.js" ></script>
-  <script>
-    (function (window, document) {
-      var typing = Fluid.plugins.typing;
-      var title = document.getElementById('subtitle').title;
-      
-      typing(title)
-      
-    })(window, document);
-  </script>
 
 
 

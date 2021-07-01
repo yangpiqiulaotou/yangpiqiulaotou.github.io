@@ -55,7 +55,7 @@
 
   <script id="fluid-configs">
     var Fluid = window.Fluid || {};
-    var CONFIG = {"hostname":"example.com","root":"/","version":"1.8.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"onlypost":false},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}}};
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.8.7","typing":{"enable":false,"typeSpeed":70,"cursorChar":" ","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"onlypost":false},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}}};
   </script>
   <script  src="/js/utils.js" ></script>
   <script  src="/js/color-schema.js" ></script>
@@ -203,6 +203,8 @@
           <div class="page-header text-center fade-in-up">
             <span class="h2" id="subtitle" title="Kubernetes架构工作原理">
               
+                Kubernetes架构工作原理
+              
             </span>
 
             
@@ -273,13 +275,19 @@
             <!-- SEO header -->
             <h1 style="display: none">Kubernetes架构工作原理</h1>
             
+              <p class="note note-info">
+                
+                  本文最后更新于：2021年4月6日 下午
+                
+              </p>
+            
             <div class="markdown-body">
               <h2 id="一、前言"><a href="#一、前言" class="headerlink" title="一、前言"></a>一、前言</h2><p>​            对于每个想落地kubernetes应用的工程师来说，熟悉kubernetes的架构和工作原理是必经之路，也是必须知道的知识，只有了解kubernetes的架构和工作原理才能更好的应用kubernetes 。</p>
 <p><strong>kubernetes 整体架构</strong><br>            Kubernetes最初源于谷歌内部的Borg，提供了面向应用的容器集群部署和管理系统，所以整体的架构和borg很相似，整个架构有api server，control manager，scheduler，etcd，kubelet，kube-proxy，network-plugin等相关组件完成，整体架构如下：<br><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/1617676a379.jpg" srcset="/img/loading.gif" alt="1617676a379"></p>
 <h2 id="二、各组件功能："><a href="#二、各组件功能：" class="headerlink" title="二、各组件功能："></a>二、各组件功能：</h2><p><strong>一）、Api server,Control manager,Scheduler,Etcd属于master节点，相关组件功能如下：</strong></p>
-<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs css">1<span class="hljs-selector-class">.Etcd</span>：保存了整个集群的状态；<br><br>2<span class="hljs-selector-class">.Apiserver</span>：提供了资源操作的唯一入口，并提供认证、授权、访问控制、<span class="hljs-selector-tag">API</span>注册和发现等机制；<br><br>3<span class="hljs-selector-class">.Controller</span> <span class="hljs-selector-tag">manager</span>：负责维护集群的状态，比如故障检测、自动扩展、滚动更新等；<br><br>4<span class="hljs-selector-class">.Scheduler</span>：负责资源的调度，按照预定的调度策略将<span class="hljs-selector-tag">Pod</span>调度到相应的机器上；<br></code></pre></td></tr></table></figure>
+<figure class="highlight css"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs css">1<span class="hljs-selector-class">.Etcd</span>：保存了整个集群的状态；<br><br>2<span class="hljs-selector-class">.Apiserver</span>：提供了资源操作的唯一入口，并提供认证、授权、访问控制、<span class="hljs-selector-tag">API</span>注册和发现等机制；<br><br>3<span class="hljs-selector-class">.Controller</span> <span class="hljs-selector-tag">manager</span>：负责维护集群的状态，比如故障检测、自动扩展、滚动更新等；<br><br>4<span class="hljs-selector-class">.Scheduler</span>：负责资源的调度，按照预定的调度策略将<span class="hljs-selector-tag">Pod</span>调度到相应的机器上；<br></code></pre></div></td></tr></table></figure>
 <p><strong>二）、Kubelet,Container runtine,Kube-proxy属于woker节点，相关组件功能如下：</strong></p>
-<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs css">1<span class="hljs-selector-class">.kubelet</span>：负责维护容器的生命周期，同时也负责<span class="hljs-selector-tag">Volume</span>（<span class="hljs-selector-tag">CSI</span>）和网络（<span class="hljs-selector-tag">CNI</span>）的管理；<br><br>2<span class="hljs-selector-class">.Container</span> <span class="hljs-selector-tag">runtime</span>：负责镜像管理以及<span class="hljs-selector-tag">Pod</span>和容器的真正运行（<span class="hljs-selector-tag">CRI</span>）；<br><br>3<span class="hljs-selector-class">.kube-proxy</span>：负责为<span class="hljs-selector-tag">Service</span>提供<span class="hljs-selector-tag">cluster</span>内部的服务发现和负载均衡；<br></code></pre></td></tr></table></figure>
+<figure class="highlight css"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs css">1<span class="hljs-selector-class">.kubelet</span>：负责维护容器的生命周期，同时也负责<span class="hljs-selector-tag">Volume</span>（<span class="hljs-selector-tag">CSI</span>）和网络（<span class="hljs-selector-tag">CNI</span>）的管理；<br><br>2<span class="hljs-selector-class">.Container</span> <span class="hljs-selector-tag">runtime</span>：负责镜像管理以及<span class="hljs-selector-tag">Pod</span>和容器的真正运行（<span class="hljs-selector-tag">CRI</span>）；<br><br>3<span class="hljs-selector-class">.kube-proxy</span>：负责为<span class="hljs-selector-tag">Service</span>提供<span class="hljs-selector-tag">cluster</span>内部的服务发现和负载均衡；<br></code></pre></div></td></tr></table></figure>
 <h2 id="三、kubernetes-工作原理"><a href="#三、kubernetes-工作原理" class="headerlink" title="三、kubernetes 工作原理"></a>三、kubernetes 工作原理</h2><p><strong>kubernetes的整个工作流程图：</strong><br><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/1617676436s.jpg" srcset="/img/loading.gif" alt="1617676436s"><br><strong>下面为一个个pod创建过程：</strong></p>
 <p>1.用户提交创建Pod的请求，可以通过API Server的REST API ，也可用Kubectl命令行工具，支持Json和Yaml两种格式；</p>
 <p>2.API Server处理用户请求，存储Pod数据到etcd；</p>
@@ -514,17 +522,6 @@
 
 
 
-
-  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11/lib/typed.min.js" ></script>
-  <script>
-    (function (window, document) {
-      var typing = Fluid.plugins.typing;
-      var title = document.getElementById('subtitle').title;
-      
-      typing(title)
-      
-    })(window, document);
-  </script>
 
 
 
