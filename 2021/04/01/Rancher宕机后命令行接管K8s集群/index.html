@@ -277,20 +277,20 @@
             
               <p class="note note-info">
                 
-                  本文最后更新于：2021年4月1日 下午
+                  本文最后更新于：2022年4月17日 下午
                 
               </p>
             
             <div class="markdown-body">
               <p>​        使用rancher创建的k8s集群，当rancher的UI宕机不能访问后，不能接续使用<code>kubectl</code>接管集群，从 Rancher v2.2.2 开始，从 Rancher UI 创建的集群默认开启<code>授权集群访问地址</code>。创建好集群后 Rancher UI 生成的 kubecfg 文件中将显示多个 master 节点 IP 对应的 <code>server</code>。</p>
-<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20210331142119003.png" srcset="/img/loading.gif" alt="image-20210331142119003"></p>
+<p><img src="https://yangpiqiulaotou.oss-cn-hangzhou.aliyuncs.com/images/image-20210331142119003.png" srcset="/img/loading.gif" alt="image-20210331142119003"></p>
 <h2 id="1、命令行访问集群"><a href="#1、命令行访问集群" class="headerlink" title="1、命令行访问集群"></a>1、命令行访问集群</h2><p>​        自行下载好kubectl文件，在.kube/config中配置好集群访问地址。</p>
-<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20210331142403423.png" srcset="/img/loading.gif" alt="image-20210331142403423"></p>
+<p><img src="https://yangpiqiulaotou.oss-cn-hangzhou.aliyuncs.com/images/image-20210331142403423.png" srcset="/img/loading.gif" alt="image-20210331142403423"></p>
 <p>在命令行查看</p>
-<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20210331142458066.png" srcset="/img/loading.gif" alt="image-20210331142458066"></p>
+<p><img src="https://yangpiqiulaotou.oss-cn-hangzhou.aliyuncs.com/images/image-20210331142458066.png" srcset="/img/loading.gif" alt="image-20210331142458066"></p>
 <h2 id="2、切换server控制端"><a href="#2、切换server控制端" class="headerlink" title="2、切换server控制端"></a>2、切换server控制端</h2><p>查看集群可使用的context</p>
 <figure class="highlight arduino"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs arduino">kubectl <span class="hljs-built_in">config</span> view<br></code></pre></div></td></tr></table></figure>
-<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20210331142807728.png" srcset="/img/loading.gif" alt="image-20210331142807728"></p>
+<p><img src="https://yangpiqiulaotou.oss-cn-hangzhou.aliyuncs.com/images/image-20210331142807728.png" srcset="/img/loading.gif" alt="image-20210331142807728"></p>
 <p>查看现在集群默认使用的context</p>
 <figure class="highlight mipsasm"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs mipsasm">kubectl <span class="hljs-built_in">config</span> current-<span class="hljs-built_in">context</span><br></code></pre></div></td></tr></table></figure>
 <p>通过context：name来切换，比如：</p>

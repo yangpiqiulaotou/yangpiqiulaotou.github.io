@@ -277,33 +277,33 @@
             
               <p class="note note-info">
                 
-                  本文最后更新于：2021年1月5日 上午
+                  本文最后更新于：2022年4月17日 下午
                 
               </p>
             
             <div class="markdown-body">
               <h3 id="1、进入官网下载所需版本"><a href="#1、进入官网下载所需版本" class="headerlink" title="1、进入官网下载所需版本"></a>1、进入官网下载所需版本</h3><p><a target="_blank" rel="noopener" href="https://www.postgresql.org/download/linux/redhat/">https://www.postgresql.org/download/linux/redhat/</a></p>
-<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20200303095053134.png" srcset="/img/loading.gif" alt="image-20200303095053134"></p>
+<p><img src="https://yangpiqiulaotou.oss-cn-hangzhou.aliyuncs.com/images/image-20200303095053134.png" srcset="/img/loading.gif" alt="image-20200303095053134"></p>
 <h3 id="2、开始安装"><a href="#2、开始安装" class="headerlink" title="2、开始安装"></a>2、开始安装</h3><figure class="highlight awk"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs awk">yum install https:<span class="hljs-regexp">//</span>download.postgresql.org<span class="hljs-regexp">/pub/</span>repos<span class="hljs-regexp">/yum/</span>reporpms<span class="hljs-regexp">/EL-7-x86_64/</span>pgdg-redhat-repo-latest.noarch.rpm -y<br></code></pre></div></td></tr></table></figure>
-<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20200303095233768.png" srcset="/img/loading.gif" alt="image-20200303095233768"></p>
+<p><img src="https://yangpiqiulaotou.oss-cn-hangzhou.aliyuncs.com/images/image-20200303095233768.png" srcset="/img/loading.gif" alt="image-20200303095233768"></p>
 <figure class="highlight apache"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs apache"><span class="hljs-attribute">yum</span> install postgresql<span class="hljs-number">12</span> -y<br><span class="hljs-attribute">yum</span> install postgresql<span class="hljs-number">12</span>-server -y<br></code></pre></div></td></tr></table></figure>
 <h3 id="3、数据库初始化与设置自启动"><a href="#3、数据库初始化与设置自启动" class="headerlink" title="3、数据库初始化与设置自启动"></a>3、数据库初始化与设置自启动</h3><figure class="highlight awk"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs awk"><span class="hljs-regexp">/usr/</span>pgsql-<span class="hljs-number">12</span><span class="hljs-regexp">/bin/</span>postgresql-<span class="hljs-number">12</span>-setup initdb<br>systemctl enable postgresql-<span class="hljs-number">12</span><br>systemctl start postgresql-<span class="hljs-number">12</span><br></code></pre></div></td></tr></table></figure>
-<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20200303100416097.png" srcset="/img/loading.gif" alt="image-20200303100416097"></p>
+<p><img src="https://yangpiqiulaotou.oss-cn-hangzhou.aliyuncs.com/images/image-20200303100416097.png" srcset="/img/loading.gif" alt="image-20200303100416097"></p>
 <p>​        这一步初始化数据库命令会在 /var/lib/pgsql 目录下创建名称为12文件夹，12为数据库版本。这里如果已经有对应版本的文件夹了，初始化这一步会报错，需要你自行去删除对应的文件夹，再去初始化。</p>
-<h3 id="4、默认会创建一个名为postgres的linux登录用户，这里进行密码修改"><a href="#4、默认会创建一个名为postgres的linux登录用户，这里进行密码修改" class="headerlink" title="4、默认会创建一个名为postgres的linux登录用户，这里进行密码修改"></a>4、默认会创建一个名为postgres的linux登录用户，这里进行密码修改</h3><p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20200303100954704.png" srcset="/img/loading.gif" alt="image-20200303100954704"></p>
-<h3 id="5、修改配置文件"><a href="#5、修改配置文件" class="headerlink" title="5、修改配置文件"></a>5、修改配置文件</h3><p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20200303102201925.png" srcset="/img/loading.gif" alt="image-20200303102201925"></p>
+<h3 id="4、默认会创建一个名为postgres的linux登录用户，这里进行密码修改"><a href="#4、默认会创建一个名为postgres的linux登录用户，这里进行密码修改" class="headerlink" title="4、默认会创建一个名为postgres的linux登录用户，这里进行密码修改"></a>4、默认会创建一个名为postgres的linux登录用户，这里进行密码修改</h3><p><img src="https://yangpiqiulaotou.oss-cn-hangzhou.aliyuncs.com/images/image-20200303100954704.png" srcset="/img/loading.gif" alt="image-20200303100954704"></p>
+<h3 id="5、修改配置文件"><a href="#5、修改配置文件" class="headerlink" title="5、修改配置文件"></a>5、修改配置文件</h3><p><img src="https://yangpiqiulaotou.oss-cn-hangzhou.aliyuncs.com/images/image-20200303102201925.png" srcset="/img/loading.gif" alt="image-20200303102201925"></p>
 <h4 id="5-1修改postgresql-conf"><a href="#5-1修改postgresql-conf" class="headerlink" title="5.1修改postgresql.conf"></a>5.1修改postgresql.conf</h4><figure class="highlight autoit"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs autoit">修改：<span class="hljs-meta">#listen_addresses = <span class="hljs-string">&#x27;localhost&#x27;</span>为listen_addresses = <span class="hljs-string">&#x27;*&#x27;</span></span><br></code></pre></div></td></tr></table></figure>
-<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20200303102710321.png" srcset="/img/loading.gif" alt="image-20200303102710321"></p>
+<p><img src="https://yangpiqiulaotou.oss-cn-hangzhou.aliyuncs.com/images/image-20200303102710321.png" srcset="/img/loading.gif" alt="image-20200303102710321"></p>
 <h4 id="5-2修改pg-hba-conf"><a href="#5-2修改pg-hba-conf" class="headerlink" title="5.2修改pg_hba.conf"></a>5.2修改pg_hba.conf</h4><p>修改前</p>
-<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20200303103002192.png" srcset="/img/loading.gif" alt="image-20200303103002192"></p>
+<p><img src="https://yangpiqiulaotou.oss-cn-hangzhou.aliyuncs.com/images/image-20200303103002192.png" srcset="/img/loading.gif" alt="image-20200303103002192"></p>
 <p>修改后</p>
-<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20200303103124544.png" srcset="/img/loading.gif" alt="image-20200303103124544"></p>
+<p><img src="https://yangpiqiulaotou.oss-cn-hangzhou.aliyuncs.com/images/image-20200303103124544.png" srcset="/img/loading.gif" alt="image-20200303103124544"></p>
 <p>并重新启动</p>
 <figure class="highlight plain"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs undefined">systemctl restart postgresql-12<br></code></pre></div></td></tr></table></figure>
 <h3 id="6、设置登录数据库账密"><a href="#6、设置登录数据库账密" class="headerlink" title="6、设置登录数据库账密"></a>6、设置登录数据库账密</h3><figure class="highlight csharp"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs csharp">su postgres              <span class="hljs-meta">#不能使用root用户登录，切换到普通用户</span><br>psql -U postgres<br>\password                <span class="hljs-meta">#设置用户密码</span><br><span class="hljs-function"><span class="hljs-keyword">select</span> <span class="hljs-title">version</span>(<span class="hljs-params"></span>)</span>;        <span class="hljs-meta">#查看版本</span><br></code></pre></div></td></tr></table></figure>
-<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20200303104354374.png" srcset="/img/loading.gif" alt="image-20200303104354374"></p>
-<h3 id="7、登录并测试数据库连接"><a href="#7、登录并测试数据库连接" class="headerlink" title="7、登录并测试数据库连接"></a>7、登录并测试数据库连接</h3><p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20200303105037116.png" srcset="/img/loading.gif" alt="image-20200303105037116"></p>
-<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20200303105103983.png" srcset="/img/loading.gif" alt="image-20200303105103983"></p>
+<p><img src="https://yangpiqiulaotou.oss-cn-hangzhou.aliyuncs.com/images/image-20200303104354374.png" srcset="/img/loading.gif" alt="image-20200303104354374"></p>
+<h3 id="7、登录并测试数据库连接"><a href="#7、登录并测试数据库连接" class="headerlink" title="7、登录并测试数据库连接"></a>7、登录并测试数据库连接</h3><p><img src="https://yangpiqiulaotou.oss-cn-hangzhou.aliyuncs.com/images/image-20200303105037116.png" srcset="/img/loading.gif" alt="image-20200303105037116"></p>
+<p><img src="https://yangpiqiulaotou.oss-cn-hangzhou.aliyuncs.com/images/image-20200303105103983.png" srcset="/img/loading.gif" alt="image-20200303105103983"></p>
 <p>参考文章：<a target="_blank" rel="noopener" href="https://www.jianshu.com/p/b4a759c2208f">https://www.jianshu.com/p/b4a759c2208f</a></p>
 
             </div>

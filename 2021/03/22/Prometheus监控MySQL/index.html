@@ -277,7 +277,7 @@
             
               <p class="note note-info">
                 
-                  本文最后更新于：2021年3月22日 下午
+                  本文最后更新于：2022年4月17日 下午
                 
               </p>
             
@@ -288,17 +288,17 @@
 <h2 id="2、解压压缩包"><a href="#2、解压压缩包" class="headerlink" title="2、解压压缩包"></a>2、解压压缩包</h2><figure class="highlight apache"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs apache"><span class="hljs-attribute">tar</span> xvf mysqld_exporter-<span class="hljs-number">0</span>.<span class="hljs-number">12</span>.<span class="hljs-number">1</span>.linux-amd<span class="hljs-number">64</span>.tar.gz -C /usr/local/<br><span class="hljs-attribute">mv</span> mysqld_exporter-<span class="hljs-number">0</span>.<span class="hljs-number">12</span>.<span class="hljs-number">1</span>.linux-amd<span class="hljs-number">64</span> mysqld_exporter<br></code></pre></div></td></tr></table></figure>
 <h2 id="3、创建mysql配置文件、运行时可免密码连接数据库："><a href="#3、创建mysql配置文件、运行时可免密码连接数据库：" class="headerlink" title="3、创建mysql配置文件、运行时可免密码连接数据库："></a>3、创建mysql配置文件、运行时可免密码连接数据库：</h2><figure class="highlight awk"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs awk">vim <span class="hljs-regexp">/usr/</span>local<span class="hljs-regexp">/mysql_exporter/</span>.my.cnf<br><br>[client]<br>user=exporter<br>password=hello<br></code></pre></div></td></tr></table></figure>
 <h2 id="4、启动服务"><a href="#4、启动服务" class="headerlink" title="4、启动服务"></a>4、启动服务</h2><figure class="highlight awk"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs awk">nohup <span class="hljs-regexp">/usr/</span>local<span class="hljs-regexp">/mysqld_exporter/my</span>sqld_exporter  --config.my-cnf=<span class="hljs-string">&quot;/usr/local/mysqld_exporter/.my.cnf&quot;</span> &amp;<br></code></pre></div></td></tr></table></figure>
-<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20200608164830184.png" srcset="/img/loading.gif" alt="image-20200608164830184"></p>
-<h2 id="5、web界面网站查看捕获mysql数据"><a href="#5、web界面网站查看捕获mysql数据" class="headerlink" title="5、web界面网站查看捕获mysql数据"></a>5、web界面网站查看捕获mysql数据</h2><p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20200608165039884.png" srcset="/img/loading.gif" alt="image-20200608165039884"></p>
+<p><img src="https://yangpiqiulaotou.oss-cn-hangzhou.aliyuncs.com/images/image-20200608164830184.png" srcset="/img/loading.gif" alt="image-20200608164830184"></p>
+<h2 id="5、web界面网站查看捕获mysql数据"><a href="#5、web界面网站查看捕获mysql数据" class="headerlink" title="5、web界面网站查看捕获mysql数据"></a>5、web界面网站查看捕获mysql数据</h2><p><img src="https://yangpiqiulaotou.oss-cn-hangzhou.aliyuncs.com/images/image-20200608165039884.png" srcset="/img/loading.gif" alt="image-20200608165039884"></p>
 <h2 id="6、Prometheus中添加mysql"><a href="#6、Prometheus中添加mysql" class="headerlink" title="6、Prometheus中添加mysql"></a>6、Prometheus中添加mysql</h2><figure class="highlight groovy"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs groovy">- <span class="hljs-attr">job_name:</span> mysql<br>  <span class="hljs-symbol">static_configs:</span><br>  - <span class="hljs-attr">targets:</span> [<span class="hljs-string">&#x27;192.168.1.10:9104&#x27;</span>]<br></code></pre></div></td></tr></table></figure>
-<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20200608165432286.png" srcset="/img/loading.gif" alt="image-20200608165432286"></p>
+<p><img src="https://yangpiqiulaotou.oss-cn-hangzhou.aliyuncs.com/images/image-20200608165432286.png" srcset="/img/loading.gif" alt="image-20200608165432286"></p>
 <p>刷新Prometheus的配置</p>
 <figure class="highlight awk"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs awk">curl -X POST http:<span class="hljs-regexp">//</span><span class="hljs-number">192.168</span>.<span class="hljs-number">0.103</span>:<span class="hljs-number">31842</span><span class="hljs-regexp">/-/</span>reload      <span class="hljs-comment">#nodeIP+nodeport</span><br></code></pre></div></td></tr></table></figure>
 <p>通过Prometheus就能查看到获取到了MySQL的数据</p>
-<p><strong><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20200608165844341.png" srcset="/img/loading.gif" alt="image-20200608165844341"></strong></p>
-<h2 id="7、进入grafana导入mysql"><a href="#7、进入grafana导入mysql" class="headerlink" title="7、进入grafana导入mysql"></a>7、进入grafana导入mysql</h2><p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20200608171608124.png" srcset="/img/loading.gif" alt="image-20200608171608124"></p>
-<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20200608171630600.png" srcset="/img/loading.gif" alt="image-20200608171630600"></p>
-<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20200608171706439.png" srcset="/img/loading.gif" alt="image-20200608171706439"></p>
+<p><strong><img src="https://yangpiqiulaotou.oss-cn-hangzhou.aliyuncs.com/images/image-20200608165844341.png" srcset="/img/loading.gif" alt="image-20200608165844341"></strong></p>
+<h2 id="7、进入grafana导入mysql"><a href="#7、进入grafana导入mysql" class="headerlink" title="7、进入grafana导入mysql"></a>7、进入grafana导入mysql</h2><p><img src="https://yangpiqiulaotou.oss-cn-hangzhou.aliyuncs.com/images/image-20200608171608124.png" srcset="/img/loading.gif" alt="image-20200608171608124"></p>
+<p><img src="https://yangpiqiulaotou.oss-cn-hangzhou.aliyuncs.com/images/image-20200608171630600.png" srcset="/img/loading.gif" alt="image-20200608171630600"></p>
+<p><img src="https://yangpiqiulaotou.oss-cn-hangzhou.aliyuncs.com/images/image-20200608171706439.png" srcset="/img/loading.gif" alt="image-20200608171706439"></p>
 <p>参考文章：<a target="_blank" rel="noopener" href="https://www.cnblogs.com/xiangsikai/p/11289675.html">https://www.cnblogs.com/xiangsikai/p/11289675.html</a></p>
 
             </div>

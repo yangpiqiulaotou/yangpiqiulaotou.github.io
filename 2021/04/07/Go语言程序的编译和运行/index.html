@@ -277,7 +277,7 @@
             
               <p class="note note-info">
                 
-                  本文最后更新于：2021年4月7日 中午
+                  本文最后更新于：2022年4月17日 下午
                 
               </p>
             
@@ -296,8 +296,8 @@
 <li>也可以在 Go 源文件所在目录的空白处按住 Shift 键并单击鼠标右键，然后在弹出菜单中选择“在此处打开命令行窗口”或者“在此处打开 Powershell 窗口”，这样会自动 cd 到 Go 源文件所在的目录，如下图所示。这种方式更加方便，推荐大家使用。</li>
 </ul>
 <p>提示：cd 是命令行工具的一个命令，用来改变当前所在的目录，是 change directory 的缩写。</p>
-<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/1-191022135453b2.gif" srcset="/img/loading.gif" alt="img"><br> Win7 下选择“在此处打开命令窗口”</p>
-<p> <img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/4-19101G64932535.gif" srcset="/img/loading.gif" alt="img"><br> Win10 下选择“在此处打开 Powershell 窗口”</p>
+<p><img src="https://yangpiqiulaotou.oss-cn-hangzhou.aliyuncs.com/images/1-191022135453b2.gif" srcset="/img/loading.gif" alt="img"><br> Win7 下选择“在此处打开命令窗口”</p>
+<p> <img src="https://yangpiqiulaotou.oss-cn-hangzhou.aliyuncs.com/images/4-19101G64932535.gif" srcset="/img/loading.gif" alt="img"><br> Win10 下选择“在此处打开 Powershell 窗口”</p>
 <h3 id="go-build-命令"><a href="#go-build-命令" class="headerlink" title="go build 命令"></a>go build 命令</h3><p><code>go build </code>命令用来启动编译，它可以将Go语言程序与相关依赖编译成一个可执行文件，其语法格式如下。</p>
 <figure class="highlight ebnf"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs ebnf"><span class="hljs-attribute">go build fileName</span><br></code></pre></div></td></tr></table></figure>
 <p>​        其中 fileName 为所需要的参数，可以是一个或者多个 Go 源文件名（当有多个参数时需要使用空格将两个相邻的参数隔开），也可以省略不写。</p>
@@ -310,7 +310,7 @@
 <div class="hljs code-wrapper"><pre><code>     第 1 行`go build`命令后面的参数中，`.\`表示当前目录。在Windows 系统中，当前目录使用`.\`表示；在类 Unix 系统（例如 Linux、MacOS 等）中，当前目录使用`./`表示。</code></pre></div>
 <p>​        注意，这里的<code>go build </code>命令中<code> .\</code>可以省略不写，不会影响编译。</p>
 <p>​        另外，<code>go build </code>命令只有在执行出错的情况下才会有返回信息，执行成功的话是没有返回信息的，但是会在当前目录生成一个与 main 包文件同名的 .exe 可执行文件，如下图所示。</p>
-<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/4-19101G64RA16.gif" srcset="/img/loading.gif" alt="img"></p>
+<p><img src="https://yangpiqiulaotou.oss-cn-hangzhou.aliyuncs.com/images/4-19101G64RA16.gif" srcset="/img/loading.gif" alt="img"></p>
 <p> 第 2 行中的<code>.\demo.exe</code>表示执行当前目录下的 demo.exe 程序。</p>
 <p> 第 3 行则是 demo.exe 程序的运行结果。</p>
 <h3 id="go-run-命令"><a href="#go-run-命令" class="headerlink" title="go run 命令"></a>go run 命令</h3><p>​        除了使用<code>go build</code>命令外，Go语言还为我们提供了<code>go run</code>命令，<code>go run</code>命令将编译和执行指令合二为一，会在编译之后立即执行Go语言程序，但是不会生成可执行文件。</p>

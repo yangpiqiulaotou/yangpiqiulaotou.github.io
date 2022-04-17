@@ -277,38 +277,38 @@
             
               <p class="note note-info">
                 
-                  本文最后更新于：2021年3月25日 上午
+                  本文最后更新于：2022年4月17日 下午
                 
               </p>
             
             <div class="markdown-body">
               <h3 id="1、添加helm源"><a href="#1、添加helm源" class="headerlink" title="1、添加helm源"></a>1、添加helm源</h3><figure class="highlight vim"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs vim">helm repo <span class="hljs-built_in">add</span> stable http<span class="hljs-variable">s:</span>//kubernetes-charts.storage.googleapis.<span class="hljs-keyword">com</span><br>helm repo <span class="hljs-built_in">add</span> aliyun http<span class="hljs-variable">s:</span>//kubernetes.oss-<span class="hljs-keyword">cn</span>-hangzhou.aliyuncs.<span class="hljs-keyword">com</span>/charts<br>helm repo <span class="hljs-built_in">add</span>  apphub http<span class="hljs-variable">s:</span>//apphub.aliyuncs.<span class="hljs-keyword">com</span>/<br></code></pre></div></td></tr></table></figure>
-<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20191208143345136.png" srcset="/img/loading.gif" alt="image-20191208143345136"></p>
+<p><img src="https://yangpiqiulaotou.oss-cn-hangzhou.aliyuncs.com/images/image-20191208143345136.png" srcset="/img/loading.gif" alt="image-20191208143345136"></p>
 <h3 id="2、下载gitlab-ce"><a href="#2、下载gitlab-ce" class="headerlink" title="2、下载gitlab-ce"></a>2、下载gitlab-ce</h3><figure class="highlight apache"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs apache"><span class="hljs-attribute">helm</span> pull stable/gitlab-ce<br><span class="hljs-attribute">tar</span>  -zxvf  gitlab-ce-<span class="hljs-number">0</span>.<span class="hljs-number">2</span>.<span class="hljs-number">2</span>.tgz<br></code></pre></div></td></tr></table></figure>
-<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20191208162422584.png" srcset="/img/loading.gif" alt="image-20191208162422584"></p>
-<h3 id="3、修改values-yaml文件"><a href="#3、修改values-yaml文件" class="headerlink" title="3、修改values.yaml文件"></a>3、修改values.yaml文件</h3><p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20191208164650121.png" srcset="/img/loading.gif" alt="image-20191208164650121"></p>
+<p><img src="https://yangpiqiulaotou.oss-cn-hangzhou.aliyuncs.com/images/image-20191208162422584.png" srcset="/img/loading.gif" alt="image-20191208162422584"></p>
+<h3 id="3、修改values-yaml文件"><a href="#3、修改values-yaml文件" class="headerlink" title="3、修改values.yaml文件"></a>3、修改values.yaml文件</h3><p><img src="https://yangpiqiulaotou.oss-cn-hangzhou.aliyuncs.com/images/image-20191208164650121.png" srcset="/img/loading.gif" alt="image-20191208164650121"></p>
 <h3 id="4、安装"><a href="#4、安装" class="headerlink" title="4、安装"></a>4、安装</h3><figure class="highlight cmake"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs cmake">helm <span class="hljs-keyword">install</span> gitlab gitlab-ce<br></code></pre></div></td></tr></table></figure>
 <p>备注：由于我是最新16.3的集群，所以这里会报错。如果你是16以下的版本这里不会报错</p>
-<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20191208162724007.png" srcset="/img/loading.gif" alt="image-20191208162724007"></p>
+<p><img src="https://yangpiqiulaotou.oss-cn-hangzhou.aliyuncs.com/images/image-20191208162724007.png" srcset="/img/loading.gif" alt="image-20191208162724007"></p>
 <figure class="highlight vim"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs vim"><span class="hljs-keyword">grep</span> -irl <span class="hljs-string">&quot;extensions/v1beta1&quot;</span> gitlab-<span class="hljs-keyword">ce</span> | <span class="hljs-keyword">grep</span> deployment<br><span class="hljs-keyword">grep</span> -irl <span class="hljs-string">&quot;extensions/v1beta1&quot;</span> gitlab-<span class="hljs-keyword">ce</span> | <span class="hljs-keyword">grep</span> deploy | xargs sed -i <span class="hljs-string">&#x27;s#extensions/v1beta1#apps/v1#g&#x27;</span><br></code></pre></div></td></tr></table></figure>
-<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20191208162849870.png" srcset="/img/loading.gif" alt="image-20191208162849870"></p>
+<p><img src="https://yangpiqiulaotou.oss-cn-hangzhou.aliyuncs.com/images/image-20191208162849870.png" srcset="/img/loading.gif" alt="image-20191208162849870"></p>
 <figure class="highlight vim"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs vim">#在进行安装，错误原因是现有 k8s不支持gitlab-<span class="hljs-keyword">ce</span>的deployment spec<br>helm install gitlab gitlab-<span class="hljs-keyword">ce</span><br><span class="hljs-keyword">grep</span> -irl <span class="hljs-string">&quot;apps/v1&quot;</span> gitlab-<span class="hljs-keyword">ce</span> | <span class="hljs-keyword">grep</span> deployment<br></code></pre></div></td></tr></table></figure>
-<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20191208163017603.png" srcset="/img/loading.gif" alt="image-20191208163017603"></p>
+<p><img src="https://yangpiqiulaotou.oss-cn-hangzhou.aliyuncs.com/images/image-20191208163017603.png" srcset="/img/loading.gif" alt="image-20191208163017603"></p>
 <p>依次修改配置文件：</p>
 <figure class="highlight dts"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs dts">vim gitlab-ce<span class="hljs-meta-keyword">/templates/</span>deployment.yaml<br>添加：<br><span class="hljs-symbol">  replicas:</span> <span class="hljs-number">1</span><br><span class="hljs-symbol">  selector:</span><br><span class="hljs-symbol">    matchLabels:</span><br><span class="hljs-symbol">      app:</span> &#123;&#123; template <span class="hljs-string">&quot;gitlab-ce.fullname&quot;</span> . &#125;&#125;<br></code></pre></div></td></tr></table></figure>
-<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20191208164344044.png" srcset="/img/loading.gif" alt="image-20191208164344044"></p>
+<p><img src="https://yangpiqiulaotou.oss-cn-hangzhou.aliyuncs.com/images/image-20191208164344044.png" srcset="/img/loading.gif" alt="image-20191208164344044"></p>
 <figure class="highlight dts"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs dts">vim gitlab-ce<span class="hljs-meta-keyword">/charts/</span>postgresql<span class="hljs-meta-keyword">/templates/</span>deployment.yaml<br>添加：<br><span class="hljs-symbol">  selector:</span><br><span class="hljs-symbol">    matchLabels:</span><br><span class="hljs-symbol">      app:</span> &#123;&#123; template <span class="hljs-string">&quot;postgresql.fullname&quot;</span> . &#125;&#125;<br></code></pre></div></td></tr></table></figure>
-<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20191208164456496.png" srcset="/img/loading.gif" alt="image-20191208164456496"></p>
+<p><img src="https://yangpiqiulaotou.oss-cn-hangzhou.aliyuncs.com/images/image-20191208164456496.png" srcset="/img/loading.gif" alt="image-20191208164456496"></p>
 <figure class="highlight dts"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs dts">vim gitlab-ce<span class="hljs-meta-keyword">/charts/</span>redis<span class="hljs-meta-keyword">/templates/</span>deployment.yaml<br>添加：<br><span class="hljs-symbol">  selector:</span><br><span class="hljs-symbol">    matchLabels:</span><br><span class="hljs-symbol">      app:</span> &#123;&#123; template <span class="hljs-string">&quot;redis.fullname&quot;</span> . &#125;&#125;<br></code></pre></div></td></tr></table></figure>
-<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20191208164543666.png" srcset="/img/loading.gif" alt="image-20191208164543666"></p>
+<p><img src="https://yangpiqiulaotou.oss-cn-hangzhou.aliyuncs.com/images/image-20191208164543666.png" srcset="/img/loading.gif" alt="image-20191208164543666"></p>
 <p>再进行安装</p>
 <figure class="highlight cmake"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs cmake">helm <span class="hljs-keyword">install</span> gitlab gitlab-ce<br></code></pre></div></td></tr></table></figure>
-<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20191208163321853.png" srcset="/img/loading.gif" alt="image-20191208163321853"></p>
+<p><img src="https://yangpiqiulaotou.oss-cn-hangzhou.aliyuncs.com/images/image-20191208163321853.png" srcset="/img/loading.gif" alt="image-20191208163321853"></p>
 <h3 id="5、查看集群状态"><a href="#5、查看集群状态" class="headerlink" title="5、查看集群状态"></a>5、查看集群状态</h3><figure class="highlight routeros"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs routeros">kubectl <span class="hljs-builtin-name">get</span> pod<br></code></pre></div></td></tr></table></figure>
-<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20191208163410784.png" srcset="/img/loading.gif" alt="image-20191208163410784"></p>
+<p><img src="https://yangpiqiulaotou.oss-cn-hangzhou.aliyuncs.com/images/image-20191208163410784.png" srcset="/img/loading.gif" alt="image-20191208163410784"></p>
 <p>由于资源需要请求pv，所以我们还需要创建pv</p>
 <figure class="highlight routeros"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs routeros">kubectl <span class="hljs-builtin-name">get</span> pv<br>kubectl <span class="hljs-builtin-name">get</span> pvc<br></code></pre></div></td></tr></table></figure>
-<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20191208163548128.png" srcset="/img/loading.gif" alt="image-20191208163548128"></p>
+<p><img src="https://yangpiqiulaotou.oss-cn-hangzhou.aliyuncs.com/images/image-20191208163548128.png" srcset="/img/loading.gif" alt="image-20191208163548128"></p>
 <p>在worker节点创建hostpath挂在目录</p>
 <figure class="highlight haskell"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs haskell"><span class="hljs-title">mkdir</span>  -p  /<span class="hljs-class"><span class="hljs-keyword">data</span>/gitlab/pv&#123;1..4&#125;</span><br></code></pre></div></td></tr></table></figure>
 <p>在master节点创建pv文件</p>
@@ -330,12 +330,12 @@ spec:
      path: /data/gitlab/pv1</code></pre></div>
 </li>
 </ul>
-<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20191208163829783.png" srcset="/img/loading.gif" alt="image-20191208163829783"></p>
-<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20191208163904286.png" srcset="/img/loading.gif" alt="image-20191208163904286"></p>
+<p><img src="https://yangpiqiulaotou.oss-cn-hangzhou.aliyuncs.com/images/image-20191208163829783.png" srcset="/img/loading.gif" alt="image-20191208163829783"></p>
+<p><img src="https://yangpiqiulaotou.oss-cn-hangzhou.aliyuncs.com/images/image-20191208163904286.png" srcset="/img/loading.gif" alt="image-20191208163904286"></p>
 <p>再查看集群状态</p>
-<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20191208163957511.png" srcset="/img/loading.gif" alt="image-20191208163957511"></p>
+<p><img src="https://yangpiqiulaotou.oss-cn-hangzhou.aliyuncs.com/images/image-20191208163957511.png" srcset="/img/loading.gif" alt="image-20191208163957511"></p>
 <p>登录界面</p>
-<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20191208164012158.png" srcset="/img/loading.gif" alt="image-20191208164012158"></p>
+<p><img src="https://yangpiqiulaotou.oss-cn-hangzhou.aliyuncs.com/images/image-20191208164012158.png" srcset="/img/loading.gif" alt="image-20191208164012158"></p>
 
             </div>
             <hr>

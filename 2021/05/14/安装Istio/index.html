@@ -277,12 +277,12 @@
             
               <p class="note note-info">
                 
-                  本文最后更新于：2021年5月14日 上午
+                  本文最后更新于：2022年4月17日 下午
                 
               </p>
             
             <div class="markdown-body">
-              <h2 id="1、环境介绍"><a href="#1、环境介绍" class="headerlink" title="1、环境介绍"></a>1、环境介绍</h2><p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/20210513150749.png" srcset="/img/loading.gif" alt="image-20200116144218255"></p>
+              <h2 id="1、环境介绍"><a href="#1、环境介绍" class="headerlink" title="1、环境介绍"></a>1、环境介绍</h2><p><img src="https://yangpiqiulaotou.oss-cn-hangzhou.aliyuncs.com/images/20210513150749.png" srcset="/img/loading.gif" alt="image-20200116144218255"></p>
 <h2 id="2、运行以下命令来自动下载并解压缩最新版本："><a href="#2、运行以下命令来自动下载并解压缩最新版本：" class="headerlink" title="2、运行以下命令来自动下载并解压缩最新版本："></a>2、运行以下命令来自动下载并解压缩最新版本：</h2><figure class="highlight awk"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs awk">curl -L https:<span class="hljs-regexp">//i</span>stio.io/downloadIstio | sh -<br></code></pre></div></td></tr></table></figure>
 <p><strong>说明：由于k8s集群是1.21.0版本，这里使用的是istio最新测试版本</strong></p>
 <h2 id="3、安装目录包含："><a href="#3、安装目录包含：" class="headerlink" title="3、安装目录包含："></a>3、安装目录包含：</h2><ul>
@@ -296,13 +296,13 @@
 <li><strong>minimal</strong>: 使用 Istio 的流量管理功能所需的最少组件集。</li>
 <li><strong>sds</strong>: 和 <strong>default</strong> 配置类似，但是启用了 Istio 的 SDS (secret discovery service) 功能。 这个配置文件默认启用了附带的认证功能 (Strict Mutual TLS)。</li>
 </ol>
-<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/20210513155002.png" srcset="/img/loading.gif" alt="image-20210513155002143"></p>
+<p><img src="https://yangpiqiulaotou.oss-cn-hangzhou.aliyuncs.com/images/20210513155002.png" srcset="/img/loading.gif" alt="image-20210513155002143"></p>
 <figure class="highlight routeros"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs routeros">istioctl install --<span class="hljs-builtin-name">set</span> <span class="hljs-attribute">profile</span>=demo -y<br></code></pre></div></td></tr></table></figure>
-<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/20210513145607.png" srcset="/img/loading.gif" alt="image-20210513145557351"></p>
+<p><img src="https://yangpiqiulaotou.oss-cn-hangzhou.aliyuncs.com/images/20210513145607.png" srcset="/img/loading.gif" alt="image-20210513145557351"></p>
 <p>备注：这里有的镜像可能拉不下来，需要自己想办法，等待时间可能有点长</p>
 <h2 id="6、通过确保已部署以下Kubernetes服务来验证安装"><a href="#6、通过确保已部署以下Kubernetes服务来验证安装" class="headerlink" title="6、通过确保已部署以下Kubernetes服务来验证安装"></a>6、通过确保已部署以下Kubernetes服务来验证安装</h2><figure class="highlight livecodeserver"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs livecodeserver">kubectl <span class="hljs-built_in">get</span> pod -n istio-<span class="hljs-keyword">system</span><br>kubectl <span class="hljs-built_in">get</span> svc -n istio-<span class="hljs-keyword">system</span><br></code></pre></div></td></tr></table></figure>
 <p>说明：由于自建集群没有lb，所以会ingressgateway会处于pending状态，改成NodePort即可</p>
-<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/20210513145858.png" srcset="/img/loading.gif" alt="image-20210513145858343"></p>
+<p><img src="https://yangpiqiulaotou.oss-cn-hangzhou.aliyuncs.com/images/20210513145858.png" srcset="/img/loading.gif" alt="image-20210513145858343"></p>
 <h2 id="7、卸载会删除RBAC权限，istio-system名称空间以及它下面的层次结构中的所有资源"><a href="#7、卸载会删除RBAC权限，istio-system名称空间以及它下面的层次结构中的所有资源" class="headerlink" title="7、卸载会删除RBAC权限，istio-system名称空间以及它下面的层次结构中的所有资源"></a>7、卸载会删除RBAC权限，<code>istio-system</code>名称空间以及它下面的层次结构中的所有资源</h2><figure class="highlight verilog"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs verilog">istioctl manifest <span class="hljs-keyword">generate</span> --set profile=demo | kubectl delete -f -<br></code></pre></div></td></tr></table></figure>
 
             </div>

@@ -277,7 +277,7 @@
             
               <p class="note note-info">
                 
-                  本文最后更新于：2021年3月22日 下午
+                  本文最后更新于：2022年4月17日 下午
                 
               </p>
             
@@ -311,25 +311,25 @@
 <p>当追加结束后，redis就会用新AOF文件来代替旧AOF文件，之后再有新的写指令，就都会追加到新的AOF文件中了。</p>
 <h2 id="5、如何选择RDB和AOF"><a href="#5、如何选择RDB和AOF" class="headerlink" title="5、如何选择RDB和AOF"></a><strong>5、如何选择RDB和AOF</strong></h2><p>对于我们应该选择RDB还是AOF，官方的建议是两个同时使用。这样可以提供更可靠的持久化方案。</p>
 <h2 id="6、主从模式"><a href="#6、主从模式" class="headerlink" title="6、主从模式"></a><strong>6、主从模式</strong></h2><p>主从模式的应用场景有点类似于数据库的主从集群，主从往往是为了读写分离、backup  等目的才使用的，所谓主从模式简单的说就是有多个节点，里面包含主节点和从节点，结构如下图：</p>
-<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/fe191ea03b8c313a4494ce5cd82f1e07.jpeg" srcset="/img/loading.gif" alt="Redis中主从、哨兵、分片集群入门篇"></p>
+<p><img src="https://yangpiqiulaotou.oss-cn-hangzhou.aliyuncs.com/images/fe191ea03b8c313a4494ce5cd82f1e07.jpeg" srcset="/img/loading.gif" alt="Redis中主从、哨兵、分片集群入门篇"></p>
 <p>从节点在保持连接后每隔一个时间节点会主动的和主节点通信并发送同步请求，而后进行同步。</p>
-<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/077da3deb76b3b49498aec96e4c92bb8.jpeg" srcset="/img/loading.gif" alt="Redis中主从、哨兵、分片集群入门篇"></p>
+<p><img src="https://yangpiqiulaotou.oss-cn-hangzhou.aliyuncs.com/images/077da3deb76b3b49498aec96e4c92bb8.jpeg" srcset="/img/loading.gif" alt="Redis中主从、哨兵、分片集群入门篇"></p>
 <p>其实在整个流程中，最需要主要的就是数据间的同步，主要的同步方式有两种也就是全量同步和增量同步。</p>
 <p>全量同步：全量同步一般使用在从节点刚接入主节点时进行全量复制，当然你也可以根据你的需求进行主动的全量同步</p>
 <p>增量同步：Redis增量复制是指从节点初始化后开始正常工作时主服务器发生的写操作同步到从服务器的过程。   增量复制的过程主要是主服务器每执行一个写命令就会向从服务器发送相同的写命令，从服务器接收并执行收到的写命令，一般使用缓冲区、队列(先进先出)等方式辅助进行增量的同步。</p>
 <h2 id="7、哨兵模式"><a href="#7、哨兵模式" class="headerlink" title="7、哨兵模式"></a><strong>7、哨兵模式</strong></h2><p>哨兵模式是为了保证redis的高可用产生的架构，简单地说就是通过构建1个或多个哨兵对节点进行监控，如果master发生故障下线之后，哨兵之间会进行投票，在2.8之后使用的是Raft算法进行master选举，关于这个算法其实这个算法也应用于zookeeper和某些网络拓扑中，简单说就是在选举的过程可通信节点达成共识后那个投票选举master，而后进行故障转移操作。</p>
-<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/b006b2a827d407a68fc7b79182808d89.jpeg" srcset="/img/loading.gif" alt="Redis中主从、哨兵、分片集群入门篇"></p>
+<p><img src="https://yangpiqiulaotou.oss-cn-hangzhou.aliyuncs.com/images/b006b2a827d407a68fc7b79182808d89.jpeg" srcset="/img/loading.gif" alt="Redis中主从、哨兵、分片集群入门篇"></p>
 <p>哨兵是作为一个进程单独运行在redis中，哨兵之间也是通过该进程进行通信的，这一点和zookeeper的原理也是类似的，假设一个6节点3个哨兵的集群的结构应该如下图：</p>
-<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20200702100152234.png" srcset="/img/loading.gif" alt="image-20200702100152234"></p>
+<p><img src="https://yangpiqiulaotou.oss-cn-hangzhou.aliyuncs.com/images/image-20200702100152234.png" srcset="/img/loading.gif" alt="image-20200702100152234"></p>
 <h2 id="8、那么哨兵是如何监控master下线的呢"><a href="#8、那么哨兵是如何监控master下线的呢" class="headerlink" title="8、那么哨兵是如何监控master下线的呢?"></a><strong>8、那么哨兵是如何监控master下线的呢?</strong></h2><p>前面也有看到哨兵之间会进行集群的检测和哨兵之间的互相监测，但是哨兵不用做什么配置，因为哨兵巧妙的利用了master的发布/订阅机制去自动发现其它也监控了统一master的sentinel节点，在监测master方面一般分为两种：</p>
 <p>主观下线(Subjectively Down， 简称 SDOWN)指的是单个 Sentinel 实例对服务器做出的下线判断。</p>
 <p>客观下线(Objectively Down， 简称 ODOWN)指的是多个 Sentinel 实例在对同一个服务器做出 SDOWN 判断，  并且通过命令互相交流之后， 得出的服务器下线判断。 一个 Sentinel 可以通过向另一个 Sentinel   发送命令来询问对方是否认为给定的服务器已下线。</p>
 <h2 id="9、分片集群"><a href="#9、分片集群" class="headerlink" title="9、分片集群"></a><strong>9、分片集群</strong></h2><p>在上面的部分不管redis主从，还是高可用的 sentinel   哨兵模式。我们所做的这些工作只是保证了数据备份以及高可用，目前为止我们的程序一直都是向1台redis写数据，其他的redis只是备份而已。在实际使用中一般分片集群使用较多，我为什么要特意强调是分片集群呢，其实上面所说的主从和哨兵都是集群但是他们都是备份式的集群，实际数据是由一台进行控制的，所谓分片其实是将不同的数据按照一定的分布规则分布在不同的机器上</p>
-<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/7c040c0e14c86d49d76b08dc101c57a2.jpeg" srcset="/img/loading.gif" alt="Redis中主从、哨兵、分片集群入门篇"></p>
+<p><img src="https://yangpiqiulaotou.oss-cn-hangzhou.aliyuncs.com/images/7c040c0e14c86d49d76b08dc101c57a2.jpeg" srcset="/img/loading.gif" alt="Redis中主从、哨兵、分片集群入门篇"></p>
 <p>在redis中，我们的应用在存取数据的时候需要根据一定的算法(一致性hash)进行计算和存取 ，那么在redis中如何实现数据分片的呢?   首先Redis至少存在三个数据分片，每个分片称为master，假设整个cluster有N个节点，那么每个节点都和其他N-1个节点保持连接和心跳，节点之间相互通信主要确认节点是否存活、节点的数据版本、投票选择新的master等</p>
-<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20200702100058383.png" srcset="/img/loading.gif" alt="image-20200702100058383"></p>
+<p><img src="https://yangpiqiulaotou.oss-cn-hangzhou.aliyuncs.com/images/image-20200702100058383.png" srcset="/img/loading.gif" alt="image-20200702100058383"></p>
 <p>那么我们最终的集群结构大致如下：</p>
-<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/e42fe470d4bb59125b1f3fcecf65ce83.jpeg" srcset="/img/loading.gif" alt="Redis中主从、哨兵、分片集群入门篇"></p>
+<p><img src="https://yangpiqiulaotou.oss-cn-hangzhou.aliyuncs.com/images/e42fe470d4bb59125b1f3fcecf65ce83.jpeg" srcset="/img/loading.gif" alt="Redis中主从、哨兵、分片集群入门篇"></p>
 <p>集群分片连接：<a target="_blank" rel="noopener" href="https://www.cnblogs.com/flgb/p/10810269.html">https://www.cnblogs.com/flgb/p/10810269.html</a></p>
 
             </div>

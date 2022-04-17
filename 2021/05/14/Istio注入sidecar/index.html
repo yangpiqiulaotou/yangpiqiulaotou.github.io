@@ -277,7 +277,7 @@
             
               <p class="note note-info">
                 
-                  本文最后更新于：2021年5月14日 上午
+                  本文最后更新于：2022年4月17日 下午
                 
               </p>
             
@@ -291,13 +291,13 @@
 <figure class="highlight less"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs less"><span class="hljs-attribute">apiVersion</span>: apps/v1<br><span class="hljs-attribute">kind</span>: Deployment<br><span class="hljs-attribute">metadata</span>:<br>  <span class="hljs-attribute">name</span>: nginx<br>  <span class="hljs-attribute">labels</span>:<br>    <span class="hljs-attribute">app</span>: nginx<br><span class="hljs-attribute">spec</span>:<br>  <span class="hljs-attribute">replicas</span>: <span class="hljs-number">1</span><br>  <span class="hljs-attribute">selector</span>:<br>    <span class="hljs-attribute">matchLabels</span>:<br>      <span class="hljs-attribute">app</span>: nginx<br>  <span class="hljs-attribute">template</span>:<br>    <span class="hljs-attribute">metadata</span>:<br>      <span class="hljs-attribute">labels</span>:<br>        <span class="hljs-attribute">app</span>: nginx<br>    <span class="hljs-attribute">spec</span>:<br>      <span class="hljs-attribute">containers</span>:<br>      - <span class="hljs-attribute">name</span>: nginx<br>        <span class="hljs-attribute">image</span>: <span class="hljs-attribute">nginx</span>:<span class="hljs-number">1.14</span>-alpine<br>        <span class="hljs-attribute">ports</span>:<br>        - <span class="hljs-attribute">containerPort</span>: <span class="hljs-number">80</span><br></code></pre></div></td></tr></table></figure>
 <p>为了方便视图，创建一个新的名称空间</p>
 <figure class="highlight bash"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs bash">kubectl  create  namespace <span class="hljs-built_in">test</span><br>kubectl apply -f nginx.yml -n <span class="hljs-built_in">test</span><br>kubectl get pod -n <span class="hljs-built_in">test</span><br></code></pre></div></td></tr></table></figure>
-<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20200316111616355.png" srcset="/img/loading.gif" alt="image-20200316111616355"></p>
+<p><img src="https://yangpiqiulaotou.oss-cn-hangzhou.aliyuncs.com/images/image-20200316111616355.png" srcset="/img/loading.gif" alt="image-20200316111616355"></p>
 <p> 执行如下语句：</p>
 <figure class="highlight bash"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs bash">istioctl  kube-inject -f nginx.yml | kubectl apply  -n <span class="hljs-built_in">test</span> -f -<br>kubectl  get  pod  -n <span class="hljs-built_in">test</span><br></code></pre></div></td></tr></table></figure>
-<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20200316112939899.png" srcset="/img/loading.gif" alt="image-20200316112939899"></p>
+<p><img src="https://yangpiqiulaotou.oss-cn-hangzhou.aliyuncs.com/images/image-20200316112939899.png" srcset="/img/loading.gif" alt="image-20200316112939899"></p>
 <p>稍等会儿就能看到原来一个pod变成了两个，如果你有类似 rancher 这样的 web 控制台，可以看得更仔细些，如</p>
 <p>下图所示。</p>
-<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20200316113231845.png" srcset="/img/loading.gif" alt="image-20200316113231845"></p>
+<p><img src="https://yangpiqiulaotou.oss-cn-hangzhou.aliyuncs.com/images/image-20200316113231845.png" srcset="/img/loading.gif" alt="image-20200316113231845"></p>
 <p>从上图可知。此时 nginx pod 内部一共有 3 个容器，一个初始化容器 istio-init 已经运行成功并结束了，一个就是</p>
 <p>nginx 本尊，另外一个就是本文的主角 istio-proxy 了，它就是  sidecar，作用是负责跟外部打交到用的。</p>
 <h2 id="3、命名空间注入sidecar"><a href="#3、命名空间注入sidecar" class="headerlink" title="3、命名空间注入sidecar"></a>3、命名空间注入sidecar</h2><p>当你在一个命名空间中设置了 <code>istio-injection=enabled</code> 标签，且 injection webhook 被启用后，任何新的 pod 都有将在创建时自动添加 sidecar。</p>
@@ -308,7 +308,7 @@
 <p>再次创建nginx的deploy文件</p>
 <figure class="highlight bash"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs bash">kubectl apply -f nginx.yml -n <span class="hljs-built_in">test</span><br></code></pre></div></td></tr></table></figure>
 <p>稍等会儿就能看到已经自动注入了</p>
-<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20200316114453004.png" srcset="/img/loading.gif" alt="image-20200316114453004"></p>
+<p><img src="https://yangpiqiulaotou.oss-cn-hangzhou.aliyuncs.com/images/image-20200316114453004.png" srcset="/img/loading.gif" alt="image-20200316114453004"></p>
 
             </div>
             <hr>

@@ -277,7 +277,7 @@
             
               <p class="note note-info">
                 
-                  本文最后更新于：2020年12月30日 下午
+                  本文最后更新于：2022年4月17日 下午
                 
               </p>
             
@@ -285,10 +285,10 @@
               <h2 id="注册Leancloud"><a href="#注册Leancloud" class="headerlink" title="注册Leancloud"></a>注册Leancloud</h2><p>评论系统其实是放在Leancloud上的，因此首先需要去注册一个账号</p>
 <p>官网：<a target="_blank" rel="noopener" href="https://leancloud.cn/">https://leancloud.cn/</a></p>
 <p>认证完成后创建应用</p>
-<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20201230150742969.png" srcset="/img/loading.gif" alt="image-20201230150742969"></p>
-<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20201230150811967.png" srcset="/img/loading.gif" alt="image-20201230150811967"></p>
+<p><img src="https://yangpiqiulaotou.oss-cn-hangzhou.aliyuncs.com/images/image-20201230150742969.png" srcset="/img/loading.gif" alt="image-20201230150742969"></p>
+<p><img src="https://yangpiqiulaotou.oss-cn-hangzhou.aliyuncs.com/images/image-20201230150811967.png" srcset="/img/loading.gif" alt="image-20201230150811967"></p>
 <p>点击设置获取appid 和 appkey</p>
-<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20201230150940084.png" srcset="/img/loading.gif" alt="image-20201230150940084"></p>
+<p><img src="https://yangpiqiulaotou.oss-cn-hangzhou.aliyuncs.com/images/image-20201230150940084.png" srcset="/img/loading.gif" alt="image-20201230150940084"></p>
 <h2 id="修改配置文件"><a href="#修改配置文件" class="headerlink" title="修改配置文件"></a>修改配置文件</h2><p>打开主题配置文件 搜索 valine，填入appid 和 appkey</p>
 <figure class="highlight yaml"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs yaml"><span class="hljs-attr">valine:</span><br>  <span class="hljs-attr">appid:</span>  <span class="hljs-comment"># 从 LeanCloud 的应用中得到的 appId</span><br>  <span class="hljs-attr">appkey:</span>  <span class="hljs-comment"># 从 LeanCloud 的应用中得到的 APP Key</span><br>  <span class="hljs-attr">placeholder:</span> <span class="hljs-string">吐槽</span> <span class="hljs-comment"># 评论框占位提示符</span><br>  <span class="hljs-attr">path:</span> <span class="hljs-string">window.location.pathname</span> <span class="hljs-comment"># 当前文章页路径，用于区分不同的文章页，以保证正确读取该文章页下的评论列表</span><br>  <span class="hljs-attr">avatar:</span> <span class="hljs-string">retro</span> <span class="hljs-comment"># Gravatar 头像展示方式</span><br>  <span class="hljs-attr">meta:</span> [<span class="hljs-string">&#x27;nick&#x27;</span>, <span class="hljs-string">&#x27;mail&#x27;</span>, <span class="hljs-string">&#x27;link&#x27;</span>]  <span class="hljs-comment"># 评论者相关属性</span><br>  <span class="hljs-attr">pageSize:</span> <span class="hljs-number">10</span> <span class="hljs-comment"># 评论列表分页，每页条数</span><br>  <span class="hljs-attr">lang:</span> <span class="hljs-string">zh-CN</span> <span class="hljs-comment"># zh-CN | zh-TW | en | ja</span><br>  <span class="hljs-attr">highlight:</span> <span class="hljs-literal">false</span> <span class="hljs-comment"># 代码高亮</span><br>  <span class="hljs-attr">recordIP:</span> <span class="hljs-literal">false</span> <span class="hljs-comment"># 是否记录评论者IP</span><br>  <span class="hljs-attr">serverURLs:</span>  <span class="hljs-comment"># REST API 服务器地址，国际版不填</span><br></code></pre></div></td></tr></table></figure>
 <p>并修改评论插件为valine</p>

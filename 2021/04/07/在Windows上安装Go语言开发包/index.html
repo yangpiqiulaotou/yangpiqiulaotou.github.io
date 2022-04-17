@@ -277,29 +277,29 @@
             
               <p class="note note-info">
                 
-                  本文最后更新于：2021年4月7日 中午
+                  本文最后更新于：2022年4月17日 下午
                 
               </p>
             
             <div class="markdown-body">
               <h2 id="下载Go语言开发包"><a href="#下载Go语言开发包" class="headerlink" title="下载Go语言开发包"></a>下载Go语言开发包</h2><p>大家可以在Go语言官网（<a target="_blank" rel="noopener" href="https://golang.google.cn/dl/%EF%BC%89%E4%B8%8B%E8%BD%BD">https://golang.google.cn/dl/）下载</a> Windows 系统下的Go语言开发包，如下图所示。</p>
-<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20200706135250313.png" srcset="/img/loading.gif" alt="image-20200706135250313"></p>
+<p><img src="https://yangpiqiulaotou.oss-cn-hangzhou.aliyuncs.com/images/image-20200706135250313.png" srcset="/img/loading.gif" alt="image-20200706135250313"></p>
 <h2 id="安装Go语言开发包"><a href="#安装Go语言开发包" class="headerlink" title="安装Go语言开发包"></a>安装Go语言开发包</h2><p>​        双击我们下载好的Go语言开发包即可启动安装程序，如下图所示，这是Go语言的用户许可协议，无需管它，直接勾选“I accept …”然后点击“Next”即可。</p>
-<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20200706135403319.png" srcset="/img/loading.gif" alt="image-20200706135403319"></p>
+<p><img src="https://yangpiqiulaotou.oss-cn-hangzhou.aliyuncs.com/images/image-20200706135403319.png" srcset="/img/loading.gif" alt="image-20200706135403319"></p>
 <p>​        在 Windows 系统下Go语言开发包会默认安装到 C 盘的 Go 目录下，推荐在这个目录下安装，使用起来较为方便。当然，你也可以选择其他的安装目录，确认无误后点击“Next”，如下图所示：</p>
-<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20200706135447607.png" srcset="/img/loading.gif" alt="image-20200706135447607"></p>
+<p><img src="https://yangpiqiulaotou.oss-cn-hangzhou.aliyuncs.com/images/image-20200706135447607.png" srcset="/img/loading.gif" alt="image-20200706135447607"></p>
 <p>Go语言开发包的安装没有其他需要设置的选项，点击“Install”即可开始安装，如下图所示：</p>
-<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20200706135519708.png" srcset="/img/loading.gif" alt="image-20200706135519708"></p>
+<p><img src="https://yangpiqiulaotou.oss-cn-hangzhou.aliyuncs.com/images/image-20200706135519708.png" srcset="/img/loading.gif" alt="image-20200706135519708"></p>
 <p>等待程序完成安装，然后点击“Finish”退出安装程序。</p>
-<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20200706135629795.png" srcset="/img/loading.gif" alt="image-20200706135629795"></p>
+<p><img src="https://yangpiqiulaotou.oss-cn-hangzhou.aliyuncs.com/images/image-20200706135629795.png" srcset="/img/loading.gif" alt="image-20200706135629795"></p>
 <p>安装完成后，在我们所设置的安装目录下将生成一些目录和文件，如下图所示：</p>
-<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20200706135713475.png" srcset="/img/loading.gif" alt="image-20200706135713475"></p>
+<p><img src="https://yangpiqiulaotou.oss-cn-hangzhou.aliyuncs.com/images/image-20200706135713475.png" srcset="/img/loading.gif" alt="image-20200706135713475"></p>
 <p>这个目录的结构遵守 GOPATH 规则，后面的章节会提到这个概念。目录中各个文件夹的含义如下表所示。</p>
-<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20200706135754644.png" srcset="/img/loading.gif" alt="image-20200706135754644"></p>
+<p><img src="https://yangpiqiulaotou.oss-cn-hangzhou.aliyuncs.com/images/image-20200706135754644.png" srcset="/img/loading.gif" alt="image-20200706135754644"></p>
 <p>开发时，无须关注这些目录。如果读者希望深度了解底层原理，可以通过上面的介绍继续探索。</p>
 <h2 id="设置环境变量"><a href="#设置环境变量" class="headerlink" title="设置环境变量"></a>设置环境变量</h2><p>​        开发包安装完成后，我们还需要配置一下<code>GOPATH </code>环境变量，之后才可以使用Go语言进行开发。GOPATH 是一个路径，用来存放开发中需要用到的代码包。</p>
 <p>​         在桌面或者资源管理器右键“此电脑”（或者“我的电脑”）→“属性”→“高级系统设置”→“环境变量”，如下图所示。</p>
-<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/4-191105164245402.gif" srcset="/img/loading.gif" alt="设置环境变量"></p>
+<p><img src="https://yangpiqiulaotou.oss-cn-hangzhou.aliyuncs.com/images/4-191105164245402.gif" srcset="/img/loading.gif" alt="设置环境变量"></p>
 <p>​        在弹出的菜单里找到 GOPATH 对应的选项点击编辑之后就可以修改了，没有的话可以选择新建，并将变量名填写为 GOPATH，变量值设置为任意目录均可（尽量选择空目录），例如 ：</p>
 <p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master//img/image-20210305114708207.png" srcset="/img/loading.gif" alt="image-20210305114708207"></p>
 <p>提示：填写完成后，每个打开的窗口都需要点击“确定”来保存设置。</p>

@@ -277,7 +277,7 @@
             
               <p class="note note-info">
                 
-                  本文最后更新于：2021年5月25日 下午
+                  本文最后更新于：2022年4月17日 下午
                 
               </p>
             
@@ -286,14 +286,14 @@
 <h2 id="2、安装"><a href="#2、安装" class="headerlink" title="2、安装"></a>2、安装</h2><p>这里使用rpm装</p>
 <figure class="highlight apache"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs apache"><span class="hljs-attribute">curl</span> -L https://github.com/fortio/fortio/releases/download/v<span class="hljs-number">1</span>.<span class="hljs-number">3</span>.<span class="hljs-number">1</span>/fortio-<span class="hljs-number">1</span>.<span class="hljs-number">3</span>.<span class="hljs-number">1</span>-<span class="hljs-number">1</span>.x<span class="hljs-number">86</span>_<span class="hljs-number">64</span>.rpm -o fortio-<span class="hljs-number">1</span>.<span class="hljs-number">3</span>.<span class="hljs-number">1</span>-<span class="hljs-number">1</span>.x<span class="hljs-number">86</span>_<span class="hljs-number">64</span>.rpm<br><span class="hljs-attribute">rpm</span> -ivh fortio-<span class="hljs-number">1</span>.<span class="hljs-number">3</span>.<span class="hljs-number">1</span>-<span class="hljs-number">1</span>.x<span class="hljs-number">86</span>_<span class="hljs-number">64</span>.rpm<br></code></pre></div></td></tr></table></figure>
 <h2 id="3、命令行"><a href="#3、命令行" class="headerlink" title="3、命令行"></a>3、命令行</h2><figure class="highlight tap"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs tap">fortio load -c<span class="hljs-number"> 5 </span>-n<span class="hljs-number"> 20 </span>-qps<span class="hljs-number"> 0 </span>http://www.baidu.com<br><span class="hljs-comment">#命令解释如下：</span><br> -c 表示并发数<br> -n 一共多少请求<br> -qps 每秒查询数，0 表示不限制<br></code></pre></div></td></tr></table></figure>
-<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/20210518143424.png" srcset="/img/loading.gif" alt="image-20200601145601147"></p>
+<p><img src="https://yangpiqiulaotou.oss-cn-hangzhou.aliyuncs.com/images/20210518143424.png" srcset="/img/loading.gif" alt="image-20200601145601147"></p>
 <h2 id="4、Web控制台"><a href="#4、Web控制台" class="headerlink" title="4、Web控制台"></a>4、Web控制台</h2><p>  ··  web 控制台方式就是提供给习惯使用 web 界面操作的同学一个途径来使用 Fortio。因为是基于 web  方式，所以就需要首先启动一个 web server，这样客户端浏览器才可以访问到 web server 提供的操作界面进行负载压测。默认情况 fortio server 会启动 8080 端口，如下图所示：</p>
 <figure class="highlight pgsql"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs pgsql">nohup fortio <span class="hljs-keyword">server</span> &amp;<br>tail -f nohup.<span class="hljs-keyword">out</span><br></code></pre></div></td></tr></table></figure>
-<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/20210518143431.png" srcset="/img/loading.gif" alt="image-20200601145803379"></p>
+<p><img src="https://yangpiqiulaotou.oss-cn-hangzhou.aliyuncs.com/images/20210518143431.png" srcset="/img/loading.gif" alt="image-20200601145803379"></p>
 <p>​    打开浏览器，输入 <a target="_blank" rel="noopener" href="http://192.168.10.11:8080/fortio%EF%BC%8C%E8%AE%BF%E9%97%AE">http://192.168.10.11:8080/fortio，访问</a> Fortio server：</p>
-<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/20210518143435.png" srcset="/img/loading.gif" alt="image-20200601145950124"></p>
+<p><img src="https://yangpiqiulaotou.oss-cn-hangzhou.aliyuncs.com/images/20210518143435.png" srcset="/img/loading.gif" alt="image-20200601145950124"></p>
 <p>​    直接点击“start”按钮，将会看到压测效果：</p>
-<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/20210518143438.png" srcset="/img/loading.gif" alt="image-20200601150029002"></p>
+<p><img src="https://yangpiqiulaotou.oss-cn-hangzhou.aliyuncs.com/images/20210518143438.png" srcset="/img/loading.gif" alt="image-20200601150029002"></p>
 
             </div>
             <hr>

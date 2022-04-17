@@ -277,12 +277,12 @@
             
               <p class="note note-info">
                 
-                  本文最后更新于：2021年3月25日 上午
+                  本文最后更新于：2022年4月17日 下午
                 
               </p>
             
             <div class="markdown-body">
-              <h2 id="1、总览"><a href="#1、总览" class="headerlink" title="1、总览"></a>1、总览</h2><p>SonarQube平台由4个组件组成：<br><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/architecture-scanning.png" srcset="/img/loading.gif" alt="SonarQube平台。"></p>
+              <h2 id="1、总览"><a href="#1、总览" class="headerlink" title="1、总览"></a>1、总览</h2><p>SonarQube平台由4个组件组成：<br><img src="https://yangpiqiulaotou.oss-cn-hangzhou.aliyuncs.com/images/architecture-scanning.png" srcset="/img/loading.gif" alt="SonarQube平台。"></p>
 <ol>
 <li>一台SonarQube Server启动3个主要过程：<ul>
 <li>Web服务器，供开发人员，管理人员浏览高质量的快照并配置SonarQube实例</li>
@@ -298,7 +298,7 @@
 <li>服务器上安装了多个SonarQube插件，可能包括语言，SCM，集成，身份验证和管理插件</li>
 <li>在构建/持续集成服务器上运行一个或多个SonarScanner，以分析项目</li>
 </ol>
-<h2 id="2、架构"><a href="#2、架构" class="headerlink" title="2、架构"></a>2、架构</h2><p>以下架构显示了SonarQube如何与其他ALM工具集成以及使用SonarQube的各种组件的位置。<br><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/architecture-integrate.png" srcset="/img/loading.gif" alt="SonarQube集成。"></p>
+<h2 id="2、架构"><a href="#2、架构" class="headerlink" title="2、架构"></a>2、架构</h2><p>以下架构显示了SonarQube如何与其他ALM工具集成以及使用SonarQube的各种组件的位置。<br><img src="https://yangpiqiulaotou.oss-cn-hangzhou.aliyuncs.com/images/architecture-integrate.png" srcset="/img/loading.gif" alt="SonarQube集成。"></p>
 <ol>
 <li>开发人员在其IDE中进行编码，并使用<a target="_blank" rel="noopener" href="https://sonarlint.org/">SonarLint</a>运行本地分析。</li>
 <li>开发人员将他们的代码放入他们最喜欢的SCM中：git，SVN，TFVC等。</li>
@@ -318,30 +318,30 @@
 <li>有<strong>没有沟通</strong>之间<strong>SonarScanners</strong>和<strong>SonarQube数据库</strong>。</li>
 </ul>
 <h2 id="4、安装"><a href="#4、安装" class="headerlink" title="4、安装"></a>4、安装</h2><p>前提环境需要k8s集群和helm</p>
-<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20191226223315113.png" srcset="/img/loading.gif" alt="image-20191226223315113"></p>
+<p><img src="https://yangpiqiulaotou.oss-cn-hangzhou.aliyuncs.com/images/image-20191226223315113.png" srcset="/img/loading.gif" alt="image-20191226223315113"></p>
 <figure class="highlight apache"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs apache"><span class="hljs-attribute">helm</span> pull stable/sonarqube<br><span class="hljs-attribute">tar</span> xvf sonarqube-<span class="hljs-number">3</span>.<span class="hljs-number">2</span>.<span class="hljs-number">7</span>.tgz<br><span class="hljs-attribute">vim</span> sonarqube/values.yaml<br></code></pre></div></td></tr></table></figure>
 <p>设置用户和密码</p>
-<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20191226223702365.png" srcset="/img/loading.gif" alt="image-20191226223702365"></p>
+<p><img src="https://yangpiqiulaotou.oss-cn-hangzhou.aliyuncs.com/images/image-20191226223702365.png" srcset="/img/loading.gif" alt="image-20191226223702365"></p>
 <figure class="highlight subunit"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs subunit">helm install sonarqube ./sonarqube<br><br>#报错原因是我的集群是1.16版本了<br><span class="hljs-keyword">Error: </span>unable to build kubernetes objects from release manifest: unable to recognize &quot;&quot;: no matches for kind &quot;Deployment&quot; in version &quot;extensions/v1beta1&quot;<br></code></pre></div></td></tr></table></figure>
 <figure class="highlight gradle"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs gradle"><span class="hljs-keyword">grep</span> -irl <span class="hljs-string">&quot;extensions/v1beta1&quot;</span> sonarqube | <span class="hljs-keyword">grep</span> deployment<br><br><span class="hljs-keyword">grep</span> -irl <span class="hljs-string">&quot;extensions/v1beta1&quot;</span> sonarqube | <span class="hljs-keyword">grep</span> deploy | xargs sed -i <span class="hljs-string">&#x27;s#extensions/v1beta1#apps/v1#g&#x27;</span><br></code></pre></div></td></tr></table></figure>
 <p>再次执行安装</p>
 <figure class="highlight subunit"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs subunit">helm install sonarqube ./sonarqube<br><br><span class="hljs-keyword">Error: </span>unable to build kubernetes objects from release manifest: error validating &quot;&quot;: error validating data: ValidationError(Deployment.spec): missing required field &quot;selector&quot; in io.k8s.api.apps.v1.DeploymentSpec<br></code></pre></div></td></tr></table></figure>
 <figure class="highlight gradle"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs gradle"><span class="hljs-keyword">grep</span> -irl <span class="hljs-string">&quot;apps/v1&quot;</span> sonarqube | <span class="hljs-keyword">grep</span> deployment<br></code></pre></div></td></tr></table></figure>
-<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20191226224502628.png" srcset="/img/loading.gif" alt="image-20191226224502628"></p>
+<p><img src="https://yangpiqiulaotou.oss-cn-hangzhou.aliyuncs.com/images/image-20191226224502628.png" srcset="/img/loading.gif" alt="image-20191226224502628"></p>
 <p>依次修改以上文件。</p>
 <figure class="highlight awk"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs awk">vim sonarqube<span class="hljs-regexp">/templates/</span>deployment.yaml<br></code></pre></div></td></tr></table></figure>
-<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20191226224706142.png" srcset="/img/loading.gif" alt="image-20191226224706142"></p>
+<p><img src="https://yangpiqiulaotou.oss-cn-hangzhou.aliyuncs.com/images/image-20191226224706142.png" srcset="/img/loading.gif" alt="image-20191226224706142"></p>
 <figure class="highlight awk"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs awk">vim sonarqube<span class="hljs-regexp">/charts/</span>postgresql<span class="hljs-regexp">/templates/</span>deployment.yaml<br></code></pre></div></td></tr></table></figure>
-<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20191226224831497.png" srcset="/img/loading.gif" alt="image-20191226224831497"></p>
+<p><img src="https://yangpiqiulaotou.oss-cn-hangzhou.aliyuncs.com/images/image-20191226224831497.png" srcset="/img/loading.gif" alt="image-20191226224831497"></p>
 <figure class="highlight awk"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs awk">vim sonarqube<span class="hljs-regexp">/charts/my</span>sql<span class="hljs-regexp">/templates/</span>deployment.yaml<br></code></pre></div></td></tr></table></figure>
-<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20191226224933183.png" srcset="/img/loading.gif" alt="image-20191226224933183"></p>
+<p><img src="https://yangpiqiulaotou.oss-cn-hangzhou.aliyuncs.com/images/image-20191226224933183.png" srcset="/img/loading.gif" alt="image-20191226224933183"></p>
 <p>再次执行安装</p>
-<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20191226225015906.png" srcset="/img/loading.gif" alt="image-20191226225015906"></p>
+<p><img src="https://yangpiqiulaotou.oss-cn-hangzhou.aliyuncs.com/images/image-20191226225015906.png" srcset="/img/loading.gif" alt="image-20191226225015906"></p>
 <p>pod需要请求pv，这里使用hostpath</p>
-<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20191226225113200.png" srcset="/img/loading.gif" alt="image-20191226225113200"></p>
+<p><img src="https://yangpiqiulaotou.oss-cn-hangzhou.aliyuncs.com/images/image-20191226225113200.png" srcset="/img/loading.gif" alt="image-20191226225113200"></p>
 <figure class="highlight dts"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs dts">cat pv/pv1.yaml<br><span class="hljs-symbol">apiVersion:</span> v1<br><span class="hljs-symbol">kind:</span> PersistentVolume<br><span class="hljs-symbol">metadata:</span><br><span class="hljs-symbol">  name:</span> sonarqube-pv1<br><span class="hljs-symbol">spec:</span><br><span class="hljs-symbol">  capacity:</span><br><span class="hljs-symbol">    storage:</span> <span class="hljs-number">10</span>Gi<br><span class="hljs-symbol">  volumeMode:</span> Filesystem<br><span class="hljs-symbol">  accessModes:</span><br>  -  ReadWriteOnce<br><span class="hljs-symbol">  persistentVolumeReclaimPolicy:</span> Retain<br><span class="hljs-symbol">  hostPath:</span><br><span class="hljs-symbol">    path:</span> <span class="hljs-meta-keyword">/helm/</span>sonarqube/pv1<br></code></pre></div></td></tr></table></figure>
 <p>稍等会儿就能看到pod状态</p>
-<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20191226225808478.png" srcset="/img/loading.gif" alt="image-20191226225808478"></p>
+<p><img src="https://yangpiqiulaotou.oss-cn-hangzhou.aliyuncs.com/images/image-20191226225808478.png" srcset="/img/loading.gif" alt="image-20191226225808478"></p>
 
             </div>
             <hr>

@@ -277,16 +277,16 @@
             
               <p class="note note-info">
                 
-                  本文最后更新于：2021年5月10日 下午
+                  本文最后更新于：2022年4月17日 下午
                 
               </p>
             
             <div class="markdown-body">
               <h2 id="1、简介"><a href="#1、简介" class="headerlink" title="1、简介"></a>1、简介</h2><p>containerd是行业标准的容器运行时，重点是简单性，健壮性和可移植性。它可以作为Linux和Windows的守护程序使用，可以管理其主机系统的完整容器生命周期：图像传输和存储，容器执行和监控，低级存储和网络附件等。</p>
 <p>容器化的设计旨在嵌入到更大的系统中，而不是由开发人员或最终用户直接使用。</p>
-<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/20210510141814.png" srcset="/img/loading.gif"></p>
+<p><img src="https://yangpiqiulaotou.oss-cn-hangzhou.aliyuncs.com/images/20210510141814.png" srcset="/img/loading.gif"></p>
 <p><code>cri</code>是Kubernetes[容器运行时接口（CRI）的容器化插件实现</p>
-<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/20210510142315.png" srcset="/img/loading.gif"></p>
+<p><img src="https://yangpiqiulaotou.oss-cn-hangzhou.aliyuncs.com/images/20210510142315.png" srcset="/img/loading.gif"></p>
 <h2 id="2、配置"><a href="#2、配置" class="headerlink" title="2、配置"></a>2、配置</h2><p>containerd是一个可以在任何系统上运行的简单守护程序，配置文件的默认路径位于<code>/etc/containerd/config.toml</code>。<code>--config,-c</code>引导守护程序时，可以通过标志更改此路径。</p>
 <p>Containerd在主机系统上也有两个不同的存储位置。一种用于持久性数据，另一种用于运行时状态。</p>
 <p><code>root</code>将用于存储任何类型的容器持久化数据。快照，内容，容器和图像的元数据以及任何插件数据都将保留在此位置。根也为容器加载的插件命名空间。每个插件都有其自己的目录，用于存储数据。容器本身实际上并不需要存储任何持久性数据，它的功能来自于已加载的插件。</p>

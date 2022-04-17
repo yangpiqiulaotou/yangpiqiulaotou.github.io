@@ -277,13 +277,13 @@
             
               <p class="note note-info">
                 
-                  本文最后更新于：2021年4月1日 下午
+                  本文最后更新于：2022年4月17日 下午
                 
               </p>
             
             <div class="markdown-body">
               <h3 id="1、rancher介绍"><a href="#1、rancher介绍" class="headerlink" title="1、rancher介绍"></a>1、rancher介绍</h3><p>每个团队都可以在他们选择的公共云或私有云上部署应用程序，Rancher 在 IT 和 DevOps 组织中扮演的角色如下：</p>
-<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20191125105835491.png" srcset="/img/loading.gif" alt="image-20191125105835491"></p>
+<p><img src="https://yangpiqiulaotou.oss-cn-hangzhou.aliyuncs.com/images/image-20191125105835491.png" srcset="/img/loading.gif" alt="image-20191125105835491"></p>
 <p>同时具备多种功能：</p>
 <ul>
 <li>内置 CI/CD 流水线</li>
@@ -292,48 +292,48 @@
 <li>集成 Rancher Kubernetes Engine (RKE)</li>
 <li>与各云 Kubernetes 服务(如 GKE、EKS、AKS) 集成</li>
 </ul>
-<h3 id="2、安装要求"><a href="#2、安装要求" class="headerlink" title="2、安装要求"></a>2、安装要求</h3><h4 id="2-1操作系统和Docker要求"><a href="#2-1操作系统和Docker要求" class="headerlink" title="2.1操作系统和Docker要求"></a>2.1操作系统和Docker要求</h4><p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20191125104210860.png" srcset="/img/loading.gif" alt="image-20191125104210860"></p>
+<h3 id="2、安装要求"><a href="#2、安装要求" class="headerlink" title="2、安装要求"></a>2、安装要求</h3><h4 id="2-1操作系统和Docker要求"><a href="#2-1操作系统和Docker要求" class="headerlink" title="2.1操作系统和Docker要求"></a>2.1操作系统和Docker要求</h4><p><img src="https://yangpiqiulaotou.oss-cn-hangzhou.aliyuncs.com/images/image-20191125104210860.png" srcset="/img/loading.gif" alt="image-20191125104210860"></p>
 <h4 id="2-2硬件需求"><a href="#2-2硬件需求" class="headerlink" title="2.2硬件需求"></a>2.2硬件需求</h4><p>HA集群</p>
-<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20191125104545019.png" srcset="/img/loading.gif" alt="image-20191125104545019"></p>
+<p><img src="https://yangpiqiulaotou.oss-cn-hangzhou.aliyuncs.com/images/image-20191125104545019.png" srcset="/img/loading.gif" alt="image-20191125104545019"></p>
 <p>单节点</p>
-<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20191125104610584.png" srcset="/img/loading.gif" alt="image-20191125104610584"></p>
-<h4 id="2-3Rancher与用户群集通信的端口要求"><a href="#2-3Rancher与用户群集通信的端口要求" class="headerlink" title="2.3Rancher与用户群集通信的端口要求"></a>2.3Rancher与用户群集通信的端口要求</h4><p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20191125104812067.png" srcset="/img/loading.gif" alt="image-20191125104812067"></p>
+<p><img src="https://yangpiqiulaotou.oss-cn-hangzhou.aliyuncs.com/images/image-20191125104610584.png" srcset="/img/loading.gif" alt="image-20191125104610584"></p>
+<h4 id="2-3Rancher与用户群集通信的端口要求"><a href="#2-3Rancher与用户群集通信的端口要求" class="headerlink" title="2.3Rancher与用户群集通信的端口要求"></a>2.3Rancher与用户群集通信的端口要求</h4><p><img src="https://yangpiqiulaotou.oss-cn-hangzhou.aliyuncs.com/images/image-20191125104812067.png" srcset="/img/loading.gif" alt="image-20191125104812067"></p>
 <h3 id="3、单节点安装"><a href="#3、单节点安装" class="headerlink" title="3、单节点安装"></a>3、单节点安装</h3><figure class="highlight awk"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs awk">docker run -d --restart=unless-stopped \<br>  -p <span class="hljs-number">80</span>:<span class="hljs-number">80</span> -p <span class="hljs-number">443</span>:<span class="hljs-number">443</span> \<br>  -v <span class="hljs-regexp">/usr/</span>local<span class="hljs-regexp">/rancher:/u</span>sr<span class="hljs-regexp">/local/</span>rancher \<br>  rancher/rancher:latest<br></code></pre></div></td></tr></table></figure>
 <h3 id="4、rancher的web界面"><a href="#4、rancher的web界面" class="headerlink" title="4、rancher的web界面"></a>4、rancher的web界面</h3><h4 id="4-1自定义集群"><a href="#4-1自定义集群" class="headerlink" title="4.1自定义集群"></a>4.1自定义集群</h4><p>通过宿主机的IP登录</p>
-<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20191125110853326.png" srcset="/img/loading.gif" alt="image-20191125110853326"></p>
+<p><img src="https://yangpiqiulaotou.oss-cn-hangzhou.aliyuncs.com/images/image-20191125110853326.png" srcset="/img/loading.gif" alt="image-20191125110853326"></p>
 <p>设置需要访问的URL地址</p>
-<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20191125110956934.png" srcset="/img/loading.gif" alt="image-20191125110956934"></p>
+<p><img src="https://yangpiqiulaotou.oss-cn-hangzhou.aliyuncs.com/images/image-20191125110956934.png" srcset="/img/loading.gif" alt="image-20191125110956934"></p>
 <p>设置中文字体</p>
-<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20191125111044885.png" srcset="/img/loading.gif" alt="image-20191125111044885"></p>
+<p><img src="https://yangpiqiulaotou.oss-cn-hangzhou.aliyuncs.com/images/image-20191125111044885.png" srcset="/img/loading.gif" alt="image-20191125111044885"></p>
 <p>添加集群</p>
-<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20191125111137103.png" srcset="/img/loading.gif" alt="image-20191125111137103"></p>
+<p><img src="https://yangpiqiulaotou.oss-cn-hangzhou.aliyuncs.com/images/image-20191125111137103.png" srcset="/img/loading.gif" alt="image-20191125111137103"></p>
 <p>生成自己的集群</p>
-<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20191125111225387.png" srcset="/img/loading.gif" alt="image-20191125111225387"></p>
+<p><img src="https://yangpiqiulaotou.oss-cn-hangzhou.aliyuncs.com/images/image-20191125111225387.png" srcset="/img/loading.gif" alt="image-20191125111225387"></p>
 <p>可以自定义RKE集群，也可以导入自己已经建好的集群。</p>
-<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20191125111408862.png" srcset="/img/loading.gif" alt="image-20191125111408862"></p>
+<p><img src="https://yangpiqiulaotou.oss-cn-hangzhou.aliyuncs.com/images/image-20191125111408862.png" srcset="/img/loading.gif" alt="image-20191125111408862"></p>
 <p>设置自定义集群的名字 ，选择需要安装的集群的版本。</p>
-<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20191125111607904.png" srcset="/img/loading.gif" alt="image-20191125111607904"></p>
+<p><img src="https://yangpiqiulaotou.oss-cn-hangzhou.aliyuncs.com/images/image-20191125111607904.png" srcset="/img/loading.gif" alt="image-20191125111607904"></p>
 <p>选择需要的网络策略。</p>
-<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20191125111641275.png" srcset="/img/loading.gif" alt="image-20191125111641275"></p>
+<p><img src="https://yangpiqiulaotou.oss-cn-hangzhou.aliyuncs.com/images/image-20191125111641275.png" srcset="/img/loading.gif" alt="image-20191125111641275"></p>
 <p>自己私有仓库地址，以及账密。</p>
-<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20191125111756334.png" srcset="/img/loading.gif" alt="image-20191125111756334"></p>
+<p><img src="https://yangpiqiulaotou.oss-cn-hangzhou.aliyuncs.com/images/image-20191125111756334.png" srcset="/img/loading.gif" alt="image-20191125111756334"></p>
 <p>根据自己需求设置。</p>
-<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20191125111943481.png" srcset="/img/loading.gif" alt="image-20191125111943481"></p>
+<p><img src="https://yangpiqiulaotou.oss-cn-hangzhou.aliyuncs.com/images/image-20191125111943481.png" srcset="/img/loading.gif" alt="image-20191125111943481"></p>
 <p>master节点选择后在你需要安装成master节点运行下面的命令</p>
-<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20191125112055397.png" srcset="/img/loading.gif" alt="image-20191125112055397"></p>
+<p><img src="https://yangpiqiulaotou.oss-cn-hangzhou.aliyuncs.com/images/image-20191125112055397.png" srcset="/img/loading.gif" alt="image-20191125112055397"></p>
 <p>在工作节点运行以下命令。</p>
 <p>运行过程会去拉取所需镜像，时间视自己网络情况而定。</p>
 <p>所有容器运行好之后可以看到以下界面，表示你的集群已经好了</p>
-<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20191125112358230.png" srcset="/img/loading.gif" alt="image-20191125112358230"></p>
+<p><img src="https://yangpiqiulaotou.oss-cn-hangzhou.aliyuncs.com/images/image-20191125112358230.png" srcset="/img/loading.gif" alt="image-20191125112358230"></p>
 <p>复制kubeconfig文件在master节点下执行</p>
 <figure class="highlight elixir"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs elixir"><span class="hljs-comment"># 添加Kubernetes的yum源</span><br><span class="hljs-variable">$ </span>cat &gt;&gt; <span class="hljs-regexp">/etc/yum</span>.repos.d/kubernetes.repo &lt;&lt;EOF<br>[kubernetes]<br>name=Kubernetes<br>baseurl=<span class="hljs-symbol">https:</span>/<span class="hljs-regexp">/mirrors.aliyun.com/kubernetes</span><span class="hljs-regexp">/yum/repos</span><span class="hljs-regexp">/kubernetes-el7-x86_64/</span><br>enabled=<span class="hljs-number">1</span><br>gpgcheck=0<br>EOF<br><br><span class="hljs-comment"># 查看可安装的版本</span><br><span class="hljs-variable">$ </span>yum list kubectl –showduplicates<br><br><span class="hljs-comment"># yum方式安装kubectl</span><br><span class="hljs-variable">$ </span>yum install -y kubectl.x86_64<br><br>[root<span class="hljs-variable">@node1</span> ~]<span class="hljs-comment"># mkdir -p .kube</span><br>[root<span class="hljs-variable">@node1</span> ~]<span class="hljs-comment"># vim .kube/config</span><br></code></pre></div></td></tr></table></figure>
 <p>即可在master节点通过命令行查看整个集群信息。</p>
-<h4 id="4-2导入集群"><a href="#4-2导入集群" class="headerlink" title="4.2导入集群"></a>4.2导入集群</h4><p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20191125113210838.png" srcset="/img/loading.gif" alt="image-20191125113210838"></p>
+<h4 id="4-2导入集群"><a href="#4-2导入集群" class="headerlink" title="4.2导入集群"></a>4.2导入集群</h4><p><img src="https://yangpiqiulaotou.oss-cn-hangzhou.aliyuncs.com/images/image-20191125113210838.png" srcset="/img/loading.gif" alt="image-20191125113210838"></p>
 <p>随便定义一个集群名。</p>
-<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20191125113405043.png" srcset="/img/loading.gif" alt="image-20191125113405043"></p>
+<p><img src="https://yangpiqiulaotou.oss-cn-hangzhou.aliyuncs.com/images/image-20191125113405043.png" srcset="/img/loading.gif" alt="image-20191125113405043"></p>
 <p>复制下面两条命令在master节点运行，运行第一条命令时，由于是自签证书会报x509错误，在执行下面一条命令跳过错误就好。</p>
 <p>当在master节点看到</p>
-<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20191125113631090.png" srcset="/img/loading.gif" alt="image-20191125113631090"></p>
+<p><img src="https://yangpiqiulaotou.oss-cn-hangzhou.aliyuncs.com/images/image-20191125113631090.png" srcset="/img/loading.gif" alt="image-20191125113631090"></p>
 <p>则表示集群导入成功，如果pod状态报错，根据报错信息处理即可。</p>
 
             </div>

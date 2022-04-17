@@ -277,25 +277,25 @@
             
               <p class="note note-info">
                 
-                  本文最后更新于：2021年4月6日 下午
+                  本文最后更新于：2022年4月17日 下午
                 
               </p>
             
             <div class="markdown-body">
               <h2 id="一、前言"><a href="#一、前言" class="headerlink" title="一、前言"></a>一、前言</h2><p>​            对于每个想落地kubernetes应用的工程师来说，熟悉kubernetes的架构和工作原理是必经之路，也是必须知道的知识，只有了解kubernetes的架构和工作原理才能更好的应用kubernetes 。</p>
-<p><strong>kubernetes 整体架构</strong><br>            Kubernetes最初源于谷歌内部的Borg，提供了面向应用的容器集群部署和管理系统，所以整体的架构和borg很相似，整个架构有api server，control manager，scheduler，etcd，kubelet，kube-proxy，network-plugin等相关组件完成，整体架构如下：<br><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/1617676a379.jpg" srcset="/img/loading.gif" alt="1617676a379"></p>
+<p><strong>kubernetes 整体架构</strong><br>            Kubernetes最初源于谷歌内部的Borg，提供了面向应用的容器集群部署和管理系统，所以整体的架构和borg很相似，整个架构有api server，control manager，scheduler，etcd，kubelet，kube-proxy，network-plugin等相关组件完成，整体架构如下：<br><img src="https://yangpiqiulaotou.oss-cn-hangzhou.aliyuncs.com/images/1617676a379.jpg" srcset="/img/loading.gif" alt="1617676a379"></p>
 <h2 id="二、各组件功能："><a href="#二、各组件功能：" class="headerlink" title="二、各组件功能："></a>二、各组件功能：</h2><p><strong>一）、Api server,Control manager,Scheduler,Etcd属于master节点，相关组件功能如下：</strong></p>
 <figure class="highlight css"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs css">1<span class="hljs-selector-class">.Etcd</span>：保存了整个集群的状态；<br><br>2<span class="hljs-selector-class">.Apiserver</span>：提供了资源操作的唯一入口，并提供认证、授权、访问控制、<span class="hljs-selector-tag">API</span>注册和发现等机制；<br><br>3<span class="hljs-selector-class">.Controller</span> <span class="hljs-selector-tag">manager</span>：负责维护集群的状态，比如故障检测、自动扩展、滚动更新等；<br><br>4<span class="hljs-selector-class">.Scheduler</span>：负责资源的调度，按照预定的调度策略将<span class="hljs-selector-tag">Pod</span>调度到相应的机器上；<br></code></pre></div></td></tr></table></figure>
 <p><strong>二）、Kubelet,Container runtine,Kube-proxy属于woker节点，相关组件功能如下：</strong></p>
 <figure class="highlight css"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs css">1<span class="hljs-selector-class">.kubelet</span>：负责维护容器的生命周期，同时也负责<span class="hljs-selector-tag">Volume</span>（<span class="hljs-selector-tag">CSI</span>）和网络（<span class="hljs-selector-tag">CNI</span>）的管理；<br><br>2<span class="hljs-selector-class">.Container</span> <span class="hljs-selector-tag">runtime</span>：负责镜像管理以及<span class="hljs-selector-tag">Pod</span>和容器的真正运行（<span class="hljs-selector-tag">CRI</span>）；<br><br>3<span class="hljs-selector-class">.kube-proxy</span>：负责为<span class="hljs-selector-tag">Service</span>提供<span class="hljs-selector-tag">cluster</span>内部的服务发现和负载均衡；<br></code></pre></div></td></tr></table></figure>
-<h2 id="三、kubernetes-工作原理"><a href="#三、kubernetes-工作原理" class="headerlink" title="三、kubernetes 工作原理"></a>三、kubernetes 工作原理</h2><p><strong>kubernetes的整个工作流程图：</strong><br><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/1617676436s.jpg" srcset="/img/loading.gif" alt="1617676436s"><br><strong>下面为一个个pod创建过程：</strong></p>
+<h2 id="三、kubernetes-工作原理"><a href="#三、kubernetes-工作原理" class="headerlink" title="三、kubernetes 工作原理"></a>三、kubernetes 工作原理</h2><p><strong>kubernetes的整个工作流程图：</strong><br><img src="https://yangpiqiulaotou.oss-cn-hangzhou.aliyuncs.com/images/1617676436s.jpg" srcset="/img/loading.gif" alt="1617676436s"><br><strong>下面为一个个pod创建过程：</strong></p>
 <p>1.用户提交创建Pod的请求，可以通过API Server的REST API ，也可用Kubectl命令行工具，支持Json和Yaml两种格式；</p>
 <p>2.API Server处理用户请求，存储Pod数据到etcd；</p>
 <p>3.Schedule通过和API Server的watch机制，查看到新的Pod，尝试为Pod绑定Node；</p>
 <p>4.过滤主机：调度器用一组规则过滤掉不符合要求的主机，比如Pod指定了所需要的资源，那么就要过滤掉资源不够的主机；</p>
 <p>5.主机打分：对第一步筛选出的符合要求的主机进行打分，在主机打分阶段，调度器会考虑一些整体优化策略，比如把一个Replication Controller的副本分布到不同的主机上，使用最低负载的主机等；</p>
 <p>6.选择主机：选择打分最高的主机，进行binding操作，结果存储到etcd中；</p>
-<p>7.Kubelet根据调度结果执行Pod创建操作： 绑定成功后，会启动container，docker run，scheduler会调用API在数据库etcd中创建一个bound pod对象，描述在一个工作节点上绑定运行的所有pod信息。运行在每个工作节点上的Kubelet也会定期与etcd同步bound pod信息，一旦发现应该在该工作节点上运行的bound pod对象没有更新，则调用Docker API创建并启动pod内的容器；<br><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/1617676461d.jpg" srcset="/img/loading.gif" alt="1617676461d"><br>在这期间，Control Manager同时会根据kubernetes的mainfiles文件执行rc pod的数量来保证指定的pod副本数。而其他的组件，比如scheduler负责pod绑定的调度，从而完成整个pod的创建。</p>
+<p>7.Kubelet根据调度结果执行Pod创建操作： 绑定成功后，会启动container，docker run，scheduler会调用API在数据库etcd中创建一个bound pod对象，描述在一个工作节点上绑定运行的所有pod信息。运行在每个工作节点上的Kubelet也会定期与etcd同步bound pod信息，一旦发现应该在该工作节点上运行的bound pod对象没有更新，则调用Docker API创建并启动pod内的容器；<br><img src="https://yangpiqiulaotou.oss-cn-hangzhou.aliyuncs.com/images/1617676461d.jpg" srcset="/img/loading.gif" alt="1617676461d"><br>在这期间，Control Manager同时会根据kubernetes的mainfiles文件执行rc pod的数量来保证指定的pod副本数。而其他的组件，比如scheduler负责pod绑定的调度，从而完成整个pod的创建。</p>
 
             </div>
             <hr>

@@ -277,7 +277,7 @@
             
               <p class="note note-info">
                 
-                  本文最后更新于：2021年4月21日 上午
+                  本文最后更新于：2022年4月17日 下午
                 
               </p>
             
@@ -294,7 +294,7 @@
 <li><p>示意图：</p>
 </li>
 </ol>
-<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/image-20210104155905223.png" srcset="/img/loading.gif" alt="image-20210104155905223"></p>
+<p><img src="https://yangpiqiulaotou.oss-cn-hangzhou.aliyuncs.com/images/image-20210104155905223.png" srcset="/img/loading.gif" alt="image-20210104155905223"></p>
 <h2 id="定义-声明-channel"><a href="#定义-声明-channel" class="headerlink" title="定义/声明 channel"></a>定义/声明 channel</h2><figure class="highlight go"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs go"><span class="hljs-keyword">var</span> 变量名 <span class="hljs-keyword">chan</span> 数据类型<br><br>举例：<br><span class="hljs-keyword">var</span> intChan <span class="hljs-keyword">chan</span> <span class="hljs-keyword">int</span> (intChan 用于存放 <span class="hljs-keyword">int</span> 数据)<br><span class="hljs-keyword">var</span> mapChan <span class="hljs-keyword">chan</span> <span class="hljs-keyword">map</span>[<span class="hljs-keyword">int</span>]<span class="hljs-keyword">string</span> (mapChan 用于存放 <span class="hljs-keyword">map</span>[<span class="hljs-keyword">int</span>]<span class="hljs-keyword">string</span> 类型)<br><span class="hljs-keyword">var</span> perChan <span class="hljs-keyword">chan</span> Person<br><span class="hljs-keyword">var</span> perChan2 <span class="hljs-keyword">chan</span> *Person<br>...<br></code></pre></div></td></tr></table></figure>
 <p>说明</p>
 <p>channel 是引用类型 ，channel 必须初始化才能写入数据, 即 make 后才能使用 ，管道是有类型的，intChan 只能写入 整数 int</p>

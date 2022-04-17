@@ -277,7 +277,7 @@
             
               <p class="note note-info">
                 
-                  本文最后更新于：2021年4月7日 上午
+                  本文最后更新于：2022年4月17日 下午
                 
               </p>
             
@@ -291,15 +291,15 @@
 <p>​            简而言之，Docker 并不支持 CRI（容器运行时接口）这一 Kubernetes 运行时 API，而 Kubernetes 用户一直以来所使用的其实是名为“dockershim”的桥接服务。Dockershim 能够转换 Docker API 与 CRI，但在后续版本当中，Kubernetes 将不再提供这项桥接服务。</p>
 <p>​            当然，Docker 本身也是一款非常强大的工具，可用于创建开发环境。但为了了解造成当前状况的原因，我们需要全面分析 Docker 在现有 Kubernetes 架构中的作用。</p>
 <p>​            Kubernetes 是一款基础设施工具，可对多种不同计算资源（例如虚拟 / 物理机）进行分组，使其呈现为统一的巨量计算资源，从而供应用程序使用或与其他人共享。在这样的架构中，Docker（或者容器运行时）仅用于通过 Kubernetes 控制平面进行调度，从而在实际主机内运行应用程序。</p>
-<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/1617763816h.jpg" srcset="/img/loading.gif" alt="1617763816h"><br>通过以上架构图，可以看到每个 Kubernetes 节点都与控制平面彼此通信。各个节点上的 kubelet 获取元数据，并执行 CRI 以在该节点上创建 / 删除容器。</p>
+<p><img src="https://yangpiqiulaotou.oss-cn-hangzhou.aliyuncs.com/images/1617763816h.jpg" srcset="/img/loading.gif" alt="1617763816h"><br>通过以上架构图，可以看到每个 Kubernetes 节点都与控制平面彼此通信。各个节点上的 kubelet 获取元数据，并执行 CRI 以在该节点上创建 / 删除容器。</p>
 <h2 id="1、但-Docker-为什么会被弃用？"><a href="#1、但-Docker-为什么会被弃用？" class="headerlink" title="1、但 Docker 为什么会被弃用？"></a>1、但 Docker 为什么会被弃用？</h2><hr>
 <p>如前所述，Kubernetes 只能与 CRI 通信，因此要与 Docker 通信，就必须使用桥接服务。这就是弃用 Docker 的第一点原因。</p>
 <p>要解释下一个原因，我们必须稍微聊聊 Docker 架构。首先参考以下示意图。</p>
-<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/1617763840j.jpg" srcset="/img/loading.gif" alt="1617763840j"><br>没错，Kubernetes 实际上需要保持在红框之内。Docker 网络与存储卷都被排除在外。</p>
+<p><img src="https://yangpiqiulaotou.oss-cn-hangzhou.aliyuncs.com/images/1617763840j.jpg" srcset="/img/loading.gif" alt="1617763840j"><br>没错，Kubernetes 实际上需要保持在红框之内。Docker 网络与存储卷都被排除在外。</p>
 <p>而这些用不到的功能本身就可能带来安全隐患。事实上，您拥有的功能越少，攻击面也就越小。</p>
 <p>因此，我们需要考虑使用替代方案，即 CRI 运行时。</p>
 <p>对于啥是 CRI 运行时？我们暂可以简单的将 Ta 理解为与 Docker 同等的存在（另外一个容器容器运行时）。如下图</p>
-<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/20201215141919798.png" srcset="/img/loading.gif" alt="在这里插入图片描述"></p>
+<p><img src="https://yangpiqiulaotou.oss-cn-hangzhou.aliyuncs.com/images/20201215141919798.png" srcset="/img/loading.gif" alt="在这里插入图片描述"></p>
 <p>通过上边的图片我们可以看到，K8s 是通过 docker-shim 作为桥接服务，将 CRI 转换为 Docker API，然后与 Dokcer 进行通信的。</p>
 <h2 id="2、CRI-是啥？"><a href="#2、CRI-是啥？" class="headerlink" title="2、CRI 是啥？"></a>2、CRI 是啥？</h2><p>​            CRI（Container Runtime Interface）是 K8s 定义的一组与容器运行时进行交互的接口，用于将 K8s 平台与特定的容器实现解耦。在 K8s 早期的版本中，对于容器环境的支持是通过 hard code 方式直接调用 Docker API 的，后来为了支持更多的容器运行时和更精简的容器运行时，K8s 提出了CRI。</p>
 <p>CRI 运行时有两个实现方案：</p>
@@ -309,7 +309,7 @@
 
 <p>​            OCI（Open Container Initiative），可以看做是「容器运行时」的一个标准，Ta 使用 Linux 内核系统调用（例如：cgroups 与命名空间）生成容器，按此标准实现的「容器运行时」有 runC 和 gVisor。</p>
 <h2 id="4、CRI、OCI-之间的关系？"><a href="#4、CRI、OCI-之间的关系？" class="headerlink" title="4、CRI、OCI 之间的关系？"></a>4、CRI、OCI 之间的关系？</h2><p>还是通过图片来说明下吧：</p>
-<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/20201215143911327.png" srcset="/img/loading.gif" alt="在这里插入图片描述"></p>
+<p><img src="https://yangpiqiulaotou.oss-cn-hangzhou.aliyuncs.com/images/20201215143911327.png" srcset="/img/loading.gif" alt="在这里插入图片描述"></p>
 <p>实际对容器的操作最终还是要交给 OCI，CRI 也只是个中转</p>
 <h2 id="5、CRI-运行时"><a href="#5、CRI-运行时" class="headerlink" title="5、CRI 运行时"></a>5、CRI 运行时</h2><hr>
 <p>CRI 运行时的实现方案主要有两种。</p>
@@ -328,17 +328,17 @@
 <p>当我们谈论容器运行时时，请注意我们到底是在谈论哪种类型的运行时。运行时分为两种：CRI 运行时与 OCI 运行时。</p>
 <h2 id="6、CRI-运行时"><a href="#6、CRI-运行时" class="headerlink" title="6、CRI 运行时"></a>6、CRI 运行时</h2><p>正如之前所提到，CRI 是 Kubernetes 提供的 API，用于同容器运行时进行通信以创建 / 删除容器化应用程序。</p>
 <p>各容器化应用程序作为 kubelet 通过 IPC 在 gRPC 内通信，而且运行时也运行在同一主机之上；CRI 运行时负责从 kubelet 获取请求并执行 OCI 容器运行时以运行容器。稍微有点复杂，接下来我们会用图表来解释。</p>
-<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/1617689983ff.jpg" srcset="/img/loading.gif" alt="1617689983ff"></p>
+<p><img src="https://yangpiqiulaotou.oss-cn-hangzhou.aliyuncs.com/images/1617689983ff.jpg" srcset="/img/loading.gif" alt="1617689983ff"></p>
 <p>因此，CRI 运行时将执行以下操作：</p>
 <ol>
 <li>从 kubelet 获取 gRPC 请求。</li>
 <li>根据规范创建 OCIjson 配置。</li>
 </ol>
 <h2 id="7、OCI-运行时"><a href="#7、OCI-运行时" class="headerlink" title="7、OCI 运行时"></a>7、OCI 运行时</h2><p>OCI 运行时负责使用 Linux 内核系统调用（例如 cgroups 与命名空间）生成容器。您可能听说过 runc 或者 gVisor，这就是了。</p>
-<h2 id="附录-1：runC-的工作原理"><a href="#附录-1：runC-的工作原理" class="headerlink" title="附录 1：runC 的工作原理"></a>附录 1：runC 的工作原理</h2><p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/1617690010g.jpg" srcset="/img/loading.gif" alt="1617690010g"></p>
+<h2 id="附录-1：runC-的工作原理"><a href="#附录-1：runC-的工作原理" class="headerlink" title="附录 1：runC 的工作原理"></a>附录 1：runC 的工作原理</h2><p><img src="https://yangpiqiulaotou.oss-cn-hangzhou.aliyuncs.com/images/1617690010g.jpg" srcset="/img/loading.gif" alt="1617690010g"></p>
 <p>CRI 会通过 Linux 系统调用以执行二进制文件，而后 runC 生成容器。这表明 runC 依赖于 Linux 计算机上运行的内核。</p>
 <p>​            这也意味着，如果您发现 runC 中的漏洞会使您获得主机 root 权限，那么容器化应用程序同样会造成 root 权限外泄。很明显，恶意黑客会抓住机会入侵主机，引发灾难性的后果。正因为如此，大家才需要不断更新 Docker（或者其他容器运行时），而不仅仅是更新容器化应用程序本身。</p>
-<h2 id="附录-2：gVisor-工作原理"><a href="#附录-2：gVisor-工作原理" class="headerlink" title="附录 2：gVisor 工作原理"></a>附录 2：gVisor 工作原理</h2><p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/1617690035h.jpg" srcset="/img/loading.gif" alt="1617690035h"></p>
+<h2 id="附录-2：gVisor-工作原理"><a href="#附录-2：gVisor-工作原理" class="headerlink" title="附录 2：gVisor 工作原理"></a>附录 2：gVisor 工作原理</h2><p><img src="https://yangpiqiulaotou.oss-cn-hangzhou.aliyuncs.com/images/1617690035h.jpg" srcset="/img/loading.gif" alt="1617690035h"></p>
 <p>​            gVisor 是最初由谷歌员工创建的 OCI 运行时。它实际上运行在承载各类谷歌云服务（包括 Google Cloud Run、Google App Engine 以及 Google Cloud Functions）的同一套基础设施之上。</p>
 <p>​            有趣的是，gVisor 中包含一个“访客内核”层，意味着容器化应用程序无法直接接触到主机内核层。即使是应用程序“认为”自己接触到了，实际接触到的也只是 gVisor 的访客内核。</p>
 <p>gVisor 的安全模式非常有趣，这里建议大家参阅官方说明文档。</p>

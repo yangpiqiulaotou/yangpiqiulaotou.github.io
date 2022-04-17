@@ -277,7 +277,7 @@
             
               <p class="note note-info">
                 
-                  本文最后更新于：2021年5月25日 下午
+                  本文最后更新于：2022年4月17日 下午
                 
               </p>
             
@@ -291,9 +291,9 @@
 <p>部署以上资源，并将deploy资源进行istio注入</p>
 <figure class="highlight powershell"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs powershell">istioctl kube<span class="hljs-literal">-inject</span> <span class="hljs-operator">-f</span> <span class="hljs-built_in">test-deploy</span>.yaml |kubectl apply <span class="hljs-operator">-f</span> -<br></code></pre></div></td></tr></table></figure>
 <h2 id="3、验证断路器"><a href="#3、验证断路器" class="headerlink" title="3、验证断路器"></a>3、验证断路器</h2><figure class="highlight apache"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs apache"><span class="hljs-attribute">fortio</span> load -c <span class="hljs-number">10</span> -n <span class="hljs-number">50</span> -qps <span class="hljs-number">0</span> http://<span class="hljs-number">10.106.31.6</span><br></code></pre></div></td></tr></table></figure>
-<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/20210518145650.png" srcset="/img/loading.gif" alt="image-20200601152441657"></p>
+<p><img src="https://yangpiqiulaotou.oss-cn-hangzhou.aliyuncs.com/images/20210518145650.png" srcset="/img/loading.gif" alt="image-20200601152441657"></p>
 <p>执行结果如下</p>
-<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/20210518145653.png" srcset="/img/loading.gif" alt="image-20200601152656744"></p>
+<p><img src="https://yangpiqiulaotou.oss-cn-hangzhou.aliyuncs.com/images/20210518145653.png" srcset="/img/loading.gif" alt="image-20200601152656744"></p>
 <p>由上图可知有34个报错，说明断路器生效</p>
 
             </div>

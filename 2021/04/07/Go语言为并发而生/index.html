@@ -277,7 +277,7 @@
             
               <p class="note note-info">
                 
-                  本文最后更新于：2021年4月7日 中午
+                  本文最后更新于：2022年4月17日 下午
                 
               </p>
             
@@ -290,7 +290,7 @@
 <p>​         Go语言的并发是基于 goroutine 的，goroutine 类似于线程，但并非线程。可以将 goroutine  理解为一种虚拟线程。Go语言运行时会参与调度 goroutine，并将 goroutine 合理地分配到每个 CPU 中，最大限度地使用 CPU 性能。</p>
 <p>​         多个 goroutine 中，Go语言使用通道（channel）进行通信，通道是一种内置的<a target="_blank" rel="noopener" href="http://c.biancheng.net/data_structure/">数据结构</a>，可以让用户在不同的 goroutine 之间同步发送具有类型的消息。这让编程模型更倾向于在 goroutine 之间发送消息，而不是让多个 goroutine 争夺同一个数据的使用权。</p>
 <p>​         程序可以将需要并发的环节设计为生产者模式和消费者的模式，将数据放入通道。通道另外一端的代码将这些数据进行并发计算并返回结果，如下图所示。</p>
-<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master/img/1-1PPQ001322K.jpg" srcset="/img/loading.gif" alt="img"></p>
+<p><img src="https://yangpiqiulaotou.oss-cn-hangzhou.aliyuncs.com/images/1-1PPQ001322K.jpg" srcset="/img/loading.gif" alt="img"></p>
 <blockquote>
 <p>提示：Go语言通过通道可以实现多个 goroutine 之间内存共享。</p>
 </blockquote>
