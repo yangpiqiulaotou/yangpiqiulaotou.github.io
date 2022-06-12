@@ -1,288 +1,242 @@
-
-
 <!DOCTYPE html>
-<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
-
-
-
+<html lang="zh-CN">
 <head>
   <meta charset="UTF-8">
-  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
-  <link rel="icon" type="image/png" href="/img/favicon.png">
-  <meta name="viewport"
-        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
-  <meta http-equiv="x-ua-compatible" content="ie=edge">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 5.3.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.12.1","exturl":false,"sidebar":{"position":"left","width":300,"display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="1、Shell变量介绍​        Linux中的变量分为系统变量和自定义变量 2、Shell变量的定义基本语法 定义变量：变量&#x3D;值 撤销变量：unset 变量 声明静态变量：readonly变量（不能unset）readonly   city&#x3D;beijing  定义变量的规则 变量名称可以由字母、数字和下划线组成，但不能使用数字开头 变量两侧不能有空格 变量名称一般习惯为大写  将命令的返回">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Shell脚本">
+<meta property="og:url" content="http://example.com/2021/05/10/Shell%E8%84%9A%E6%9C%AC/index.html">
+<meta property="og:site_name" content="羊皮裘老头">
+<meta property="og:description" content="1、Shell变量介绍​        Linux中的变量分为系统变量和自定义变量 2、Shell变量的定义基本语法 定义变量：变量&#x3D;值 撤销变量：unset 变量 声明静态变量：readonly变量（不能unset）readonly   city&#x3D;beijing  定义变量的规则 变量名称可以由字母、数字和下划线组成，但不能使用数字开头 变量两侧不能有空格 变量名称一般习惯为大写  将命令的返回">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2021-05-10T07:22:27.000Z">
+<meta property="article:modified_time" content="2022-04-17T09:07:34.603Z">
+<meta property="article:author" content="羊皮裘老头">
+<meta property="article:tag" content="Shell">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="http://example.com/2021/05/10/Shell%E8%84%9A%E6%9C%AC/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://example.com/2021/05/10/Shell%E8%84%9A%E6%9C%AC/","path":"2021/05/10/Shell脚本/","title":"Shell脚本"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>Shell脚本 | 羊皮裘老头</title>
   
-  <meta name="theme-color" content="#2f4154">
-  <meta name="description" content="">
-  <meta name="author" content="羊皮裘老头">
-  <meta name="keywords" content="">
-  <title>Shell脚本 - 羊皮裘老头</title>
-
-  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
-
-
-  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
-  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
-
-  
-    
-    
-      
-      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.4.0/styles/github-gist.min.css" />
-    
-  
-
-  
-    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
-  
 
 
 
-<!-- 主题依赖的图标库，不要自行修改 -->
-
-<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
 
 
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
 
-<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
 
-
-<link  rel="stylesheet" href="/css/main.css" />
-
-<!-- 自定义样式保持在最底部 -->
-
-
-  <script id="fluid-configs">
-    var Fluid = window.Fluid || {};
-    var CONFIG = {"hostname":"example.com","root":"/","version":"1.8.7","typing":{"enable":false,"typeSpeed":70,"cursorChar":" ","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"onlypost":false},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}}};
-  </script>
-  <script  src="/js/utils.js" ></script>
-  <script  src="/js/color-schema.js" ></script>
-<meta name="generator" content="Hexo 5.3.0"></head>
-
-
-<body>
-  <header style="height: 70vh;">
-    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
-  <div class="container">
-    <a class="navbar-brand"
-       href="/">&nbsp;<strong>羊皮裘老头</strong>&nbsp;</a>
-
-    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
-            data-target="#navbarSupportedContent"
-            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <div class="animated-icon"><span></span><span></span><span></span></div>
-    </button>
-
-    <!-- Collapsible content -->
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav ml-auto text-center">
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/">
-                <i class="iconfont icon-home-fill"></i>
-                首页
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/archives/">
-                <i class="iconfont icon-archive-fill"></i>
-                归档
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/categories/">
-                <i class="iconfont icon-category-fill"></i>
-                分类
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/tags/">
-                <i class="iconfont icon-tags-fill"></i>
-                标签
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/about/">
-                <i class="iconfont icon-user-fill"></i>
-                关于
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <i class="iconfont icon-books"></i>
-                文档
-              </a>
-              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                
-                  
-                  
-                  
-                  <a class="dropdown-item" target="_blank" rel="noopener" href="https://hexo.fluid-dev.com/">
-                    
-                    主题博客
-                  </a>
-                
-                  
-                  
-                  
-                  <a class="dropdown-item" target="_blank" rel="noopener" href="https://hexo.fluid-dev.com/docs/guide/">
-                    
-                    配置指南
-                  </a>
-                
-                  
-                  
-                  
-                  <a class="dropdown-item" target="_blank" rel="noopener" href="https://hexo.fluid-dev.com/docs/icon/">
-                    
-                    图标用法
-                  </a>
-                
-              </div>
-            </li>
-          
-        
-        
-          <li class="nav-item" id="search-btn">
-            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
-                class="iconfont icon-search"></i>&nbsp;</a>
-          </li>
-        
-        
-          <li class="nav-item" id="color-toggle-btn">
-            <a class="nav-link" href="javascript:">&nbsp;<i
-                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
-          </li>
-        
-      </ul>
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
     </div>
   </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">羊皮裘老头</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">28</span></a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">13</span></a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">116</span></a></li><li class="menu-item menu-item-schedule"><a href="/schedule/" rel="section"><i class="fa fa-calendar fa-fw"></i>日程表</a></li><li class="menu-item menu-item-sitemap"><a href="/sitemap.xml" rel="section"><i class="fa fa-sitemap fa-fw"></i>站点地图</a></li><li class="menu-item menu-item-commonweal"><a href="/404/" rel="section"><i class="fa fa-heartbeat fa-fw"></i>公益 404</a></li>
+  </ul>
 </nav>
 
-    <div class="banner" id="banner" parallax=true
-         style="background: url('/img/ss.png') no-repeat center center;
-           background-size: cover;">
-      <div class="full-bg-img">
-        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
-          <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="Shell脚本">
-              
-                Shell脚本
-              
-            </span>
 
-            
-              <div class="mt-3">
+
+
+</div>
+        
   
-  
-    <span class="post-meta">
-      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-      <time datetime="2021-05-10 15:22" pubdate>
-        2021年5月10日 下午
-      </time>
-    </span>
-  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1%E3%80%81Shell%E5%8F%98%E9%87%8F%E4%BB%8B%E7%BB%8D"><span class="nav-number">1.</span> <span class="nav-text">1、Shell变量介绍</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2%E3%80%81Shell%E5%8F%98%E9%87%8F%E7%9A%84%E5%AE%9A%E4%B9%89"><span class="nav-number">2.</span> <span class="nav-text">2、Shell变量的定义</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9F%BA%E6%9C%AC%E8%AF%AD%E6%B3%95"><span class="nav-number">2.1.</span> <span class="nav-text">基本语法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%9A%E4%B9%89%E5%8F%98%E9%87%8F%E7%9A%84%E8%A7%84%E5%88%99"><span class="nav-number">2.2.</span> <span class="nav-text">定义变量的规则</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B0%86%E5%91%BD%E4%BB%A4%E7%9A%84%E8%BF%94%E5%9B%9E%E5%80%BC%E8%B5%8B%E7%BB%99%E5%8F%98%E9%87%8F"><span class="nav-number">2.3.</span> <span class="nav-text">将命令的返回值赋给变量</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3%E3%80%81%E8%AE%BE%E7%BD%AE%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F"><span class="nav-number">3.</span> <span class="nav-text">3、设置环境变量</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9F%BA%E6%9C%AC%E8%AF%AD%E6%B3%95-1"><span class="nav-number">3.1.</span> <span class="nav-text">基本语法</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4%E3%80%81%E4%BD%8D%E7%BD%AE%E5%8F%82%E6%95%B0%E5%8F%98%E9%87%8F"><span class="nav-number">4.</span> <span class="nav-text">4、位置参数变量</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9F%BA%E6%9C%AC%E8%AF%AD%E6%B3%95-2"><span class="nav-number">4.1.</span> <span class="nav-text">基本语法</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5%E3%80%81%E9%A2%84%E5%AE%9A%E4%B9%89%E5%8F%98%E9%87%8F"><span class="nav-number">5.</span> <span class="nav-text">5、预定义变量</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6%E3%80%81%E8%BF%90%E7%AE%97%E7%AC%A6"><span class="nav-number">6.</span> <span class="nav-text">6、运算符</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9F%BA%E6%9C%AC%E8%AF%AD%E6%B3%95-3"><span class="nav-number">6.1.</span> <span class="nav-text">基本语法</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#7%E3%80%81%E6%9D%A1%E4%BB%B6%E5%88%A4%E6%96%AD"><span class="nav-number">7.</span> <span class="nav-text">7、条件判断</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1%E3%80%81%E6%9D%A1%E4%BB%B6%E5%88%A4%E6%96%AD%E8%AF%AD%E6%B3%95%E7%BB%93%E6%9E%84"><span class="nav-number">7.1.</span> <span class="nav-text">1、条件判断语法结构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2%E3%80%81%E6%9D%A1%E4%BB%B6%E5%88%A4%E6%96%AD%E7%9B%B8%E5%85%B3%E5%8F%82%E6%95%B0"><span class="nav-number">7.2.</span> <span class="nav-text">2、条件判断相关参数</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#2-1-%E5%88%A4%E6%96%AD%E6%96%87%E4%BB%B6%E7%B1%BB%E5%9E%8B"><span class="nav-number">7.2.1.</span> <span class="nav-text">2.1 判断文件类型</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-2-%E5%88%A4%E6%96%AD%E6%96%87%E4%BB%B6%E6%9D%83%E9%99%90"><span class="nav-number">7.2.2.</span> <span class="nav-text">2.2 判断文件权限</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-3-%E5%88%A4%E6%96%AD%E6%96%87%E4%BB%B6%E6%96%B0%E6%97%A7"><span class="nav-number">7.2.3.</span> <span class="nav-text">2.3 判断文件新旧</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-4-%E5%88%A4%E6%96%AD%E6%95%B4%E6%95%B0"><span class="nav-number">7.2.4.</span> <span class="nav-text">2.4 判断整数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-5-%E5%88%A4%E6%96%AD%E5%AD%97%E7%AC%A6%E4%B8%B2"><span class="nav-number">7.2.5.</span> <span class="nav-text">2.5 判断字符串</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-6-%E5%A4%9A%E9%87%8D%E6%9D%A1%E4%BB%B6%E5%88%A4%E6%96%AD"><span class="nav-number">7.2.6.</span> <span class="nav-text">2.6 多重条件判断</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#8%E3%80%81%E6%B5%81%E7%A8%8B%E6%8E%A7%E5%88%B6"><span class="nav-number">8.</span> <span class="nav-text">8、流程控制</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#8-1-case%E8%AF%AD%E5%8F%A5"><span class="nav-number">8.1.</span> <span class="nav-text">8.1 case语句</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%9F%BA%E6%9C%AC%E8%AF%AD%E6%B3%95-4"><span class="nav-number">8.1.1.</span> <span class="nav-text">基本语法</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#8-2-for%E5%BE%AA%E7%8E%AF"><span class="nav-number">8.2.</span> <span class="nav-text">8.2 for循环</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%AF%AD%E6%B3%95%E4%B8%80"><span class="nav-number">8.2.1.</span> <span class="nav-text">语法一</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%AF%AD%E6%B3%95%E4%BA%8C"><span class="nav-number">8.2.2.</span> <span class="nav-text">语法二</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#8-3-while%E5%BE%AA%E7%8E%AF"><span class="nav-number">8.3.</span> <span class="nav-text">8.3 while循环</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%9F%BA%E6%9C%AC%E8%AF%AD%E6%B3%95-5"><span class="nav-number">8.3.1.</span> <span class="nav-text">基本语法</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#8-4-read%E8%AF%BB%E5%8F%96%E6%8E%A7%E5%88%B6%E5%8F%B0%E8%BE%93%E5%85%A5"><span class="nav-number">8.4.</span> <span class="nav-text">8.4 read读取控制台输入</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%9F%BA%E6%9C%AC%E8%AF%AD%E6%B3%95-6"><span class="nav-number">8.4.1.</span> <span class="nav-text">基本语法</span></a></li></ol></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">羊皮裘老头</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">116</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">13</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">28</span>
+        <span class="site-state-item-name">标签</span>
+      </div>
+  </nav>
 </div>
 
-<div class="mt-1">
-  
-    
-    <span class="post-meta mr-2">
-      <i class="iconfont icon-chart"></i>
-      1.9k 字
-    </span>
-  
 
-  
-    
-    <span class="post-meta mr-2">
-      <i class="iconfont icon-clock-fill"></i>
-      
-      
-      22
-       分钟
-    </span>
-  
 
-  
-  
-    
-      <!-- LeanCloud 统计文章PV -->
-      <span id="leancloud-page-views-container" class="post-meta" style="display: none">
-        <i class="iconfont icon-eye" aria-hidden="true"></i>
-        <span id="leancloud-page-views"></span> 次
-      </span>
-    
-  
-</div>
-
-            
-          </div>
-
-          
         </div>
       </div>
     </div>
-  </header>
+  </aside>
+  <div class="sidebar-dimmer"></div>
 
-  <main>
+
+    </header>
+
     
-      
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
 
-<div class="container-fluid nopadding-x">
-  <div class="row nomargin-x">
-    <div class="d-none d-lg-block col-lg-2"></div>
-    <div class="col-lg-8 nopadding-x-md">
-      <div class="container nopadding-x-md" id="board-ctn">
-        <div class="py-5" id="board">
-          <article class="post-content mx-auto">
-            <!-- SEO header -->
-            <h1 style="display: none">Shell脚本</h1>
-            
-              <p class="note note-info">
-                
-                  本文最后更新于：2022年4月17日 下午
-                
-              </p>
-            
-            <div class="markdown-body">
-              <h2 id="1、Shell变量介绍"><a href="#1、Shell变量介绍" class="headerlink" title="1、Shell变量介绍"></a>1、Shell变量介绍</h2><p>​        Linux中的变量分为系统变量和自定义变量</p>
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/05/10/Shell%E8%84%9A%E6%9C%AC/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="羊皮裘老头">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="羊皮裘老头">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="Shell脚本 | 羊皮裘老头">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Shell脚本
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2021-05-10 15:22:27" itemprop="dateCreated datePublished" datetime="2021-05-10T15:22:27+08:00">2021-05-10</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-04-17 17:07:34" itemprop="dateModified" datetime="2022-04-17T17:07:34+08:00">2022-04-17</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Linux/" itemprop="url" rel="index"><span itemprop="name">Linux</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h2 id="1、Shell变量介绍"><a href="#1、Shell变量介绍" class="headerlink" title="1、Shell变量介绍"></a>1、Shell变量介绍</h2><p>​        Linux中的变量分为系统变量和自定义变量</p>
 <h2 id="2、Shell变量的定义"><a href="#2、Shell变量的定义" class="headerlink" title="2、Shell变量的定义"></a>2、Shell变量的定义</h2><h3 id="基本语法"><a href="#基本语法" class="headerlink" title="基本语法"></a>基本语法</h3><ol>
 <li>定义变量：变量=值</li>
 <li>撤销变量：unset 变量</li>
@@ -308,9 +262,9 @@
 <li>$@    功能描述：代表命令行中所有的参数，不过把每个参数区分对待</li>
 <li>$#     功能描述：代表命令行中所有参数的个数</li>
 </ul>
-<figure class="highlight bash"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs bash"><span class="hljs-meta">#!/bin/bash</span><br><span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;0=<span class="hljs-variable">$0</span> 1=<span class="hljs-variable">$1</span> 2=<span class="hljs-variable">$2</span>&quot;</span><br><span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;所有的参数为$*&quot;</span><br><span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;所有的参数为<span class="hljs-variable">$@</span>&quot;</span><br><span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;所有的参数为<span class="hljs-variable">$#</span>&quot;</span><br></code></pre></div></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">#!&#x2F;bin&#x2F;bash</span><br><span class="line">echo &quot;0&#x3D;$0 1&#x3D;$1 2&#x3D;$2&quot;</span><br><span class="line">echo &quot;所有的参数为$*&quot;</span><br><span class="line">echo &quot;所有的参数为$@&quot;</span><br><span class="line">echo &quot;所有的参数为$#&quot;</span><br></pre></td></tr></table></figure>
 <p>输出结果如下：</p>
-<figure class="highlight routeros"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs routeros">[root@node1 shell]# bash myshell.sh 12 34<br><span class="hljs-attribute">0</span>=myshell.sh <span class="hljs-attribute">1</span>=12 <span class="hljs-attribute">2</span>=34<br>所有的参数为12 34<br>所有的参数为12 34<br>所有的参数为2<br></code></pre></div></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[root@node1 shell]# bash myshell.sh 12 34</span><br><span class="line">0&#x3D;myshell.sh 1&#x3D;12 2&#x3D;34</span><br><span class="line">所有的参数为12 34</span><br><span class="line">所有的参数为12 34</span><br><span class="line">所有的参数为2</span><br></pre></td></tr></table></figure>
 <h2 id="5、预定义变量"><a href="#5、预定义变量" class="headerlink" title="5、预定义变量"></a>5、预定义变量</h2><p>基本介绍</p>
 <p>​        就是shell设计者事先已经定义好的变量，可以直接在shell脚本使用</p>
 <p>基本语法</p>
@@ -324,12 +278,12 @@
 <li>注意expr运算符间要有空格</li>
 <li>expr  *，/，%    乘，除，取余</li>
 </ol>
-<figure class="highlight bash"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs bash"><span class="hljs-meta">#!/bin/bash</span><br>RES1=$((<span class="hljs-number">2</span>+<span class="hljs-number">3</span>))<br><span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;<span class="hljs-variable">$RES1</span>&quot;</span><br><br>RES2=$[(2+3)*4]<br><span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;<span class="hljs-variable">$RES2</span>&quot;</span><br><br>RES3=`expr 2 + 3`<br>RES4=`expr <span class="hljs-variable">$RES3</span> \* 4`<br><span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;<span class="hljs-variable">$RES3</span>  <span class="hljs-variable">$RES4</span>&quot;</span><br></code></pre></div></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">#!&#x2F;bin&#x2F;bash</span><br><span class="line">RES1&#x3D;$((2+3))</span><br><span class="line">echo &quot;$RES1&quot;</span><br><span class="line"></span><br><span class="line">RES2&#x3D;$[(2+3)*4]</span><br><span class="line">echo &quot;$RES2&quot;</span><br><span class="line"></span><br><span class="line">RES3&#x3D;&#96;expr 2 + 3&#96;</span><br><span class="line">RES4&#x3D;&#96;expr $RES3 \* 4&#96;</span><br><span class="line">echo &quot;$RES3  $RES4&quot;</span><br></pre></td></tr></table></figure>
 <p>结果如下</p>
-<figure class="highlight dockerfile"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs dockerfile">[root@node1 <span class="hljs-keyword">shell</span><span class="bash">]<span class="hljs-comment"># bash myshell.sh</span></span><br><span class="hljs-number">5</span><br><span class="hljs-number">20</span><br><span class="hljs-number">5</span>  <span class="hljs-number">20</span><br></code></pre></div></td></tr></table></figure>
-<h2 id="7、条件判断"><a href="#7、条件判断" class="headerlink" title="7、条件判断"></a>7、条件判断</h2><h3 id="1、条件判断语法结构"><a href="#1、条件判断语法结构" class="headerlink" title="1、条件判断语法结构"></a>1、条件判断语法结构</h3><div class="hljs code-wrapper"><pre><code>    1. test 条件表达式
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[root@node1 shell]# bash myshell.sh</span><br><span class="line">5</span><br><span class="line">20</span><br><span class="line">5  20</span><br></pre></td></tr></table></figure>
+<h2 id="7、条件判断"><a href="#7、条件判断" class="headerlink" title="7、条件判断"></a>7、条件判断</h2><h3 id="1、条件判断语法结构"><a href="#1、条件判断语法结构" class="headerlink" title="1、条件判断语法结构"></a>1、条件判断语法结构</h3><pre><code>    1. test 条件表达式
     2. [ 条件表达式 ]
-    3. [[[ 条件表达式 ]] 支持正则 =~条件判断相关参数</code></pre></div>
+    3. [[[ 条件表达式 ]] 支持正则 =~条件判断相关参数</code></pre>
 <h3 id="2、条件判断相关参数"><a href="#2、条件判断相关参数" class="headerlink" title="2、条件判断相关参数"></a>2、条件判断相关参数</h3><h4 id="2-1-判断文件类型"><a href="#2-1-判断文件类型" class="headerlink" title="2.1 判断文件类型"></a>2.1 判断文件类型</h4><table>
 <thead>
 <tr>
@@ -504,283 +458,95 @@
 <li>  ||   前面表达式为假，才会执行后面代码</li>
 <li>  ；  用于分割命令或表达式</li>
 </ul>
-<h2 id="8、流程控制"><a href="#8、流程控制" class="headerlink" title="8、流程控制"></a>8、流程控制</h2><h3 id="8-1-case语句"><a href="#8-1-case语句" class="headerlink" title="8.1 case语句"></a>8.1 case语句</h3><h4 id="基本语法-4"><a href="#基本语法-4" class="headerlink" title="基本语法"></a>基本语法</h4><figure class="highlight llvm"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs llvm">case $变量名 in<br><span class="hljs-string">&quot;值1&quot;</span>)<br>如果变量的值等于值<span class="hljs-number">1</span>，则执行程序<span class="hljs-number">1</span><br><span class="hljs-comment">;;</span><br><span class="hljs-string">&quot;值2&quot;</span>)<br>如果变量的值等于值<span class="hljs-number">2</span>，则执行程序<span class="hljs-number">2</span><br><span class="hljs-comment">;;</span><br>*)<br>如果变量的值都不是以上的值，则执行此程序<br><span class="hljs-comment">;;</span><br>esac<br></code></pre></div></td></tr></table></figure>
-<figure class="highlight bash"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs bash"><span class="hljs-meta">#!/bin/bash</span><br><span class="hljs-keyword">case</span> <span class="hljs-variable">$1</span> <span class="hljs-keyword">in</span><br><span class="hljs-string">&quot;1&quot;</span>)<br><span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;周一&quot;</span><br>;;<br><span class="hljs-string">&quot;2&quot;</span>)<br><span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;周二&quot;</span><br>;;<br>*)<br><span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;我也不知道周几了&quot;</span><br>;;<br><span class="hljs-keyword">esac</span><br></code></pre></div></td></tr></table></figure>
+<h2 id="8、流程控制"><a href="#8、流程控制" class="headerlink" title="8、流程控制"></a>8、流程控制</h2><h3 id="8-1-case语句"><a href="#8-1-case语句" class="headerlink" title="8.1 case语句"></a>8.1 case语句</h3><h4 id="基本语法-4"><a href="#基本语法-4" class="headerlink" title="基本语法"></a>基本语法</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">case $变量名 in</span><br><span class="line">&quot;值1&quot;)</span><br><span class="line">如果变量的值等于值1，则执行程序1</span><br><span class="line">;;</span><br><span class="line">&quot;值2&quot;)</span><br><span class="line">如果变量的值等于值2，则执行程序2</span><br><span class="line">;;</span><br><span class="line">*)</span><br><span class="line">如果变量的值都不是以上的值，则执行此程序</span><br><span class="line">;;</span><br><span class="line">esac</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">#!&#x2F;bin&#x2F;bash</span><br><span class="line">case $1 in</span><br><span class="line">&quot;1&quot;)</span><br><span class="line">echo &quot;周一&quot;</span><br><span class="line">;;</span><br><span class="line">&quot;2&quot;)</span><br><span class="line">echo &quot;周二&quot;</span><br><span class="line">;;</span><br><span class="line">*)</span><br><span class="line">echo &quot;我也不知道周几了&quot;</span><br><span class="line">;;</span><br><span class="line">esac</span><br></pre></td></tr></table></figure>
 <p>输出结果：</p>
-<figure class="highlight dockerfile"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs dockerfile">[root@node1 <span class="hljs-keyword">shell</span><span class="bash">]<span class="hljs-comment"># bash myshell.sh 3</span></span><br>我也不知道周几了<br>[root@node1 <span class="hljs-keyword">shell</span><span class="bash">]<span class="hljs-comment"># bash myshell.sh 2</span></span><br>周二<br></code></pre></div></td></tr></table></figure>
-<h3 id="8-2-for循环"><a href="#8-2-for循环" class="headerlink" title="8.2 for循环"></a>8.2 for循环</h3><h4 id="语法一"><a href="#语法一" class="headerlink" title="语法一"></a>语法一</h4><figure class="highlight bash"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs bash"><span class="hljs-keyword">for</span>  变量  <span class="hljs-keyword">in</span>  值1  值2  值3<br><span class="hljs-keyword">do</span><br>程序代码<br><span class="hljs-keyword">done</span><br></code></pre></div></td></tr></table></figure>
-<figure class="highlight bash"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs bash"><span class="hljs-meta">#!/bin/bash</span><br><span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-string">&quot;$*&quot;</span><br><span class="hljs-keyword">do</span><br>	<span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;num is <span class="hljs-variable">$i</span>&quot;</span><br><span class="hljs-keyword">done</span><br>	<span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;================&quot;</span><br><span class="hljs-keyword">for</span> j <span class="hljs-keyword">in</span> <span class="hljs-string">&quot;<span class="hljs-variable">$@</span>&quot;</span><br><span class="hljs-keyword">do</span><br>	<span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;num is <span class="hljs-variable">$j</span>&quot;</span><br><span class="hljs-keyword">done</span><br></code></pre></div></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[root@node1 shell]# bash myshell.sh 3</span><br><span class="line">我也不知道周几了</span><br><span class="line">[root@node1 shell]# bash myshell.sh 2</span><br><span class="line">周二</span><br></pre></td></tr></table></figure>
+<h3 id="8-2-for循环"><a href="#8-2-for循环" class="headerlink" title="8.2 for循环"></a>8.2 for循环</h3><h4 id="语法一"><a href="#语法一" class="headerlink" title="语法一"></a>语法一</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">for  变量  in  值1  值2  值3</span><br><span class="line">do</span><br><span class="line">程序代码</span><br><span class="line">done</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">#!&#x2F;bin&#x2F;bash</span><br><span class="line">for i in &quot;$*&quot;</span><br><span class="line">do</span><br><span class="line">	echo &quot;num is $i&quot;</span><br><span class="line">done</span><br><span class="line">	echo &quot;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&quot;</span><br><span class="line">for j in &quot;$@&quot;</span><br><span class="line">do</span><br><span class="line">	echo &quot;num is $j&quot;</span><br><span class="line">done</span><br></pre></td></tr></table></figure>
 <p>输出结果：</p>
-<figure class="highlight asciidoc"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs asciidoc">[root@node1 shell]# bash myshell.sh 1 22 44<br>num is 1 22 44<br>================<br>num is 1<br>num is 22<br>num is 44<br></code></pre></div></td></tr></table></figure>
-<h4 id="语法二"><a href="#语法二" class="headerlink" title="语法二"></a>语法二</h4><figure class="highlight gcode"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs gcode">for <span class="hljs-comment">((初始值；循环控制条件；变量变化)</span>)<br><span class="hljs-keyword">do</span><br>程序代码<br><span class="hljs-keyword">do</span><span class="hljs-symbol">ne</span><br></code></pre></div></td></tr></table></figure>
-<figure class="highlight bash"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs bash"><span class="hljs-meta">#!/bin/bash</span><br>SUM=0<br><span class="hljs-keyword">for</span> (( i=1;i&lt;=<span class="hljs-variable">$1</span>;i++ ))   <span class="hljs-comment">#两侧括号有空格do        </span><br>	SUM=$[<span class="hljs-variable">$SUM</span>+<span class="hljs-variable">$i</span>]<br><span class="hljs-keyword">done</span><br><span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;SUM=<span class="hljs-variable">$SUM</span>&quot;</span><br></code></pre></div></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">[root@node1 shell]# bash myshell.sh 1 22 44</span><br><span class="line">num is 1 22 44</span><br><span class="line">&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;</span><br><span class="line">num is 1</span><br><span class="line">num is 22</span><br><span class="line">num is 44</span><br></pre></td></tr></table></figure>
+<h4 id="语法二"><a href="#语法二" class="headerlink" title="语法二"></a>语法二</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">for ((初始值；循环控制条件；变量变化))</span><br><span class="line">do</span><br><span class="line">程序代码</span><br><span class="line">done</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">#!&#x2F;bin&#x2F;bash</span><br><span class="line">SUM&#x3D;0</span><br><span class="line">for (( i&#x3D;1;i&lt;&#x3D;$1;i++ ))   #两侧括号有空格do        </span><br><span class="line">	SUM&#x3D;$[$SUM+$i]</span><br><span class="line">done</span><br><span class="line">echo &quot;SUM&#x3D;$SUM&quot;</span><br></pre></td></tr></table></figure>
 <p>输出结果：</p>
-<figure class="highlight ini"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs ini"><span class="hljs-section">[root@node1 shell]</span><span class="hljs-comment"># bash myshell.sh 100</span><br><span class="hljs-attr">SUM</span>=<span class="hljs-number">5050</span><br></code></pre></div></td></tr></table></figure>
-<h3 id="8-3-while循环"><a href="#8-3-while循环" class="headerlink" title="8.3 while循环"></a>8.3 while循环</h3><h4 id="基本语法-5"><a href="#基本语法-5" class="headerlink" title="基本语法"></a>基本语法</h4><figure class="highlight bash"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs bash"><span class="hljs-keyword">while</span> [ 条件判断式 ]   <span class="hljs-comment">#注意空格</span><br><span class="hljs-keyword">do</span><br>程序代码<br><span class="hljs-keyword">done</span><br></code></pre></div></td></tr></table></figure>
-<figure class="highlight bash"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs bash"><span class="hljs-meta">#!/bin/bash</span><br>SUM=0<br>i=0<br><span class="hljs-keyword">while</span> [ <span class="hljs-variable">$i</span> -le <span class="hljs-variable">$1</span> ]<br><span class="hljs-keyword">do</span>        <br>i=$[<span class="hljs-variable">$i</span>+1]        <br>SUM=$[<span class="hljs-variable">$SUM</span>+<span class="hljs-variable">$i</span>]<br><span class="hljs-keyword">done</span><br><span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;结果SUM=<span class="hljs-variable">$SUM</span>&quot;</span><br></code></pre></div></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@node1 shell]# bash myshell.sh 100</span><br><span class="line">SUM&#x3D;5050</span><br></pre></td></tr></table></figure>
+<h3 id="8-3-while循环"><a href="#8-3-while循环" class="headerlink" title="8.3 while循环"></a>8.3 while循环</h3><h4 id="基本语法-5"><a href="#基本语法-5" class="headerlink" title="基本语法"></a>基本语法</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">while [ 条件判断式 ]   #注意空格</span><br><span class="line">do</span><br><span class="line">程序代码</span><br><span class="line">done</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">#!&#x2F;bin&#x2F;bash</span><br><span class="line">SUM&#x3D;0</span><br><span class="line">i&#x3D;0</span><br><span class="line">while [ $i -le $1 ]</span><br><span class="line">do        </span><br><span class="line">i&#x3D;$[$i+1]        </span><br><span class="line">SUM&#x3D;$[$SUM+$i]</span><br><span class="line">done</span><br><span class="line">echo &quot;结果SUM&#x3D;$SUM&quot;</span><br></pre></td></tr></table></figure>
 <p>输出结果：</p>
-<figure class="highlight dockerfile"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs dockerfile">[root@node1 <span class="hljs-keyword">shell</span><span class="bash">]<span class="hljs-comment"># bash myshell.sh 100</span></span><br>结果SUM=<span class="hljs-number">5151</span><br></code></pre></div></td></tr></table></figure>
-<h3 id="8-4-read读取控制台输入"><a href="#8-4-read读取控制台输入" class="headerlink" title="8.4 read读取控制台输入"></a>8.4 read读取控制台输入</h3><h4 id="基本语法-6"><a href="#基本语法-6" class="headerlink" title="基本语法"></a>基本语法</h4><figure class="highlight haml"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs haml">read (选项) (参数)选项：<br>-<span class="ruby">a：将分裂后的字段依次存储到指定的数组中，存储的起始位置从数组的index=<span class="hljs-number">0</span>开始。</span><br><span class="ruby">-d：指定读取行的结束符号。默认结束符号为换行符。</span><br><span class="ruby">-n：限制读取N个字符就自动结束读取，如果没有读满N个字符就按下回车或遇到换行符，则也会结束读取。</span><br><span class="ruby">-N：严格要求读满N个字符才自动结束读取，即使中途按下了回车或遇到了换行符也不结束。其中换行符或回车算一个字符。</span><br><span class="ruby">-p：给出提示符。默认不支持<span class="hljs-string">&quot;\n&quot;</span>换行，要换行需要特殊处理，通过<span class="hljs-variable">$&#x27;</span>string<span class="hljs-string">&#x27;的方式特殊处理，就可以实现换行的功能</span></span><br><span class="ruby">-r：禁止反斜线的转义功能。这意味着<span class="hljs-string">&quot;\&quot;会变成文本的一部分。</span></span><br><span class="ruby">-s：静默模式。输入的内容不会回显在屏幕上。</span><br><span class="ruby">-t：给出超时时间，在达到超时时间时，read退出并返回错误。也就是说不会读取任何内容，即使已经输入了一部分。</span><br><span class="ruby">-u：从给定文件描述符(fd=N)中读取数据</span><br></code></pre></div></td></tr></table></figure>
-<figure class="highlight bash"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs bash"><span class="hljs-meta">#!/bin/bash</span><br><span class="hljs-built_in">read</span> -s -p $<span class="hljs-string">&#x27;请输入密码：\n&#x27;</span> PASSWORD   <span class="hljs-comment">#使用了换行</span><br><span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;密码为<span class="hljs-variable">$PASSWORD</span>&quot;</span><br></code></pre></div></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@node1 shell]# bash myshell.sh 100</span><br><span class="line">结果SUM&#x3D;5151</span><br></pre></td></tr></table></figure>
+<h3 id="8-4-read读取控制台输入"><a href="#8-4-read读取控制台输入" class="headerlink" title="8.4 read读取控制台输入"></a>8.4 read读取控制台输入</h3><h4 id="基本语法-6"><a href="#基本语法-6" class="headerlink" title="基本语法"></a>基本语法</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">read (选项) (参数)选项：</span><br><span class="line">-a：将分裂后的字段依次存储到指定的数组中，存储的起始位置从数组的index&#x3D;0开始。</span><br><span class="line">-d：指定读取行的结束符号。默认结束符号为换行符。</span><br><span class="line">-n：限制读取N个字符就自动结束读取，如果没有读满N个字符就按下回车或遇到换行符，则也会结束读取。</span><br><span class="line">-N：严格要求读满N个字符才自动结束读取，即使中途按下了回车或遇到了换行符也不结束。其中换行符或回车算一个字符。</span><br><span class="line">-p：给出提示符。默认不支持&quot;\n&quot;换行，要换行需要特殊处理，通过$&#39;string&#39;的方式特殊处理，就可以实现换行的功能</span><br><span class="line">-r：禁止反斜线的转义功能。这意味着&quot;\&quot;会变成文本的一部分。</span><br><span class="line">-s：静默模式。输入的内容不会回显在屏幕上。</span><br><span class="line">-t：给出超时时间，在达到超时时间时，read退出并返回错误。也就是说不会读取任何内容，即使已经输入了一部分。</span><br><span class="line">-u：从给定文件描述符(fd&#x3D;N)中读取数据</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">#!&#x2F;bin&#x2F;bash</span><br><span class="line">read -s -p $&#39;请输入密码：\n&#39; PASSWORD   #使用了换行</span><br><span class="line">echo &quot;密码为$PASSWORD&quot;</span><br></pre></td></tr></table></figure>
 <p>输出结果：</p>
-<figure class="highlight dockerfile"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs dockerfile">[root@node1 <span class="hljs-keyword">shell</span><span class="bash">]<span class="hljs-comment"># bash myshell.sh</span></span><br>请输入密码：<br>密码为<span class="hljs-number">12345</span><br></code></pre></div></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[root@node1 shell]# bash myshell.sh</span><br><span class="line">请输入密码：</span><br><span class="line">密码为12345</span><br></pre></td></tr></table></figure>
 
-            </div>
-            <hr>
-            <div>
-              <div class="post-metas mb-3">
-                
-                  <div class="post-meta mr-3">
-                    <i class="iconfont icon-category"></i>
-                    
-                      <a class="hover-with-bg" href="/categories/Linux/">Linux</a>
-                    
-                  </div>
-                
-                
-                  <div class="post-meta">
-                    <i class="iconfont icon-tags"></i>
-                    
-                      <a class="hover-with-bg" href="/tags/Shell/">Shell</a>
-                    
-                  </div>
-                
-              </div>
-              
-                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
-              
-              
-                <div class="post-prevnext">
-                  <article class="post-prev col-6">
-                    
-                    
-                      <a href="/2021/05/10/Linux-rsync%E5%91%BD%E4%BB%A4%E7%94%A8%E6%B3%95/">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">Linux rsync命令用法</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
-                  </article>
-                  <article class="post-next col-6">
-                    
-                    
-                      <a href="/2021/04/23/K8s%E9%85%8D%E7%BD%AE%E5%9F%9F%E5%90%8D%E8%A7%A3%E6%9E%90/">
-                        <span class="hidden-mobile">K8s配置域名解析</span>
-                        <span class="visible-mobile">下一篇</span>
-                        <i class="iconfont icon-arrowright"></i>
-                      </a>
-                    
-                  </article>
-                </div>
-              
-            </div>
-
-            
-              <!-- Comments -->
-              <article class="comments" id="comments">
-                
-                
-  <div id="vcomments"></div>
-  <script type="text/javascript">
-    Fluid.utils.waitElementVisible('vcomments', function() {
-      Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js', function () {
-        new Valine({
-          el: "#vcomments",
-          app_id: "hPHtsN0Gt7U2zB2AllYqbucc-9Nh9j0Va",
-          app_key: "TVUER8rWijR8cD1STqzd2d4E",
-          placeholder: "你有故事，我有酒，我们一起勇闯天涯。。。",
-          path: window.location.pathname,
-          avatar: "retro",
-          meta: ["nick","mail","link"],
-          pageSize: "10",
-          lang: "zh-CN",
-          highlight: false,
-          recordIP: false,
-          serverURLs: "",
-        });
-      });
-    });
-  </script>
-  <noscript>Please enable JavaScript to view the
-    <a target="_blank" href="https://valine.js.org" rel="nofollow noopener noopener">comments powered by Valine.</a>
-  </noscript>
-
-
-              </article>
-            
-          </article>
-        </div>
-      </div>
     </div>
+
     
-      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
-        <div id="toc">
-  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
-  <div class="toc-body" id="toc-body"></div>
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Shell/" rel="tag"># Shell</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2021/04/23/K8s%E9%85%8D%E7%BD%AE%E5%9F%9F%E5%90%8D%E8%A7%A3%E6%9E%90/" rel="prev" title="K8s配置域名解析">
+                  <i class="fa fa-chevron-left"></i> K8s配置域名解析
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2021/05/10/Linux-rsync%E5%91%BD%E4%BB%A4%E7%94%A8%E6%B3%95/" rel="next" title="Linux rsync命令用法">
+                  Linux rsync命令用法 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
 </div>
 
-      </div>
-    
-  </div>
+
+
+
+
+
 </div>
-
-<!-- Custom -->
-
-
-    
-
-    
-      <a id="scroll-top-button" href="#" role="button">
-        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
-      </a>
-    
-
-    
-      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
-     aria-hidden="true">
-  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
-    <div class="modal-content">
-      <div class="modal-header text-center">
-        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
-        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body mx-3">
-        <div class="md-form mb-5">
-          <input type="text" id="local-search-input" class="form-control validate">
-          <label data-error="x" data-success="v"
-                 for="local-search-input">关键词</label>
-        </div>
-        <div class="list-group" id="local-search-result"></div>
-      </div>
-    </div>
-  </div>
-</div>
-    
-
-    
   </main>
 
-  <footer class="text-center mt-5 py-3">
-  <div class="footer-content">
-     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
-  </div>
-  
-  <div class="statistics">
-    
-    
+  <footer class="footer">
+    <div class="footer-inner">
 
-    
-      
-        <!-- 不蒜子统计PV -->
-        <span id="busuanzi_container_site_pv" style="display: none">
-            总访问量 
-            <span id="busuanzi_value_site_pv"></span>
-             次
-          </span>
-      
-      
-        <!-- 不蒜子统计UV -->
-        <span id="busuanzi_container_site_uv" style="display: none">
-            总访客数 
-            <span id="busuanzi_value_site_uv"></span>
-             人
-          </span>
-      
-    
+
+<div class="copyright">
+  &copy; 2020 – 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">羊皮裘老头</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
   </div>
 
+    </div>
+  </footer>
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
 
   
 
-  
-</footer>
 
-<!-- SCRIPTS -->
-
-  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
-  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
-
-  <script>
-    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
-    NProgress.start()
-    window.addEventListener('load', function() {
-      NProgress.done();
-    })
-  </script>
-
-
-<script  src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" ></script>
-<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" ></script>
-<script  src="/js/debouncer.js" ></script>
-<script  src="/js/events.js" ></script>
-<script  src="/js/plugins.js" ></script>
-
-<!-- Plugins -->
-
-
-  
-    <script  src="/js/lazyload.js" ></script>
-  
 
 
 
   
 
 
-
-  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.0/dist/tocbot.min.js" ></script>
-
-
-
-  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
-
-
-
-  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.0/anchor.min.js" ></script>
-
-
-
-  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js" ></script>
-
-
-
-  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
-
-
-
-
-
-
-  <script  src="/js/local-search.js" ></script>
-  <script>
-    (function () {
-      var path = "/local-search.xml";
-      var inputArea = document.querySelector("#local-search-input");
-      inputArea.onclick = function () {
-        searchFunc(path, 'local-search-input', 'local-search-result');
-        this.onclick = null
-      }
-    })()
-  </script>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<!-- 主题的启动项 保持在最底部 -->
-<script  src="/js/boot.js" ></script>
 
 
 

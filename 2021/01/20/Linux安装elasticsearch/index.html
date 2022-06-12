@@ -1,554 +1,320 @@
-
-
 <!DOCTYPE html>
-<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
-
-
-
+<html lang="zh-CN">
 <head>
   <meta charset="UTF-8">
-  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
-  <link rel="icon" type="image/png" href="/img/favicon.png">
-  <meta name="viewport"
-        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
-  <meta http-equiv="x-ua-compatible" content="ie=edge">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 5.3.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.12.1","exturl":false,"sidebar":{"position":"left","width":300,"display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="1、准备Java环境123456789tar xvf jdk-8u231-linux-x64.tar.gz -C &#x2F;usr&#x2F;local&#x2F;mv jdk1.8.0_231 javavim &#x2F;etc&#x2F;profile.d&#x2F;javaexport JAVA_HOME&#x3D;&#x2F;usr&#x2F;local&#x2F;javaexport">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Linux安装elasticsearch">
+<meta property="og:url" content="http://example.com/2021/01/20/Linux%E5%AE%89%E8%A3%85elasticsearch/index.html">
+<meta property="og:site_name" content="羊皮裘老头">
+<meta property="og:description" content="1、准备Java环境123456789tar xvf jdk-8u231-linux-x64.tar.gz -C &#x2F;usr&#x2F;local&#x2F;mv jdk1.8.0_231 javavim &#x2F;etc&#x2F;profile.d&#x2F;javaexport JAVA_HOME&#x3D;&#x2F;usr&#x2F;local&#x2F;javaexport">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2021-01-20T02:55:58.000Z">
+<meta property="article:modified_time" content="2022-04-17T09:07:34.415Z">
+<meta property="article:author" content="羊皮裘老头">
+<meta property="article:tag" content="Elasticsearch">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="http://example.com/2021/01/20/Linux%E5%AE%89%E8%A3%85elasticsearch/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://example.com/2021/01/20/Linux%E5%AE%89%E8%A3%85elasticsearch/","path":"2021/01/20/Linux安装elasticsearch/","title":"Linux安装elasticsearch"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>Linux安装elasticsearch | 羊皮裘老头</title>
   
-  <meta name="theme-color" content="#2f4154">
-  <meta name="description" content="">
-  <meta name="author" content="羊皮裘老头">
-  <meta name="keywords" content="">
-  <title>Linux安装elasticsearch - 羊皮裘老头</title>
-
-  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
-
-
-  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
-  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
-
-  
-    
-    
-      
-      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.4.0/styles/github-gist.min.css" />
-    
-  
-
-  
-    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
-  
 
 
 
-<!-- 主题依赖的图标库，不要自行修改 -->
-
-<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
 
 
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
 
-<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
 
-
-<link  rel="stylesheet" href="/css/main.css" />
-
-<!-- 自定义样式保持在最底部 -->
-
-
-  <script id="fluid-configs">
-    var Fluid = window.Fluid || {};
-    var CONFIG = {"hostname":"example.com","root":"/","version":"1.8.7","typing":{"enable":false,"typeSpeed":70,"cursorChar":" ","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"onlypost":false},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}}};
-  </script>
-  <script  src="/js/utils.js" ></script>
-  <script  src="/js/color-schema.js" ></script>
-<meta name="generator" content="Hexo 5.3.0"></head>
-
-
-<body>
-  <header style="height: 70vh;">
-    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
-  <div class="container">
-    <a class="navbar-brand"
-       href="/">&nbsp;<strong>羊皮裘老头</strong>&nbsp;</a>
-
-    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
-            data-target="#navbarSupportedContent"
-            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <div class="animated-icon"><span></span><span></span><span></span></div>
-    </button>
-
-    <!-- Collapsible content -->
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav ml-auto text-center">
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/">
-                <i class="iconfont icon-home-fill"></i>
-                首页
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/archives/">
-                <i class="iconfont icon-archive-fill"></i>
-                归档
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/categories/">
-                <i class="iconfont icon-category-fill"></i>
-                分类
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/tags/">
-                <i class="iconfont icon-tags-fill"></i>
-                标签
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/about/">
-                <i class="iconfont icon-user-fill"></i>
-                关于
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <i class="iconfont icon-books"></i>
-                文档
-              </a>
-              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                
-                  
-                  
-                  
-                  <a class="dropdown-item" target="_blank" rel="noopener" href="https://hexo.fluid-dev.com/">
-                    
-                    主题博客
-                  </a>
-                
-                  
-                  
-                  
-                  <a class="dropdown-item" target="_blank" rel="noopener" href="https://hexo.fluid-dev.com/docs/guide/">
-                    
-                    配置指南
-                  </a>
-                
-                  
-                  
-                  
-                  <a class="dropdown-item" target="_blank" rel="noopener" href="https://hexo.fluid-dev.com/docs/icon/">
-                    
-                    图标用法
-                  </a>
-                
-              </div>
-            </li>
-          
-        
-        
-          <li class="nav-item" id="search-btn">
-            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
-                class="iconfont icon-search"></i>&nbsp;</a>
-          </li>
-        
-        
-          <li class="nav-item" id="color-toggle-btn">
-            <a class="nav-link" href="javascript:">&nbsp;<i
-                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
-          </li>
-        
-      </ul>
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
     </div>
   </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">羊皮裘老头</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">28</span></a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">13</span></a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">116</span></a></li><li class="menu-item menu-item-schedule"><a href="/schedule/" rel="section"><i class="fa fa-calendar fa-fw"></i>日程表</a></li><li class="menu-item menu-item-sitemap"><a href="/sitemap.xml" rel="section"><i class="fa fa-sitemap fa-fw"></i>站点地图</a></li><li class="menu-item menu-item-commonweal"><a href="/404/" rel="section"><i class="fa fa-heartbeat fa-fw"></i>公益 404</a></li>
+  </ul>
 </nav>
 
-    <div class="banner" id="banner" parallax=true
-         style="background: url('/img/ss.png') no-repeat center center;
-           background-size: cover;">
-      <div class="full-bg-img">
-        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
-          <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="Linux安装elasticsearch">
-              
-                Linux安装elasticsearch
-              
-            </span>
 
-            
-              <div class="mt-3">
+
+
+</div>
+        
   
-  
-    <span class="post-meta">
-      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-      <time datetime="2021-01-20 10:55" pubdate>
-        2021年1月20日 上午
-      </time>
-    </span>
-  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1%E3%80%81%E5%87%86%E5%A4%87Java%E7%8E%AF%E5%A2%83"><span class="nav-number">1.</span> <span class="nav-text">1、准备Java环境</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2%E3%80%81%E5%AE%89%E8%A3%85es"><span class="nav-number">2.</span> <span class="nav-text">2、安装es</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-%E5%88%9B%E5%BB%BA%E7%94%A8%E6%88%B7%E5%92%8C%E6%95%B0%E6%8D%AE%E5%AD%98%E6%94%BE%E7%9B%AE%E5%BD%95"><span class="nav-number">2.1.</span> <span class="nav-text">2.1 创建用户和数据存放目录</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2%E9%85%8D%E7%BD%AE%E7%B3%BB%E7%BB%9F%E5%8F%82%E6%95%B0"><span class="nav-number">2.2.</span> <span class="nav-text">2.2配置系统参数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-3%E5%AE%89%E8%A3%85es"><span class="nav-number">2.3.</span> <span class="nav-text">2.3安装es</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3%E3%80%81-logstash%E8%B0%83%E4%BC%98"><span class="nav-number">3.</span> <span class="nav-text">3、 logstash调优</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">羊皮裘老头</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">116</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">13</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">28</span>
+        <span class="site-state-item-name">标签</span>
+      </div>
+  </nav>
 </div>
 
-<div class="mt-1">
-  
-    
-    <span class="post-meta mr-2">
-      <i class="iconfont icon-chart"></i>
-      906 字
-    </span>
-  
 
-  
-    
-    <span class="post-meta mr-2">
-      <i class="iconfont icon-clock-fill"></i>
-      
-      
-      13
-       分钟
-    </span>
-  
 
-  
-  
-    
-      <!-- LeanCloud 统计文章PV -->
-      <span id="leancloud-page-views-container" class="post-meta" style="display: none">
-        <i class="iconfont icon-eye" aria-hidden="true"></i>
-        <span id="leancloud-page-views"></span> 次
-      </span>
-    
-  
-</div>
-
-            
-          </div>
-
-          
         </div>
       </div>
     </div>
-  </header>
+  </aside>
+  <div class="sidebar-dimmer"></div>
 
-  <main>
+
+    </header>
+
     
-      
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
 
-<div class="container-fluid nopadding-x">
-  <div class="row nomargin-x">
-    <div class="d-none d-lg-block col-lg-2"></div>
-    <div class="col-lg-8 nopadding-x-md">
-      <div class="container nopadding-x-md" id="board-ctn">
-        <div class="py-5" id="board">
-          <article class="post-content mx-auto">
-            <!-- SEO header -->
-            <h1 style="display: none">Linux安装elasticsearch</h1>
-            
-              <p class="note note-info">
-                
-                  本文最后更新于：2022年4月17日 下午
-                
-              </p>
-            
-            <div class="markdown-body">
-              <h2 id="1、准备Java环境"><a href="#1、准备Java环境" class="headerlink" title="1、准备Java环境"></a>1、准备Java环境</h2><figure class="highlight awk"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs awk">tar xvf jdk-<span class="hljs-number">8</span>u231-linux-x64.tar.gz -C <span class="hljs-regexp">/usr/</span>local/<br>mv jdk1.<span class="hljs-number">8.0</span>_231 java<br><br>vim <span class="hljs-regexp">/etc/</span>profile.d/java<br>export JAVA_HOME=<span class="hljs-regexp">/usr/</span>local/java<br>export PATH=<span class="hljs-variable">$JAVA_HOME</span>/bin:<span class="hljs-variable">$PATH</span><br><br>source <span class="hljs-regexp">/etc/</span>profile.d/java<br>java -version<br></code></pre></div></td></tr></table></figure>
-<h2 id="2、安装es"><a href="#2、安装es" class="headerlink" title="2、安装es"></a>2、安装es</h2><h3 id="2-1-创建用户和数据存放目录"><a href="#2-1-创建用户和数据存放目录" class="headerlink" title="2.1 创建用户和数据存放目录"></a>2.1 创建用户和数据存放目录</h3><figure class="highlight awk"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs awk">useradd elk<br>passwd elk<br>mkdir <span class="hljs-regexp">/opt/</span>esdata<br>chown -R elk:elk <span class="hljs-regexp">/opt/</span><br></code></pre></div></td></tr></table></figure>
-<h3 id="2-2配置系统参数"><a href="#2-2配置系统参数" class="headerlink" title="2.2配置系统参数"></a>2.2配置系统参数</h3><figure class="highlight apache"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs apache"><span class="hljs-attribute">vim</span> /etc/security/limits.conf<br><br><span class="hljs-attribute">elk</span> hard nofile <span class="hljs-number">65536</span><br><span class="hljs-attribute">elk</span> soft nofile <span class="hljs-number">65536</span><br></code></pre></div></td></tr></table></figure>
-<figure class="highlight vim"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs vim"><span class="hljs-keyword">vim</span> /etc/sysctl.<span class="hljs-keyword">conf</span><br><br><span class="hljs-keyword">vm</span>.max_map_count = <span class="hljs-number">655360</span><br><br>sysctl -<span class="hljs-keyword">p</span><br></code></pre></div></td></tr></table></figure>
-<h3 id="2-3安装es"><a href="#2-3安装es" class="headerlink" title="2.3安装es"></a>2.3安装es</h3><figure class="highlight css"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs css"><span class="hljs-selector-tag">tar</span> <span class="hljs-selector-tag">xvf</span> <span class="hljs-selector-tag">elasticsearch-6</span>.5.3<span class="hljs-selector-class">.tar</span><span class="hljs-selector-class">.gz</span> <span class="hljs-selector-tag">-C</span> /<span class="hljs-selector-tag">opt</span>/<br><br><span class="hljs-selector-tag">vim</span> <span class="hljs-selector-tag">jvm</span><span class="hljs-selector-class">.options</span><br><br><span class="hljs-selector-tag">-Xms8g</span><br><span class="hljs-selector-tag">-Xmx8g</span>     #实际内存的50%<br><br><span class="hljs-selector-tag">vim</span> <span class="hljs-selector-tag">elasticsearch</span><span class="hljs-selector-class">.yml</span><br><br><span class="hljs-selector-tag">cluster</span><span class="hljs-selector-class">.name</span>: <span class="hljs-selector-tag">elk</span>    #集群模式这里必须相同<br><span class="hljs-selector-tag">node</span><span class="hljs-selector-class">.name</span>: <span class="hljs-selector-tag">elk01</span><br># 自定义属性添加到节点上<br><span class="hljs-selector-tag">node</span><span class="hljs-selector-class">.attr</span><span class="hljs-selector-class">.rack</span>: <span class="hljs-selector-tag">r1</span><br><br><span class="hljs-selector-tag">node</span><span class="hljs-selector-class">.master</span>: <span class="hljs-selector-tag">true</span><br><span class="hljs-selector-id">#node</span><span class="hljs-selector-class">.voting_only</span>: <span class="hljs-selector-tag">true</span><br><span class="hljs-selector-tag">node</span><span class="hljs-selector-class">.data</span>: <span class="hljs-selector-tag">true</span><br><span class="hljs-selector-id">#node</span><span class="hljs-selector-class">.ingest</span>: <span class="hljs-selector-tag">true</span><br><span class="hljs-selector-id">#node</span><span class="hljs-selector-class">.ml</span>: <span class="hljs-selector-tag">false</span><br>#开启监控<span class="hljs-selector-tag">xpack</span><br><span class="hljs-selector-tag">xpack</span><span class="hljs-selector-class">.monitoring</span><span class="hljs-selector-class">.enabled</span>: <span class="hljs-selector-tag">true</span><br>#机器学习关闭<br><span class="hljs-selector-tag">xpack</span><span class="hljs-selector-class">.ml</span><span class="hljs-selector-class">.enabled</span>: <span class="hljs-selector-tag">false</span><br># 是否使用<span class="hljs-selector-tag">http</span>协议对外提供服务，默认为<span class="hljs-selector-tag">true</span>，开启<br><span class="hljs-selector-id">#http</span><span class="hljs-selector-class">.enabled</span>: <span class="hljs-selector-tag">true</span><br><br><span class="hljs-selector-tag">cluster</span><span class="hljs-selector-class">.remote</span><span class="hljs-selector-class">.connect</span>: <span class="hljs-selector-tag">false</span><br><span class="hljs-selector-tag">path</span><span class="hljs-selector-class">.data</span>: /<span class="hljs-selector-tag">data01</span>/<span class="hljs-selector-tag">elasticsearch</span>/<span class="hljs-selector-tag">lib</span><br><span class="hljs-selector-tag">path</span><span class="hljs-selector-class">.logs</span>: /<span class="hljs-selector-tag">data01</span>/<span class="hljs-selector-tag">elasticsearch</span>/<span class="hljs-selector-tag">logs</span><br>#锁定物理内存地址，防止<span class="hljs-selector-tag">es</span>内存被交换出去，也就是避免<span class="hljs-selector-tag">es</span>使用<span class="hljs-selector-tag">swap</span>交换分区，频繁的交换，会导致<span class="hljs-selector-tag">IOPS</span>变高<br><span class="hljs-selector-tag">bootstrap</span><span class="hljs-selector-class">.memory_lock</span>: <span class="hljs-selector-tag">true</span><br><span class="hljs-selector-tag">network</span><span class="hljs-selector-class">.host</span>: 192.168.88.128<br><span class="hljs-selector-tag">http</span><span class="hljs-selector-class">.port</span>: 9200<br>#<span class="hljs-selector-id">#discovery</span><span class="hljs-selector-class">.zen</span><span class="hljs-selector-class">.ping</span><span class="hljs-selector-class">.unicast</span><span class="hljs-selector-class">.hosts</span>旧版配置<br><span class="hljs-selector-tag">discovery</span><span class="hljs-selector-class">.seed_hosts</span>: <span class="hljs-selector-attr">[<span class="hljs-string">&quot;192.168.88.128&quot;</span>,<span class="hljs-string">&quot;192.168.99.92&quot;</span>,<span class="hljs-string">&quot;192.168.99.93&quot;</span>]</span><br><span class="hljs-selector-id">#Elasticsearch7</span>新增参数，写入候选主节点的设备地址，来开启服务时就可以被选为主节点<br><span class="hljs-selector-tag">cluster</span><span class="hljs-selector-class">.initial_master_nodes</span>: <span class="hljs-selector-attr">[<span class="hljs-string">&quot;192.168.88.128&quot;</span>,<span class="hljs-string">&quot;192.168.99.92&quot;</span>,<span class="hljs-string">&quot;192.168.99.93&quot;</span>]</span><br># 设置集群中<span class="hljs-selector-tag">N</span>个节点启动时进行数据恢复，默认为1。<br><span class="hljs-selector-tag">gateway</span><span class="hljs-selector-class">.recover_after_nodes</span>: 1<br>#设置是否可以通过正则或者_<span class="hljs-selector-tag">all</span>删除或者关闭索引<br><span class="hljs-selector-tag">action</span><span class="hljs-selector-class">.destructive_requires_name</span>: <span class="hljs-selector-tag">true</span><br><span class="hljs-selector-tag">discovery</span><span class="hljs-selector-class">.zen</span><span class="hljs-selector-class">.minimum_master_nodes</span>: 1   <span class="hljs-selector-id">#node</span><span class="hljs-selector-class">.master</span>数量/2+1<br><span class="hljs-selector-tag">indices</span><span class="hljs-selector-class">.fielddata</span><span class="hljs-selector-class">.cache</span><span class="hljs-selector-class">.size</span>: 20%     #内存回收机制<br><br><span class="hljs-selector-tag">network</span><span class="hljs-selector-class">.tcp</span><span class="hljs-selector-class">.no_delay</span>: <span class="hljs-selector-tag">true</span><br><span class="hljs-selector-tag">network</span><span class="hljs-selector-class">.tcp</span><span class="hljs-selector-class">.keep_alive</span>: <span class="hljs-selector-tag">true</span><br><span class="hljs-selector-tag">network</span><span class="hljs-selector-class">.tcp</span><span class="hljs-selector-class">.reuse_address</span>: <span class="hljs-selector-tag">true</span><br><span class="hljs-selector-tag">network</span><span class="hljs-selector-class">.tcp</span><span class="hljs-selector-class">.send_buffer_size</span>: 128<span class="hljs-selector-tag">mb</span><br><span class="hljs-selector-tag">network</span><span class="hljs-selector-class">.tcp</span><span class="hljs-selector-class">.receive_buffer_size</span>: 128<span class="hljs-selector-tag">mb</span><br><span class="hljs-selector-id">#transport</span><span class="hljs-selector-class">.tcp</span><span class="hljs-selector-class">.port</span>: 9301<br><span class="hljs-selector-tag">transport</span><span class="hljs-selector-class">.tcp</span><span class="hljs-selector-class">.compress</span>: <span class="hljs-selector-tag">true</span><br><span class="hljs-selector-tag">http</span><span class="hljs-selector-class">.max_content_length</span>: 200<span class="hljs-selector-tag">mb</span><br>#开启跨域访问<br><span class="hljs-selector-tag">http</span><span class="hljs-selector-class">.cors</span><span class="hljs-selector-class">.enabled</span>: <span class="hljs-selector-tag">true</span><br><span class="hljs-selector-tag">http</span><span class="hljs-selector-class">.cors</span><span class="hljs-selector-class">.allow-origin</span>: &quot;*&quot;<br><br><span class="hljs-selector-tag">cluster</span><span class="hljs-selector-class">.fault_detection</span><span class="hljs-selector-class">.leader_check</span><span class="hljs-selector-class">.interval</span>: 15<span class="hljs-selector-tag">s</span><br><span class="hljs-selector-tag">discovery</span><span class="hljs-selector-class">.cluster_formation_warning_timeout</span>: 30<span class="hljs-selector-tag">s</span><br><span class="hljs-selector-tag">cluster</span><span class="hljs-selector-class">.join</span><span class="hljs-selector-class">.timeout</span>: 120<span class="hljs-selector-tag">s</span><br><span class="hljs-selector-tag">cluster</span><span class="hljs-selector-class">.publish</span><span class="hljs-selector-class">.timeout</span>: 90<span class="hljs-selector-tag">s</span><br><span class="hljs-selector-tag">cluster</span><span class="hljs-selector-class">.routing</span><span class="hljs-selector-class">.allocation</span><span class="hljs-selector-class">.cluster_concurrent_rebalance</span>: 16<br><span class="hljs-selector-tag">cluster</span><span class="hljs-selector-class">.routing</span><span class="hljs-selector-class">.allocation</span><span class="hljs-selector-class">.node_concurrent_recoveries</span>: 16<br><span class="hljs-selector-tag">cluster</span><span class="hljs-selector-class">.routing</span><span class="hljs-selector-class">.allocation</span><span class="hljs-selector-class">.node_initial_primaries_recoveries</span>: 16<br><br><span class="hljs-selector-id">#6</span>/5新增<br><span class="hljs-selector-tag">thread_pool</span><span class="hljs-selector-class">.write</span><span class="hljs-selector-class">.size</span>: 5<br><span class="hljs-selector-tag">thread_pool</span><span class="hljs-selector-class">.write</span><span class="hljs-selector-class">.queue_size</span>: 400<br><span class="hljs-selector-tag">thread_pool</span><span class="hljs-selector-class">.search</span><span class="hljs-selector-class">.size</span>: 7<br><span class="hljs-selector-tag">thread_pool</span><span class="hljs-selector-class">.search</span><span class="hljs-selector-class">.queue_size</span>: 300<br><span class="hljs-selector-tag">thread_pool</span><span class="hljs-selector-class">.search</span><span class="hljs-selector-class">.min_queue_size</span>: 5<br><span class="hljs-selector-tag">thread_pool</span><span class="hljs-selector-class">.search</span><span class="hljs-selector-class">.max_queue_size</span>: 500<br><span class="hljs-selector-tag">thread_pool</span><span class="hljs-selector-class">.search</span><span class="hljs-selector-class">.auto_queue_frame_size</span>: 1000<br><span class="hljs-selector-tag">thread_pool</span><span class="hljs-selector-class">.search</span><span class="hljs-selector-class">.target_response_time</span>: 3<span class="hljs-selector-tag">s</span><br></code></pre></div></td></tr></table></figure>
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/01/20/Linux%E5%AE%89%E8%A3%85elasticsearch/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="羊皮裘老头">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="羊皮裘老头">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="Linux安装elasticsearch | 羊皮裘老头">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Linux安装elasticsearch
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2021-01-20 10:55:58" itemprop="dateCreated datePublished" datetime="2021-01-20T10:55:58+08:00">2021-01-20</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-04-17 17:07:34" itemprop="dateModified" datetime="2022-04-17T17:07:34+08:00">2022-04-17</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Elk/" itemprop="url" rel="index"><span itemprop="name">Elk</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h2 id="1、准备Java环境"><a href="#1、准备Java环境" class="headerlink" title="1、准备Java环境"></a>1、准备Java环境</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">tar xvf jdk-8u231-linux-x64.tar.gz -C &#x2F;usr&#x2F;local&#x2F;</span><br><span class="line">mv jdk1.8.0_231 java</span><br><span class="line"></span><br><span class="line">vim &#x2F;etc&#x2F;profile.d&#x2F;java</span><br><span class="line">export JAVA_HOME&#x3D;&#x2F;usr&#x2F;local&#x2F;java</span><br><span class="line">export PATH&#x3D;$JAVA_HOME&#x2F;bin:$PATH</span><br><span class="line"></span><br><span class="line">source &#x2F;etc&#x2F;profile.d&#x2F;java</span><br><span class="line">java -version</span><br></pre></td></tr></table></figure>
+<h2 id="2、安装es"><a href="#2、安装es" class="headerlink" title="2、安装es"></a>2、安装es</h2><h3 id="2-1-创建用户和数据存放目录"><a href="#2-1-创建用户和数据存放目录" class="headerlink" title="2.1 创建用户和数据存放目录"></a>2.1 创建用户和数据存放目录</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">useradd elk</span><br><span class="line">passwd elk</span><br><span class="line">mkdir &#x2F;opt&#x2F;esdata</span><br><span class="line">chown -R elk:elk &#x2F;opt&#x2F;</span><br></pre></td></tr></table></figure>
+<h3 id="2-2配置系统参数"><a href="#2-2配置系统参数" class="headerlink" title="2.2配置系统参数"></a>2.2配置系统参数</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">vim &#x2F;etc&#x2F;security&#x2F;limits.conf</span><br><span class="line"></span><br><span class="line">elk hard nofile 65536</span><br><span class="line">elk soft nofile 65536</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">vim &#x2F;etc&#x2F;sysctl.conf</span><br><span class="line"></span><br><span class="line">vm.max_map_count &#x3D; 655360</span><br><span class="line"></span><br><span class="line">sysctl -p</span><br></pre></td></tr></table></figure>
+<h3 id="2-3安装es"><a href="#2-3安装es" class="headerlink" title="2.3安装es"></a>2.3安装es</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br></pre></td><td class="code"><pre><span class="line">tar xvf elasticsearch-6.5.3.tar.gz -C &#x2F;opt&#x2F;</span><br><span class="line"></span><br><span class="line">vim jvm.options</span><br><span class="line"></span><br><span class="line">-Xms8g</span><br><span class="line">-Xmx8g     #实际内存的50%</span><br><span class="line"></span><br><span class="line">vim elasticsearch.yml</span><br><span class="line"></span><br><span class="line">cluster.name: elk    #集群模式这里必须相同</span><br><span class="line">node.name: elk01</span><br><span class="line"># 自定义属性添加到节点上</span><br><span class="line">node.attr.rack: r1</span><br><span class="line"></span><br><span class="line">node.master: true</span><br><span class="line">#node.voting_only: true</span><br><span class="line">node.data: true</span><br><span class="line">#node.ingest: true</span><br><span class="line">#node.ml: false</span><br><span class="line">#开启监控xpack</span><br><span class="line">xpack.monitoring.enabled: true</span><br><span class="line">#机器学习关闭</span><br><span class="line">xpack.ml.enabled: false</span><br><span class="line"># 是否使用http协议对外提供服务，默认为true，开启</span><br><span class="line">#http.enabled: true</span><br><span class="line"></span><br><span class="line">cluster.remote.connect: false</span><br><span class="line">path.data: &#x2F;data01&#x2F;elasticsearch&#x2F;lib</span><br><span class="line">path.logs: &#x2F;data01&#x2F;elasticsearch&#x2F;logs</span><br><span class="line">#锁定物理内存地址，防止es内存被交换出去，也就是避免es使用swap交换分区，频繁的交换，会导致IOPS变高</span><br><span class="line">bootstrap.memory_lock: true</span><br><span class="line">network.host: 192.168.88.128</span><br><span class="line">http.port: 9200</span><br><span class="line">##discovery.zen.ping.unicast.hosts旧版配置</span><br><span class="line">discovery.seed_hosts: [&quot;192.168.88.128&quot;,&quot;192.168.99.92&quot;,&quot;192.168.99.93&quot;]</span><br><span class="line">#Elasticsearch7新增参数，写入候选主节点的设备地址，来开启服务时就可以被选为主节点</span><br><span class="line">cluster.initial_master_nodes: [&quot;192.168.88.128&quot;,&quot;192.168.99.92&quot;,&quot;192.168.99.93&quot;]</span><br><span class="line"># 设置集群中N个节点启动时进行数据恢复，默认为1。</span><br><span class="line">gateway.recover_after_nodes: 1</span><br><span class="line">#设置是否可以通过正则或者_all删除或者关闭索引</span><br><span class="line">action.destructive_requires_name: true</span><br><span class="line">discovery.zen.minimum_master_nodes: 1   #node.master数量&#x2F;2+1</span><br><span class="line">indices.fielddata.cache.size: 20%     #内存回收机制</span><br><span class="line"></span><br><span class="line">network.tcp.no_delay: true</span><br><span class="line">network.tcp.keep_alive: true</span><br><span class="line">network.tcp.reuse_address: true</span><br><span class="line">network.tcp.send_buffer_size: 128mb</span><br><span class="line">network.tcp.receive_buffer_size: 128mb</span><br><span class="line">#transport.tcp.port: 9301</span><br><span class="line">transport.tcp.compress: true</span><br><span class="line">http.max_content_length: 200mb</span><br><span class="line">#开启跨域访问</span><br><span class="line">http.cors.enabled: true</span><br><span class="line">http.cors.allow-origin: &quot;*&quot;</span><br><span class="line"></span><br><span class="line">cluster.fault_detection.leader_check.interval: 15s</span><br><span class="line">discovery.cluster_formation_warning_timeout: 30s</span><br><span class="line">cluster.join.timeout: 120s</span><br><span class="line">cluster.publish.timeout: 90s</span><br><span class="line">cluster.routing.allocation.cluster_concurrent_rebalance: 16</span><br><span class="line">cluster.routing.allocation.node_concurrent_recoveries: 16</span><br><span class="line">cluster.routing.allocation.node_initial_primaries_recoveries: 16</span><br><span class="line"></span><br><span class="line">#6&#x2F;5新增</span><br><span class="line">thread_pool.write.size: 5</span><br><span class="line">thread_pool.write.queue_size: 400</span><br><span class="line">thread_pool.search.size: 7</span><br><span class="line">thread_pool.search.queue_size: 300</span><br><span class="line">thread_pool.search.min_queue_size: 5</span><br><span class="line">thread_pool.search.max_queue_size: 500</span><br><span class="line">thread_pool.search.auto_queue_frame_size: 1000</span><br><span class="line">thread_pool.search.target_response_time: 3s</span><br></pre></td></tr></table></figure>
 <p>命令</p>
-<figure class="highlight vala"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs vala"><span class="hljs-meta">#调整index的merge过程的并发度</span><br>curl -H <span class="hljs-string">&quot;Content-Type: application/json&quot;</span> -XPUT <span class="hljs-string">&#x27;http://localhost:9200/_all/_settings?preserve_existing=true&#x27;</span> -d <span class="hljs-string">&#x27;&#123;&quot;index.merge.scheduler.max_thread_count&quot; : &quot;1&quot;&#125;&#x27;</span><br><br><span class="hljs-meta">#提高refresh的时间间隔，降低系统开销</span><br>curl -H <span class="hljs-string">&quot;Content-Type: application/json&quot;</span> -XPUT <span class="hljs-string">&#x27;http://localhost:9200/_all/_settings?preserve_existing=true&#x27;</span> -d <span class="hljs-string">&#x27;&#123;&quot;index.refresh_interval&quot; : &quot;30s&quot;&#125;&#x27;</span><br><br><span class="hljs-meta">#查看es集群状态</span><br>curl <span class="hljs-string">&#x27;http://localhost:9200/_cluster/health?pretty&#x27;</span><br><br><span class="hljs-meta">#查看es所有索引</span><br>curl <span class="hljs-string">&#x27;http://localhost:9200/_cat/indices?v&#x27;</span><br><br><br><span class="hljs-meta">#查看集群所在磁盘的分配状况</span><br>curl <span class="hljs-string">&#x27;http://127.0.0.1:9200/_cat/allocation?v&#x27;</span><br><span class="hljs-meta">#分片数（shards）:集群中各节点的分片数相同</span><br><span class="hljs-meta">#索引所占空间（disk.indices）:该节点中所有索引在该磁盘所点的空间。</span><br><span class="hljs-meta">#磁盘使用容量（disk.used）:已经使用空间</span><br><span class="hljs-meta">#磁盘可用容量（disk.avail）:可用空间</span><br><span class="hljs-meta">#磁盘总容量（disk.total）:总共容量</span><br><span class="hljs-meta">#磁盘便用率（disk.percent）:磁盘使用率</span><br><br><span class="hljs-meta">#查看节点信息</span><br>curl -XGET <span class="hljs-string">&quot;http://localhost:9200/_cat/nodes?v&amp;pretty&quot;</span><br><br><span class="hljs-meta">#查看分片信息</span><br>curl -XGET <span class="hljs-string">&quot;http://localhost:9200/_cat/shards?v&amp;pretty&quot;</span><br><br><span class="hljs-meta">#查看集群静态信息</span><br>curl -XGET <span class="hljs-string">&#x27;http://localhost:9200/_cluster/stats?pretty=true&#x27;</span><br><br><span class="hljs-meta">#删除索引</span><br>curl -XDELETE <span class="hljs-string">&#x27;http://localhost:9200/app-2019.05,app-2019.05&#x27;</span><br><br><span class="hljs-meta">#查询es当前线程</span><br>curl -XGET <span class="hljs-string">&#x27;http://localhost:9200/_nodes/stats/thread_pool?pretty&#x27;</span><br><br></code></pre></div></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line">#调整index的merge过程的并发度</span><br><span class="line">curl -H &quot;Content-Type: application&#x2F;json&quot; -XPUT &#39;http:&#x2F;&#x2F;localhost:9200&#x2F;_all&#x2F;_settings?preserve_existing&#x3D;true&#39; -d &#39;&#123;&quot;index.merge.scheduler.max_thread_count&quot; : &quot;1&quot;&#125;&#39;</span><br><span class="line"></span><br><span class="line">#提高refresh的时间间隔，降低系统开销</span><br><span class="line">curl -H &quot;Content-Type: application&#x2F;json&quot; -XPUT &#39;http:&#x2F;&#x2F;localhost:9200&#x2F;_all&#x2F;_settings?preserve_existing&#x3D;true&#39; -d &#39;&#123;&quot;index.refresh_interval&quot; : &quot;30s&quot;&#125;&#39;</span><br><span class="line"></span><br><span class="line">#查看es集群状态</span><br><span class="line">curl &#39;http:&#x2F;&#x2F;localhost:9200&#x2F;_cluster&#x2F;health?pretty&#39;</span><br><span class="line"></span><br><span class="line">#查看es所有索引</span><br><span class="line">curl &#39;http:&#x2F;&#x2F;localhost:9200&#x2F;_cat&#x2F;indices?v&#39;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">#查看集群所在磁盘的分配状况</span><br><span class="line">curl &#39;http:&#x2F;&#x2F;127.0.0.1:9200&#x2F;_cat&#x2F;allocation?v&#39;</span><br><span class="line">#分片数（shards）:集群中各节点的分片数相同</span><br><span class="line">#索引所占空间（disk.indices）:该节点中所有索引在该磁盘所点的空间。</span><br><span class="line">#磁盘使用容量（disk.used）:已经使用空间</span><br><span class="line">#磁盘可用容量（disk.avail）:可用空间</span><br><span class="line">#磁盘总容量（disk.total）:总共容量</span><br><span class="line">#磁盘便用率（disk.percent）:磁盘使用率</span><br><span class="line"></span><br><span class="line">#查看节点信息</span><br><span class="line">curl -XGET &quot;http:&#x2F;&#x2F;localhost:9200&#x2F;_cat&#x2F;nodes?v&amp;pretty&quot;</span><br><span class="line"></span><br><span class="line">#查看分片信息</span><br><span class="line">curl -XGET &quot;http:&#x2F;&#x2F;localhost:9200&#x2F;_cat&#x2F;shards?v&amp;pretty&quot;</span><br><span class="line"></span><br><span class="line">#查看集群静态信息</span><br><span class="line">curl -XGET &#39;http:&#x2F;&#x2F;localhost:9200&#x2F;_cluster&#x2F;stats?pretty&#x3D;true&#39;</span><br><span class="line"></span><br><span class="line">#删除索引</span><br><span class="line">curl -XDELETE &#39;http:&#x2F;&#x2F;localhost:9200&#x2F;app-2019.05,app-2019.05&#39;</span><br><span class="line"></span><br><span class="line">#查询es当前线程</span><br><span class="line">curl -XGET &#39;http:&#x2F;&#x2F;localhost:9200&#x2F;_nodes&#x2F;stats&#x2F;thread_pool?pretty&#39;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 <h2 id="3、-logstash调优"><a href="#3、-logstash调优" class="headerlink" title="3、 logstash调优"></a>3、 logstash调优</h2><p>​    当batch.size增大，es处理的事件数就会变少，写入也就越快了。具体的worker/output.workers数量建议等于CPU数，batch.size/batch.delay根据实际的数据量逐渐增大来测试最优值。</p>
-<figure class="highlight css"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs css"><span class="hljs-selector-tag">pipeline</span><span class="hljs-selector-class">.workers</span>: 24<br><span class="hljs-selector-tag">pipeline</span><span class="hljs-selector-class">.output</span><span class="hljs-selector-class">.workers</span>: 24<br><span class="hljs-selector-tag">pipeline</span><span class="hljs-selector-class">.batch</span><span class="hljs-selector-class">.size</span>: 10000<br><span class="hljs-selector-tag">pipeline</span><span class="hljs-selector-class">.batch</span><span class="hljs-selector-class">.delay</span>: 10<br></code></pre></div></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">pipeline.workers: 24</span><br><span class="line">pipeline.output.workers: 24</span><br><span class="line">pipeline.batch.size: 10000</span><br><span class="line">pipeline.batch.delay: 10</span><br></pre></td></tr></table></figure>
 <p>配置参考：<a target="_blank" rel="noopener" href="https://www.iteye.com/blog/shihlei-2418651">https://www.iteye.com/blog/shihlei-2418651</a></p>
 
-            </div>
-            <hr>
-            <div>
-              <div class="post-metas mb-3">
-                
-                  <div class="post-meta mr-3">
-                    <i class="iconfont icon-category"></i>
-                    
-                      <a class="hover-with-bg" href="/categories/Elk/">Elk</a>
-                    
-                  </div>
-                
-                
-                  <div class="post-meta">
-                    <i class="iconfont icon-tags"></i>
-                    
-                      <a class="hover-with-bg" href="/tags/Elasticsearch/">Elasticsearch</a>
-                    
-                  </div>
-                
-              </div>
-              
-                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
-              
-              
-                <div class="post-prevnext">
-                  <article class="post-prev col-6">
-                    
-                    
-                      <a href="/2021/01/20/elasticsearch%E6%80%A7%E8%83%BD%E6%B5%8B%E8%AF%95%E5%B7%A5%E5%85%B7rally/">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">elasticsearch性能测试工具rally</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
-                  </article>
-                  <article class="post-next col-6">
-                    
-                    
-                      <a href="/2021/01/20/logstash%E5%AD%97%E7%AC%A6%E8%BD%AC%E6%8D%A2/">
-                        <span class="hidden-mobile">logstash字符转换</span>
-                        <span class="visible-mobile">下一篇</span>
-                        <i class="iconfont icon-arrowright"></i>
-                      </a>
-                    
-                  </article>
-                </div>
-              
-            </div>
-
-            
-              <!-- Comments -->
-              <article class="comments" id="comments">
-                
-                
-  <div id="vcomments"></div>
-  <script type="text/javascript">
-    Fluid.utils.waitElementVisible('vcomments', function() {
-      Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js', function () {
-        new Valine({
-          el: "#vcomments",
-          app_id: "hPHtsN0Gt7U2zB2AllYqbucc-9Nh9j0Va",
-          app_key: "TVUER8rWijR8cD1STqzd2d4E",
-          placeholder: "你有故事，我有酒，我们一起勇闯天涯。。。",
-          path: window.location.pathname,
-          avatar: "retro",
-          meta: ["nick","mail","link"],
-          pageSize: "10",
-          lang: "zh-CN",
-          highlight: false,
-          recordIP: false,
-          serverURLs: "",
-        });
-      });
-    });
-  </script>
-  <noscript>Please enable JavaScript to view the
-    <a target="_blank" href="https://valine.js.org" rel="nofollow noopener noopener">comments powered by Valine.</a>
-  </noscript>
-
-
-              </article>
-            
-          </article>
-        </div>
-      </div>
     </div>
+
     
-      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
-        <div id="toc">
-  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
-  <div class="toc-body" id="toc-body"></div>
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Elasticsearch/" rel="tag"># Elasticsearch</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2021/01/20/logstash%E5%AD%97%E7%AC%A6%E8%BD%AC%E6%8D%A2/" rel="prev" title="logstash字符转换">
+                  <i class="fa fa-chevron-left"></i> logstash字符转换
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2021/01/20/elasticsearch%E6%80%A7%E8%83%BD%E6%B5%8B%E8%AF%95%E5%B7%A5%E5%85%B7rally/" rel="next" title="elasticsearch性能测试工具rally">
+                  elasticsearch性能测试工具rally <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
 </div>
 
-      </div>
-    
-  </div>
+
+
+
+
+
 </div>
-
-<!-- Custom -->
-
-
-    
-
-    
-      <a id="scroll-top-button" href="#" role="button">
-        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
-      </a>
-    
-
-    
-      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
-     aria-hidden="true">
-  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
-    <div class="modal-content">
-      <div class="modal-header text-center">
-        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
-        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body mx-3">
-        <div class="md-form mb-5">
-          <input type="text" id="local-search-input" class="form-control validate">
-          <label data-error="x" data-success="v"
-                 for="local-search-input">关键词</label>
-        </div>
-        <div class="list-group" id="local-search-result"></div>
-      </div>
-    </div>
-  </div>
-</div>
-    
-
-    
   </main>
 
-  <footer class="text-center mt-5 py-3">
-  <div class="footer-content">
-     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
-  </div>
-  
-  <div class="statistics">
-    
-    
+  <footer class="footer">
+    <div class="footer-inner">
 
-    
-      
-        <!-- 不蒜子统计PV -->
-        <span id="busuanzi_container_site_pv" style="display: none">
-            总访问量 
-            <span id="busuanzi_value_site_pv"></span>
-             次
-          </span>
-      
-      
-        <!-- 不蒜子统计UV -->
-        <span id="busuanzi_container_site_uv" style="display: none">
-            总访客数 
-            <span id="busuanzi_value_site_uv"></span>
-             人
-          </span>
-      
-    
+
+<div class="copyright">
+  &copy; 2020 – 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">羊皮裘老头</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
   </div>
 
+    </div>
+  </footer>
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
 
   
 
-  
-</footer>
 
-<!-- SCRIPTS -->
-
-  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
-  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
-
-  <script>
-    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
-    NProgress.start()
-    window.addEventListener('load', function() {
-      NProgress.done();
-    })
-  </script>
-
-
-<script  src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" ></script>
-<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" ></script>
-<script  src="/js/debouncer.js" ></script>
-<script  src="/js/events.js" ></script>
-<script  src="/js/plugins.js" ></script>
-
-<!-- Plugins -->
-
-
-  
-    <script  src="/js/lazyload.js" ></script>
-  
 
 
 
   
 
 
-
-  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.0/dist/tocbot.min.js" ></script>
-
-
-
-  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
-
-
-
-  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.0/anchor.min.js" ></script>
-
-
-
-  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js" ></script>
-
-
-
-  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
-
-
-
-
-
-
-  <script  src="/js/local-search.js" ></script>
-  <script>
-    (function () {
-      var path = "/local-search.xml";
-      var inputArea = document.querySelector("#local-search-input");
-      inputArea.onclick = function () {
-        searchFunc(path, 'local-search-input', 'local-search-result');
-        this.onclick = null
-      }
-    })()
-  </script>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<!-- 主题的启动项 保持在最底部 -->
-<script  src="/js/boot.js" ></script>
 
 
 

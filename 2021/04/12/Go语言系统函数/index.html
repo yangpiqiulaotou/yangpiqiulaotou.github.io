@@ -1,355 +1,312 @@
-
-
 <!DOCTYPE html>
-<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
-
-
-
+<html lang="zh-CN">
 <head>
   <meta charset="UTF-8">
-  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
-  <link rel="icon" type="image/png" href="/img/favicon.png">
-  <meta name="viewport"
-        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
-  <meta http-equiv="x-ua-compatible" content="ie=edge">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 5.3.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.12.1","exturl":false,"sidebar":{"position":"left","width":300,"display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="1、字符串常用的系统函数 统计字符串的长度，按字节 len(str)  12345678910package mainimport (	&quot;fmt&quot;)func main() &amp;#123;	str :&#x3D; &quot;helloword&quot;	fmt.Println(&quot;str len&#x3D;&quot;, len(str))&amp;#125;  字符串遍历，同">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Go语言系统函数">
+<meta property="og:url" content="http://example.com/2021/04/12/Go%E8%AF%AD%E8%A8%80%E7%B3%BB%E7%BB%9F%E5%87%BD%E6%95%B0/index.html">
+<meta property="og:site_name" content="羊皮裘老头">
+<meta property="og:description" content="1、字符串常用的系统函数 统计字符串的长度，按字节 len(str)  12345678910package mainimport (	&quot;fmt&quot;)func main() &amp;#123;	str :&#x3D; &quot;helloword&quot;	fmt.Println(&quot;str len&#x3D;&quot;, len(str))&amp;#125;  字符串遍历，同">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://yangpiqiulaotou.oss-cn-hangzhou.aliyuncs.com/images/image-20200928104129878.png">
+<meta property="og:image" content="https://yangpiqiulaotou.oss-cn-hangzhou.aliyuncs.com/images/image-20200928112059925.png">
+<meta property="article:published_time" content="2021-04-12T07:32:04.000Z">
+<meta property="article:modified_time" content="2022-04-17T09:07:34.047Z">
+<meta property="article:author" content="羊皮裘老头">
+<meta property="article:tag" content="Golang">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://yangpiqiulaotou.oss-cn-hangzhou.aliyuncs.com/images/image-20200928104129878.png">
+
+
+<link rel="canonical" href="http://example.com/2021/04/12/Go%E8%AF%AD%E8%A8%80%E7%B3%BB%E7%BB%9F%E5%87%BD%E6%95%B0/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://example.com/2021/04/12/Go%E8%AF%AD%E8%A8%80%E7%B3%BB%E7%BB%9F%E5%87%BD%E6%95%B0/","path":"2021/04/12/Go语言系统函数/","title":"Go语言系统函数"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>Go语言系统函数 | 羊皮裘老头</title>
   
-  <meta name="theme-color" content="#2f4154">
-  <meta name="description" content="">
-  <meta name="author" content="羊皮裘老头">
-  <meta name="keywords" content="">
-  <title>Go语言系统函数 - 羊皮裘老头</title>
-
-  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
-
-
-  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
-  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
-
-  
-    
-    
-      
-      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.4.0/styles/github-gist.min.css" />
-    
-  
-
-  
-    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
-  
 
 
 
-<!-- 主题依赖的图标库，不要自行修改 -->
-
-<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
 
 
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
 
-<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
 
-
-<link  rel="stylesheet" href="/css/main.css" />
-
-<!-- 自定义样式保持在最底部 -->
-
-
-  <script id="fluid-configs">
-    var Fluid = window.Fluid || {};
-    var CONFIG = {"hostname":"example.com","root":"/","version":"1.8.7","typing":{"enable":false,"typeSpeed":70,"cursorChar":" ","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"onlypost":false},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}}};
-  </script>
-  <script  src="/js/utils.js" ></script>
-  <script  src="/js/color-schema.js" ></script>
-<meta name="generator" content="Hexo 5.3.0"></head>
-
-
-<body>
-  <header style="height: 70vh;">
-    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
-  <div class="container">
-    <a class="navbar-brand"
-       href="/">&nbsp;<strong>羊皮裘老头</strong>&nbsp;</a>
-
-    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
-            data-target="#navbarSupportedContent"
-            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <div class="animated-icon"><span></span><span></span><span></span></div>
-    </button>
-
-    <!-- Collapsible content -->
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav ml-auto text-center">
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/">
-                <i class="iconfont icon-home-fill"></i>
-                首页
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/archives/">
-                <i class="iconfont icon-archive-fill"></i>
-                归档
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/categories/">
-                <i class="iconfont icon-category-fill"></i>
-                分类
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/tags/">
-                <i class="iconfont icon-tags-fill"></i>
-                标签
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/about/">
-                <i class="iconfont icon-user-fill"></i>
-                关于
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <i class="iconfont icon-books"></i>
-                文档
-              </a>
-              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                
-                  
-                  
-                  
-                  <a class="dropdown-item" target="_blank" rel="noopener" href="https://hexo.fluid-dev.com/">
-                    
-                    主题博客
-                  </a>
-                
-                  
-                  
-                  
-                  <a class="dropdown-item" target="_blank" rel="noopener" href="https://hexo.fluid-dev.com/docs/guide/">
-                    
-                    配置指南
-                  </a>
-                
-                  
-                  
-                  
-                  <a class="dropdown-item" target="_blank" rel="noopener" href="https://hexo.fluid-dev.com/docs/icon/">
-                    
-                    图标用法
-                  </a>
-                
-              </div>
-            </li>
-          
-        
-        
-          <li class="nav-item" id="search-btn">
-            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
-                class="iconfont icon-search"></i>&nbsp;</a>
-          </li>
-        
-        
-          <li class="nav-item" id="color-toggle-btn">
-            <a class="nav-link" href="javascript:">&nbsp;<i
-                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
-          </li>
-        
-      </ul>
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
     </div>
   </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">羊皮裘老头</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">28</span></a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">13</span></a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">116</span></a></li><li class="menu-item menu-item-schedule"><a href="/schedule/" rel="section"><i class="fa fa-calendar fa-fw"></i>日程表</a></li><li class="menu-item menu-item-sitemap"><a href="/sitemap.xml" rel="section"><i class="fa fa-sitemap fa-fw"></i>站点地图</a></li><li class="menu-item menu-item-commonweal"><a href="/404/" rel="section"><i class="fa fa-heartbeat fa-fw"></i>公益 404</a></li>
+  </ul>
 </nav>
 
-    <div class="banner" id="banner" parallax=true
-         style="background: url('/img/ss.png') no-repeat center center;
-           background-size: cover;">
-      <div class="full-bg-img">
-        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
-          <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="Go语言系统函数">
-              
-                Go语言系统函数
-              
-            </span>
 
-            
-              <div class="mt-3">
+
+
+</div>
+        
   
-  
-    <span class="post-meta">
-      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-      <time datetime="2021-04-12 15:32" pubdate>
-        2021年4月12日 下午
-      </time>
-    </span>
-  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1%E3%80%81%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%B8%B8%E7%94%A8%E7%9A%84%E7%B3%BB%E7%BB%9F%E5%87%BD%E6%95%B0"><span class="nav-number">1.</span> <span class="nav-text">1、字符串常用的系统函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2%E3%80%81%E6%97%B6%E9%97%B4%E5%92%8C%E6%97%A5%E6%9C%9F%E7%9B%B8%E5%85%B3%E5%87%BD%E6%95%B0"><span class="nav-number">2.</span> <span class="nav-text">2、时间和日期相关函数</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9F%BA%E6%9C%AC%E7%9A%84%E4%BB%8B%E7%BB%8D"><span class="nav-number">2.1.</span> <span class="nav-text">基本的介绍</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E6%97%B6%E9%97%B4%E5%92%8C%E6%97%A5%E6%9C%9F%E7%9B%B8%E5%85%B3%E5%87%BD%E6%95%B0%EF%BC%8C%E9%9C%80%E8%A6%81%E5%AF%BC%E5%85%A5-time-%E5%8C%85"><span class="nav-number">2.2.</span> <span class="nav-text">1) 时间和日期相关函数，需要导入 time 包</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-time-Time-%E7%B1%BB%E5%9E%8B%EF%BC%8C%E7%94%A8%E4%BA%8E%E8%A1%A8%E7%A4%BA%E6%97%B6%E9%97%B4"><span class="nav-number">2.3.</span> <span class="nav-text">2) time.Time 类型，用于表示时间</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-%E5%A6%82%E4%BD%95%E8%8E%B7%E5%8F%96%E5%88%B0%E5%85%B6%E5%AE%83%E7%9A%84%E6%97%A5%E6%9C%9F%E4%BF%A1%E6%81%AF"><span class="nav-number">2.4.</span> <span class="nav-text">3) 如何获取到其它的日期信息</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-%E6%A0%BC%E5%BC%8F%E5%8C%96%E6%97%A5%E6%9C%9F%E6%97%B6%E9%97%B4"><span class="nav-number">2.5.</span> <span class="nav-text">4) 格式化日期时间</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-%E6%97%B6%E9%97%B4%E7%9A%84%E5%B8%B8%E9%87%8F"><span class="nav-number">2.6.</span> <span class="nav-text">5) 时间的常量</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-%E7%BB%93%E5%90%88-Sleep-%E6%9D%A5%E4%BD%BF%E7%94%A8%E4%B8%80%E4%B8%8B%E6%97%B6%E9%97%B4%E5%B8%B8%E9%87%8F"><span class="nav-number">2.7.</span> <span class="nav-text">6) 结合 Sleep 来使用一下时间常量</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-time-%E7%9A%84-Unix-%E5%92%8C-UnixNano-%E7%9A%84%E6%96%B9%E6%B3%95"><span class="nav-number">2.8.</span> <span class="nav-text">7) time 的 Unix 和 UnixNano 的方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%9E%E4%BE%8B%E7%BB%83%E4%B9%A0"><span class="nav-number">2.9.</span> <span class="nav-text">实例练习</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3%E3%80%81%E5%86%85%E7%BD%AE%E5%87%BD%E6%95%B0"><span class="nav-number">3.</span> <span class="nav-text">3、内置函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4%E3%80%81%E9%94%99%E8%AF%AF%E5%A4%84%E7%90%86"><span class="nav-number">4.</span> <span class="nav-text">4、错误处理</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AF%B9%E4%B8%8A%E9%9D%A2%E4%BB%A3%E7%A0%81%E7%9A%84%E6%80%BB%E7%BB%93"><span class="nav-number">4.1.</span> <span class="nav-text">对上面代码的总结</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9F%BA%E6%9C%AC%E8%AF%B4%E6%98%8E"><span class="nav-number">4.2.</span> <span class="nav-text">基本说明</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%87%AA%E5%AE%9A%E4%B9%89%E9%94%99%E8%AF%AF"><span class="nav-number">4.3.</span> <span class="nav-text">自定义错误</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">羊皮裘老头</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">116</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">13</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">28</span>
+        <span class="site-state-item-name">标签</span>
+      </div>
+  </nav>
 </div>
 
-<div class="mt-1">
-  
-    
-    <span class="post-meta mr-2">
-      <i class="iconfont icon-chart"></i>
-      2.6k 字
-    </span>
-  
 
-  
-    
-    <span class="post-meta mr-2">
-      <i class="iconfont icon-clock-fill"></i>
-      
-      
-      40
-       分钟
-    </span>
-  
 
-  
-  
-    
-      <!-- LeanCloud 统计文章PV -->
-      <span id="leancloud-page-views-container" class="post-meta" style="display: none">
-        <i class="iconfont icon-eye" aria-hidden="true"></i>
-        <span id="leancloud-page-views"></span> 次
-      </span>
-    
-  
-</div>
-
-            
-          </div>
-
-          
         </div>
       </div>
     </div>
-  </header>
+  </aside>
+  <div class="sidebar-dimmer"></div>
 
-  <main>
+
+    </header>
+
     
-      
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
 
-<div class="container-fluid nopadding-x">
-  <div class="row nomargin-x">
-    <div class="d-none d-lg-block col-lg-2"></div>
-    <div class="col-lg-8 nopadding-x-md">
-      <div class="container nopadding-x-md" id="board-ctn">
-        <div class="py-5" id="board">
-          <article class="post-content mx-auto">
-            <!-- SEO header -->
-            <h1 style="display: none">Go语言系统函数</h1>
-            
-              <p class="note note-info">
-                
-                  本文最后更新于：2022年4月17日 下午
-                
-              </p>
-            
-            <div class="markdown-body">
-              <h2 id="1、字符串常用的系统函数"><a href="#1、字符串常用的系统函数" class="headerlink" title="1、字符串常用的系统函数"></a>1、字符串常用的系统函数</h2><ol>
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/04/12/Go%E8%AF%AD%E8%A8%80%E7%B3%BB%E7%BB%9F%E5%87%BD%E6%95%B0/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="羊皮裘老头">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="羊皮裘老头">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="Go语言系统函数 | 羊皮裘老头">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Go语言系统函数
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2021-04-12 15:32:04" itemprop="dateCreated datePublished" datetime="2021-04-12T15:32:04+08:00">2021-04-12</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-04-17 17:07:34" itemprop="dateModified" datetime="2022-04-17T17:07:34+08:00">2022-04-17</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Golang/" itemprop="url" rel="index"><span itemprop="name">Golang</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h2 id="1、字符串常用的系统函数"><a href="#1、字符串常用的系统函数" class="headerlink" title="1、字符串常用的系统函数"></a>1、字符串常用的系统函数</h2><ol>
 <li>统计字符串的长度，按字节 len(str)</li>
 </ol>
-<figure class="highlight go"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs go"><span class="hljs-keyword">package</span> main<br><br><span class="hljs-keyword">import</span> (<br>	<span class="hljs-string">&quot;fmt&quot;</span><br>)<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> &#123;<br>	str := <span class="hljs-string">&quot;helloword&quot;</span><br>	fmt.Println(<span class="hljs-string">&quot;str len=&quot;</span>, <span class="hljs-built_in">len</span>(str))<br>&#125;<br></code></pre></div></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">package main</span><br><span class="line"></span><br><span class="line">import (</span><br><span class="line">	&quot;fmt&quot;</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">func main() &#123;</span><br><span class="line">	str :&#x3D; &quot;helloword&quot;</span><br><span class="line">	fmt.Println(&quot;str len&#x3D;&quot;, len(str))</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <ol start="2">
 <li>字符串遍历，同时处理有中文的问题 str2 := []rune(str1)</li>
 </ol>
-<figure class="highlight go"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs go"><span class="hljs-keyword">package</span> main<br><br><span class="hljs-keyword">import</span> (<br>	<span class="hljs-string">&quot;fmt&quot;</span><br>)<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> &#123;<br>	str1 := <span class="hljs-string">&quot;hello地球&quot;</span><br>	str2 := []<span class="hljs-keyword">rune</span>(str1)<br>	<span class="hljs-keyword">for</span> i := <span class="hljs-number">0</span>; i &lt; <span class="hljs-built_in">len</span>(str2); i++ &#123;<br>		fmt.Printf(<span class="hljs-string">&quot;字符=%c\n&quot;</span>, str2[i])<br>	&#125;<br>&#125;<br></code></pre></div></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">package main</span><br><span class="line"></span><br><span class="line">import (</span><br><span class="line">	&quot;fmt&quot;</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">func main() &#123;</span><br><span class="line">	str1 :&#x3D; &quot;hello地球&quot;</span><br><span class="line">	str2 :&#x3D; []rune(str1)</span><br><span class="line">	for i :&#x3D; 0; i &lt; len(str2); i++ &#123;</span><br><span class="line">		fmt.Printf(&quot;字符&#x3D;%c\n&quot;, str2[i])</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <ol start="3">
 <li>字符串转整数: n, err := strconv.Atoi(“12”)</li>
 </ol>
-<figure class="highlight go"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs go"><span class="hljs-keyword">package</span> main<br><br><span class="hljs-keyword">import</span> (<br>	<span class="hljs-string">&quot;fmt&quot;</span><br>	<span class="hljs-string">&quot;strconv&quot;</span><br>)<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> &#123;<br>	n, err := strconv.Atoi(<span class="hljs-string">&quot;123&quot;</span>)<br>	<span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> &#123;<br>		fmt.Println(<span class="hljs-string">&quot;转换错误&quot;</span>, err)<br>	&#125; <span class="hljs-keyword">else</span> &#123;<br>		fmt.Println(<span class="hljs-string">&quot;转换成功，结果是&quot;</span>, n)<br>	&#125;<br>&#125;<br></code></pre></div></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">package main</span><br><span class="line"></span><br><span class="line">import (</span><br><span class="line">	&quot;fmt&quot;</span><br><span class="line">	&quot;strconv&quot;</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">func main() &#123;</span><br><span class="line">	n, err :&#x3D; strconv.Atoi(&quot;123&quot;)</span><br><span class="line">	if err !&#x3D; nil &#123;</span><br><span class="line">		fmt.Println(&quot;转换错误&quot;, err)</span><br><span class="line">	&#125; else &#123;</span><br><span class="line">		fmt.Println(&quot;转换成功，结果是&quot;, n)</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <ol start="4">
 <li>整数转字符串 str = strconv.Itoa(12345)</li>
 </ol>
-<figure class="highlight css"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs css"><span class="hljs-selector-tag">package</span> <span class="hljs-selector-tag">main</span><br><br><span class="hljs-selector-tag">import</span> (<br>	&quot;<span class="hljs-selector-tag">fmt</span>&quot;<br>	&quot;<span class="hljs-selector-tag">strconv</span>&quot;<br>)<br><br><span class="hljs-selector-tag">func</span> <span class="hljs-selector-tag">main</span>() &#123;<br>	<span class="hljs-attribute">str </span>:= strconv.<span class="hljs-built_in">Itoa</span>(<span class="hljs-number">12334</span>)<br>	fmt.<span class="hljs-built_in">Printf</span>(<span class="hljs-string">&quot;str=%v\nstr=%T\n&quot;</span>, str, str)<br>&#125;<br></code></pre></div></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">package main</span><br><span class="line"></span><br><span class="line">import (</span><br><span class="line">	&quot;fmt&quot;</span><br><span class="line">	&quot;strconv&quot;</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">func main() &#123;</span><br><span class="line">	str :&#x3D; strconv.Itoa(12334)</span><br><span class="line">	fmt.Printf(&quot;str&#x3D;%v\nstr&#x3D;%T\n&quot;, str, str)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <ol start="5">
 <li>字符串 转 字节: var bytes = []byte(“hello go”)</li>
 </ol>
-<figure class="highlight go"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs go"><span class="hljs-keyword">package</span> main<br><br><span class="hljs-keyword">import</span> (<br>	<span class="hljs-string">&quot;fmt&quot;</span><br>	_ <span class="hljs-string">&quot;strconv&quot;</span><br>)<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> &#123;<br>	<span class="hljs-keyword">var</span> bytes = []<span class="hljs-keyword">byte</span>(<span class="hljs-string">&quot;helloword&quot;</span>)<br>	fmt.Printf(<span class="hljs-string">&quot;bytes=%v\n&quot;</span>, bytes)<br>&#125;<br></code></pre></div></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">package main</span><br><span class="line"></span><br><span class="line">import (</span><br><span class="line">	&quot;fmt&quot;</span><br><span class="line">	_ &quot;strconv&quot;</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">func main() &#123;</span><br><span class="line">	var bytes &#x3D; []byte(&quot;helloword&quot;)</span><br><span class="line">	fmt.Printf(&quot;bytes&#x3D;%v\n&quot;, bytes)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <ol start="6">
 <li>字节 转 字符串: str = string([]byte{97, 98, 99})</li>
 </ol>
-<figure class="highlight css"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs css"><span class="hljs-selector-tag">package</span> <span class="hljs-selector-tag">main</span><br><br><span class="hljs-selector-tag">import</span> (<br>	&quot;<span class="hljs-selector-tag">fmt</span>&quot;<br>	_ &quot;<span class="hljs-selector-tag">strconv</span>&quot;<br>)<br><br><span class="hljs-selector-tag">func</span> <span class="hljs-selector-tag">main</span>() &#123;<br>	<span class="hljs-attribute">str </span>:= <span class="hljs-built_in">string</span>([]byte&#123;<span class="hljs-number">97</span>, <span class="hljs-number">98</span>, <span class="hljs-number">99</span>&#125;)<br>	fmt.<span class="hljs-built_in">Printf</span>(<span class="hljs-string">&quot;str=%v\n&quot;</span>, str)<br>&#125;<br></code></pre></div></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">package main</span><br><span class="line"></span><br><span class="line">import (</span><br><span class="line">	&quot;fmt&quot;</span><br><span class="line">	_ &quot;strconv&quot;</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">func main() &#123;</span><br><span class="line">	str :&#x3D; string([]byte&#123;97, 98, 99&#125;)</span><br><span class="line">	fmt.Printf(&quot;str&#x3D;%v\n&quot;, str)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <ol start="7">
 <li>10 进制转 2, 8, 16 进制: str = strconv.FormatInt(123, 2)</li>
 </ol>
-<figure class="highlight css"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs css"><span class="hljs-selector-tag">package</span> <span class="hljs-selector-tag">main</span><br><br><span class="hljs-selector-tag">import</span> (<br>	&quot;<span class="hljs-selector-tag">fmt</span>&quot;<br>	&quot;<span class="hljs-selector-tag">strconv</span>&quot;<br>)<br><br><span class="hljs-selector-tag">func</span> <span class="hljs-selector-tag">main</span>() &#123;<br>	<span class="hljs-attribute">str </span>:= strconv.<span class="hljs-built_in">FormatInt</span>(<span class="hljs-number">123</span>, <span class="hljs-number">2</span>)<br>	fmt.<span class="hljs-built_in">Printf</span>(<span class="hljs-string">&quot;二进制是:%v\n&quot;</span>, str)<br>	sum := strconv.<span class="hljs-built_in">FormatInt</span>(<span class="hljs-number">123</span>, <span class="hljs-number">16</span>)<br>	fmt.<span class="hljs-built_in">Printf</span>(<span class="hljs-string">&quot;十六进制是:%v\n&quot;</span>, sum)<br>&#125;<br></code></pre></div></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">package main</span><br><span class="line"></span><br><span class="line">import (</span><br><span class="line">	&quot;fmt&quot;</span><br><span class="line">	&quot;strconv&quot;</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">func main() &#123;</span><br><span class="line">	str :&#x3D; strconv.FormatInt(123, 2)</span><br><span class="line">	fmt.Printf(&quot;二进制是:%v\n&quot;, str)</span><br><span class="line">	sum :&#x3D; strconv.FormatInt(123, 16)</span><br><span class="line">	fmt.Printf(&quot;十六进制是:%v\n&quot;, sum)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <ol start="8">
 <li>查找子串是否在指定的字符串中: strings.Contains(“seafood”, “foo”)</li>
 </ol>
-<figure class="highlight css"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs css"><span class="hljs-selector-tag">package</span> <span class="hljs-selector-tag">main</span><br><br><span class="hljs-selector-tag">import</span> (<br>	&quot;<span class="hljs-selector-tag">fmt</span>&quot;<br>	&quot;<span class="hljs-selector-tag">strings</span>&quot;<br>)<br><br><span class="hljs-selector-tag">func</span> <span class="hljs-selector-tag">main</span>() &#123;<br>	<span class="hljs-attribute">str </span>:= strings.<span class="hljs-built_in">Contains</span>(<span class="hljs-string">&quot;helloworld&quot;</span>, <span class="hljs-string">&quot;ll&quot;</span>)<br>	fmt.<span class="hljs-built_in">Printf</span>(<span class="hljs-string">&quot;str=%v\n&quot;</span>, str)<br>&#125;<br></code></pre></div></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">package main</span><br><span class="line"></span><br><span class="line">import (</span><br><span class="line">	&quot;fmt&quot;</span><br><span class="line">	&quot;strings&quot;</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">func main() &#123;</span><br><span class="line">	str :&#x3D; strings.Contains(&quot;helloworld&quot;, &quot;ll&quot;)</span><br><span class="line">	fmt.Printf(&quot;str&#x3D;%v\n&quot;, str)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <ol start="9">
 <li>统计一个字符串有几个指定的子串 ： strings.Count(“ceheese”, “e”)</li>
 </ol>
-<figure class="highlight css"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs css"><span class="hljs-selector-tag">package</span> <span class="hljs-selector-tag">main</span><br><br><span class="hljs-selector-tag">import</span> (<br>	&quot;<span class="hljs-selector-tag">fmt</span>&quot;<br>	&quot;<span class="hljs-selector-tag">strings</span>&quot;<br>)<br><br><span class="hljs-selector-tag">func</span> <span class="hljs-selector-tag">main</span>() &#123;<br>	<span class="hljs-attribute">str </span>:= strings.<span class="hljs-built_in">Count</span>(<span class="hljs-string">&quot;helloworld&quot;</span>, <span class="hljs-string">&quot;l&quot;</span>)<br>	fmt.<span class="hljs-built_in">Printf</span>(<span class="hljs-string">&quot;str=%v\n&quot;</span>, str)<br>&#125;<br></code></pre></div></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">package main</span><br><span class="line"></span><br><span class="line">import (</span><br><span class="line">	&quot;fmt&quot;</span><br><span class="line">	&quot;strings&quot;</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">func main() &#123;</span><br><span class="line">	str :&#x3D; strings.Count(&quot;helloworld&quot;, &quot;l&quot;)</span><br><span class="line">	fmt.Printf(&quot;str&#x3D;%v\n&quot;, str)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <ol start="10">
 <li>不区分大小写的字符串比较(==是区分字母大小写的): fmt.Println(strings.EqualFold(“abc”,”Abc”))</li>
 </ol>
-<figure class="highlight css"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs css"><span class="hljs-selector-tag">package</span> <span class="hljs-selector-tag">main</span><br><br><span class="hljs-selector-tag">import</span> (<br>	&quot;<span class="hljs-selector-tag">fmt</span>&quot;<br>	&quot;<span class="hljs-selector-tag">strings</span>&quot;<br>)<br><br><span class="hljs-selector-tag">func</span> <span class="hljs-selector-tag">main</span>() &#123;<br>	<span class="hljs-attribute">str </span>:= strings.<span class="hljs-built_in">EqualFold</span>(<span class="hljs-string">&quot;hello&quot;</span>, <span class="hljs-string">&quot;HEllo&quot;</span>)<br>	fmt.<span class="hljs-built_in">Printf</span>(<span class="hljs-string">&quot;str=%v\n&quot;</span>, str)<br><br>	fmt.<span class="hljs-built_in">Println</span>(<span class="hljs-string">&quot;结果是:&quot;</span>, <span class="hljs-string">&quot;hello&quot;</span> == <span class="hljs-string">&quot;HEllo&quot;</span>)<br>&#125;<br></code></pre></div></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">package main</span><br><span class="line"></span><br><span class="line">import (</span><br><span class="line">	&quot;fmt&quot;</span><br><span class="line">	&quot;strings&quot;</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">func main() &#123;</span><br><span class="line">	str :&#x3D; strings.EqualFold(&quot;hello&quot;, &quot;HEllo&quot;)</span><br><span class="line">	fmt.Printf(&quot;str&#x3D;%v\n&quot;, str)</span><br><span class="line"></span><br><span class="line">	fmt.Println(&quot;结果是:&quot;, &quot;hello&quot; &#x3D;&#x3D; &quot;HEllo&quot;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <ol start="11">
 <li>返回子串在字符串第一次出现的 index 值，如果没有返回-1 : strings.Index(“NLT_abc”, “abc”)</li>
 </ol>
-<figure class="highlight css"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs css"><span class="hljs-selector-tag">package</span> <span class="hljs-selector-tag">main</span><br><br><span class="hljs-selector-tag">import</span> (<br>	&quot;<span class="hljs-selector-tag">fmt</span>&quot;<br>	&quot;<span class="hljs-selector-tag">strings</span>&quot;<br>)<br><br><span class="hljs-selector-tag">func</span> <span class="hljs-selector-tag">main</span>() &#123;<br>	<span class="hljs-attribute">str </span>:= strings.<span class="hljs-built_in">Index</span>(<span class="hljs-string">&quot;KLJSs_abcabcabc&quot;</span>, <span class="hljs-string">&quot;abc&quot;</span>)<br>	fmt.<span class="hljs-built_in">Printf</span>(<span class="hljs-string">&quot;str=%v\n&quot;</span>, str)<br>&#125;<br></code></pre></div></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">package main</span><br><span class="line"></span><br><span class="line">import (</span><br><span class="line">	&quot;fmt&quot;</span><br><span class="line">	&quot;strings&quot;</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">func main() &#123;</span><br><span class="line">	str :&#x3D; strings.Index(&quot;KLJSs_abcabcabc&quot;, &quot;abc&quot;)</span><br><span class="line">	fmt.Printf(&quot;str&#x3D;%v\n&quot;, str)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <ol start="12">
 <li>返回子串在字符串最后一次出现的 index，如没有返回-1 : strings.LastIndex(“go golang”, “go”)</li>
 </ol>
-<figure class="highlight css"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs css"><span class="hljs-selector-tag">package</span> <span class="hljs-selector-tag">main</span><br><br><span class="hljs-selector-tag">import</span> (<br>	&quot;<span class="hljs-selector-tag">fmt</span>&quot;<br>	&quot;<span class="hljs-selector-tag">strings</span>&quot;<br>)<br><br><span class="hljs-selector-tag">func</span> <span class="hljs-selector-tag">main</span>() &#123;<br>	<span class="hljs-attribute">str </span>:= strings.<span class="hljs-built_in">LastIndex</span>(<span class="hljs-string">&quot;go goyes  gono&quot;</span>, <span class="hljs-string">&quot;go&quot;</span>)<br>	fmt.<span class="hljs-built_in">Printf</span>(<span class="hljs-string">&quot;str=%v\n&quot;</span>, str)<br>&#125;<br></code></pre></div></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">package main</span><br><span class="line"></span><br><span class="line">import (</span><br><span class="line">	&quot;fmt&quot;</span><br><span class="line">	&quot;strings&quot;</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">func main() &#123;</span><br><span class="line">	str :&#x3D; strings.LastIndex(&quot;go goyes  gono&quot;, &quot;go&quot;)</span><br><span class="line">	fmt.Printf(&quot;str&#x3D;%v\n&quot;, str)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <ol start="13">
 <li>将指定的子串替换成 另外一个子串: strings.Replace(“go go hello”, “go”, “go 语言”, n) n 可以指定你希望替换几个，如果 n=-1 表示全部替换</li>
 </ol>
-<figure class="highlight css"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs css"><span class="hljs-selector-tag">package</span> <span class="hljs-selector-tag">main</span><br><br><span class="hljs-selector-tag">import</span> (<br>	&quot;<span class="hljs-selector-tag">fmt</span>&quot;<br>	&quot;<span class="hljs-selector-tag">strings</span>&quot;<br>)<br><br><span class="hljs-selector-tag">func</span> <span class="hljs-selector-tag">main</span>() &#123;<br>	<span class="hljs-attribute">str </span>:= strings.<span class="hljs-built_in">Replace</span>(<span class="hljs-string">&quot;go goyes  gono&quot;</span>, <span class="hljs-string">&quot;go&quot;</span>, <span class="hljs-string">&quot;火星&quot;</span>, <span class="hljs-number">1</span>)<br>	fmt.<span class="hljs-built_in">Printf</span>(<span class="hljs-string">&quot;str=%v\n&quot;</span>, str)<br><br>	str1 := <span class="hljs-string">&quot;go goyes  gono&quot;</span><br>	str2 := strings.<span class="hljs-built_in">Replace</span>(str1, <span class="hljs-string">&quot;go&quot;</span>, <span class="hljs-string">&quot;中国&quot;</span>, <span class="hljs-number">2</span>)<br>	fmt.<span class="hljs-built_in">Printf</span>(<span class="hljs-string">&quot;str1=%v\nstr2=%v\n&quot;</span>, str1, str2)<br>&#125;<br></code></pre></div></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">package main</span><br><span class="line"></span><br><span class="line">import (</span><br><span class="line">	&quot;fmt&quot;</span><br><span class="line">	&quot;strings&quot;</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">func main() &#123;</span><br><span class="line">	str :&#x3D; strings.Replace(&quot;go goyes  gono&quot;, &quot;go&quot;, &quot;火星&quot;, 1)</span><br><span class="line">	fmt.Printf(&quot;str&#x3D;%v\n&quot;, str)</span><br><span class="line"></span><br><span class="line">	str1 :&#x3D; &quot;go goyes  gono&quot;</span><br><span class="line">	str2 :&#x3D; strings.Replace(str1, &quot;go&quot;, &quot;中国&quot;, 2)</span><br><span class="line">	fmt.Printf(&quot;str1&#x3D;%v\nstr2&#x3D;%v\n&quot;, str1, str2)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <ol start="14">
 <li>按 照 指 定 的 某 个 字 符 ， 为 分 割 标 识 ， 将 一 个 字 符 串 拆 分 成  字 符 串 数 组 ：strings.Split(“hello,wrold,ok”, “,”)</li>
 </ol>
-<figure class="highlight go"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs go"><span class="hljs-keyword">package</span> main<br><br><span class="hljs-keyword">import</span> (<br>	<span class="hljs-string">&quot;fmt&quot;</span><br>	<span class="hljs-string">&quot;strings&quot;</span><br>)<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> &#123;<br>	str := strings.Split(<span class="hljs-string">&quot;hello,yes,no,ok&quot;</span>, <span class="hljs-string">&quot;,&quot;</span>)<br>	<span class="hljs-keyword">for</span> i := <span class="hljs-number">0</span>; i &lt; <span class="hljs-built_in">len</span>(str); i++ &#123;<br>		fmt.Printf(<span class="hljs-string">&quot;str[%v]=%v\n&quot;</span>, i, str[i])<br>	&#125;<br>	fmt.Printf(<span class="hljs-string">&quot;str=%v\n&quot;</span>, str)<br>&#125;<br></code></pre></div></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">package main</span><br><span class="line"></span><br><span class="line">import (</span><br><span class="line">	&quot;fmt&quot;</span><br><span class="line">	&quot;strings&quot;</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">func main() &#123;</span><br><span class="line">	str :&#x3D; strings.Split(&quot;hello,yes,no,ok&quot;, &quot;,&quot;)</span><br><span class="line">	for i :&#x3D; 0; i &lt; len(str); i++ &#123;</span><br><span class="line">		fmt.Printf(&quot;str[%v]&#x3D;%v\n&quot;, i, str[i])</span><br><span class="line">	&#125;</span><br><span class="line">	fmt.Printf(&quot;str&#x3D;%v\n&quot;, str)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <ol start="15">
 <li>将字符串的字母进行大小写的转换: strings.ToLower(“Go”) // go strings.ToUpper(“Go”)</li>
 </ol>
-<figure class="highlight css"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs css"><span class="hljs-selector-tag">package</span> <span class="hljs-selector-tag">main</span><br><br><span class="hljs-selector-tag">import</span> (<br>	&quot;<span class="hljs-selector-tag">fmt</span>&quot;<br>	&quot;<span class="hljs-selector-tag">strings</span>&quot;<br>)<br><br><span class="hljs-selector-tag">func</span> <span class="hljs-selector-tag">main</span>() &#123;<br>	<span class="hljs-attribute">str </span>:= <span class="hljs-string">&quot;Golang Hello&quot;</span><br>	str1 := strings.<span class="hljs-built_in">ToLower</span>(str)<br>	str2 := strings.<span class="hljs-built_in">ToUpper</span>(str)<br>	fmt.<span class="hljs-built_in">Printf</span>(<span class="hljs-string">&quot;str1=%v\n&quot;</span>, str1)<br>	fmt.<span class="hljs-built_in">Printf</span>(<span class="hljs-string">&quot;str2=%v\n&quot;</span>, str2)<br>&#125;<br></code></pre></div></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">package main</span><br><span class="line"></span><br><span class="line">import (</span><br><span class="line">	&quot;fmt&quot;</span><br><span class="line">	&quot;strings&quot;</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">func main() &#123;</span><br><span class="line">	str :&#x3D; &quot;Golang Hello&quot;</span><br><span class="line">	str1 :&#x3D; strings.ToLower(str)</span><br><span class="line">	str2 :&#x3D; strings.ToUpper(str)</span><br><span class="line">	fmt.Printf(&quot;str1&#x3D;%v\n&quot;, str1)</span><br><span class="line">	fmt.Printf(&quot;str2&#x3D;%v\n&quot;, str2)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <ol start="16">
 <li>将字符串左右两边的空格去掉： strings.TrimSpace(“ tn a lone gopher ntrn “)</li>
 </ol>
-<figure class="highlight css"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs css"><span class="hljs-selector-tag">package</span> <span class="hljs-selector-tag">main</span><br><br><span class="hljs-selector-tag">import</span> (<br>	&quot;<span class="hljs-selector-tag">fmt</span>&quot;<br>	&quot;<span class="hljs-selector-tag">strings</span>&quot;<br>)<br><br><span class="hljs-selector-tag">func</span> <span class="hljs-selector-tag">main</span>() &#123;<br>	<span class="hljs-attribute">str </span>:= strings.<span class="hljs-built_in">TrimSpace</span>(<span class="hljs-string">&quot;   n i  h  ao    &quot;</span>)<br>	fmt.<span class="hljs-built_in">Printf</span>(<span class="hljs-string">&quot;str=%v\n&quot;</span>, str)<br>	fmt.<span class="hljs-built_in">Printf</span>(<span class="hljs-string">&quot;str=%q\n&quot;</span>, str)<br>&#125;<br></code></pre></div></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">package main</span><br><span class="line"></span><br><span class="line">import (</span><br><span class="line">	&quot;fmt&quot;</span><br><span class="line">	&quot;strings&quot;</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">func main() &#123;</span><br><span class="line">	str :&#x3D; strings.TrimSpace(&quot;   n i  h  ao    &quot;)</span><br><span class="line">	fmt.Printf(&quot;str&#x3D;%v\n&quot;, str)</span><br><span class="line">	fmt.Printf(&quot;str&#x3D;%q\n&quot;, str)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <ol start="17">
 <li>将字符串左右两边指定的字符去掉 ： strings.Trim(“! hello! “, “ !”) // [“hello”] //将左右两边 !和 “ “去掉</li>
 </ol>
-<figure class="highlight css"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs css"><span class="hljs-selector-tag">package</span> <span class="hljs-selector-tag">main</span><br><br><span class="hljs-selector-tag">import</span> (<br>	&quot;<span class="hljs-selector-tag">fmt</span>&quot;<br>	&quot;<span class="hljs-selector-tag">strings</span>&quot;<br>)<br><br><span class="hljs-selector-tag">func</span> <span class="hljs-selector-tag">main</span>() &#123;<br>	<span class="hljs-attribute">str </span>:= strings.<span class="hljs-built_in">Trim</span>(<span class="hljs-string">&quot; !  n !i  !h  ao    !&quot;</span>, <span class="hljs-string">&quot; !n&quot;</span>)<br>	fmt.<span class="hljs-built_in">Printf</span>(<span class="hljs-string">&quot;str=%v\n&quot;</span>, str)<br>	fmt.<span class="hljs-built_in">Printf</span>(<span class="hljs-string">&quot;str=%q\n&quot;</span>, str)<br>&#125;<br></code></pre></div></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">package main</span><br><span class="line"></span><br><span class="line">import (</span><br><span class="line">	&quot;fmt&quot;</span><br><span class="line">	&quot;strings&quot;</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">func main() &#123;</span><br><span class="line">	str :&#x3D; strings.Trim(&quot; !  n !i  !h  ao    !&quot;, &quot; !n&quot;)</span><br><span class="line">	fmt.Printf(&quot;str&#x3D;%v\n&quot;, str)</span><br><span class="line">	fmt.Printf(&quot;str&#x3D;%q\n&quot;, str)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <ol start="18">
 <li><p>将字符串左边指定的字符去掉 ： strings.TrimLeft(“! hello! “, “ !”) // [“hello”] //将左边 ! 和 “”去掉</p>
 </li>
@@ -358,29 +315,29 @@
 <li><p>判断字符串是否以指定的字符串开头: strings.HasPrefix(“<a href="ftp://192.168.10.1&quot;/">ftp://192.168.10.1&quot;</a>, “ftp”)</p>
 </li>
 </ol>
-<figure class="highlight css"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs css"><span class="hljs-selector-tag">package</span> <span class="hljs-selector-tag">main</span><br><br><span class="hljs-selector-tag">import</span> (<br>	&quot;<span class="hljs-selector-tag">fmt</span>&quot;<br>	&quot;<span class="hljs-selector-tag">strings</span>&quot;<br>)<br><br><span class="hljs-selector-tag">func</span> <span class="hljs-selector-tag">main</span>() &#123;<br>	<span class="hljs-attribute">str </span>:= strings.<span class="hljs-built_in">HasPrefix</span>(<span class="hljs-string">&quot;ftp://192.168.0.1&quot;</span>, <span class="hljs-string">&quot;https&quot;</span>)<br>	fmt.<span class="hljs-built_in">Printf</span>(<span class="hljs-string">&quot;str=%v\n&quot;</span>, str)<br>&#125;<br></code></pre></div></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">package main</span><br><span class="line"></span><br><span class="line">import (</span><br><span class="line">	&quot;fmt&quot;</span><br><span class="line">	&quot;strings&quot;</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">func main() &#123;</span><br><span class="line">	str :&#x3D; strings.HasPrefix(&quot;ftp:&#x2F;&#x2F;192.168.0.1&quot;, &quot;https&quot;)</span><br><span class="line">	fmt.Printf(&quot;str&#x3D;%v\n&quot;, str)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <ol start="21">
 <li>判断字符串是否以指定的字符串结束: strings.HasSuffix(“NLT_abc.jpg”, “abc”)</li>
 </ol>
-<figure class="highlight css"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs css"><span class="hljs-selector-tag">package</span> <span class="hljs-selector-tag">main</span><br><br><span class="hljs-selector-tag">import</span> (<br>	&quot;<span class="hljs-selector-tag">fmt</span>&quot;<br>	&quot;<span class="hljs-selector-tag">strings</span>&quot;<br>)<br><br><span class="hljs-selector-tag">func</span> <span class="hljs-selector-tag">main</span>() &#123;<br>	<span class="hljs-attribute">str </span>:= strings.<span class="hljs-built_in">HasSuffix</span>(<span class="hljs-string">&quot;ftp://192.168.0.1&quot;</span>, <span class="hljs-string">&quot;1&quot;</span>)<br>	fmt.<span class="hljs-built_in">Printf</span>(<span class="hljs-string">&quot;str=%v\n&quot;</span>, str)<br>&#125;<br></code></pre></div></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">package main</span><br><span class="line"></span><br><span class="line">import (</span><br><span class="line">	&quot;fmt&quot;</span><br><span class="line">	&quot;strings&quot;</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">func main() &#123;</span><br><span class="line">	str :&#x3D; strings.HasSuffix(&quot;ftp:&#x2F;&#x2F;192.168.0.1&quot;, &quot;1&quot;)</span><br><span class="line">	fmt.Printf(&quot;str&#x3D;%v\n&quot;, str)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h2 id="2、时间和日期相关函数"><a href="#2、时间和日期相关函数" class="headerlink" title="2、时间和日期相关函数"></a>2、时间和日期相关函数</h2><h3 id="基本的介绍"><a href="#基本的介绍" class="headerlink" title="基本的介绍"></a>基本的介绍</h3><p>说明：在编程中，程序员会经常使用到日期相关的函数，比如：统计某段代码执行花费的时间等等。</p>
-<h3 id="1-时间和日期相关函数，需要导入-time-包"><a href="#1-时间和日期相关函数，需要导入-time-包" class="headerlink" title="1) 时间和日期相关函数，需要导入 time 包"></a>1) 时间和日期相关函数，需要导入 time 包</h3><p><img src="https://yangpiqiulaotou.oss-cn-hangzhou.aliyuncs.com/images/image-20200928104129878.png" srcset="/img/loading.gif" alt="image-20200928104129878"></p>
-<h3 id="2-time-Time-类型，用于表示时间"><a href="#2-time-Time-类型，用于表示时间" class="headerlink" title="2) time.Time 类型，用于表示时间"></a>2) time.Time 类型，用于表示时间</h3><figure class="highlight css"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs css"><span class="hljs-selector-tag">package</span> <span class="hljs-selector-tag">main</span><br><br><span class="hljs-selector-tag">import</span> (<br>	&quot;<span class="hljs-selector-tag">fmt</span>&quot;<br>	&quot;<span class="hljs-selector-tag">time</span>&quot;<br>)<br><br><span class="hljs-selector-tag">func</span> <span class="hljs-selector-tag">main</span>() &#123;<br>	<span class="hljs-attribute">now </span>:= time.<span class="hljs-built_in">Now</span>()<br>	fmt.<span class="hljs-built_in">Printf</span>(<span class="hljs-string">&quot;now=%v\nnow type=%T\n&quot;</span>, now, now)<br>&#125;<br></code></pre></div></td></tr></table></figure>
-<h3 id="3-如何获取到其它的日期信息"><a href="#3-如何获取到其它的日期信息" class="headerlink" title="3) 如何获取到其它的日期信息"></a>3) 如何获取到其它的日期信息</h3><figure class="highlight css"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs css"><span class="hljs-selector-tag">package</span> <span class="hljs-selector-tag">main</span><br><br><span class="hljs-selector-tag">import</span> (<br>	&quot;<span class="hljs-selector-tag">fmt</span>&quot;<br>	&quot;<span class="hljs-selector-tag">time</span>&quot;<br>)<br><br><span class="hljs-selector-tag">func</span> <span class="hljs-selector-tag">main</span>() &#123;<br>	<span class="hljs-attribute">now </span>:= time.<span class="hljs-built_in">Now</span>()<br>	fmt.<span class="hljs-built_in">Printf</span>(<span class="hljs-string">&quot;now=%v\nnow type=%T\n&quot;</span>, now, now)<br><br>	//获取年月日<br>	fmt.<span class="hljs-built_in">Printf</span>(<span class="hljs-string">&quot;年=%v\n&quot;</span>, now.Year())<br>	fmt.<span class="hljs-built_in">Printf</span>(<span class="hljs-string">&quot;月=%v\n&quot;</span>, now.Month())<br>	fmt.<span class="hljs-built_in">Printf</span>(<span class="hljs-string">&quot;日=%v\n&quot;</span>, now.Day())<br>	fmt.<span class="hljs-built_in">Printf</span>(<span class="hljs-string">&quot;时=%v\n&quot;</span>, now.Hour())<br>	fmt.<span class="hljs-built_in">Printf</span>(<span class="hljs-string">&quot;分=%v\n&quot;</span>, now.Minute())<br>	fmt.<span class="hljs-built_in">Printf</span>(<span class="hljs-string">&quot;秒=%v\n&quot;</span>, now.Second())<br>&#125;<br></code></pre></div></td></tr></table></figure>
+<h3 id="1-时间和日期相关函数，需要导入-time-包"><a href="#1-时间和日期相关函数，需要导入-time-包" class="headerlink" title="1) 时间和日期相关函数，需要导入 time 包"></a>1) 时间和日期相关函数，需要导入 time 包</h3><p><img src="https://yangpiqiulaotou.oss-cn-hangzhou.aliyuncs.com/images/image-20200928104129878.png" alt="image-20200928104129878"></p>
+<h3 id="2-time-Time-类型，用于表示时间"><a href="#2-time-Time-类型，用于表示时间" class="headerlink" title="2) time.Time 类型，用于表示时间"></a>2) time.Time 类型，用于表示时间</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">package main</span><br><span class="line"></span><br><span class="line">import (</span><br><span class="line">	&quot;fmt&quot;</span><br><span class="line">	&quot;time&quot;</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">func main() &#123;</span><br><span class="line">	now :&#x3D; time.Now()</span><br><span class="line">	fmt.Printf(&quot;now&#x3D;%v\nnow type&#x3D;%T\n&quot;, now, now)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="3-如何获取到其它的日期信息"><a href="#3-如何获取到其它的日期信息" class="headerlink" title="3) 如何获取到其它的日期信息"></a>3) 如何获取到其它的日期信息</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">package main</span><br><span class="line"></span><br><span class="line">import (</span><br><span class="line">	&quot;fmt&quot;</span><br><span class="line">	&quot;time&quot;</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">func main() &#123;</span><br><span class="line">	now :&#x3D; time.Now()</span><br><span class="line">	fmt.Printf(&quot;now&#x3D;%v\nnow type&#x3D;%T\n&quot;, now, now)</span><br><span class="line"></span><br><span class="line">	&#x2F;&#x2F;获取年月日</span><br><span class="line">	fmt.Printf(&quot;年&#x3D;%v\n&quot;, now.Year())</span><br><span class="line">	fmt.Printf(&quot;月&#x3D;%v\n&quot;, now.Month())</span><br><span class="line">	fmt.Printf(&quot;日&#x3D;%v\n&quot;, now.Day())</span><br><span class="line">	fmt.Printf(&quot;时&#x3D;%v\n&quot;, now.Hour())</span><br><span class="line">	fmt.Printf(&quot;分&#x3D;%v\n&quot;, now.Minute())</span><br><span class="line">	fmt.Printf(&quot;秒&#x3D;%v\n&quot;, now.Second())</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h3 id="4-格式化日期时间"><a href="#4-格式化日期时间" class="headerlink" title="4) 格式化日期时间"></a>4) 格式化日期时间</h3><p>方式 1: 就是使用 Printf 或者 SPrintf</p>
-<figure class="highlight css"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs css"><span class="hljs-selector-tag">package</span> <span class="hljs-selector-tag">main</span><br><br><span class="hljs-selector-tag">import</span> (<br>	&quot;<span class="hljs-selector-tag">fmt</span>&quot;<br>	&quot;<span class="hljs-selector-tag">time</span>&quot;<br>)<br><br><span class="hljs-selector-tag">func</span> <span class="hljs-selector-tag">main</span>() &#123;<br>	<span class="hljs-attribute">now </span>:= time.<span class="hljs-built_in">Now</span>()<br>	fmt.<span class="hljs-built_in">Printf</span>(<span class="hljs-string">&quot;当前年月日 %d-%d-%d %d:%d:%d\n&quot;</span>, now.Year(),<br>		now.<span class="hljs-built_in">Month</span>(), now.<span class="hljs-built_in">Day</span>(), now.<span class="hljs-built_in">Hour</span>(), now.<span class="hljs-built_in">Minute</span>(), now.<span class="hljs-built_in">Second</span>())<br><br>	//使用函数接收<br>	dataStr := fmt.<span class="hljs-built_in">Sprintf</span>(<span class="hljs-string">&quot;当前年月日 %d-%d-%d %d:%d:%d\n&quot;</span>, now.Year(),<br>		now.<span class="hljs-built_in">Month</span>(), now.<span class="hljs-built_in">Day</span>(), now.<span class="hljs-built_in">Hour</span>(), now.<span class="hljs-built_in">Minute</span>(), now.<span class="hljs-built_in">Second</span>())<br>	fmt.<span class="hljs-built_in">Printf</span>(<span class="hljs-string">&quot;dataStr=%v\n&quot;</span>, dataStr)<br>&#125;<br></code></pre></div></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">package main</span><br><span class="line"></span><br><span class="line">import (</span><br><span class="line">	&quot;fmt&quot;</span><br><span class="line">	&quot;time&quot;</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">func main() &#123;</span><br><span class="line">	now :&#x3D; time.Now()</span><br><span class="line">	fmt.Printf(&quot;当前年月日 %d-%d-%d %d:%d:%d\n&quot;, now.Year(),</span><br><span class="line">		now.Month(), now.Day(), now.Hour(), now.Minute(), now.Second())</span><br><span class="line"></span><br><span class="line">	&#x2F;&#x2F;使用函数接收</span><br><span class="line">	dataStr :&#x3D; fmt.Sprintf(&quot;当前年月日 %d-%d-%d %d:%d:%d\n&quot;, now.Year(),</span><br><span class="line">		now.Month(), now.Day(), now.Hour(), now.Minute(), now.Second())</span><br><span class="line">	fmt.Printf(&quot;dataStr&#x3D;%v\n&quot;, dataStr)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>方式2: 使用 time.Format() 方法完成</p>
-<figure class="highlight css"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs css"><span class="hljs-selector-tag">package</span> <span class="hljs-selector-tag">main</span><br><br><span class="hljs-selector-tag">import</span> (<br>	&quot;<span class="hljs-selector-tag">fmt</span>&quot;<br>	&quot;<span class="hljs-selector-tag">time</span>&quot;<br>)<br><br><span class="hljs-selector-tag">func</span> <span class="hljs-selector-tag">main</span>() &#123;<br>	<span class="hljs-attribute">now </span>:= time.<span class="hljs-built_in">Now</span>()<br>	fmt.<span class="hljs-built_in">Printf</span>(now.Format(<span class="hljs-string">&quot;2006-01-02 15:04:05\n&quot;</span>))<br>	fmt.<span class="hljs-built_in">Printf</span>(now.Format(<span class="hljs-string">&quot;2006\n&quot;</span>))<br>	fmt.<span class="hljs-built_in">Printf</span>(now.Format(<span class="hljs-string">&quot;02\n&quot;</span>))<br>	fmt.<span class="hljs-built_in">Printf</span>(now.Format(<span class="hljs-string">&quot;05\n&quot;</span>))<br>&#125;<br></code></pre></div></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">package main</span><br><span class="line"></span><br><span class="line">import (</span><br><span class="line">	&quot;fmt&quot;</span><br><span class="line">	&quot;time&quot;</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">func main() &#123;</span><br><span class="line">	now :&#x3D; time.Now()</span><br><span class="line">	fmt.Printf(now.Format(&quot;2006-01-02 15:04:05\n&quot;))</span><br><span class="line">	fmt.Printf(now.Format(&quot;2006\n&quot;))</span><br><span class="line">	fmt.Printf(now.Format(&quot;02\n&quot;))</span><br><span class="line">	fmt.Printf(now.Format(&quot;05\n&quot;))</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>对上面代码的说明:</p>
 <p>“2006/01/02 15:04:05” 这个字符串的各个数字是固定的，必须是这样写。</p>
 <p>“2006/01/02 15:04:05” 这个字符串各个数字可以自由的组合，这样可以按程序需求来返回时间和日期</p>
-<h3 id="5-时间的常量"><a href="#5-时间的常量" class="headerlink" title="5) 时间的常量"></a>5) 时间的常量</h3><figure class="highlight arcade"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs arcade">const (<br>	Nanosecond Duration = <span class="hljs-number">1</span> <span class="hljs-comment">//纳秒</span><br>	Microsecond         = <span class="hljs-number">1000</span> * Nanosecond <span class="hljs-comment">//微秒</span><br>	<span class="hljs-built_in">Millisecond</span>         = <span class="hljs-number">1000</span> * Microsecond <span class="hljs-comment">//毫秒</span><br>	<span class="hljs-built_in">Second</span>              = <span class="hljs-number">1000</span> * <span class="hljs-built_in">Millisecond</span> <span class="hljs-comment">//秒</span><br>	<span class="hljs-built_in">Minute</span>              = <span class="hljs-number">60</span> * <span class="hljs-built_in">Second</span> <span class="hljs-comment">//分钟</span><br>	<span class="hljs-built_in">Hour</span>                = <span class="hljs-number">60</span> * <span class="hljs-built_in">Minute</span> <span class="hljs-comment">//小时</span><br>)<br></code></pre></div></td></tr></table></figure>
+<h3 id="5-时间的常量"><a href="#5-时间的常量" class="headerlink" title="5) 时间的常量"></a>5) 时间的常量</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">const (</span><br><span class="line">	Nanosecond Duration &#x3D; 1 &#x2F;&#x2F;纳秒</span><br><span class="line">	Microsecond         &#x3D; 1000 * Nanosecond &#x2F;&#x2F;微秒</span><br><span class="line">	Millisecond         &#x3D; 1000 * Microsecond &#x2F;&#x2F;毫秒</span><br><span class="line">	Second              &#x3D; 1000 * Millisecond &#x2F;&#x2F;秒</span><br><span class="line">	Minute              &#x3D; 60 * Second &#x2F;&#x2F;分钟</span><br><span class="line">	Hour                &#x3D; 60 * Minute &#x2F;&#x2F;小时</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
 <p>常量的作用: 在程序中可用于获取指定时间单位的时间，比如想得到 100  毫秒</p>
-<figure class="highlight basic"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs basic"><span class="hljs-symbol">100 </span>* time. Millisecond<br></code></pre></div></td></tr></table></figure>
-<h3 id="6-结合-Sleep-来使用一下时间常量"><a href="#6-结合-Sleep-来使用一下时间常量" class="headerlink" title="6) 结合 Sleep 来使用一下时间常量"></a>6) 结合 Sleep 来使用一下时间常量</h3><figure class="highlight go"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs go"><span class="hljs-keyword">package</span> main<br><br><span class="hljs-keyword">import</span> (<br>	<span class="hljs-string">&quot;fmt&quot;</span><br>	<span class="hljs-string">&quot;time&quot;</span><br>)<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> &#123;<br>	<span class="hljs-comment">//每隔0.1秒打印一个数字</span><br>	i := <span class="hljs-number">0</span><br>	<span class="hljs-keyword">for</span> &#123;<br>		i++<br>		fmt.Println(i)<br>		<span class="hljs-comment">//休眠time.Sleep(time.Second)</span><br>		time.Sleep(time.Millisecond * <span class="hljs-number">100</span>)<br>		<span class="hljs-keyword">if</span> i == <span class="hljs-number">10</span> &#123;<br>			<span class="hljs-keyword">break</span><br>		&#125;<br>	&#125;<br>&#125;<br></code></pre></div></td></tr></table></figure>
-<h3 id="7-time-的-Unix-和-UnixNano-的方法"><a href="#7-time-的-Unix-和-UnixNano-的方法" class="headerlink" title="7) time 的 Unix 和 UnixNano 的方法"></a>7) time 的 Unix 和 UnixNano 的方法</h3><p><img src="https://yangpiqiulaotou.oss-cn-hangzhou.aliyuncs.com/images/image-20200928112059925.png" srcset="/img/loading.gif" alt="image-20200928112059925"></p>
-<figure class="highlight css"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs css"><span class="hljs-selector-tag">package</span> <span class="hljs-selector-tag">main</span><br><br><span class="hljs-selector-tag">import</span> (<br>	&quot;<span class="hljs-selector-tag">fmt</span>&quot;<br>	&quot;<span class="hljs-selector-tag">time</span>&quot;<br>)<br><br><span class="hljs-selector-tag">func</span> <span class="hljs-selector-tag">main</span>() &#123;<br>	<span class="hljs-attribute">now </span>:= time.<span class="hljs-built_in">Now</span>()<br>	fmt.<span class="hljs-built_in">Printf</span>(<span class="hljs-string">&quot;unix=%v\nunixnano=%v\n&quot;</span>, now.Unix(), now.<span class="hljs-built_in">UnixNano</span>())<br>&#125;<br></code></pre></div></td></tr></table></figure>
-<h3 id="实例练习"><a href="#实例练习" class="headerlink" title="实例练习"></a>实例练习</h3><figure class="highlight go"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs go"><span class="hljs-keyword">package</span> main<br><br><span class="hljs-keyword">import</span> (<br>	<span class="hljs-string">&quot;fmt&quot;</span><br>	<span class="hljs-string">&quot;strconv&quot;</span><br>	<span class="hljs-string">&quot;time&quot;</span><br>)<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">test</span><span class="hljs-params">()</span></span> &#123;<br>	str := <span class="hljs-string">&quot;&quot;</span><br>	<span class="hljs-keyword">for</span> i := <span class="hljs-number">0</span>; i &lt; <span class="hljs-number">10000</span>; i++ &#123;<br>		str += <span class="hljs-string">&quot;hello&quot;</span> + strconv.Itoa(i) <span class="hljs-comment">//转换数据类型为字符串</span><br>	&#125;<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> &#123;<br>	<span class="hljs-comment">//统计函数test03执行的时间</span><br>	start := time.Now().UnixNano()<br>	test()<br>	end := time.Now().UnixNano()<br>	fmt.Printf(<span class="hljs-string">&quot;耗时=%v\n&quot;</span>, end-start)<br>&#125;<br></code></pre></div></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">100 * time. Millisecond</span><br></pre></td></tr></table></figure>
+<h3 id="6-结合-Sleep-来使用一下时间常量"><a href="#6-结合-Sleep-来使用一下时间常量" class="headerlink" title="6) 结合 Sleep 来使用一下时间常量"></a>6) 结合 Sleep 来使用一下时间常量</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">package main</span><br><span class="line"></span><br><span class="line">import (</span><br><span class="line">	&quot;fmt&quot;</span><br><span class="line">	&quot;time&quot;</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">func main() &#123;</span><br><span class="line">	&#x2F;&#x2F;每隔0.1秒打印一个数字</span><br><span class="line">	i :&#x3D; 0</span><br><span class="line">	for &#123;</span><br><span class="line">		i++</span><br><span class="line">		fmt.Println(i)</span><br><span class="line">		&#x2F;&#x2F;休眠time.Sleep(time.Second)</span><br><span class="line">		time.Sleep(time.Millisecond * 100)</span><br><span class="line">		if i &#x3D;&#x3D; 10 &#123;</span><br><span class="line">			break</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="7-time-的-Unix-和-UnixNano-的方法"><a href="#7-time-的-Unix-和-UnixNano-的方法" class="headerlink" title="7) time 的 Unix 和 UnixNano 的方法"></a>7) time 的 Unix 和 UnixNano 的方法</h3><p><img src="https://yangpiqiulaotou.oss-cn-hangzhou.aliyuncs.com/images/image-20200928112059925.png" alt="image-20200928112059925"></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">package main</span><br><span class="line"></span><br><span class="line">import (</span><br><span class="line">	&quot;fmt&quot;</span><br><span class="line">	&quot;time&quot;</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">func main() &#123;</span><br><span class="line">	now :&#x3D; time.Now()</span><br><span class="line">	fmt.Printf(&quot;unix&#x3D;%v\nunixnano&#x3D;%v\n&quot;, now.Unix(), now.UnixNano())</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="实例练习"><a href="#实例练习" class="headerlink" title="实例练习"></a>实例练习</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">package main</span><br><span class="line"></span><br><span class="line">import (</span><br><span class="line">	&quot;fmt&quot;</span><br><span class="line">	&quot;strconv&quot;</span><br><span class="line">	&quot;time&quot;</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">func test() &#123;</span><br><span class="line">	str :&#x3D; &quot;&quot;</span><br><span class="line">	for i :&#x3D; 0; i &lt; 10000; i++ &#123;</span><br><span class="line">		str +&#x3D; &quot;hello&quot; + strconv.Itoa(i) &#x2F;&#x2F;转换数据类型为字符串</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func main() &#123;</span><br><span class="line">	&#x2F;&#x2F;统计函数test03执行的时间</span><br><span class="line">	start :&#x3D; time.Now().UnixNano()</span><br><span class="line">	test()</span><br><span class="line">	end :&#x3D; time.Now().UnixNano()</span><br><span class="line">	fmt.Printf(&quot;耗时&#x3D;%v\n&quot;, end-start)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h2 id="3、内置函数"><a href="#3、内置函数" class="headerlink" title="3、内置函数"></a>3、内置函数</h2><p>说明：</p>
 <p>Golang 设计者为了编程方便，提供了一些函数，这些函数可以直接使用，我们称为 Go 的内置函数。文档：<a target="_blank" rel="noopener" href="https://studygolang.com/pkgdoc">https://studygolang.com/pkgdoc</a> -&gt; builtin</p>
 <ol>
@@ -389,12 +346,12 @@
 <li><p>new：用来分配内存，主要用来分配值类型，比如 int、float32,struct…返回的是指针</p>
 </li>
 </ol>
-<figure class="highlight swift"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs swift">package main<br><br><span class="hljs-keyword">import</span> (<br>	<span class="hljs-string">&quot;fmt&quot;</span><br>)<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> &#123;<br>	num1 :<span class="hljs-operator">=</span> <span class="hljs-number">100</span><br>	fmt.<span class="hljs-type">Printf</span>(<span class="hljs-string">&quot;num1类型:%T<span class="hljs-subst">\n</span>num1的值:%v<span class="hljs-subst">\n</span>num1的地址:%v<span class="hljs-subst">\n</span>&quot;</span>, num1, num1, <span class="hljs-operator">&amp;</span>num1)<br><br>	num2 :<span class="hljs-operator">=</span> new(int)<br>	<span class="hljs-comment">//修改num2的值</span><br>	<span class="hljs-operator">*</span>num2 <span class="hljs-operator">=</span> <span class="hljs-number">100</span><br>	<span class="hljs-comment">//num2类型为指针类型，默认值为0</span><br>	fmt.<span class="hljs-type">Printf</span>(<span class="hljs-string">&quot;num2类型:%T<span class="hljs-subst">\n</span>num2的值:%v<span class="hljs-subst">\n</span>num2的地址:%v<span class="hljs-subst">\n</span>num2指向的值:%v<span class="hljs-subst">\n</span>&quot;</span>, num2, num2, <span class="hljs-operator">&amp;</span>num2, <span class="hljs-operator">*</span>num2)<br>&#125;<br></code></pre></div></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">package main</span><br><span class="line"></span><br><span class="line">import (</span><br><span class="line">	&quot;fmt&quot;</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">func main() &#123;</span><br><span class="line">	num1 :&#x3D; 100</span><br><span class="line">	fmt.Printf(&quot;num1类型:%T\nnum1的值:%v\nnum1的地址:%v\n&quot;, num1, num1, &amp;num1)</span><br><span class="line"></span><br><span class="line">	num2 :&#x3D; new(int)</span><br><span class="line">	&#x2F;&#x2F;修改num2的值</span><br><span class="line">	*num2 &#x3D; 100</span><br><span class="line">	&#x2F;&#x2F;num2类型为指针类型，默认值为0</span><br><span class="line">	fmt.Printf(&quot;num2类型:%T\nnum2的值:%v\nnum2的地址:%v\nnum2指向的值:%v\n&quot;, num2, num2, &amp;num2, *num2)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <ol start="3">
 <li>make：用来 分配内存，主要用来 分配引用类型，比如 channel、map、slice</li>
 </ol>
 <h2 id="4、错误处理"><a href="#4、错误处理" class="headerlink" title="4、错误处理"></a>4、错误处理</h2><p>看一段代码，引出错误处理</p>
-<figure class="highlight go"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs go"><span class="hljs-keyword">package</span> main<br><br><span class="hljs-keyword">import</span> (<br>	<span class="hljs-string">&quot;fmt&quot;</span><br>)<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">test</span><span class="hljs-params">()</span></span> &#123;<br>	n1 := <span class="hljs-number">10</span><br>	n2 := <span class="hljs-number">0</span><br>	n3 := n1 / n2<br>	fmt.Println(<span class="hljs-string">&quot;n3=&quot;</span>, n3)<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> &#123;<br>	test()<br>	fmt.Println(<span class="hljs-string">&quot;main()错误代码......&quot;</span>)<br>&#125;<br></code></pre></div></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">package main</span><br><span class="line"></span><br><span class="line">import (</span><br><span class="line">	&quot;fmt&quot;</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">func test() &#123;</span><br><span class="line">	n1 :&#x3D; 10</span><br><span class="line">	n2 :&#x3D; 0</span><br><span class="line">	n3 :&#x3D; n1 &#x2F; n2</span><br><span class="line">	fmt.Println(&quot;n3&#x3D;&quot;, n3)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func main() &#123;</span><br><span class="line">	test()</span><br><span class="line">	fmt.Println(&quot;main()错误代码......&quot;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h3 id="对上面代码的总结"><a href="#对上面代码的总结" class="headerlink" title="对上面代码的总结"></a>对上面代码的总结</h3><ol>
 <li><p>在默认情况下，当发生错误后(panic) ,程序就会退出（崩溃.）</p>
 </li>
@@ -412,7 +369,7 @@
 </li>
 </ol>
 <p>使用 defer+recover 来处理错误</p>
-<figure class="highlight go"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs go"><span class="hljs-keyword">package</span> main<br><br><span class="hljs-keyword">import</span> (<br>	<span class="hljs-string">&quot;fmt&quot;</span><br>)<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">test</span><span class="hljs-params">()</span></span> &#123;<br>	<span class="hljs-comment">//使用defer+recover来捕获和处理错误</span><br>	<span class="hljs-keyword">defer</span> <span class="hljs-function"><span class="hljs-keyword">func</span><span class="hljs-params">()</span></span> &#123;<br>		err := <span class="hljs-built_in">recover</span>() <span class="hljs-comment">//recover()可以捕获到错误</span><br>		<span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> &#123;  <span class="hljs-comment">//说明捕获到了错误</span><br>			fmt.Println(<span class="hljs-string">&quot;err=&quot;</span>, err)<br>			fmt.Println(<span class="hljs-string">&quot;发送邮件给admin@163.com&quot;</span>)<br>		&#125;<br>	&#125;()<br>	n1 := <span class="hljs-number">10</span><br>	n2 := <span class="hljs-number">0</span><br>	n3 := n1 / n2<br>	fmt.Println(<span class="hljs-string">&quot;n3=&quot;</span>, n3)<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> &#123;<br>	test()<br>	fmt.Println(<span class="hljs-string">&quot;main()错误代码......&quot;</span>)<br>&#125;<br></code></pre></div></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">package main</span><br><span class="line"></span><br><span class="line">import (</span><br><span class="line">	&quot;fmt&quot;</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">func test() &#123;</span><br><span class="line">	&#x2F;&#x2F;使用defer+recover来捕获和处理错误</span><br><span class="line">	defer func() &#123;</span><br><span class="line">		err :&#x3D; recover() &#x2F;&#x2F;recover()可以捕获到错误</span><br><span class="line">		if err !&#x3D; nil &#123;  &#x2F;&#x2F;说明捕获到了错误</span><br><span class="line">			fmt.Println(&quot;err&#x3D;&quot;, err)</span><br><span class="line">			fmt.Println(&quot;发送邮件给admin@163.com&quot;)</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;()</span><br><span class="line">	n1 :&#x3D; 10</span><br><span class="line">	n2 :&#x3D; 0</span><br><span class="line">	n3 :&#x3D; n1 &#x2F; n2</span><br><span class="line">	fmt.Println(&quot;n3&#x3D;&quot;, n3)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func main() &#123;</span><br><span class="line">	test()</span><br><span class="line">	fmt.Println(&quot;main()错误代码......&quot;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>进行错误处理后，程序不会轻易挂掉，如果加入预警代码，就可以让程序更加的健壮</p>
 <h3 id="自定义错误"><a href="#自定义错误" class="headerlink" title="自定义错误"></a>自定义错误</h3><p>Go 程序中，也支持自定义错误， 使用 errors.New 和 panic 内置函数。</p>
 <ol>
@@ -421,264 +378,76 @@
 <li><p>panic 内置函数 ,接收一个 interface{}类型的值（也就是任何值了）作为参数。可以接收 error 类型的变量， 输出错误信息， 并退出程序</p>
 </li>
 </ol>
-<figure class="highlight go"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs go"><span class="hljs-keyword">package</span> main<br><br><span class="hljs-keyword">import</span> (<br>	<span class="hljs-string">&quot;errors&quot;</span><br>	<span class="hljs-string">&quot;fmt&quot;</span><br>)<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">read</span><span class="hljs-params">(name <span class="hljs-keyword">string</span>)</span> <span class="hljs-params">(err error)</span></span> &#123;<br>	<span class="hljs-keyword">if</span> name == <span class="hljs-string">&quot;helloword&quot;</span> &#123;<br>		<span class="hljs-keyword">return</span> <span class="hljs-literal">nil</span><br>	&#125; <span class="hljs-keyword">else</span> &#123;<br>		<span class="hljs-comment">//返回一个自定义错误</span><br>		<span class="hljs-keyword">return</span> errors.New(<span class="hljs-string">&quot;读取错误。。。&quot;</span>)<br>	&#125;<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">test</span><span class="hljs-params">()</span></span> &#123;<br>	err := read(<span class="hljs-string">&quot;hello&quot;</span>)<br>	<span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> &#123;<br>		<span class="hljs-comment">//读取错误就输出这个错误，并终止程序</span><br>		<span class="hljs-built_in">panic</span>(err)<br>	&#125;<br>	fmt.Println(<span class="hljs-string">&quot;test()继续执行。。。&quot;</span>)<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> &#123;<br>	test()<br>	fmt.Println(<span class="hljs-string">&quot;main()错误代码......&quot;</span>)<br>&#125;<br></code></pre></div></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">package main</span><br><span class="line"></span><br><span class="line">import (</span><br><span class="line">	&quot;errors&quot;</span><br><span class="line">	&quot;fmt&quot;</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">func read(name string) (err error) &#123;</span><br><span class="line">	if name &#x3D;&#x3D; &quot;helloword&quot; &#123;</span><br><span class="line">		return nil</span><br><span class="line">	&#125; else &#123;</span><br><span class="line">		&#x2F;&#x2F;返回一个自定义错误</span><br><span class="line">		return errors.New(&quot;读取错误。。。&quot;)</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func test() &#123;</span><br><span class="line">	err :&#x3D; read(&quot;hello&quot;)</span><br><span class="line">	if err !&#x3D; nil &#123;</span><br><span class="line">		&#x2F;&#x2F;读取错误就输出这个错误，并终止程序</span><br><span class="line">		panic(err)</span><br><span class="line">	&#125;</span><br><span class="line">	fmt.Println(&quot;test()继续执行。。。&quot;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func main() &#123;</span><br><span class="line">	test()</span><br><span class="line">	fmt.Println(&quot;main()错误代码......&quot;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-            </div>
-            <hr>
-            <div>
-              <div class="post-metas mb-3">
-                
-                  <div class="post-meta mr-3">
-                    <i class="iconfont icon-category"></i>
-                    
-                      <a class="hover-with-bg" href="/categories/Golang/">Golang</a>
-                    
-                  </div>
-                
-                
-                  <div class="post-meta">
-                    <i class="iconfont icon-tags"></i>
-                    
-                      <a class="hover-with-bg" href="/tags/Golang/">Golang</a>
-                    
-                  </div>
-                
-              </div>
-              
-                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
-              
-              
-                <div class="post-prevnext">
-                  <article class="post-prev col-6">
-                    
-                    
-                      <a href="/2021/04/14/Jenkins%E9%9B%86%E6%88%90%E9%92%89%E9%92%89/">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">Jenkins集成钉钉</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
-                  </article>
-                  <article class="post-next col-6">
-                    
-                    
-                      <a href="/2021/04/12/Go%E8%AF%AD%E8%A8%80%E5%87%BD%E6%95%B0%E4%BD%BF%E7%94%A8/">
-                        <span class="hidden-mobile">Go语言函数使用</span>
-                        <span class="visible-mobile">下一篇</span>
-                        <i class="iconfont icon-arrowright"></i>
-                      </a>
-                    
-                  </article>
-                </div>
-              
-            </div>
-
-            
-              <!-- Comments -->
-              <article class="comments" id="comments">
-                
-                
-  <div id="vcomments"></div>
-  <script type="text/javascript">
-    Fluid.utils.waitElementVisible('vcomments', function() {
-      Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js', function () {
-        new Valine({
-          el: "#vcomments",
-          app_id: "hPHtsN0Gt7U2zB2AllYqbucc-9Nh9j0Va",
-          app_key: "TVUER8rWijR8cD1STqzd2d4E",
-          placeholder: "你有故事，我有酒，我们一起勇闯天涯。。。",
-          path: window.location.pathname,
-          avatar: "retro",
-          meta: ["nick","mail","link"],
-          pageSize: "10",
-          lang: "zh-CN",
-          highlight: false,
-          recordIP: false,
-          serverURLs: "",
-        });
-      });
-    });
-  </script>
-  <noscript>Please enable JavaScript to view the
-    <a target="_blank" href="https://valine.js.org" rel="nofollow noopener noopener">comments powered by Valine.</a>
-  </noscript>
-
-
-              </article>
-            
-          </article>
-        </div>
-      </div>
     </div>
+
     
-      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
-        <div id="toc">
-  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
-  <div class="toc-body" id="toc-body"></div>
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Golang/" rel="tag"># Golang</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2021/04/12/Go%E8%AF%AD%E8%A8%80%E5%87%BD%E6%95%B0%E4%BD%BF%E7%94%A8/" rel="prev" title="Go语言函数使用">
+                  <i class="fa fa-chevron-left"></i> Go语言函数使用
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2021/04/14/Jenkins%E9%9B%86%E6%88%90%E9%92%89%E9%92%89/" rel="next" title="Jenkins集成钉钉">
+                  Jenkins集成钉钉 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
 </div>
 
-      </div>
-    
-  </div>
+
+
+
+
+
 </div>
-
-<!-- Custom -->
-
-
-    
-
-    
-      <a id="scroll-top-button" href="#" role="button">
-        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
-      </a>
-    
-
-    
-      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
-     aria-hidden="true">
-  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
-    <div class="modal-content">
-      <div class="modal-header text-center">
-        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
-        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body mx-3">
-        <div class="md-form mb-5">
-          <input type="text" id="local-search-input" class="form-control validate">
-          <label data-error="x" data-success="v"
-                 for="local-search-input">关键词</label>
-        </div>
-        <div class="list-group" id="local-search-result"></div>
-      </div>
-    </div>
-  </div>
-</div>
-    
-
-    
   </main>
 
-  <footer class="text-center mt-5 py-3">
-  <div class="footer-content">
-     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
-  </div>
-  
-  <div class="statistics">
-    
-    
+  <footer class="footer">
+    <div class="footer-inner">
 
-    
-      
-        <!-- 不蒜子统计PV -->
-        <span id="busuanzi_container_site_pv" style="display: none">
-            总访问量 
-            <span id="busuanzi_value_site_pv"></span>
-             次
-          </span>
-      
-      
-        <!-- 不蒜子统计UV -->
-        <span id="busuanzi_container_site_uv" style="display: none">
-            总访客数 
-            <span id="busuanzi_value_site_uv"></span>
-             人
-          </span>
-      
-    
+
+<div class="copyright">
+  &copy; 2020 – 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">羊皮裘老头</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
   </div>
 
+    </div>
+  </footer>
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
 
   
 
-  
-</footer>
 
-<!-- SCRIPTS -->
-
-  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
-  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
-
-  <script>
-    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
-    NProgress.start()
-    window.addEventListener('load', function() {
-      NProgress.done();
-    })
-  </script>
-
-
-<script  src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" ></script>
-<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" ></script>
-<script  src="/js/debouncer.js" ></script>
-<script  src="/js/events.js" ></script>
-<script  src="/js/plugins.js" ></script>
-
-<!-- Plugins -->
-
-
-  
-    <script  src="/js/lazyload.js" ></script>
-  
 
 
 
   
 
 
-
-  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.0/dist/tocbot.min.js" ></script>
-
-
-
-  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
-
-
-
-  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.0/anchor.min.js" ></script>
-
-
-
-  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js" ></script>
-
-
-
-  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
-
-
-
-
-
-
-  <script  src="/js/local-search.js" ></script>
-  <script>
-    (function () {
-      var path = "/local-search.xml";
-      var inputArea = document.querySelector("#local-search-input");
-      inputArea.onclick = function () {
-        searchFunc(path, 'local-search-input', 'local-search-result');
-        this.onclick = null
-      }
-    })()
-  </script>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<!-- 主题的启动项 保持在最底部 -->
-<script  src="/js/boot.js" ></script>
 
 
 

@@ -1,546 +1,311 @@
-
-
 <!DOCTYPE html>
-<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
-
-
-
+<html lang="zh-CN">
 <head>
   <meta charset="UTF-8">
-  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
-  <link rel="icon" type="image/png" href="/img/favicon.png">
-  <meta name="viewport"
-        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
-  <meta http-equiv="x-ua-compatible" content="ie=edge">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 5.3.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.12.1","exturl":false,"sidebar":{"position":"left","width":300,"display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849505152535455565758596061626364656667686970717273747576777879808182838485868788899091929394959697989910010110210">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Prometheus启动参数详解">
+<meta property="og:url" content="http://example.com/2021/03/22/Prometheus%E5%90%AF%E5%8A%A8%E5%8F%82%E6%95%B0%E8%AF%A6%E8%A7%A3/index.html">
+<meta property="og:site_name" content="羊皮裘老头">
+<meta property="og:description" content="12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849505152535455565758596061626364656667686970717273747576777879808182838485868788899091929394959697989910010110210">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2021-03-22T06:58:07.000Z">
+<meta property="article:modified_time" content="2022-04-17T09:07:34.514Z">
+<meta property="article:author" content="羊皮裘老头">
+<meta property="article:tag" content="Prometheus">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="http://example.com/2021/03/22/Prometheus%E5%90%AF%E5%8A%A8%E5%8F%82%E6%95%B0%E8%AF%A6%E8%A7%A3/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://example.com/2021/03/22/Prometheus%E5%90%AF%E5%8A%A8%E5%8F%82%E6%95%B0%E8%AF%A6%E8%A7%A3/","path":"2021/03/22/Prometheus启动参数详解/","title":"Prometheus启动参数详解"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>Prometheus启动参数详解 | 羊皮裘老头</title>
   
-  <meta name="theme-color" content="#2f4154">
-  <meta name="description" content="">
-  <meta name="author" content="羊皮裘老头">
-  <meta name="keywords" content="">
-  <title>Prometheus启动参数详解 - 羊皮裘老头</title>
-
-  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
-
-
-  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
-  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
-
-  
-    
-    
-      
-      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.4.0/styles/github-gist.min.css" />
-    
-  
-
-  
-    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
-  
 
 
 
-<!-- 主题依赖的图标库，不要自行修改 -->
-
-<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
 
 
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
 
-<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
 
-
-<link  rel="stylesheet" href="/css/main.css" />
-
-<!-- 自定义样式保持在最底部 -->
-
-
-  <script id="fluid-configs">
-    var Fluid = window.Fluid || {};
-    var CONFIG = {"hostname":"example.com","root":"/","version":"1.8.7","typing":{"enable":false,"typeSpeed":70,"cursorChar":" ","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"onlypost":false},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}}};
-  </script>
-  <script  src="/js/utils.js" ></script>
-  <script  src="/js/color-schema.js" ></script>
-<meta name="generator" content="Hexo 5.3.0"></head>
-
-
-<body>
-  <header style="height: 70vh;">
-    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
-  <div class="container">
-    <a class="navbar-brand"
-       href="/">&nbsp;<strong>羊皮裘老头</strong>&nbsp;</a>
-
-    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
-            data-target="#navbarSupportedContent"
-            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <div class="animated-icon"><span></span><span></span><span></span></div>
-    </button>
-
-    <!-- Collapsible content -->
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav ml-auto text-center">
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/">
-                <i class="iconfont icon-home-fill"></i>
-                首页
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/archives/">
-                <i class="iconfont icon-archive-fill"></i>
-                归档
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/categories/">
-                <i class="iconfont icon-category-fill"></i>
-                分类
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/tags/">
-                <i class="iconfont icon-tags-fill"></i>
-                标签
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/about/">
-                <i class="iconfont icon-user-fill"></i>
-                关于
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <i class="iconfont icon-books"></i>
-                文档
-              </a>
-              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                
-                  
-                  
-                  
-                  <a class="dropdown-item" target="_blank" rel="noopener" href="https://hexo.fluid-dev.com/">
-                    
-                    主题博客
-                  </a>
-                
-                  
-                  
-                  
-                  <a class="dropdown-item" target="_blank" rel="noopener" href="https://hexo.fluid-dev.com/docs/guide/">
-                    
-                    配置指南
-                  </a>
-                
-                  
-                  
-                  
-                  <a class="dropdown-item" target="_blank" rel="noopener" href="https://hexo.fluid-dev.com/docs/icon/">
-                    
-                    图标用法
-                  </a>
-                
-              </div>
-            </li>
-          
-        
-        
-          <li class="nav-item" id="search-btn">
-            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
-                class="iconfont icon-search"></i>&nbsp;</a>
-          </li>
-        
-        
-          <li class="nav-item" id="color-toggle-btn">
-            <a class="nav-link" href="javascript:">&nbsp;<i
-                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
-          </li>
-        
-      </ul>
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
     </div>
   </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">羊皮裘老头</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">28</span></a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">13</span></a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">116</span></a></li><li class="menu-item menu-item-schedule"><a href="/schedule/" rel="section"><i class="fa fa-calendar fa-fw"></i>日程表</a></li><li class="menu-item menu-item-sitemap"><a href="/sitemap.xml" rel="section"><i class="fa fa-sitemap fa-fw"></i>站点地图</a></li><li class="menu-item menu-item-commonweal"><a href="/404/" rel="section"><i class="fa fa-heartbeat fa-fw"></i>公益 404</a></li>
+  </ul>
 </nav>
 
-    <div class="banner" id="banner" parallax=true
-         style="background: url('/img/ss.png') no-repeat center center;
-           background-size: cover;">
-      <div class="full-bg-img">
-        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
-          <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="Prometheus启动参数详解">
-              
-                Prometheus启动参数详解
-              
-            </span>
 
-            
-              <div class="mt-3">
+
+
+</div>
+        
   
-  
-    <span class="post-meta">
-      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-      <time datetime="2021-03-22 14:58" pubdate>
-        2021年3月22日 下午
-      </time>
-    </span>
-  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-overview-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">羊皮裘老头</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">116</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">13</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">28</span>
+        <span class="site-state-item-name">标签</span>
+      </div>
+  </nav>
 </div>
 
-<div class="mt-1">
-  
-    
-    <span class="post-meta mr-2">
-      <i class="iconfont icon-chart"></i>
-      1.4k 字
-    </span>
-  
 
-  
-    
-    <span class="post-meta mr-2">
-      <i class="iconfont icon-clock-fill"></i>
-      
-      
-      21
-       分钟
-    </span>
-  
 
-  
-  
-    
-      <!-- LeanCloud 统计文章PV -->
-      <span id="leancloud-page-views-container" class="post-meta" style="display: none">
-        <i class="iconfont icon-eye" aria-hidden="true"></i>
-        <span id="leancloud-page-views"></span> 次
-      </span>
-    
-  
-</div>
-
-            
-          </div>
-
-          
         </div>
       </div>
     </div>
-  </header>
+  </aside>
+  <div class="sidebar-dimmer"></div>
 
-  <main>
+
+    </header>
+
     
-      
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
 
-<div class="container-fluid nopadding-x">
-  <div class="row nomargin-x">
-    <div class="d-none d-lg-block col-lg-2"></div>
-    <div class="col-lg-8 nopadding-x-md">
-      <div class="container nopadding-x-md" id="board-ctn">
-        <div class="py-5" id="board">
-          <article class="post-content mx-auto">
-            <!-- SEO header -->
-            <h1 style="display: none">Prometheus启动参数详解</h1>
-            
-              <p class="note note-info">
-                
-                  本文最后更新于：2022年4月17日 下午
-                
-              </p>
-            
-            <div class="markdown-body">
-              <figure class="highlight livecodeserver"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs livecodeserver">Flags:<br><span class="hljs-comment">#帮助</span><br>  -h, <span class="hljs-comment">--help                     Show context-sensitive help (also try --help-long and --help-man).</span><br><span class="hljs-comment">#版本</span><br>      <span class="hljs-comment">--version                  Show application version.</span><br><span class="hljs-comment">#配置文件</span><br>      <span class="hljs-comment">--config.file=&quot;prometheus.yml&quot;</span><br>                                 Prometheus configuration <span class="hljs-built_in">file</span> path.<br><span class="hljs-comment">#监听端口</span><br>      <span class="hljs-comment">--web.listen-address=&quot;0.0.0.0:9090&quot;</span><br>                                 Address <span class="hljs-built_in">to</span> listen <span class="hljs-keyword">on</span> <span class="hljs-title">for</span> <span class="hljs-title">UI</span>, <span class="hljs-title">API</span>, <span class="hljs-title">and</span> <span class="hljs-title">telemetry</span>.<br><span class="hljs-comment">#空闲连接的超时时间</span><br>      <span class="hljs-comment">--web.read-timeout=5m      Maximum duration before timing out read of the request, and closing idle connections.</span><br><span class="hljs-comment">#最大连接数</span><br>      <span class="hljs-comment">--web.max-connections=512  Maximum number of simultaneous connections.</span><br><br><span class="hljs-comment">#可从外部访问Prometheus的URL（例如，如果Prometheus是通过反向代理提供的）。 用于生成返回到Prometheus本身的相对和绝对链接。 如果URL包含路径部分，它将被用作Prometheus服务的所有HTTP端点的前缀。 如果省略，则会自动派生相关的URL组件。</span><br>      <span class="hljs-comment">--web.external-url=&lt;URL&gt;   The URL under which Prometheus is externally reachable (for example, if Prometheus is served via a reverse proxy). Used for generating relative and absolute links back to</span><br>                                 Prometheus itself. If <span class="hljs-keyword">the</span> <span class="hljs-built_in">URL</span> has <span class="hljs-keyword">a</span> path portion, <span class="hljs-keyword">it</span> will be used <span class="hljs-built_in">to</span> prefix all HTTP endpoints served <span class="hljs-keyword">by</span> Prometheus. If omitted, relevant <span class="hljs-built_in">URL</span> components will be derived<br>                                 automatically.<br><span class="hljs-comment">#内部路由的前缀。 默认为--web.external-url的路径。</span><br>      <span class="hljs-comment">--web.route-prefix=&lt;path&gt;  Prefix for the internal routes of web endpoints. Defaults to path of --web.external-url.</span><br><span class="hljs-comment">#静态资源目录的路径，位于/ user</span><br>      <span class="hljs-comment">--web.user-assets=&lt;path&gt;   Path to static asset directory, available at /user.</span><br><span class="hljs-comment">#启用是否通过HTTP请求重新加载</span><br>      <span class="hljs-comment">--web.enable-lifecycle     Enable shutdown and reload via HTTP request.</span><br><span class="hljs-comment">#管理控制操作启用API端点</span><br>      <span class="hljs-comment">--web.enable-admin-api     Enable API endpoints for admin control actions.</span><br><span class="hljs-comment">#模板目录的路径，位于/consoles</span><br>      <span class="hljs-comment">--web.console.templates=&quot;consoles&quot;</span><br>                                 Path <span class="hljs-built_in">to</span> <span class="hljs-keyword">the</span> console template <span class="hljs-built_in">directory</span>, available <span class="hljs-keyword">at</span> /consoles.<br><span class="hljs-comment">#控制台库目录的路径</span><br>      <span class="hljs-comment">--web.console.libraries=&quot;console_libraries&quot;</span><br>                                 Path <span class="hljs-built_in">to</span> <span class="hljs-keyword">the</span> console library <span class="hljs-built_in">directory</span>.<br><span class="hljs-comment">#Prometheus实例页面的文档标题</span><br>      <span class="hljs-comment">--web.page-title=&quot;Prometheus Time Series Collection and Processing Server&quot;</span><br>                                 Document title <span class="hljs-keyword">of</span> Prometheus instance.<br><span class="hljs-comment">#用于CORS来源的正则表达式。</span><br>      <span class="hljs-comment">--web.cors.origin=&quot;.*&quot;     Regex for CORS origin. It is fully anchored. Example: &#x27;https?://(domain1|domain2)\.com&#x27;</span><br><span class="hljs-comment">#指标(数据）存储的基本路径</span><br>      <span class="hljs-comment">--storage.tsdb.path=&quot;data/&quot;</span><br>                                 Base path <span class="hljs-keyword">for</span> metrics storage.<br><span class="hljs-comment">#将数据保留多长时间。 此标志已被弃用，请改用“ storage.tsdb.retention.time”。</span><br>      <span class="hljs-comment">--storage.tsdb.retention=STORAGE.TSDB.RETENTION</span><br>                                 [DEPRECATED] How <span class="hljs-keyword">long</span> <span class="hljs-built_in">to</span> retain samples <span class="hljs-keyword">in</span> storage. This flag has been deprecated, use <span class="hljs-string">&quot;storage.tsdb.retention.time&quot;</span> instead.<br><span class="hljs-comment">#将数据保留多长时间。默认15天</span><br>      <span class="hljs-comment">--storage.tsdb.retention.time=STORAGE.TSDB.RETENTION.TIME</span><br>                                 How <span class="hljs-keyword">long</span> <span class="hljs-built_in">to</span> retain samples <span class="hljs-keyword">in</span> storage. When this flag is <span class="hljs-built_in">set</span> <span class="hljs-keyword">it</span> overrides <span class="hljs-string">&quot;storage.tsdb.retention&quot;</span>. If neither this flag nor <span class="hljs-string">&quot;storage.tsdb.retention&quot;</span> nor<br>                                 <span class="hljs-string">&quot;storage.tsdb.retention.size&quot;</span> is <span class="hljs-built_in">set</span>, <span class="hljs-keyword">the</span> retention <span class="hljs-built_in">time</span> defaults <span class="hljs-built_in">to</span> <span class="hljs-number">15</span>d.<br><span class="hljs-comment">#可以为块存储的最大字节数。 支持的单位：KB，MB，GB，TB，PB。</span><br>      <span class="hljs-comment">--storage.tsdb.retention.size=STORAGE.TSDB.RETENTION.SIZE</span><br>                                 [EXPERIMENTAL] Maximum <span class="hljs-built_in">number</span> <span class="hljs-keyword">of</span> <span class="hljs-keyword">bytes</span> that can be stored <span class="hljs-keyword">for</span> blocks. Units supported: KB, MB, GB, TB, PB. This flag is experimental <span class="hljs-keyword">and</span> can be changed <span class="hljs-keyword">in</span> future releases.<br><span class="hljs-comment">#不在数据目录中创建锁文件</span><br>      <span class="hljs-comment">--storage.tsdb.no-lockfile</span><br>                                 Do <span class="hljs-keyword">not</span> <span class="hljs-built_in">create</span> lockfile <span class="hljs-keyword">in</span> data <span class="hljs-built_in">directory</span>.<br><span class="hljs-comment">#允许重叠的块，从而启用垂直压缩和垂直查询合并。</span><br>      <span class="hljs-comment">--storage.tsdb.allow-overlapping-blocks</span><br>                                 [EXPERIMENTAL] Allow overlapping blocks, which <span class="hljs-keyword">in</span> turn enables vertical compaction <span class="hljs-keyword">and</span> vertical query <span class="hljs-built_in">merge</span>.<br><span class="hljs-comment">#压缩tsdb WAL</span><br>      <span class="hljs-comment">--storage.tsdb.wal-compression</span><br>                                 Compress <span class="hljs-keyword">the</span> tsdb WAL.<br><span class="hljs-comment">#关闭或配置重新加载时等待刷写数据的时间</span><br>      <span class="hljs-comment">--storage.remote.flush-deadline=&lt;duration&gt;</span><br>                                 How <span class="hljs-keyword">long</span> <span class="hljs-built_in">to</span> <span class="hljs-built_in">wait</span> flushing sample <span class="hljs-keyword">on</span> <span class="hljs-title">shutdown</span> <span class="hljs-title">or</span> <span class="hljs-title">config</span> <span class="hljs-title">reload</span>.<br><span class="hljs-comment">#在单个查询中通过远程读取接口返回的最大样本总数。 0表示没有限制。 对于流式响应类型，将忽略此限制。</span><br>      <span class="hljs-comment">--storage.remote.read-sample-limit=5e7</span><br>                                 Maximum overall <span class="hljs-built_in">number</span> <span class="hljs-keyword">of</span> samples <span class="hljs-built_in">to</span> <span class="hljs-literal">return</span> via <span class="hljs-keyword">the</span> remote <span class="hljs-built_in">read</span> interface, <span class="hljs-keyword">in</span> <span class="hljs-keyword">a</span> single query. <span class="hljs-number">0</span> means no limit. This limit is ignored <span class="hljs-keyword">for</span> streamed response types.<br><span class="hljs-comment">#并发远程读取调用的最大数目。 0表示没有限制。</span><br>      <span class="hljs-comment">--storage.remote.read-concurrent-limit=10</span><br>                                 Maximum <span class="hljs-built_in">number</span> <span class="hljs-keyword">of</span> concurrent remote <span class="hljs-built_in">read</span> calls. <span class="hljs-number">0</span> means no limit.<br><span class="hljs-comment">#用于流式传输远程读取响应类型的单个帧中的最大字节数。 请注意，客户端也可能会限制帧大小。 1MB为默认情况下由protobuf推荐</span><br><br><span class="hljs-comment">--storage.remote.read-max-bytes-in-frame=1048576</span><br>                                 Maximum <span class="hljs-built_in">number</span> <span class="hljs-keyword">of</span> <span class="hljs-keyword">bytes</span> <span class="hljs-keyword">in</span> <span class="hljs-keyword">a</span> single frame <span class="hljs-keyword">for</span> streaming remote <span class="hljs-built_in">read</span> response types <span class="hljs-keyword">before</span> marshalling. Note that client might have limit <span class="hljs-keyword">on</span> <span class="hljs-title">frame</span> <span class="hljs-title">size</span> <span class="hljs-title">as</span> <span class="hljs-title">well</span>. <span class="hljs-title">1MB</span> <span class="hljs-title">as</span><br>                                 recommended <span class="hljs-keyword">by</span> protobuf <span class="hljs-keyword">by</span> default.<br><span class="hljs-comment">#容忍中断以恢复警报“ for”状态的最长时间。</span><br>      <span class="hljs-comment">--rules.alert.for-outage-tolerance=1h</span><br>                                 Max <span class="hljs-built_in">time</span> <span class="hljs-built_in">to</span> tolerate prometheus outage <span class="hljs-keyword">for</span> restoring <span class="hljs-string">&quot;for&quot;</span> state <span class="hljs-keyword">of</span> alert.<br><span class="hljs-comment">#警报和恢复的“ for”状态之间的最短持续时间。 仅对于配置的“ for”时间大于宽限期的警报，才保持此状态。</span><br>      <span class="hljs-comment">--rules.alert.for-grace-period=10m</span><br>                                 Minimum duration between alert <span class="hljs-keyword">and</span> restored <span class="hljs-string">&quot;for&quot;</span> state. This is maintained only <span class="hljs-keyword">for</span> alerts <span class="hljs-keyword">with</span> configured <span class="hljs-string">&quot;for&quot;</span> <span class="hljs-built_in">time</span> greater than grace period.<br><span class="hljs-comment">#将警报重新发送到Alertmanager之前等待的最短时间。</span><br>      <span class="hljs-comment">--rules.alert.resend-delay=1m</span><br>                                 Minimum amount <span class="hljs-keyword">of</span> <span class="hljs-built_in">time</span> <span class="hljs-built_in">to</span> <span class="hljs-built_in">wait</span> <span class="hljs-keyword">before</span> resending <span class="hljs-keyword">an</span> alert <span class="hljs-built_in">to</span> Alertmanager.<br><span class="hljs-comment">#等待的Alertmanager通知的队列容量。</span><br>      <span class="hljs-comment">--alertmanager.notification-queue-capacity=10000</span><br>                                 The capacity <span class="hljs-keyword">of</span> <span class="hljs-keyword">the</span> queue <span class="hljs-keyword">for</span> pending Alertmanager notifications.<br><span class="hljs-comment">#向Alertmanager发送警报的超时。</span><br>      <span class="hljs-comment">--alertmanager.timeout=10s</span><br>                                 Timeout <span class="hljs-keyword">for</span> sending alerts <span class="hljs-built_in">to</span> Alertmanager.<br><span class="hljs-comment">#在表达式求值期间检索指标的最大回溯持续时间。</span><br>      <span class="hljs-comment">--query.lookback-delta=5m  The maximum lookback duration for retrieving metrics during expression evaluations.</span><br><span class="hljs-comment">#最大查询时间。</span><br>      <span class="hljs-comment">--query.timeout=2m         Maximum time a query may take before being aborted.</span><br><span class="hljs-comment">#最大查询并发数</span><br>      <span class="hljs-comment">--query.max-concurrency=20</span><br>                                 Maximum <span class="hljs-built_in">number</span> <span class="hljs-keyword">of</span> queries executed concurrently.<br><span class="hljs-comment">#单个查询可以加载到内存中的最大样本数。 请注意，如果查询尝试将更多的样本加载到内存中，则查询将失败，因此这也限制了查询可以返回的样本数。</span><br><br>      <span class="hljs-comment">--query.max-samples=50000000</span><br>                                 Maximum <span class="hljs-built_in">number</span> <span class="hljs-keyword">of</span> samples <span class="hljs-keyword">a</span> single query can <span class="hljs-built_in">load</span> <span class="hljs-keyword">into</span> memory. Note that queries will fail <span class="hljs-keyword">if</span> they <span class="hljs-keyword">try</span> <span class="hljs-built_in">to</span> <span class="hljs-built_in">load</span> more samples than this <span class="hljs-keyword">into</span> memory, so this also limits <span class="hljs-keyword">the</span><br>                                 <span class="hljs-built_in">number</span> <span class="hljs-keyword">of</span> samples <span class="hljs-keyword">a</span> query can <span class="hljs-literal">return</span>.<br><span class="hljs-comment">#日志级别</span><br>      <span class="hljs-comment">--log.level=info           Only log messages with the given severity or above. One of: [debug, info, warn, error]</span><br><span class="hljs-comment">#日志格式</span><br>      <span class="hljs-comment">--log.format=logfmt        Output format of log messages. One of: [logfmt, json]</span><br></code></pre></div></td></tr></table></figure>
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/03/22/Prometheus%E5%90%AF%E5%8A%A8%E5%8F%82%E6%95%B0%E8%AF%A6%E8%A7%A3/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="羊皮裘老头">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="羊皮裘老头">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="Prometheus启动参数详解 | 羊皮裘老头">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Prometheus启动参数详解
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2021-03-22 14:58:07" itemprop="dateCreated datePublished" datetime="2021-03-22T14:58:07+08:00">2021-03-22</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-04-17 17:07:34" itemprop="dateModified" datetime="2022-04-17T17:07:34+08:00">2022-04-17</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Prometheus/" itemprop="url" rel="index"><span itemprop="name">Prometheus</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br></pre></td><td class="code"><pre><span class="line">Flags:</span><br><span class="line">#帮助</span><br><span class="line">  -h, --help                     Show context-sensitive help (also try --help-long and --help-man).</span><br><span class="line">#版本</span><br><span class="line">      --version                  Show application version.</span><br><span class="line">#配置文件</span><br><span class="line">      --config.file&#x3D;&quot;prometheus.yml&quot;</span><br><span class="line">                                 Prometheus configuration file path.</span><br><span class="line">#监听端口</span><br><span class="line">      --web.listen-address&#x3D;&quot;0.0.0.0:9090&quot;</span><br><span class="line">                                 Address to listen on for UI, API, and telemetry.</span><br><span class="line">#空闲连接的超时时间</span><br><span class="line">      --web.read-timeout&#x3D;5m      Maximum duration before timing out read of the request, and closing idle connections.</span><br><span class="line">#最大连接数</span><br><span class="line">      --web.max-connections&#x3D;512  Maximum number of simultaneous connections.</span><br><span class="line"></span><br><span class="line">#可从外部访问Prometheus的URL（例如，如果Prometheus是通过反向代理提供的）。 用于生成返回到Prometheus本身的相对和绝对链接。 如果URL包含路径部分，它将被用作Prometheus服务的所有HTTP端点的前缀。 如果省略，则会自动派生相关的URL组件。</span><br><span class="line">      --web.external-url&#x3D;&lt;URL&gt;   The URL under which Prometheus is externally reachable (for example, if Prometheus is served via a reverse proxy). Used for generating relative and absolute links back to</span><br><span class="line">                                 Prometheus itself. If the URL has a path portion, it will be used to prefix all HTTP endpoints served by Prometheus. If omitted, relevant URL components will be derived</span><br><span class="line">                                 automatically.</span><br><span class="line">#内部路由的前缀。 默认为--web.external-url的路径。</span><br><span class="line">      --web.route-prefix&#x3D;&lt;path&gt;  Prefix for the internal routes of web endpoints. Defaults to path of --web.external-url.</span><br><span class="line">#静态资源目录的路径，位于&#x2F; user</span><br><span class="line">      --web.user-assets&#x3D;&lt;path&gt;   Path to static asset directory, available at &#x2F;user.</span><br><span class="line">#启用是否通过HTTP请求重新加载</span><br><span class="line">      --web.enable-lifecycle     Enable shutdown and reload via HTTP request.</span><br><span class="line">#管理控制操作启用API端点</span><br><span class="line">      --web.enable-admin-api     Enable API endpoints for admin control actions.</span><br><span class="line">#模板目录的路径，位于&#x2F;consoles</span><br><span class="line">      --web.console.templates&#x3D;&quot;consoles&quot;</span><br><span class="line">                                 Path to the console template directory, available at &#x2F;consoles.</span><br><span class="line">#控制台库目录的路径</span><br><span class="line">      --web.console.libraries&#x3D;&quot;console_libraries&quot;</span><br><span class="line">                                 Path to the console library directory.</span><br><span class="line">#Prometheus实例页面的文档标题</span><br><span class="line">      --web.page-title&#x3D;&quot;Prometheus Time Series Collection and Processing Server&quot;</span><br><span class="line">                                 Document title of Prometheus instance.</span><br><span class="line">#用于CORS来源的正则表达式。</span><br><span class="line">      --web.cors.origin&#x3D;&quot;.*&quot;     Regex for CORS origin. It is fully anchored. Example: &#39;https?:&#x2F;&#x2F;(domain1|domain2)\.com&#39;</span><br><span class="line">#指标(数据）存储的基本路径</span><br><span class="line">      --storage.tsdb.path&#x3D;&quot;data&#x2F;&quot;</span><br><span class="line">                                 Base path for metrics storage.</span><br><span class="line">#将数据保留多长时间。 此标志已被弃用，请改用“ storage.tsdb.retention.time”。</span><br><span class="line">      --storage.tsdb.retention&#x3D;STORAGE.TSDB.RETENTION</span><br><span class="line">                                 [DEPRECATED] How long to retain samples in storage. This flag has been deprecated, use &quot;storage.tsdb.retention.time&quot; instead.</span><br><span class="line">#将数据保留多长时间。默认15天</span><br><span class="line">      --storage.tsdb.retention.time&#x3D;STORAGE.TSDB.RETENTION.TIME</span><br><span class="line">                                 How long to retain samples in storage. When this flag is set it overrides &quot;storage.tsdb.retention&quot;. If neither this flag nor &quot;storage.tsdb.retention&quot; nor</span><br><span class="line">                                 &quot;storage.tsdb.retention.size&quot; is set, the retention time defaults to 15d.</span><br><span class="line">#可以为块存储的最大字节数。 支持的单位：KB，MB，GB，TB，PB。</span><br><span class="line">      --storage.tsdb.retention.size&#x3D;STORAGE.TSDB.RETENTION.SIZE</span><br><span class="line">                                 [EXPERIMENTAL] Maximum number of bytes that can be stored for blocks. Units supported: KB, MB, GB, TB, PB. This flag is experimental and can be changed in future releases.</span><br><span class="line">#不在数据目录中创建锁文件</span><br><span class="line">      --storage.tsdb.no-lockfile</span><br><span class="line">                                 Do not create lockfile in data directory.</span><br><span class="line">#允许重叠的块，从而启用垂直压缩和垂直查询合并。</span><br><span class="line">      --storage.tsdb.allow-overlapping-blocks</span><br><span class="line">                                 [EXPERIMENTAL] Allow overlapping blocks, which in turn enables vertical compaction and vertical query merge.</span><br><span class="line">#压缩tsdb WAL</span><br><span class="line">      --storage.tsdb.wal-compression</span><br><span class="line">                                 Compress the tsdb WAL.</span><br><span class="line">#关闭或配置重新加载时等待刷写数据的时间</span><br><span class="line">      --storage.remote.flush-deadline&#x3D;&lt;duration&gt;</span><br><span class="line">                                 How long to wait flushing sample on shutdown or config reload.</span><br><span class="line">#在单个查询中通过远程读取接口返回的最大样本总数。 0表示没有限制。 对于流式响应类型，将忽略此限制。</span><br><span class="line">      --storage.remote.read-sample-limit&#x3D;5e7</span><br><span class="line">                                 Maximum overall number of samples to return via the remote read interface, in a single query. 0 means no limit. This limit is ignored for streamed response types.</span><br><span class="line">#并发远程读取调用的最大数目。 0表示没有限制。</span><br><span class="line">      --storage.remote.read-concurrent-limit&#x3D;10</span><br><span class="line">                                 Maximum number of concurrent remote read calls. 0 means no limit.</span><br><span class="line">#用于流式传输远程读取响应类型的单个帧中的最大字节数。 请注意，客户端也可能会限制帧大小。 1MB为默认情况下由protobuf推荐</span><br><span class="line"></span><br><span class="line">--storage.remote.read-max-bytes-in-frame&#x3D;1048576</span><br><span class="line">                                 Maximum number of bytes in a single frame for streaming remote read response types before marshalling. Note that client might have limit on frame size as well. 1MB as</span><br><span class="line">                                 recommended by protobuf by default.</span><br><span class="line">#容忍中断以恢复警报“ for”状态的最长时间。</span><br><span class="line">      --rules.alert.for-outage-tolerance&#x3D;1h</span><br><span class="line">                                 Max time to tolerate prometheus outage for restoring &quot;for&quot; state of alert.</span><br><span class="line">#警报和恢复的“ for”状态之间的最短持续时间。 仅对于配置的“ for”时间大于宽限期的警报，才保持此状态。</span><br><span class="line">      --rules.alert.for-grace-period&#x3D;10m</span><br><span class="line">                                 Minimum duration between alert and restored &quot;for&quot; state. This is maintained only for alerts with configured &quot;for&quot; time greater than grace period.</span><br><span class="line">#将警报重新发送到Alertmanager之前等待的最短时间。</span><br><span class="line">      --rules.alert.resend-delay&#x3D;1m</span><br><span class="line">                                 Minimum amount of time to wait before resending an alert to Alertmanager.</span><br><span class="line">#等待的Alertmanager通知的队列容量。</span><br><span class="line">      --alertmanager.notification-queue-capacity&#x3D;10000</span><br><span class="line">                                 The capacity of the queue for pending Alertmanager notifications.</span><br><span class="line">#向Alertmanager发送警报的超时。</span><br><span class="line">      --alertmanager.timeout&#x3D;10s</span><br><span class="line">                                 Timeout for sending alerts to Alertmanager.</span><br><span class="line">#在表达式求值期间检索指标的最大回溯持续时间。</span><br><span class="line">      --query.lookback-delta&#x3D;5m  The maximum lookback duration for retrieving metrics during expression evaluations.</span><br><span class="line">#最大查询时间。</span><br><span class="line">      --query.timeout&#x3D;2m         Maximum time a query may take before being aborted.</span><br><span class="line">#最大查询并发数</span><br><span class="line">      --query.max-concurrency&#x3D;20</span><br><span class="line">                                 Maximum number of queries executed concurrently.</span><br><span class="line">#单个查询可以加载到内存中的最大样本数。 请注意，如果查询尝试将更多的样本加载到内存中，则查询将失败，因此这也限制了查询可以返回的样本数。</span><br><span class="line"></span><br><span class="line">      --query.max-samples&#x3D;50000000</span><br><span class="line">                                 Maximum number of samples a single query can load into memory. Note that queries will fail if they try to load more samples than this into memory, so this also limits the</span><br><span class="line">                                 number of samples a query can return.</span><br><span class="line">#日志级别</span><br><span class="line">      --log.level&#x3D;info           Only log messages with the given severity or above. One of: [debug, info, warn, error]</span><br><span class="line">#日志格式</span><br><span class="line">      --log.format&#x3D;logfmt        Output format of log messages. One of: [logfmt, json]</span><br></pre></td></tr></table></figure>
 <p>参考文章：<a target="_blank" rel="noopener" href="https://www.cnblogs.com/zhoujinyi/p/11934062.html">https://www.cnblogs.com/zhoujinyi/p/11934062.html</a></p>
 
-            </div>
-            <hr>
-            <div>
-              <div class="post-metas mb-3">
-                
-                  <div class="post-meta mr-3">
-                    <i class="iconfont icon-category"></i>
-                    
-                      <a class="hover-with-bg" href="/categories/Prometheus/">Prometheus</a>
-                    
-                  </div>
-                
-                
-                  <div class="post-meta">
-                    <i class="iconfont icon-tags"></i>
-                    
-                      <a class="hover-with-bg" href="/tags/Prometheus/">Prometheus</a>
-                    
-                  </div>
-                
-              </div>
-              
-                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
-              
-              
-                <div class="post-prevnext">
-                  <article class="post-prev col-6">
-                    
-                    
-                      <a href="/2021/03/22/alertmanager%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6%E8%AF%A6%E8%A7%A3/">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">alertmanager配置文件详解</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
-                  </article>
-                  <article class="post-next col-6">
-                    
-                    
-                      <a href="/2021/03/22/Prometheus%E7%9B%91%E6%8E%A7k8s%E9%9B%86%E7%BE%A4/">
-                        <span class="hidden-mobile">Prometheus监控k8s集群</span>
-                        <span class="visible-mobile">下一篇</span>
-                        <i class="iconfont icon-arrowright"></i>
-                      </a>
-                    
-                  </article>
-                </div>
-              
-            </div>
-
-            
-              <!-- Comments -->
-              <article class="comments" id="comments">
-                
-                
-  <div id="vcomments"></div>
-  <script type="text/javascript">
-    Fluid.utils.waitElementVisible('vcomments', function() {
-      Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js', function () {
-        new Valine({
-          el: "#vcomments",
-          app_id: "hPHtsN0Gt7U2zB2AllYqbucc-9Nh9j0Va",
-          app_key: "TVUER8rWijR8cD1STqzd2d4E",
-          placeholder: "你有故事，我有酒，我们一起勇闯天涯。。。",
-          path: window.location.pathname,
-          avatar: "retro",
-          meta: ["nick","mail","link"],
-          pageSize: "10",
-          lang: "zh-CN",
-          highlight: false,
-          recordIP: false,
-          serverURLs: "",
-        });
-      });
-    });
-  </script>
-  <noscript>Please enable JavaScript to view the
-    <a target="_blank" href="https://valine.js.org" rel="nofollow noopener noopener">comments powered by Valine.</a>
-  </noscript>
-
-
-              </article>
-            
-          </article>
-        </div>
-      </div>
     </div>
+
     
-      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
-        <div id="toc">
-  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
-  <div class="toc-body" id="toc-body"></div>
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Prometheus/" rel="tag"># Prometheus</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2021/03/22/Prometheus%E7%9B%91%E6%8E%A7k8s%E9%9B%86%E7%BE%A4/" rel="prev" title="Prometheus监控k8s集群">
+                  <i class="fa fa-chevron-left"></i> Prometheus监控k8s集群
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2021/03/22/alertmanager%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6%E8%AF%A6%E8%A7%A3/" rel="next" title="alertmanager配置文件详解">
+                  alertmanager配置文件详解 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
 </div>
 
-      </div>
-    
-  </div>
+
+
+
+
+
 </div>
-
-<!-- Custom -->
-
-
-    
-
-    
-      <a id="scroll-top-button" href="#" role="button">
-        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
-      </a>
-    
-
-    
-      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
-     aria-hidden="true">
-  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
-    <div class="modal-content">
-      <div class="modal-header text-center">
-        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
-        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body mx-3">
-        <div class="md-form mb-5">
-          <input type="text" id="local-search-input" class="form-control validate">
-          <label data-error="x" data-success="v"
-                 for="local-search-input">关键词</label>
-        </div>
-        <div class="list-group" id="local-search-result"></div>
-      </div>
-    </div>
-  </div>
-</div>
-    
-
-    
   </main>
 
-  <footer class="text-center mt-5 py-3">
-  <div class="footer-content">
-     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
-  </div>
-  
-  <div class="statistics">
-    
-    
+  <footer class="footer">
+    <div class="footer-inner">
 
-    
-      
-        <!-- 不蒜子统计PV -->
-        <span id="busuanzi_container_site_pv" style="display: none">
-            总访问量 
-            <span id="busuanzi_value_site_pv"></span>
-             次
-          </span>
-      
-      
-        <!-- 不蒜子统计UV -->
-        <span id="busuanzi_container_site_uv" style="display: none">
-            总访客数 
-            <span id="busuanzi_value_site_uv"></span>
-             人
-          </span>
-      
-    
+
+<div class="copyright">
+  &copy; 2020 – 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">羊皮裘老头</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
   </div>
 
+    </div>
+  </footer>
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
 
   
 
-  
-</footer>
 
-<!-- SCRIPTS -->
-
-  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
-  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
-
-  <script>
-    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
-    NProgress.start()
-    window.addEventListener('load', function() {
-      NProgress.done();
-    })
-  </script>
-
-
-<script  src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" ></script>
-<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" ></script>
-<script  src="/js/debouncer.js" ></script>
-<script  src="/js/events.js" ></script>
-<script  src="/js/plugins.js" ></script>
-
-<!-- Plugins -->
-
-
-  
-    <script  src="/js/lazyload.js" ></script>
-  
 
 
 
   
 
 
-
-  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.0/dist/tocbot.min.js" ></script>
-
-
-
-  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
-
-
-
-  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.0/anchor.min.js" ></script>
-
-
-
-  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js" ></script>
-
-
-
-  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
-
-
-
-
-
-
-  <script  src="/js/local-search.js" ></script>
-  <script>
-    (function () {
-      var path = "/local-search.xml";
-      var inputArea = document.querySelector("#local-search-input");
-      inputArea.onclick = function () {
-        searchFunc(path, 'local-search-input', 'local-search-result');
-        this.onclick = null
-      }
-    })()
-  </script>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<!-- 主题的启动项 保持在最底部 -->
-<script  src="/js/boot.js" ></script>
 
 
 

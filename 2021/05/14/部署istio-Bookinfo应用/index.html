@@ -1,576 +1,353 @@
-
-
 <!DOCTYPE html>
-<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
-
-
-
+<html lang="zh-CN">
 <head>
   <meta charset="UTF-8">
-  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
-  <link rel="icon" type="image/png" href="/img/favicon.png">
-  <meta name="viewport"
-        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
-  <meta http-equiv="x-ua-compatible" content="ie=edge">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 5.3.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.12.1","exturl":false,"sidebar":{"position":"left","width":300,"display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="1、bookinfo 架构介绍​        bookinfo 是 istio 的学习样例，通过 bookinfo 你可以对 istio 提供的路由、遥测等功能有更加深入的理解。下图是 bookinfo 在没有嵌入 istio 前的物理架构图：       bookinfo 是一个在线书店应用，该应用由 4 个微服务组成，分别为 Product page、Reviews、Details 和  R">
+<meta property="og:type" content="article">
+<meta property="og:title" content="部署istio Bookinfo应用">
+<meta property="og:url" content="http://example.com/2021/05/14/%E9%83%A8%E7%BD%B2istio-Bookinfo%E5%BA%94%E7%94%A8/index.html">
+<meta property="og:site_name" content="羊皮裘老头">
+<meta property="og:description" content="1、bookinfo 架构介绍​        bookinfo 是 istio 的学习样例，通过 bookinfo 你可以对 istio 提供的路由、遥测等功能有更加深入的理解。下图是 bookinfo 在没有嵌入 istio 前的物理架构图：       bookinfo 是一个在线书店应用，该应用由 4 个微服务组成，分别为 Product page、Reviews、Details 和  R">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://yangpiqiulaotou.oss-cn-hangzhou.aliyuncs.com/images/20210513151100.png">
+<meta property="og:image" content="https://yangpiqiulaotou.oss-cn-hangzhou.aliyuncs.com/images/20210513151104.png">
+<meta property="og:image" content="https://yangpiqiulaotou.oss-cn-hangzhou.aliyuncs.com/images/20210513151231.png">
+<meta property="og:image" content="https://yangpiqiulaotou.oss-cn-hangzhou.aliyuncs.com/images/20210513151313.png">
+<meta property="og:image" content="https://yangpiqiulaotou.oss-cn-hangzhou.aliyuncs.com/images/20210513151845.png">
+<meta property="og:image" content="https://yangpiqiulaotou.oss-cn-hangzhou.aliyuncs.com/images/20210513152156.png">
+<meta property="og:image" content="https://yangpiqiulaotou.oss-cn-hangzhou.aliyuncs.com/images/20210513152502.png">
+<meta property="og:image" content="https://yangpiqiulaotou.oss-cn-hangzhou.aliyuncs.com/images/20210513152747.png">
+<meta property="og:image" content="https://yangpiqiulaotou.oss-cn-hangzhou.aliyuncs.com/images/20210513152930.png">
+<meta property="og:image" content="https://yangpiqiulaotou.oss-cn-hangzhou.aliyuncs.com/images/20210513153250.png">
+<meta property="article:published_time" content="2021-05-14T02:40:24.000Z">
+<meta property="article:modified_time" content="2022-04-17T09:07:34.740Z">
+<meta property="article:author" content="羊皮裘老头">
+<meta property="article:tag" content="Istio">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://yangpiqiulaotou.oss-cn-hangzhou.aliyuncs.com/images/20210513151100.png">
+
+
+<link rel="canonical" href="http://example.com/2021/05/14/%E9%83%A8%E7%BD%B2istio-Bookinfo%E5%BA%94%E7%94%A8/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://example.com/2021/05/14/%E9%83%A8%E7%BD%B2istio-Bookinfo%E5%BA%94%E7%94%A8/","path":"2021/05/14/部署istio-Bookinfo应用/","title":"部署istio Bookinfo应用"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>部署istio Bookinfo应用 | 羊皮裘老头</title>
   
-  <meta name="theme-color" content="#2f4154">
-  <meta name="description" content="">
-  <meta name="author" content="羊皮裘老头">
-  <meta name="keywords" content="">
-  <title>部署istio Bookinfo应用 - 羊皮裘老头</title>
-
-  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
-
-
-  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
-  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
-
-  
-    
-    
-      
-      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.4.0/styles/github-gist.min.css" />
-    
-  
-
-  
-    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
-  
 
 
 
-<!-- 主题依赖的图标库，不要自行修改 -->
-
-<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
 
 
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
 
-<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
 
-
-<link  rel="stylesheet" href="/css/main.css" />
-
-<!-- 自定义样式保持在最底部 -->
-
-
-  <script id="fluid-configs">
-    var Fluid = window.Fluid || {};
-    var CONFIG = {"hostname":"example.com","root":"/","version":"1.8.7","typing":{"enable":false,"typeSpeed":70,"cursorChar":" ","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"onlypost":false},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}}};
-  </script>
-  <script  src="/js/utils.js" ></script>
-  <script  src="/js/color-schema.js" ></script>
-<meta name="generator" content="Hexo 5.3.0"></head>
-
-
-<body>
-  <header style="height: 70vh;">
-    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
-  <div class="container">
-    <a class="navbar-brand"
-       href="/">&nbsp;<strong>羊皮裘老头</strong>&nbsp;</a>
-
-    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
-            data-target="#navbarSupportedContent"
-            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <div class="animated-icon"><span></span><span></span><span></span></div>
-    </button>
-
-    <!-- Collapsible content -->
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav ml-auto text-center">
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/">
-                <i class="iconfont icon-home-fill"></i>
-                首页
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/archives/">
-                <i class="iconfont icon-archive-fill"></i>
-                归档
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/categories/">
-                <i class="iconfont icon-category-fill"></i>
-                分类
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/tags/">
-                <i class="iconfont icon-tags-fill"></i>
-                标签
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/about/">
-                <i class="iconfont icon-user-fill"></i>
-                关于
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <i class="iconfont icon-books"></i>
-                文档
-              </a>
-              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                
-                  
-                  
-                  
-                  <a class="dropdown-item" target="_blank" rel="noopener" href="https://hexo.fluid-dev.com/">
-                    
-                    主题博客
-                  </a>
-                
-                  
-                  
-                  
-                  <a class="dropdown-item" target="_blank" rel="noopener" href="https://hexo.fluid-dev.com/docs/guide/">
-                    
-                    配置指南
-                  </a>
-                
-                  
-                  
-                  
-                  <a class="dropdown-item" target="_blank" rel="noopener" href="https://hexo.fluid-dev.com/docs/icon/">
-                    
-                    图标用法
-                  </a>
-                
-              </div>
-            </li>
-          
-        
-        
-          <li class="nav-item" id="search-btn">
-            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
-                class="iconfont icon-search"></i>&nbsp;</a>
-          </li>
-        
-        
-          <li class="nav-item" id="color-toggle-btn">
-            <a class="nav-link" href="javascript:">&nbsp;<i
-                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
-          </li>
-        
-      </ul>
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
     </div>
   </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">羊皮裘老头</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">28</span></a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">13</span></a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">116</span></a></li><li class="menu-item menu-item-schedule"><a href="/schedule/" rel="section"><i class="fa fa-calendar fa-fw"></i>日程表</a></li><li class="menu-item menu-item-sitemap"><a href="/sitemap.xml" rel="section"><i class="fa fa-sitemap fa-fw"></i>站点地图</a></li><li class="menu-item menu-item-commonweal"><a href="/404/" rel="section"><i class="fa fa-heartbeat fa-fw"></i>公益 404</a></li>
+  </ul>
 </nav>
 
-    <div class="banner" id="banner" parallax=true
-         style="background: url('/img/ss.png') no-repeat center center;
-           background-size: cover;">
-      <div class="full-bg-img">
-        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
-          <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="部署istio Bookinfo应用">
-              
-                部署istio Bookinfo应用
-              
-            </span>
 
-            
-              <div class="mt-3">
+
+
+</div>
+        
   
-  
-    <span class="post-meta">
-      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-      <time datetime="2021-05-14 10:40" pubdate>
-        2021年5月14日 上午
-      </time>
-    </span>
-  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1%E3%80%81bookinfo-%E6%9E%B6%E6%9E%84%E4%BB%8B%E7%BB%8D"><span class="nav-number">1.</span> <span class="nav-text">1、bookinfo 架构介绍</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2%E3%80%81bookinfo-%E9%85%8D%E7%BD%AE%E4%B8%8E%E9%83%A8%E7%BD%B2"><span class="nav-number">2.</span> <span class="nav-text">2、bookinfo 配置与部署</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-%E9%85%8D%E7%BD%AEistio%E8%87%AA%E5%8A%A8%E6%B3%A8%E5%85%A5"><span class="nav-number">2.1.</span> <span class="nav-text">2.1 配置istio自动注入</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-%E9%83%A8%E7%BD%B2bookinfo-%E5%BA%94%E7%94%A8"><span class="nav-number">2.2.</span> <span class="nav-text">2.2  部署bookinfo 应用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-3-%E9%AA%8C%E8%AF%81-bookinfo-%E9%83%A8%E7%BD%B2%E6%83%85%E5%86%B5"><span class="nav-number">2.3.</span> <span class="nav-text">2.3 验证 bookinfo 部署情况</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3%E3%80%81%E8%AE%BE%E7%BD%AE-bookinfo-%E7%BD%91%E5%85%B3"><span class="nav-number">3.</span> <span class="nav-text">3、设置 bookinfo 网关</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4%E3%80%81-%E8%AE%BF%E9%97%AE-bookinfo-%E5%BA%94%E7%94%A8"><span class="nav-number">4.</span> <span class="nav-text">4、 访问 bookinfo 应用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5%E3%80%81%E5%8D%B8%E8%BD%BD-bookinfo-%E5%BA%94%E7%94%A8"><span class="nav-number">5.</span> <span class="nav-text">5、卸载 bookinfo 应用</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">羊皮裘老头</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">116</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">13</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">28</span>
+        <span class="site-state-item-name">标签</span>
+      </div>
+  </nav>
 </div>
 
-<div class="mt-1">
-  
-    
-    <span class="post-meta mr-2">
-      <i class="iconfont icon-chart"></i>
-      866 字
-    </span>
-  
 
-  
-    
-    <span class="post-meta mr-2">
-      <i class="iconfont icon-clock-fill"></i>
-      
-      
-      11
-       分钟
-    </span>
-  
 
-  
-  
-    
-      <!-- LeanCloud 统计文章PV -->
-      <span id="leancloud-page-views-container" class="post-meta" style="display: none">
-        <i class="iconfont icon-eye" aria-hidden="true"></i>
-        <span id="leancloud-page-views"></span> 次
-      </span>
-    
-  
-</div>
-
-            
-          </div>
-
-          
         </div>
       </div>
     </div>
-  </header>
+  </aside>
+  <div class="sidebar-dimmer"></div>
 
-  <main>
+
+    </header>
+
     
-      
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
 
-<div class="container-fluid nopadding-x">
-  <div class="row nomargin-x">
-    <div class="d-none d-lg-block col-lg-2"></div>
-    <div class="col-lg-8 nopadding-x-md">
-      <div class="container nopadding-x-md" id="board-ctn">
-        <div class="py-5" id="board">
-          <article class="post-content mx-auto">
-            <!-- SEO header -->
-            <h1 style="display: none">部署istio Bookinfo应用</h1>
-            
-              <p class="note note-info">
-                
-                  本文最后更新于：2022年4月17日 下午
-                
-              </p>
-            
-            <div class="markdown-body">
-              <h2 id="1、bookinfo-架构介绍"><a href="#1、bookinfo-架构介绍" class="headerlink" title="1、bookinfo 架构介绍"></a>1、bookinfo 架构介绍</h2><p>​        bookinfo 是 istio 的学习样例，通过 bookinfo 你可以对 istio 提供的路由、遥测等功能有更加深入的理解。下图是 bookinfo 在没有嵌入 istio 前的物理架构图：</p>
-<p><img src="https://yangpiqiulaotou.oss-cn-hangzhou.aliyuncs.com/images/20210513151100.png" srcset="/img/loading.gif"></p>
-<div class="hljs code-wrapper"><pre><code>     bookinfo 是一个在线书店应用，该应用由 4 个微服务组成，分别为 Product page、Reviews、Details 和  Ratings。为了表现 istio 的无侵入性，这 4 个微服务分别由 python、java、ruby 和 node  开发。下面分别说明如下：</code></pre></div>
-<figure class="highlight excel"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs excel"><span class="hljs-built_in">Product</span> page：聚合服务，内容由 Reviews 和 Details 内容聚合而成<br>Details：     图书详情服务<br>Reviews：	 图书评价服务（多版本）。它也是一个聚合服务，聚合了 Ratings<br>Ratings：	 图书预订排名服务<br></code></pre></div></td></tr></table></figure>
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/05/14/%E9%83%A8%E7%BD%B2istio-Bookinfo%E5%BA%94%E7%94%A8/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="羊皮裘老头">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="羊皮裘老头">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="部署istio Bookinfo应用 | 羊皮裘老头">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          部署istio Bookinfo应用
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2021-05-14 10:40:24" itemprop="dateCreated datePublished" datetime="2021-05-14T10:40:24+08:00">2021-05-14</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-04-17 17:07:34" itemprop="dateModified" datetime="2022-04-17T17:07:34+08:00">2022-04-17</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Istio/" itemprop="url" rel="index"><span itemprop="name">Istio</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h2 id="1、bookinfo-架构介绍"><a href="#1、bookinfo-架构介绍" class="headerlink" title="1、bookinfo 架构介绍"></a>1、bookinfo 架构介绍</h2><p>​        bookinfo 是 istio 的学习样例，通过 bookinfo 你可以对 istio 提供的路由、遥测等功能有更加深入的理解。下图是 bookinfo 在没有嵌入 istio 前的物理架构图：</p>
+<p><img src="https://yangpiqiulaotou.oss-cn-hangzhou.aliyuncs.com/images/20210513151100.png"></p>
+<pre><code>     bookinfo 是一个在线书店应用，该应用由 4 个微服务组成，分别为 Product page、Reviews、Details 和  Ratings。为了表现 istio 的无侵入性，这 4 个微服务分别由 python、java、ruby 和 node  开发。下面分别说明如下：</code></pre>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Product page：聚合服务，内容由 Reviews 和 Details 内容聚合而成</span><br><span class="line">Details：     图书详情服务</span><br><span class="line">Reviews：	 图书评价服务（多版本）。它也是一个聚合服务，聚合了 Ratings</span><br><span class="line">Ratings：	 图书预订排名服务</span><br></pre></td></tr></table></figure>
 <p>下图是 bookinfo 嵌入 istio 后的物理架构图：</p>
-<p><img src="https://yangpiqiulaotou.oss-cn-hangzhou.aliyuncs.com/images/20210513151104.png" srcset="/img/loading.gif"></p>
+<p><img src="https://yangpiqiulaotou.oss-cn-hangzhou.aliyuncs.com/images/20210513151104.png"></p>
 <p>​        该架构图演示了嵌入 istio 后 bookinfo 的每个微服务都会新增一个 Envoy，这个 Envoy 就是所谓的  sidecar，它会接管跟它配对的微服务的所有网络进、出口流量。其实  Envoy（sidecar）的作用就像你的手机，它正在逐渐把你变成哑巴、聋子和植物人，它承接了你所有的信息入口和出口，某些别有用心的人和组织通过对手机进行监控、遥测、路由等控制，起到控制你的思维、舆论导向、审美爱好等目的。</p>
 <h2 id="2、bookinfo-配置与部署"><a href="#2、bookinfo-配置与部署" class="headerlink" title="2、bookinfo 配置与部署"></a>2、bookinfo 配置与部署</h2><h3 id="2-1-配置istio自动注入"><a href="#2-1-配置istio自动注入" class="headerlink" title="2.1 配置istio自动注入"></a>2.1 配置istio自动注入</h3><p>因为 bookinfo 会启动多个 pod，每次手动注入 sidecar 会特别繁琐，因此我们使用批注入的方式</p>
-<figure class="highlight routeros"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs routeros">kubectl label namespace<span class="hljs-built_in"> default </span><span class="hljs-attribute">istio-injection</span>=enabled<br>kubectl <span class="hljs-builtin-name">get</span> ns<span class="hljs-built_in"> default </span>--show-labels<br></code></pre></div></td></tr></table></figure>
-<p><img src="https://yangpiqiulaotou.oss-cn-hangzhou.aliyuncs.com/images/20210513151231.png" srcset="/img/loading.gif" alt="image-20210513151231150"></p>
-<h3 id="2-2-部署bookinfo-应用"><a href="#2-2-部署bookinfo-应用" class="headerlink" title="2.2  部署bookinfo 应用"></a>2.2  部署bookinfo 应用</h3><figure class="highlight awk"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs awk">kubectl apply -f samples<span class="hljs-regexp">/bookinfo/</span>platform<span class="hljs-regexp">/kube/</span>bookinfo.yaml<br></code></pre></div></td></tr></table></figure>
-<p><img src="https://yangpiqiulaotou.oss-cn-hangzhou.aliyuncs.com/images/20210513151313.png" srcset="/img/loading.gif" alt="image-20210513151313446"></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">kubectl label namespace default istio-injection&#x3D;enabled</span><br><span class="line">kubectl get ns default --show-labels</span><br></pre></td></tr></table></figure>
+<p><img src="https://yangpiqiulaotou.oss-cn-hangzhou.aliyuncs.com/images/20210513151231.png" alt="image-20210513151231150"></p>
+<h3 id="2-2-部署bookinfo-应用"><a href="#2-2-部署bookinfo-应用" class="headerlink" title="2.2  部署bookinfo 应用"></a>2.2  部署bookinfo 应用</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kubectl apply -f samples&#x2F;bookinfo&#x2F;platform&#x2F;kube&#x2F;bookinfo.yaml</span><br></pre></td></tr></table></figure>
+<p><img src="https://yangpiqiulaotou.oss-cn-hangzhou.aliyuncs.com/images/20210513151313.png" alt="image-20210513151313446"></p>
 <p>执行如下命令查看 bookinfo 的 service 列表：</p>
-<figure class="highlight armasm"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs armasm"><span class="hljs-symbol">kubectl</span> <span class="hljs-meta">get</span> <span class="hljs-keyword">svc</span> -n test<br></code></pre></div></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kubectl get svc -n test</span><br></pre></td></tr></table></figure>
 <p>执行如下命令查看 bookinfo 的 pod 列表：</p>
-<figure class="highlight routeros"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs routeros">kubectl <span class="hljs-builtin-name">get</span> pod -n test<br></code></pre></div></td></tr></table></figure>
-<p><img src="https://yangpiqiulaotou.oss-cn-hangzhou.aliyuncs.com/images/20210513151845.png" srcset="/img/loading.gif" alt="image-20210513151845476"></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kubectl get pod -n test</span><br></pre></td></tr></table></figure>
+<p><img src="https://yangpiqiulaotou.oss-cn-hangzhou.aliyuncs.com/images/20210513151845.png" alt="image-20210513151845476"></p>
 <h3 id="2-3-验证-bookinfo-部署情况"><a href="#2-3-验证-bookinfo-部署情况" class="headerlink" title="2.3 验证 bookinfo 部署情况"></a>2.3 验证 bookinfo 部署情况</h3><p>在服务列表中寻找 productpage 服务，然后使用 curl 命令验证服务是否发布成功。</p>
-<figure class="highlight awk"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs awk">kubectl get svc<br><span class="hljs-comment">#验证方式一：</span><br>curl http:<span class="hljs-regexp">//</span><span class="hljs-number">10.43</span>.<span class="hljs-number">53.159</span>:<span class="hljs-number">9080</span> | grep -o <span class="hljs-string">&quot;&lt;title&gt;.*&lt;/title&gt;&quot;</span><br><br><span class="hljs-comment">#验证方式二：</span><br>kubectl exec <span class="hljs-string">&quot;$(kubectl get pod -l app=ratings -o jsonpath=&#x27;&#123;.items[0].metadata.name&#125;&#x27;)&quot;</span> -c ratings -- curl -s productpage:<span class="hljs-number">9080</span><span class="hljs-regexp">/productpage | grep -o &quot;&lt;title&gt;.*&lt;/</span>title&gt;<span class="hljs-string">&quot;</span><br></code></pre></div></td></tr></table></figure>
-<p><img src="https://yangpiqiulaotou.oss-cn-hangzhou.aliyuncs.com/images/20210513152156.png" srcset="/img/loading.gif" alt="image-20210513152156733"></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">kubectl get svc</span><br><span class="line">#验证方式一：</span><br><span class="line">curl http:&#x2F;&#x2F;10.43.53.159:9080 | grep -o &quot;&lt;title&gt;.*&lt;&#x2F;title&gt;&quot;</span><br><span class="line"></span><br><span class="line">#验证方式二：</span><br><span class="line">kubectl exec &quot;$(kubectl get pod -l app&#x3D;ratings -o jsonpath&#x3D;&#39;&#123;.items[0].metadata.name&#125;&#39;)&quot; -c ratings -- curl -s productpage:9080&#x2F;productpage | grep -o &quot;&lt;title&gt;.*&lt;&#x2F;title&gt;&quot;</span><br></pre></td></tr></table></figure>
+<p><img src="https://yangpiqiulaotou.oss-cn-hangzhou.aliyuncs.com/images/20210513152156.png" alt="image-20210513152156733"></p>
 <h2 id="3、设置-bookinfo-网关"><a href="#3、设置-bookinfo-网关" class="headerlink" title="3、设置 bookinfo 网关"></a>3、设置 bookinfo 网关</h2><p>此时，BookInfo 应用已经部署，但还不能被外界访问。 要开放访问，你需要创建 Istio 入站网关（Ingress Gateway）, 它会在网格边缘把一个路径映射到路由。</p>
-<figure class="highlight awk"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs awk">kubectl apply -f samples<span class="hljs-regexp">/bookinfo/</span>networking/bookinfo-gateway.yaml     <span class="hljs-comment">#定义 bookinfo 入口网关</span><br><br>kubectl get gateways.networking.istio.io      <span class="hljs-comment">#确认网关已创建</span><br><br>istioctl analyze    <span class="hljs-comment">#确保配置文件没问题</span><br></code></pre></div></td></tr></table></figure>
-<p><img src="https://yangpiqiulaotou.oss-cn-hangzhou.aliyuncs.com/images/20210513152502.png" srcset="/img/loading.gif" alt="image-20210513152502733"></p>
-<h2 id="4、-访问-bookinfo-应用"><a href="#4、-访问-bookinfo-应用" class="headerlink" title="4、 访问 bookinfo 应用"></a>4、 访问 bookinfo 应用</h2><figure class="highlight routeros"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs routeros">kubectl <span class="hljs-builtin-name">get</span> po -l <span class="hljs-attribute">istio</span>=ingressgateway -n istio-system -o <span class="hljs-attribute">jsonpath</span>=<span class="hljs-string">&#x27;&#123;.items[0].status.hostIP&#125;&#x27;</span>           # 获取 INGRESS_HOST<br><br>kubectl -n istio-system <span class="hljs-builtin-name">get</span><span class="hljs-built_in"> service </span>istio-ingressgateway -o <span class="hljs-attribute">jsonpath</span>=<span class="hljs-string">&#x27;&#123;.spec.ports[?(@.name==&quot;http2&quot;)].nodePort&#125;&#x27;</span>                  #获取 INGRESS_PORT<br></code></pre></div></td></tr></table></figure>
-<p><img src="https://yangpiqiulaotou.oss-cn-hangzhou.aliyuncs.com/images/20210513152747.png" srcset="/img/loading.gif" alt="image-20210513152747077"></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">kubectl apply -f samples&#x2F;bookinfo&#x2F;networking&#x2F;bookinfo-gateway.yaml     #定义 bookinfo 入口网关</span><br><span class="line"></span><br><span class="line">kubectl get gateways.networking.istio.io      #确认网关已创建</span><br><span class="line"></span><br><span class="line">istioctl analyze    #确保配置文件没问题</span><br></pre></td></tr></table></figure>
+<p><img src="https://yangpiqiulaotou.oss-cn-hangzhou.aliyuncs.com/images/20210513152502.png" alt="image-20210513152502733"></p>
+<h2 id="4、-访问-bookinfo-应用"><a href="#4、-访问-bookinfo-应用" class="headerlink" title="4、 访问 bookinfo 应用"></a>4、 访问 bookinfo 应用</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">kubectl get po -l istio&#x3D;ingressgateway -n istio-system -o jsonpath&#x3D;&#39;&#123;.items[0].status.hostIP&#125;&#39;           # 获取 INGRESS_HOST</span><br><span class="line"></span><br><span class="line">kubectl -n istio-system get service istio-ingressgateway -o jsonpath&#x3D;&#39;&#123;.spec.ports[?(@.name&#x3D;&#x3D;&quot;http2&quot;)].nodePort&#125;&#39;                  #获取 INGRESS_PORT</span><br></pre></td></tr></table></figure>
+<p><img src="https://yangpiqiulaotou.oss-cn-hangzhou.aliyuncs.com/images/20210513152747.png" alt="image-20210513152747077"></p>
 <p>根据此 host 和 port，打开浏览器进行访问，多刷新几次页面，你会发现 bookinfo 应用使用到的多个 reviews 版本，有时书评的输出包含星级评分，有时则不包含。 这是因为没有明确的默认服务版本路由，Istio 将以循环方式请求路由到所有可用版本。如下所示：</p>
-<figure class="highlight awk"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs awk">http:<span class="hljs-regexp">//</span><span class="hljs-number">192.168</span>.<span class="hljs-number">10.200</span>:<span class="hljs-number">31862</span>/productpage          <span class="hljs-comment">#ip加端口会报404</span><br></code></pre></div></td></tr></table></figure>
-<p><img src="https://yangpiqiulaotou.oss-cn-hangzhou.aliyuncs.com/images/20210513152930.png" srcset="/img/loading.gif" alt="image-20210513152930707"></p>
-<h2 id="5、卸载-bookinfo-应用"><a href="#5、卸载-bookinfo-应用" class="headerlink" title="5、卸载 bookinfo 应用"></a>5、卸载 bookinfo 应用</h2><figure class="highlight awk"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs awk"><span class="hljs-regexp">/root/i</span>stio-<span class="hljs-number">1.10</span>.<span class="hljs-number">0</span>-rc.<span class="hljs-number">1</span><span class="hljs-regexp">/samples/</span>bookinfo<span class="hljs-regexp">/platform/</span>kube/cleanup.sh<br></code></pre></div></td></tr></table></figure>
-<p><img src="https://yangpiqiulaotou.oss-cn-hangzhou.aliyuncs.com/images/20210513153250.png" srcset="/img/loading.gif" alt="image-20210513153250037"></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http:&#x2F;&#x2F;192.168.10.200:31862&#x2F;productpage          #ip加端口会报404</span><br></pre></td></tr></table></figure>
+<p><img src="https://yangpiqiulaotou.oss-cn-hangzhou.aliyuncs.com/images/20210513152930.png" alt="image-20210513152930707"></p>
+<h2 id="5、卸载-bookinfo-应用"><a href="#5、卸载-bookinfo-应用" class="headerlink" title="5、卸载 bookinfo 应用"></a>5、卸载 bookinfo 应用</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;root&#x2F;istio-1.10.0-rc.1&#x2F;samples&#x2F;bookinfo&#x2F;platform&#x2F;kube&#x2F;cleanup.sh</span><br></pre></td></tr></table></figure>
+<p><img src="https://yangpiqiulaotou.oss-cn-hangzhou.aliyuncs.com/images/20210513153250.png" alt="image-20210513153250037"></p>
 <p>执行如下命令验证你是否成功卸载：</p>
-<figure class="highlight css"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs css"><span class="hljs-selector-tag">kubectl</span> <span class="hljs-selector-tag">get</span> <span class="hljs-selector-tag">virtualservices</span><span class="hljs-selector-class">.networking</span><span class="hljs-selector-class">.istio</span><span class="hljs-selector-class">.io</span><br><span class="hljs-selector-tag">kubectl</span> <span class="hljs-selector-tag">get</span> <span class="hljs-selector-tag">destinationrules</span><span class="hljs-selector-class">.networking</span><span class="hljs-selector-class">.istio</span><span class="hljs-selector-class">.io</span><br><span class="hljs-selector-tag">kubectl</span> <span class="hljs-selector-tag">get</span> <span class="hljs-selector-tag">gateways</span><span class="hljs-selector-class">.networking</span><span class="hljs-selector-class">.istio</span><span class="hljs-selector-class">.io</span><br><span class="hljs-selector-tag">kubectl</span> <span class="hljs-selector-tag">get</span> <span class="hljs-selector-tag">pod</span><br></code></pre></div></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">kubectl get virtualservices.networking.istio.io</span><br><span class="line">kubectl get destinationrules.networking.istio.io</span><br><span class="line">kubectl get gateways.networking.istio.io</span><br><span class="line">kubectl get pod</span><br></pre></td></tr></table></figure>
 
-            </div>
-            <hr>
-            <div>
-              <div class="post-metas mb-3">
-                
-                  <div class="post-meta mr-3">
-                    <i class="iconfont icon-category"></i>
-                    
-                      <a class="hover-with-bg" href="/categories/Istio/">Istio</a>
-                    
-                  </div>
-                
-                
-                  <div class="post-meta">
-                    <i class="iconfont icon-tags"></i>
-                    
-                      <a class="hover-with-bg" href="/tags/Istio/">Istio</a>
-                    
-                  </div>
-                
-              </div>
-              
-                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
-              
-              
-                <div class="post-prevnext">
-                  <article class="post-prev col-6">
-                    
-                    
-                      <a href="/2021/05/18/Istio-Gateway-%E8%AE%BE%E7%BD%AE%E8%B7%AF%E7%94%B1/">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">Istio Gateway 设置路由</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
-                  </article>
-                  <article class="post-next col-6">
-                    
-                    
-                      <a href="/2021/05/14/Istio%E6%B3%A8%E5%85%A5sidecar/">
-                        <span class="hidden-mobile">Istio注入sidecar</span>
-                        <span class="visible-mobile">下一篇</span>
-                        <i class="iconfont icon-arrowright"></i>
-                      </a>
-                    
-                  </article>
-                </div>
-              
-            </div>
-
-            
-              <!-- Comments -->
-              <article class="comments" id="comments">
-                
-                
-  <div id="vcomments"></div>
-  <script type="text/javascript">
-    Fluid.utils.waitElementVisible('vcomments', function() {
-      Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js', function () {
-        new Valine({
-          el: "#vcomments",
-          app_id: "hPHtsN0Gt7U2zB2AllYqbucc-9Nh9j0Va",
-          app_key: "TVUER8rWijR8cD1STqzd2d4E",
-          placeholder: "你有故事，我有酒，我们一起勇闯天涯。。。",
-          path: window.location.pathname,
-          avatar: "retro",
-          meta: ["nick","mail","link"],
-          pageSize: "10",
-          lang: "zh-CN",
-          highlight: false,
-          recordIP: false,
-          serverURLs: "",
-        });
-      });
-    });
-  </script>
-  <noscript>Please enable JavaScript to view the
-    <a target="_blank" href="https://valine.js.org" rel="nofollow noopener noopener">comments powered by Valine.</a>
-  </noscript>
-
-
-              </article>
-            
-          </article>
-        </div>
-      </div>
     </div>
+
     
-      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
-        <div id="toc">
-  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
-  <div class="toc-body" id="toc-body"></div>
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Istio/" rel="tag"># Istio</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2021/05/14/Istio%E6%B3%A8%E5%85%A5sidecar/" rel="prev" title="Istio注入sidecar">
+                  <i class="fa fa-chevron-left"></i> Istio注入sidecar
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2021/05/18/Istio-Gateway-%E8%AE%BE%E7%BD%AE%E8%B7%AF%E7%94%B1/" rel="next" title="Istio Gateway 设置路由">
+                  Istio Gateway 设置路由 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
 </div>
 
-      </div>
-    
-  </div>
+
+
+
+
+
 </div>
-
-<!-- Custom -->
-
-
-    
-
-    
-      <a id="scroll-top-button" href="#" role="button">
-        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
-      </a>
-    
-
-    
-      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
-     aria-hidden="true">
-  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
-    <div class="modal-content">
-      <div class="modal-header text-center">
-        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
-        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body mx-3">
-        <div class="md-form mb-5">
-          <input type="text" id="local-search-input" class="form-control validate">
-          <label data-error="x" data-success="v"
-                 for="local-search-input">关键词</label>
-        </div>
-        <div class="list-group" id="local-search-result"></div>
-      </div>
-    </div>
-  </div>
-</div>
-    
-
-    
   </main>
 
-  <footer class="text-center mt-5 py-3">
-  <div class="footer-content">
-     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
-  </div>
-  
-  <div class="statistics">
-    
-    
+  <footer class="footer">
+    <div class="footer-inner">
 
-    
-      
-        <!-- 不蒜子统计PV -->
-        <span id="busuanzi_container_site_pv" style="display: none">
-            总访问量 
-            <span id="busuanzi_value_site_pv"></span>
-             次
-          </span>
-      
-      
-        <!-- 不蒜子统计UV -->
-        <span id="busuanzi_container_site_uv" style="display: none">
-            总访客数 
-            <span id="busuanzi_value_site_uv"></span>
-             人
-          </span>
-      
-    
+
+<div class="copyright">
+  &copy; 2020 – 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">羊皮裘老头</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
   </div>
 
+    </div>
+  </footer>
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
 
   
 
-  
-</footer>
 
-<!-- SCRIPTS -->
-
-  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
-  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
-
-  <script>
-    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
-    NProgress.start()
-    window.addEventListener('load', function() {
-      NProgress.done();
-    })
-  </script>
-
-
-<script  src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" ></script>
-<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" ></script>
-<script  src="/js/debouncer.js" ></script>
-<script  src="/js/events.js" ></script>
-<script  src="/js/plugins.js" ></script>
-
-<!-- Plugins -->
-
-
-  
-    <script  src="/js/lazyload.js" ></script>
-  
 
 
 
   
 
 
-
-  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.0/dist/tocbot.min.js" ></script>
-
-
-
-  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
-
-
-
-  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.0/anchor.min.js" ></script>
-
-
-
-  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js" ></script>
-
-
-
-  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
-
-
-
-
-
-
-  <script  src="/js/local-search.js" ></script>
-  <script>
-    (function () {
-      var path = "/local-search.xml";
-      var inputArea = document.querySelector("#local-search-input");
-      inputArea.onclick = function () {
-        searchFunc(path, 'local-search-input', 'local-search-result');
-        this.onclick = null
-      }
-    })()
-  </script>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<!-- 主题的启动项 保持在最底部 -->
-<script  src="/js/boot.js" ></script>
 
 
 

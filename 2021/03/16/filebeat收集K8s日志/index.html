@@ -1,294 +1,252 @@
-
-
 <!DOCTYPE html>
-<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
-
-
-
+<html lang="zh-CN">
 <head>
   <meta charset="UTF-8">
-  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
-  <link rel="icon" type="image/png" href="/img/favicon.png">
-  <meta name="viewport"
-        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
-  <meta http-equiv="x-ua-compatible" content="ie=edge">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 5.3.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.12.1","exturl":false,"sidebar":{"position":"left","width":300,"display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="https:&#x2F;&#x2F;www.elastic.co&#x2F;guide&#x2F;en&#x2F;beats&#x2F;filebeat&#x2F;current&#x2F;configuration-filebeat-options.html 1、Filebeat概述​        Filebeat是用于转发和集中日志数据的轻量级传送程序。作为服务器上的代理安装，Filebeat监视您指定的日 志文件或位置，收集日志事件，并将其转发给Elasticsear">
+<meta property="og:type" content="article">
+<meta property="og:title" content="filebeat收集K8s日志">
+<meta property="og:url" content="http://example.com/2021/03/16/filebeat%E6%94%B6%E9%9B%86K8s%E6%97%A5%E5%BF%97/index.html">
+<meta property="og:site_name" content="羊皮裘老头">
+<meta property="og:description" content="https:&#x2F;&#x2F;www.elastic.co&#x2F;guide&#x2F;en&#x2F;beats&#x2F;filebeat&#x2F;current&#x2F;configuration-filebeat-options.html 1、Filebeat概述​        Filebeat是用于转发和集中日志数据的轻量级传送程序。作为服务器上的代理安装，Filebeat监视您指定的日 志文件或位置，收集日志事件，并将其转发给Elasticsear">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://gitee.com/jianshen-bao/blog-img/raw/master//img/image-20191224102720177.png">
+<meta property="og:image" content="https://gitee.com/jianshen-bao/blog-img/raw/master//img/image-20191224105720755.png">
+<meta property="og:image" content="https://gitee.com/jianshen-bao/blog-img/raw/master//img/image-20191224105648509.png">
+<meta property="article:published_time" content="2021-03-16T02:17:25.000Z">
+<meta property="article:modified_time" content="2022-04-17T09:07:33.724Z">
+<meta property="article:author" content="羊皮裘老头">
+<meta property="article:tag" content="Filebeat">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://gitee.com/jianshen-bao/blog-img/raw/master//img/image-20191224102720177.png">
+
+
+<link rel="canonical" href="http://example.com/2021/03/16/filebeat%E6%94%B6%E9%9B%86K8s%E6%97%A5%E5%BF%97/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://example.com/2021/03/16/filebeat%E6%94%B6%E9%9B%86K8s%E6%97%A5%E5%BF%97/","path":"2021/03/16/filebeat收集K8s日志/","title":"filebeat收集K8s日志"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>filebeat收集K8s日志 | 羊皮裘老头</title>
   
-  <meta name="theme-color" content="#2f4154">
-  <meta name="description" content="">
-  <meta name="author" content="羊皮裘老头">
-  <meta name="keywords" content="">
-  <title>filebeat收集K8s日志 - 羊皮裘老头</title>
-
-  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
-
-
-  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
-  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
-
-  
-    
-    
-      
-      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.4.0/styles/github-gist.min.css" />
-    
-  
-
-  
-    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
-  
 
 
 
-<!-- 主题依赖的图标库，不要自行修改 -->
-
-<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
 
 
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
 
-<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
 
-
-<link  rel="stylesheet" href="/css/main.css" />
-
-<!-- 自定义样式保持在最底部 -->
-
-
-  <script id="fluid-configs">
-    var Fluid = window.Fluid || {};
-    var CONFIG = {"hostname":"example.com","root":"/","version":"1.8.7","typing":{"enable":false,"typeSpeed":70,"cursorChar":" ","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"onlypost":false},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}}};
-  </script>
-  <script  src="/js/utils.js" ></script>
-  <script  src="/js/color-schema.js" ></script>
-<meta name="generator" content="Hexo 5.3.0"></head>
-
-
-<body>
-  <header style="height: 70vh;">
-    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
-  <div class="container">
-    <a class="navbar-brand"
-       href="/">&nbsp;<strong>羊皮裘老头</strong>&nbsp;</a>
-
-    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
-            data-target="#navbarSupportedContent"
-            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <div class="animated-icon"><span></span><span></span><span></span></div>
-    </button>
-
-    <!-- Collapsible content -->
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav ml-auto text-center">
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/">
-                <i class="iconfont icon-home-fill"></i>
-                首页
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/archives/">
-                <i class="iconfont icon-archive-fill"></i>
-                归档
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/categories/">
-                <i class="iconfont icon-category-fill"></i>
-                分类
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/tags/">
-                <i class="iconfont icon-tags-fill"></i>
-                标签
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/about/">
-                <i class="iconfont icon-user-fill"></i>
-                关于
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <i class="iconfont icon-books"></i>
-                文档
-              </a>
-              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                
-                  
-                  
-                  
-                  <a class="dropdown-item" target="_blank" rel="noopener" href="https://hexo.fluid-dev.com/">
-                    
-                    主题博客
-                  </a>
-                
-                  
-                  
-                  
-                  <a class="dropdown-item" target="_blank" rel="noopener" href="https://hexo.fluid-dev.com/docs/guide/">
-                    
-                    配置指南
-                  </a>
-                
-                  
-                  
-                  
-                  <a class="dropdown-item" target="_blank" rel="noopener" href="https://hexo.fluid-dev.com/docs/icon/">
-                    
-                    图标用法
-                  </a>
-                
-              </div>
-            </li>
-          
-        
-        
-          <li class="nav-item" id="search-btn">
-            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
-                class="iconfont icon-search"></i>&nbsp;</a>
-          </li>
-        
-        
-          <li class="nav-item" id="color-toggle-btn">
-            <a class="nav-link" href="javascript:">&nbsp;<i
-                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
-          </li>
-        
-      </ul>
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
     </div>
   </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">羊皮裘老头</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">28</span></a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">13</span></a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">116</span></a></li><li class="menu-item menu-item-schedule"><a href="/schedule/" rel="section"><i class="fa fa-calendar fa-fw"></i>日程表</a></li><li class="menu-item menu-item-sitemap"><a href="/sitemap.xml" rel="section"><i class="fa fa-sitemap fa-fw"></i>站点地图</a></li><li class="menu-item menu-item-commonweal"><a href="/404/" rel="section"><i class="fa fa-heartbeat fa-fw"></i>公益 404</a></li>
+  </ul>
 </nav>
 
-    <div class="banner" id="banner" parallax=true
-         style="background: url('/img/ss.png') no-repeat center center;
-           background-size: cover;">
-      <div class="full-bg-img">
-        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
-          <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="filebeat收集K8s日志">
-              
-                filebeat收集K8s日志
-              
-            </span>
 
-            
-              <div class="mt-3">
+
+
+</div>
+        
   
-  
-    <span class="post-meta">
-      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-      <time datetime="2021-03-16 10:17" pubdate>
-        2021年3月16日 上午
-      </time>
-    </span>
-  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#1%E3%80%81Filebeat%E6%A6%82%E8%BF%B0"><span class="nav-number">1.</span> <span class="nav-text">1、Filebeat概述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2%E3%80%81Filebeat%E8%BE%93%E5%85%A5%E7%B1%BB%E5%9E%8B"><span class="nav-number">2.</span> <span class="nav-text">2、Filebeat输入类型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3%E3%80%81%E5%9C%A8Kubernetes%E4%B8%8A%E8%BF%90%E8%A1%8CFilebeat"><span class="nav-number">3.</span> <span class="nav-text">3、在Kubernetes上运行Filebeat</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4%E3%80%81%E8%AE%BE%E7%BD%AE"><span class="nav-number">4.</span> <span class="nav-text">4、设置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5%E3%80%81%E6%8E%92%E9%94%99"><span class="nav-number">5.</span> <span class="nav-text">5、排错</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">羊皮裘老头</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">116</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">13</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">28</span>
+        <span class="site-state-item-name">标签</span>
+      </div>
+  </nav>
 </div>
 
-<div class="mt-1">
-  
-    
-    <span class="post-meta mr-2">
-      <i class="iconfont icon-chart"></i>
-      1.1k 字
-    </span>
-  
 
-  
-    
-    <span class="post-meta mr-2">
-      <i class="iconfont icon-clock-fill"></i>
-      
-      
-      18
-       分钟
-    </span>
-  
 
-  
-  
-    
-      <!-- LeanCloud 统计文章PV -->
-      <span id="leancloud-page-views-container" class="post-meta" style="display: none">
-        <i class="iconfont icon-eye" aria-hidden="true"></i>
-        <span id="leancloud-page-views"></span> 次
-      </span>
-    
-  
-</div>
-
-            
-          </div>
-
-          
         </div>
       </div>
     </div>
-  </header>
+  </aside>
+  <div class="sidebar-dimmer"></div>
 
-  <main>
+
+    </header>
+
     
-      
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
 
-<div class="container-fluid nopadding-x">
-  <div class="row nomargin-x">
-    <div class="d-none d-lg-block col-lg-2"></div>
-    <div class="col-lg-8 nopadding-x-md">
-      <div class="container nopadding-x-md" id="board-ctn">
-        <div class="py-5" id="board">
-          <article class="post-content mx-auto">
-            <!-- SEO header -->
-            <h1 style="display: none">filebeat收集K8s日志</h1>
-            
-              <p class="note note-info">
-                
-                  本文最后更新于：2022年4月17日 下午
-                
-              </p>
-            
-            <div class="markdown-body">
-              <p><a target="_blank" rel="noopener" href="https://www.elastic.co/guide/en/beats/filebeat/current/configuration-filebeat-options.html">https://www.elastic.co/guide/en/beats/filebeat/current/configuration-filebeat-options.html</a></p>
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/03/16/filebeat%E6%94%B6%E9%9B%86K8s%E6%97%A5%E5%BF%97/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="羊皮裘老头">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="羊皮裘老头">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="filebeat收集K8s日志 | 羊皮裘老头">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          filebeat收集K8s日志
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2021-03-16 10:17:25" itemprop="dateCreated datePublished" datetime="2021-03-16T10:17:25+08:00">2021-03-16</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-04-17 17:07:33" itemprop="dateModified" datetime="2022-04-17T17:07:33+08:00">2022-04-17</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Elk/" itemprop="url" rel="index"><span itemprop="name">Elk</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <p><a target="_blank" rel="noopener" href="https://www.elastic.co/guide/en/beats/filebeat/current/configuration-filebeat-options.html">https://www.elastic.co/guide/en/beats/filebeat/current/configuration-filebeat-options.html</a></p>
 <h3 id="1、Filebeat概述"><a href="#1、Filebeat概述" class="headerlink" title="1、Filebeat概述"></a>1、Filebeat概述</h3><p>​        Filebeat是用于转发和集中日志数据的轻量级传送程序。作为服务器上的代理安装，Filebeat监视您指定的日</p>
 <p>志文件或位置，收集日志事件，并将其转发给<a target="_blank" rel="noopener" href="https://www.elastic.co/products/elasticsearch">Elasticsearch</a>或 <a target="_blank" rel="noopener" href="https://www.elastic.co/products/logstash">Logstash</a>进行索引。</p>
 <p>​        Filebeat的工作方式如下：启动Filebeat时，它将启动一个或多个输入，这些输入将在为日志数据指定的位置</p>
 <p>中查找。对于Filebeat所找到的每个日志，Filebeat都会启动收集器。每个收割机都读取单个日志以获取新内容，</p>
 <p>并将新日志数据发送到libbeat，libbeat将聚集事件并将聚集的数据发送到为Filebeat配置的输出。</p>
-<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master//img/image-20191224102720177.png" srcset="/img/loading.gif" alt="image-20191224102720177"></p>
+<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master//img/image-20191224102720177.png" alt="image-20191224102720177"></p>
 <h3 id="2、Filebeat输入类型"><a href="#2、Filebeat输入类型" class="headerlink" title="2、Filebeat输入类型"></a>2、Filebeat输入类型</h3><ul>
 <li><a target="_blank" rel="noopener" href="https://www.elastic.co/guide/en/beats/filebeat/current/filebeat-input-log.html">Log</a></li>
 <li><a target="_blank" rel="noopener" href="https://www.elastic.co/guide/en/beats/filebeat/current/filebeat-input-stdin.html">Stdin</a></li>
@@ -306,281 +264,93 @@
 <h3 id="3、在Kubernetes上运行Filebeat"><a href="#3、在Kubernetes上运行Filebeat" class="headerlink" title="3、在Kubernetes上运行Filebeat"></a>3、在Kubernetes上运行Filebeat</h3><p>​        将Filebeat部署为DaemonSet， 以确保集群的每个节点上都有一个正在运行的实例。Docker日志主机文件夹</p>
 <p>（/var/lib/docker/containers）安装在Filebeat容器上。Filebeat会开始输入文件，并在文件出现在文件夹中后立</p>
 <p>即开始收集它们。</p>
-<figure class="highlight sh"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs sh">curl -L -O https://raw.githubusercontent.com/elastic/beats/7.5/deploy/kubernetes/filebeat-kubernetes.yaml<br></code></pre></div></td></tr></table></figure>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl -L -O https://raw.githubusercontent.com/elastic/beats/7.5/deploy/kubernetes/filebeat-kubernetes.yaml</span><br></pre></td></tr></table></figure>
 <h3 id="4、设置"><a href="#4、设置" class="headerlink" title="4、设置"></a>4、设置</h3><p>默认情况下，Filebeat将事件发送到现有的Elasticsearch部署（如果存在）。要指定其他目标，请在清单文件中更</p>
 <p>改以下参数：</p>
-<figure class="highlight less"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs less"><span class="hljs-attribute">env</span>:<br>- <span class="hljs-attribute">name</span>: ELASTICSEARCH_HOST<br>  <span class="hljs-attribute">value</span>: elasticsearch<br>- <span class="hljs-attribute">name</span>: ELASTICSEARCH_PORT<br>  <span class="hljs-attribute">value</span>: <span class="hljs-string">&quot;9200&quot;</span><br>- <span class="hljs-attribute">name</span>: ELASTICSEARCH_USERNAME<br>  <span class="hljs-attribute">value</span>: elastic<br>- <span class="hljs-attribute">name</span>: ELASTICSEARCH_PASSWORD<br>  <span class="hljs-attribute">value</span>: changeme<br>- <span class="hljs-attribute">name</span>: ELASTIC_CLOUD_ID<br>  <span class="hljs-attribute">value</span>:<br>- <span class="hljs-attribute">name</span>: ELASTIC_CLOUD_AUTH<br>  <span class="hljs-attribute">value</span>:<br></code></pre></div></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">env:</span><br><span class="line">- name: ELASTICSEARCH_HOST</span><br><span class="line">  value: elasticsearch</span><br><span class="line">- name: ELASTICSEARCH_PORT</span><br><span class="line">  value: &quot;9200&quot;</span><br><span class="line">- name: ELASTICSEARCH_USERNAME</span><br><span class="line">  value: elastic</span><br><span class="line">- name: ELASTICSEARCH_PASSWORD</span><br><span class="line">  value: changeme</span><br><span class="line">- name: ELASTIC_CLOUD_ID</span><br><span class="line">  value:</span><br><span class="line">- name: ELASTIC_CLOUD_AUTH</span><br><span class="line">  value:</span><br></pre></td></tr></table></figure>
 <p>输出到logstash：</p>
-<figure class="highlight yaml"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs yaml"><span class="hljs-meta">---</span><br><span class="hljs-attr">apiVersion:</span> <span class="hljs-string">v1</span><br><span class="hljs-attr">kind:</span> <span class="hljs-string">ConfigMap</span><br><span class="hljs-attr">metadata:</span><br>  <span class="hljs-attr">name:</span> <span class="hljs-string">filebeat-config</span><br>  <span class="hljs-attr">namespace:</span> <span class="hljs-string">kube-system</span><br>  <span class="hljs-attr">labels:</span><br>    <span class="hljs-attr">k8s-app:</span> <span class="hljs-string">filebeat</span><br><span class="hljs-attr">data:</span><br>  <span class="hljs-attr">filebeat.yml:</span> <span class="hljs-string">|-</span><br>    <span class="hljs-attr">filebeat.config:</span><br>      <span class="hljs-attr">inputs:</span><br>        <span class="hljs-comment"># Mounted `filebeat-inputs` configmap:</span><br>        <span class="hljs-attr">path:</span> <span class="hljs-string">$&#123;path.config&#125;/inputs.d/*.yml</span><br>        <span class="hljs-comment"># Reload inputs configs as they change:</span><br>        <span class="hljs-attr">reload.enabled:</span> <span class="hljs-literal">false</span><br>      <span class="hljs-attr">modules:</span><br>        <span class="hljs-attr">path:</span> <span class="hljs-string">$&#123;path.config&#125;/modules.d/*.yml</span><br>        <span class="hljs-comment"># Reload module configs as they change:</span><br>        <span class="hljs-attr">reload.enabled:</span> <span class="hljs-literal">false</span><br><br>    <span class="hljs-comment"># To enable hints based autodiscover, remove `filebeat.config.inputs` configuration and uncomment this:</span><br>    <span class="hljs-comment">#filebeat.autodiscover:</span><br>    <span class="hljs-comment">#  providers:</span><br>    <span class="hljs-comment">#    - type: kubernetes</span><br>    <span class="hljs-comment">#      hints.enabled: true</span><br><br>    <span class="hljs-attr">processors:</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-attr">add_cloud_metadata:</span><br><br>    <span class="hljs-comment">#cloud.id: $&#123;ELASTIC_CLOUD_ID&#125;</span><br>    <span class="hljs-comment">#cloud.auth: $&#123;ELASTIC_CLOUD_AUTH&#125;</span><br><br>    <span class="hljs-comment">#output.elasticsearch:</span><br>      <span class="hljs-comment">#hosts: [&#x27;$&#123;ELASTICSEARCH_HOST:elasticsearch&#125;:$&#123;ELASTICSEARCH_PORT:9200&#125;&#x27;]</span><br>      <span class="hljs-comment">#username: $&#123;ELASTICSEARCH_USERNAME&#125;</span><br>      <span class="hljs-comment">#password: $&#123;ELASTICSEARCH_PASSWORD&#125;</span><br>    <span class="hljs-attr">output.logstash:</span><br>      <span class="hljs-attr">hosts:</span> [<span class="hljs-string">&quot;192.168.0.104:5044&quot;</span>]<br><span class="hljs-meta">---</span><br><span class="hljs-attr">apiVersion:</span> <span class="hljs-string">v1</span><br><span class="hljs-attr">kind:</span> <span class="hljs-string">ConfigMap</span><br><span class="hljs-attr">metadata:</span><br>  <span class="hljs-attr">name:</span> <span class="hljs-string">filebeat-inputs</span><br>  <span class="hljs-attr">namespace:</span> <span class="hljs-string">kube-system</span><br>  <span class="hljs-attr">labels:</span><br>    <span class="hljs-attr">k8s-app:</span> <span class="hljs-string">filebeat</span><br><span class="hljs-attr">data:</span><br>  <span class="hljs-attr">kubernetes.yml:</span> <span class="hljs-string">|-</span><br>    <span class="hljs-bullet">-</span> <span class="hljs-attr">type:</span> <span class="hljs-string">log</span>    <span class="hljs-comment">#设置类型为log</span><br>        <span class="hljs-attr">paths:</span><br>          <span class="hljs-bullet">-</span> <span class="hljs-string">/var/lib/docker/logs/*.log</span><br>        <span class="hljs-comment">#fields:</span><br>          <span class="hljs-comment">#app: k8s</span><br>          <span class="hljs-comment">#type: docker-log</span><br>        <span class="hljs-attr">fields_under_root:</span> <span class="hljs-literal">true</span><br>        <span class="hljs-attr">json.keys_under_root:</span> <span class="hljs-literal">true</span><br>        <span class="hljs-attr">json.overwrite_keys:</span> <span class="hljs-literal">true</span><br>        <span class="hljs-attr">encoding:</span> <span class="hljs-string">utf-8</span><br>        <span class="hljs-attr">fields.sourceType:</span> <span class="hljs-string">docker-log</span>         <span class="hljs-comment">#索引名格式</span><br><span class="hljs-meta">---</span><br><span class="hljs-attr">apiVersion:</span> <span class="hljs-string">extensions/v1beta1</span><br><span class="hljs-attr">kind:</span> <span class="hljs-string">DaemonSet</span><br><span class="hljs-attr">metadata:</span><br>  <span class="hljs-attr">name:</span> <span class="hljs-string">filebeat</span><br>  <span class="hljs-attr">namespace:</span> <span class="hljs-string">kube-system</span><br>  <span class="hljs-attr">labels:</span><br>    <span class="hljs-attr">k8s-app:</span> <span class="hljs-string">filebeat</span><br><span class="hljs-attr">spec:</span><br>  <span class="hljs-attr">template:</span><br>    <span class="hljs-attr">metadata:</span><br>      <span class="hljs-attr">labels:</span><br>        <span class="hljs-attr">k8s-app:</span> <span class="hljs-string">filebeat</span><br>    <span class="hljs-attr">spec:</span><br>      <span class="hljs-attr">serviceAccountName:</span> <span class="hljs-string">filebeat</span><br>      <span class="hljs-attr">terminationGracePeriodSeconds:</span> <span class="hljs-number">30</span><br>      <span class="hljs-attr">containers:</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">filebeat</span><br>        <span class="hljs-attr">image:</span> <span class="hljs-string">docker.elastic.co/beats/filebeat:6.5.4</span>       <span class="hljs-comment">#提前准备好镜像，需要翻墙下载</span><br>        <span class="hljs-attr">args:</span> [<br>          <span class="hljs-string">&quot;-c&quot;</span>, <span class="hljs-string">&quot;/etc/filebeat.yml&quot;</span>,<br>          <span class="hljs-string">&quot;-e&quot;</span>,<br>        ]<br>        <span class="hljs-attr">securityContext:</span><br>          <span class="hljs-attr">runAsUser:</span> <span class="hljs-number">0</span><br>          <span class="hljs-comment"># If using Red Hat OpenShift uncomment this:</span><br>          <span class="hljs-comment">#privileged: true</span><br>        <span class="hljs-attr">resources:</span><br>          <span class="hljs-attr">limits:</span><br>            <span class="hljs-attr">memory:</span> <span class="hljs-string">200Mi</span><br>          <span class="hljs-attr">requests:</span><br>            <span class="hljs-attr">cpu:</span> <span class="hljs-string">100m</span><br>            <span class="hljs-attr">memory:</span> <span class="hljs-string">100Mi</span><br>        <span class="hljs-attr">volumeMounts:</span><br>        <span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">config</span><br>          <span class="hljs-attr">mountPath:</span> <span class="hljs-string">/etc/filebeat.yml</span><br>          <span class="hljs-attr">readOnly:</span> <span class="hljs-literal">true</span><br>          <span class="hljs-attr">subPath:</span> <span class="hljs-string">filebeat.yml</span><br>        <span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">inputs</span><br>          <span class="hljs-attr">mountPath:</span> <span class="hljs-string">/usr/share/filebeat/inputs.d</span><br>          <span class="hljs-attr">readOnly:</span> <span class="hljs-literal">true</span><br>        <span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">data</span><br>          <span class="hljs-attr">mountPath:</span> <span class="hljs-string">/usr/share/filebeat/data</span><br>        <span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">logs</span><br>          <span class="hljs-attr">mountPath:</span> <span class="hljs-string">/var/lib/docker/logs</span><br>          <span class="hljs-attr">readOnly:</span> <span class="hljs-literal">true</span><br>      <span class="hljs-attr">volumes:</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">config</span><br>        <span class="hljs-attr">configMap:</span><br>          <span class="hljs-attr">defaultMode:</span> <span class="hljs-number">0600</span><br>          <span class="hljs-attr">name:</span> <span class="hljs-string">filebeat-config</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">logs</span><br>        <span class="hljs-attr">hostPath:</span><br>          <span class="hljs-attr">path:</span> <span class="hljs-string">/var/lib/docker/logs</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">inputs</span><br>        <span class="hljs-attr">configMap:</span><br>          <span class="hljs-attr">defaultMode:</span> <span class="hljs-number">0600</span><br>          <span class="hljs-attr">name:</span> <span class="hljs-string">filebeat-inputs</span><br>      <span class="hljs-comment"># data folder stores a registry of read status for all files, so we don&#x27;t send everything again on a Filebeat pod restart</span><br>      <span class="hljs-comment">#data文件夹存储所有文件的读取状态的注册表</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">data</span><br>        <span class="hljs-attr">hostPath:</span><br>          <span class="hljs-attr">path:</span> <span class="hljs-string">/var/lib/filebeat-data</span><br>          <span class="hljs-attr">type:</span> <span class="hljs-string">DirectoryOrCreate</span><br><span class="hljs-meta">---</span><br><span class="hljs-attr">apiVersion:</span> <span class="hljs-string">rbac.authorization.k8s.io/v1beta1</span><br><span class="hljs-attr">kind:</span> <span class="hljs-string">ClusterRoleBinding</span><br><span class="hljs-attr">metadata:</span><br>  <span class="hljs-attr">name:</span> <span class="hljs-string">filebeat</span><br><span class="hljs-attr">subjects:</span><br><span class="hljs-bullet">-</span> <span class="hljs-attr">kind:</span> <span class="hljs-string">ServiceAccount</span><br>  <span class="hljs-attr">name:</span> <span class="hljs-string">filebeat</span><br>  <span class="hljs-attr">namespace:</span> <span class="hljs-string">kube-system</span><br><span class="hljs-attr">roleRef:</span><br>  <span class="hljs-attr">kind:</span> <span class="hljs-string">ClusterRole</span><br>  <span class="hljs-attr">name:</span> <span class="hljs-string">filebeat</span><br>  <span class="hljs-attr">apiGroup:</span> <span class="hljs-string">rbac.authorization.k8s.io</span><br><span class="hljs-meta">---</span><br><span class="hljs-attr">apiVersion:</span> <span class="hljs-string">rbac.authorization.k8s.io/v1beta1</span><br><span class="hljs-attr">kind:</span> <span class="hljs-string">ClusterRole</span><br><span class="hljs-attr">metadata:</span><br>  <span class="hljs-attr">name:</span> <span class="hljs-string">filebeat</span><br>  <span class="hljs-attr">labels:</span><br>    <span class="hljs-attr">k8s-app:</span> <span class="hljs-string">filebeat</span><br><span class="hljs-attr">rules:</span><br><span class="hljs-bullet">-</span> <span class="hljs-attr">apiGroups:</span> [<span class="hljs-string">&quot;&quot;</span>] <span class="hljs-comment"># &quot;&quot; indicates the core API group</span><br>  <span class="hljs-attr">resources:</span><br>  <span class="hljs-bullet">-</span> <span class="hljs-string">namespaces</span><br>  <span class="hljs-bullet">-</span> <span class="hljs-string">pods</span><br>  <span class="hljs-attr">verbs:</span><br>  <span class="hljs-bullet">-</span> <span class="hljs-string">get</span><br>  <span class="hljs-bullet">-</span> <span class="hljs-string">watch</span><br>  <span class="hljs-bullet">-</span> <span class="hljs-string">list</span><br><span class="hljs-meta">---</span><br><span class="hljs-attr">apiVersion:</span> <span class="hljs-string">v1</span><br><span class="hljs-attr">kind:</span> <span class="hljs-string">ServiceAccount</span><br><span class="hljs-attr">metadata:</span><br>  <span class="hljs-attr">name:</span> <span class="hljs-string">filebeat</span><br>  <span class="hljs-attr">namespace:</span> <span class="hljs-string">kube-system</span><br>  <span class="hljs-attr">labels:</span><br>    <span class="hljs-attr">k8s-app:</span> <span class="hljs-string">filebeat</span><br></code></pre></div></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br></pre></td><td class="code"><pre><span class="line">---</span><br><span class="line">apiVersion: v1</span><br><span class="line">kind: ConfigMap</span><br><span class="line">metadata:</span><br><span class="line">  name: filebeat-config</span><br><span class="line">  namespace: kube-system</span><br><span class="line">  labels:</span><br><span class="line">    k8s-app: filebeat</span><br><span class="line">data:</span><br><span class="line">  filebeat.yml: |-</span><br><span class="line">    filebeat.config:</span><br><span class="line">      inputs:</span><br><span class="line">        # Mounted &#96;filebeat-inputs&#96; configmap:</span><br><span class="line">        path: $&#123;path.config&#125;&#x2F;inputs.d&#x2F;*.yml</span><br><span class="line">        # Reload inputs configs as they change:</span><br><span class="line">        reload.enabled: false</span><br><span class="line">      modules:</span><br><span class="line">        path: $&#123;path.config&#125;&#x2F;modules.d&#x2F;*.yml</span><br><span class="line">        # Reload module configs as they change:</span><br><span class="line">        reload.enabled: false</span><br><span class="line"></span><br><span class="line">    # To enable hints based autodiscover, remove &#96;filebeat.config.inputs&#96; configuration and uncomment this:</span><br><span class="line">    #filebeat.autodiscover:</span><br><span class="line">    #  providers:</span><br><span class="line">    #    - type: kubernetes</span><br><span class="line">    #      hints.enabled: true</span><br><span class="line"></span><br><span class="line">    processors:</span><br><span class="line">      - add_cloud_metadata:</span><br><span class="line"></span><br><span class="line">    #cloud.id: $&#123;ELASTIC_CLOUD_ID&#125;</span><br><span class="line">    #cloud.auth: $&#123;ELASTIC_CLOUD_AUTH&#125;</span><br><span class="line"></span><br><span class="line">    #output.elasticsearch:</span><br><span class="line">      #hosts: [&#39;$&#123;ELASTICSEARCH_HOST:elasticsearch&#125;:$&#123;ELASTICSEARCH_PORT:9200&#125;&#39;]</span><br><span class="line">      #username: $&#123;ELASTICSEARCH_USERNAME&#125;</span><br><span class="line">      #password: $&#123;ELASTICSEARCH_PASSWORD&#125;</span><br><span class="line">    output.logstash:</span><br><span class="line">      hosts: [&quot;192.168.0.104:5044&quot;]</span><br><span class="line">---</span><br><span class="line">apiVersion: v1</span><br><span class="line">kind: ConfigMap</span><br><span class="line">metadata:</span><br><span class="line">  name: filebeat-inputs</span><br><span class="line">  namespace: kube-system</span><br><span class="line">  labels:</span><br><span class="line">    k8s-app: filebeat</span><br><span class="line">data:</span><br><span class="line">  kubernetes.yml: |-</span><br><span class="line">    - type: log    #设置类型为log</span><br><span class="line">        paths:</span><br><span class="line">          - &#x2F;var&#x2F;lib&#x2F;docker&#x2F;logs&#x2F;*.log</span><br><span class="line">        #fields:</span><br><span class="line">          #app: k8s</span><br><span class="line">          #type: docker-log</span><br><span class="line">        fields_under_root: true</span><br><span class="line">        json.keys_under_root: true</span><br><span class="line">        json.overwrite_keys: true</span><br><span class="line">        encoding: utf-8</span><br><span class="line">        fields.sourceType: docker-log         #索引名格式</span><br><span class="line">---</span><br><span class="line">apiVersion: extensions&#x2F;v1beta1</span><br><span class="line">kind: DaemonSet</span><br><span class="line">metadata:</span><br><span class="line">  name: filebeat</span><br><span class="line">  namespace: kube-system</span><br><span class="line">  labels:</span><br><span class="line">    k8s-app: filebeat</span><br><span class="line">spec:</span><br><span class="line">  template:</span><br><span class="line">    metadata:</span><br><span class="line">      labels:</span><br><span class="line">        k8s-app: filebeat</span><br><span class="line">    spec:</span><br><span class="line">      serviceAccountName: filebeat</span><br><span class="line">      terminationGracePeriodSeconds: 30</span><br><span class="line">      containers:</span><br><span class="line">      - name: filebeat</span><br><span class="line">        image: docker.elastic.co&#x2F;beats&#x2F;filebeat:6.5.4       #提前准备好镜像，需要翻墙下载</span><br><span class="line">        args: [</span><br><span class="line">          &quot;-c&quot;, &quot;&#x2F;etc&#x2F;filebeat.yml&quot;,</span><br><span class="line">          &quot;-e&quot;,</span><br><span class="line">        ]</span><br><span class="line">        securityContext:</span><br><span class="line">          runAsUser: 0</span><br><span class="line">          # If using Red Hat OpenShift uncomment this:</span><br><span class="line">          #privileged: true</span><br><span class="line">        resources:</span><br><span class="line">          limits:</span><br><span class="line">            memory: 200Mi</span><br><span class="line">          requests:</span><br><span class="line">            cpu: 100m</span><br><span class="line">            memory: 100Mi</span><br><span class="line">        volumeMounts:</span><br><span class="line">        - name: config</span><br><span class="line">          mountPath: &#x2F;etc&#x2F;filebeat.yml</span><br><span class="line">          readOnly: true</span><br><span class="line">          subPath: filebeat.yml</span><br><span class="line">        - name: inputs</span><br><span class="line">          mountPath: &#x2F;usr&#x2F;share&#x2F;filebeat&#x2F;inputs.d</span><br><span class="line">          readOnly: true</span><br><span class="line">        - name: data</span><br><span class="line">          mountPath: &#x2F;usr&#x2F;share&#x2F;filebeat&#x2F;data</span><br><span class="line">        - name: logs</span><br><span class="line">          mountPath: &#x2F;var&#x2F;lib&#x2F;docker&#x2F;logs</span><br><span class="line">          readOnly: true</span><br><span class="line">      volumes:</span><br><span class="line">      - name: config</span><br><span class="line">        configMap:</span><br><span class="line">          defaultMode: 0600</span><br><span class="line">          name: filebeat-config</span><br><span class="line">      - name: logs</span><br><span class="line">        hostPath:</span><br><span class="line">          path: &#x2F;var&#x2F;lib&#x2F;docker&#x2F;logs</span><br><span class="line">      - name: inputs</span><br><span class="line">        configMap:</span><br><span class="line">          defaultMode: 0600</span><br><span class="line">          name: filebeat-inputs</span><br><span class="line">      # data folder stores a registry of read status for all files, so we don&#39;t send everything again on a Filebeat pod restart</span><br><span class="line">      #data文件夹存储所有文件的读取状态的注册表</span><br><span class="line">      - name: data</span><br><span class="line">        hostPath:</span><br><span class="line">          path: &#x2F;var&#x2F;lib&#x2F;filebeat-data</span><br><span class="line">          type: DirectoryOrCreate</span><br><span class="line">---</span><br><span class="line">apiVersion: rbac.authorization.k8s.io&#x2F;v1beta1</span><br><span class="line">kind: ClusterRoleBinding</span><br><span class="line">metadata:</span><br><span class="line">  name: filebeat</span><br><span class="line">subjects:</span><br><span class="line">- kind: ServiceAccount</span><br><span class="line">  name: filebeat</span><br><span class="line">  namespace: kube-system</span><br><span class="line">roleRef:</span><br><span class="line">  kind: ClusterRole</span><br><span class="line">  name: filebeat</span><br><span class="line">  apiGroup: rbac.authorization.k8s.io</span><br><span class="line">---</span><br><span class="line">apiVersion: rbac.authorization.k8s.io&#x2F;v1beta1</span><br><span class="line">kind: ClusterRole</span><br><span class="line">metadata:</span><br><span class="line">  name: filebeat</span><br><span class="line">  labels:</span><br><span class="line">    k8s-app: filebeat</span><br><span class="line">rules:</span><br><span class="line">- apiGroups: [&quot;&quot;] # &quot;&quot; indicates the core API group</span><br><span class="line">  resources:</span><br><span class="line">  - namespaces</span><br><span class="line">  - pods</span><br><span class="line">  verbs:</span><br><span class="line">  - get</span><br><span class="line">  - watch</span><br><span class="line">  - list</span><br><span class="line">---</span><br><span class="line">apiVersion: v1</span><br><span class="line">kind: ServiceAccount</span><br><span class="line">metadata:</span><br><span class="line">  name: filebeat</span><br><span class="line">  namespace: kube-system</span><br><span class="line">  labels:</span><br><span class="line">    k8s-app: filebeat</span><br></pre></td></tr></table></figure>
 <p>运行</p>
-<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master//img/image-20191224105720755.png" srcset="/img/loading.gif" alt="image-20191224105720755"></p>
-<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master//img/image-20191224105648509.png" srcset="/img/loading.gif" alt="image-20191224105648509"></p>
+<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master//img/image-20191224105720755.png" alt="image-20191224105720755"></p>
+<p><img src="https://gitee.com/jianshen-bao/blog-img/raw/master//img/image-20191224105648509.png" alt="image-20191224105648509"></p>
 <p>能看到上面日志，则表示启动成功。</p>
 <h3 id="5、排错"><a href="#5、排错" class="headerlink" title="5、排错"></a>5、排错</h3><p>如果没启动成功，查看logstash的日志，报错如下</p>
-<figure class="highlight sml"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs sml">[<span class="hljs-number">2019</span>-<span class="hljs-number">12</span>-<span class="hljs-number">20</span>T19:<span class="hljs-number">53</span>:<span class="hljs-number">14</span>,<span class="hljs-number">049</span>][<span class="hljs-type">ERROR</span>][logstash.outputs.elasticsearch] <span class="hljs-type">Could</span> not index event to <span class="hljs-type">Elasticsearch</span>. &#123;:status=&gt;<span class="hljs-number">400</span>, :action=&gt;[<span class="hljs-string">&quot;index&quot;</span>, &#123;:_id=&gt;<span class="hljs-literal">nil</span>, :_index=&gt;<span class="hljs-string">&quot;dev-%&#123;[fields][sourceType]&#125;-2019-12-20&quot;</span>, :_type=&gt;<span class="hljs-string">&quot;doc&quot;</span>, :routing=&gt;<span class="hljs-literal">nil</span>&#125;, #&lt;<span class="hljs-type">LogStash</span>::<span class="hljs-type">Event</span>:<span class="hljs-number">0x4c8737db</span>&gt;], :response=&gt;&#123;<span class="hljs-string">&quot;index&quot;</span>=&gt;&#123;<span class="hljs-string">&quot;_index&quot;</span>=&gt;<span class="hljs-string">&quot;dev-%&#123;[fields][sourceType]&#125;-2019-12-20&quot;</span>, <span class="hljs-string">&quot;_type&quot;</span>=&gt;<span class="hljs-string">&quot;doc&quot;</span>, <span class="hljs-string">&quot;_id&quot;</span>=&gt;<span class="hljs-literal">nil</span>, <span class="hljs-string">&quot;status&quot;</span>=&gt;<span class="hljs-number">400</span>, <span class="hljs-string">&quot;error&quot;</span>=&gt;&#123;<span class="hljs-string">&quot;type&quot;</span>=&gt;<span class="hljs-string">&quot;invalid_index_name_exception&quot;</span>, <span class="hljs-string">&quot;reason&quot;</span>=&gt;<span class="hljs-string">&quot;Invalid index name [dev-%&#123;[fields][sourceType]&#125;-2019-12-20], must be lowercase&quot;</span>, <span class="hljs-string">&quot;index_uuid&quot;</span>=&gt;<span class="hljs-string">&quot;_na_&quot;</span>, <span class="hljs-string">&quot;index&quot;</span>=&gt;<span class="hljs-string">&quot;dev-%&#123;[fields][sourceType]&#125;-2019-12-20&quot;</span>&#125;&#125;&#125;&#125;<br>[<span class="hljs-number">2019</span>-<span class="hljs-number">12</span>-<span class="hljs-number">20</span>T19:<span class="hljs-number">53</span>:<span class="hljs-number">14</span>,<span class="hljs-number">049</span>][<span class="hljs-type">ERROR</span>][logstash.outputs.<br></code></pre></div></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[2019-12-20T19:53:14,049][ERROR][logstash.outputs.elasticsearch] Could not index event to Elasticsearch. &#123;:status&#x3D;&gt;400, :action&#x3D;&gt;[&quot;index&quot;, &#123;:_id&#x3D;&gt;nil, :_index&#x3D;&gt;&quot;dev-%&#123;[fields][sourceType]&#125;-2019-12-20&quot;, :_type&#x3D;&gt;&quot;doc&quot;, :routing&#x3D;&gt;nil&#125;, #&lt;LogStash::Event:0x4c8737db&gt;], :response&#x3D;&gt;&#123;&quot;index&quot;&#x3D;&gt;&#123;&quot;_index&quot;&#x3D;&gt;&quot;dev-%&#123;[fields][sourceType]&#125;-2019-12-20&quot;, &quot;_type&quot;&#x3D;&gt;&quot;doc&quot;, &quot;_id&quot;&#x3D;&gt;nil, &quot;status&quot;&#x3D;&gt;400, &quot;error&quot;&#x3D;&gt;&#123;&quot;type&quot;&#x3D;&gt;&quot;invalid_index_name_exception&quot;, &quot;reason&quot;&#x3D;&gt;&quot;Invalid index name [dev-%&#123;[fields][sourceType]&#125;-2019-12-20], must be lowercase&quot;, &quot;index_uuid&quot;&#x3D;&gt;&quot;_na_&quot;, &quot;index&quot;&#x3D;&gt;&quot;dev-%&#123;[fields][sourceType]&#125;-2019-12-20&quot;&#125;&#125;&#125;&#125;</span><br><span class="line">[2019-12-20T19:53:14,049][ERROR][logstash.outputs.</span><br></pre></td></tr></table></figure>
 <p>原因是logstash中output的index不能有大写：</p>
 <p>我原来的logstash的conf文件</p>
-<figure class="highlight puppet"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs puppet"><span class="hljs-keyword">output</span> &#123;<br>    elasticsearch &#123;<br>            <span class="hljs-attr">hosts</span> =&gt; [<span class="hljs-string">&quot;localhost:9200&quot;</span>]<br>            <span class="hljs-attr">index</span> =&gt; <span class="hljs-string">&#x27;%&#123;platform&#125;-%&#123;[fields][sourceType]&#125;-%&#123;+YYYY-MM-dd&#125;&#x27;</span><br>            <span class="hljs-attr">template</span> =&gt; <span class="hljs-string">&quot;/opt/logstash-6.5.2/config/af-template.json&quot;</span><br>            <span class="hljs-attr">template_overwrite</span> =&gt; <span class="hljs-keyword">true</span><br>    &#125;<br>&#125;<br></code></pre></div></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">output &#123;</span><br><span class="line">    elasticsearch &#123;</span><br><span class="line">            hosts &#x3D;&gt; [&quot;localhost:9200&quot;]</span><br><span class="line">            index &#x3D;&gt; &#39;%&#123;platform&#125;-%&#123;[fields][sourceType]&#125;-%&#123;+YYYY-MM-dd&#125;&#39;</span><br><span class="line">            template &#x3D;&gt; &quot;&#x2F;opt&#x2F;logstash-6.5.2&#x2F;config&#x2F;af-template.json&quot;</span><br><span class="line">            template_overwrite &#x3D;&gt; true</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>修改后的</p>
-<figure class="highlight puppet"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs puppet"><span class="hljs-keyword">output</span> &#123;<br>    elasticsearch &#123;<br>            <span class="hljs-attr">hosts</span> =&gt; [<span class="hljs-string">&quot;localhost:9200&quot;</span>]<br>            <span class="hljs-attr">index</span> =&gt; <span class="hljs-string">&quot;k8s-log-%&#123;+YYYY.MM.dd&#125;&quot;</span><br>            <span class="hljs-attr">template</span> =&gt; <span class="hljs-string">&quot;/opt/logstash-6.5.2/config/af-template.json&quot;</span><br>            <span class="hljs-attr">template_overwrite</span> =&gt; <span class="hljs-keyword">true</span><br>    &#125;<br>&#125;<br></code></pre></div></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">output &#123;</span><br><span class="line">    elasticsearch &#123;</span><br><span class="line">            hosts &#x3D;&gt; [&quot;localhost:9200&quot;]</span><br><span class="line">            index &#x3D;&gt; &quot;k8s-log-%&#123;+YYYY.MM.dd&#125;&quot;</span><br><span class="line">            template &#x3D;&gt; &quot;&#x2F;opt&#x2F;logstash-6.5.2&#x2F;config&#x2F;af-template.json&quot;</span><br><span class="line">            template_overwrite &#x3D;&gt; true</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>完美结束！</p>
 
-            </div>
-            <hr>
-            <div>
-              <div class="post-metas mb-3">
-                
-                  <div class="post-meta mr-3">
-                    <i class="iconfont icon-category"></i>
-                    
-                      <a class="hover-with-bg" href="/categories/Elk/">Elk</a>
-                    
-                  </div>
-                
-                
-                  <div class="post-meta">
-                    <i class="iconfont icon-tags"></i>
-                    
-                      <a class="hover-with-bg" href="/tags/Filebeat/">Filebeat</a>
-                    
-                  </div>
-                
-              </div>
-              
-                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
-              
-              
-                <div class="post-prevnext">
-                  <article class="post-prev col-6">
-                    
-                    
-                      <a href="/2021/03/16/K8s%E4%B8%ADPod%E6%97%B6%E9%97%B4%E8%AE%BE%E7%BD%AE/">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">K8s中Pod时间设置</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
-                  </article>
-                  <article class="post-next col-6">
-                    
-                    
-                      <a href="/2021/03/16/K8s%E8%BF%9E%E6%8E%A5harbor%E7%A7%81%E6%9C%89%E4%BB%93%E5%BA%93/">
-                        <span class="hidden-mobile">K8s连接harbor私有仓库</span>
-                        <span class="visible-mobile">下一篇</span>
-                        <i class="iconfont icon-arrowright"></i>
-                      </a>
-                    
-                  </article>
-                </div>
-              
-            </div>
-
-            
-              <!-- Comments -->
-              <article class="comments" id="comments">
-                
-                
-  <div id="vcomments"></div>
-  <script type="text/javascript">
-    Fluid.utils.waitElementVisible('vcomments', function() {
-      Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js', function () {
-        new Valine({
-          el: "#vcomments",
-          app_id: "hPHtsN0Gt7U2zB2AllYqbucc-9Nh9j0Va",
-          app_key: "TVUER8rWijR8cD1STqzd2d4E",
-          placeholder: "你有故事，我有酒，我们一起勇闯天涯。。。",
-          path: window.location.pathname,
-          avatar: "retro",
-          meta: ["nick","mail","link"],
-          pageSize: "10",
-          lang: "zh-CN",
-          highlight: false,
-          recordIP: false,
-          serverURLs: "",
-        });
-      });
-    });
-  </script>
-  <noscript>Please enable JavaScript to view the
-    <a target="_blank" href="https://valine.js.org" rel="nofollow noopener noopener">comments powered by Valine.</a>
-  </noscript>
-
-
-              </article>
-            
-          </article>
-        </div>
-      </div>
     </div>
+
     
-      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
-        <div id="toc">
-  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
-  <div class="toc-body" id="toc-body"></div>
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Filebeat/" rel="tag"># Filebeat</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2021/03/16/K8s%E8%BF%9E%E6%8E%A5harbor%E7%A7%81%E6%9C%89%E4%BB%93%E5%BA%93/" rel="prev" title="K8s连接harbor私有仓库">
+                  <i class="fa fa-chevron-left"></i> K8s连接harbor私有仓库
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2021/03/16/K8s%E4%B8%ADPod%E6%97%B6%E9%97%B4%E8%AE%BE%E7%BD%AE/" rel="next" title="K8s中Pod时间设置">
+                  K8s中Pod时间设置 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
 </div>
 
-      </div>
-    
-  </div>
+
+
+
+
+
 </div>
-
-<!-- Custom -->
-
-
-    
-
-    
-      <a id="scroll-top-button" href="#" role="button">
-        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
-      </a>
-    
-
-    
-      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
-     aria-hidden="true">
-  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
-    <div class="modal-content">
-      <div class="modal-header text-center">
-        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
-        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body mx-3">
-        <div class="md-form mb-5">
-          <input type="text" id="local-search-input" class="form-control validate">
-          <label data-error="x" data-success="v"
-                 for="local-search-input">关键词</label>
-        </div>
-        <div class="list-group" id="local-search-result"></div>
-      </div>
-    </div>
-  </div>
-</div>
-    
-
-    
   </main>
 
-  <footer class="text-center mt-5 py-3">
-  <div class="footer-content">
-     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
-  </div>
-  
-  <div class="statistics">
-    
-    
+  <footer class="footer">
+    <div class="footer-inner">
 
-    
-      
-        <!-- 不蒜子统计PV -->
-        <span id="busuanzi_container_site_pv" style="display: none">
-            总访问量 
-            <span id="busuanzi_value_site_pv"></span>
-             次
-          </span>
-      
-      
-        <!-- 不蒜子统计UV -->
-        <span id="busuanzi_container_site_uv" style="display: none">
-            总访客数 
-            <span id="busuanzi_value_site_uv"></span>
-             人
-          </span>
-      
-    
+
+<div class="copyright">
+  &copy; 2020 – 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">羊皮裘老头</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
   </div>
 
+    </div>
+  </footer>
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
 
   
 
-  
-</footer>
 
-<!-- SCRIPTS -->
-
-  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
-  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
-
-  <script>
-    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
-    NProgress.start()
-    window.addEventListener('load', function() {
-      NProgress.done();
-    })
-  </script>
-
-
-<script  src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" ></script>
-<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" ></script>
-<script  src="/js/debouncer.js" ></script>
-<script  src="/js/events.js" ></script>
-<script  src="/js/plugins.js" ></script>
-
-<!-- Plugins -->
-
-
-  
-    <script  src="/js/lazyload.js" ></script>
-  
 
 
 
   
 
 
-
-  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.0/dist/tocbot.min.js" ></script>
-
-
-
-  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
-
-
-
-  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.0/anchor.min.js" ></script>
-
-
-
-  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js" ></script>
-
-
-
-  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
-
-
-
-
-
-
-  <script  src="/js/local-search.js" ></script>
-  <script>
-    (function () {
-      var path = "/local-search.xml";
-      var inputArea = document.querySelector("#local-search-input");
-      inputArea.onclick = function () {
-        searchFunc(path, 'local-search-input', 'local-search-result');
-        this.onclick = null
-      }
-    })()
-  </script>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<!-- 主题的启动项 保持在最底部 -->
-<script  src="/js/boot.js" ></script>
 
 
 

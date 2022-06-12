@@ -1,293 +1,247 @@
-
-
 <!DOCTYPE html>
-<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
-
-
-
+<html lang="zh-CN">
 <head>
   <meta charset="UTF-8">
-  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
-  <link rel="icon" type="image/png" href="/img/favicon.png">
-  <meta name="viewport"
-        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
-  <meta http-equiv="x-ua-compatible" content="ie=edge">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 5.3.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.12.1","exturl":false,"sidebar":{"position":"left","width":300,"display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="变量的声明​        Go语言是静态类型语言，因此变量（variable）是有明确类型的，编译器也会检查变量类型的正确性。在数学概念中，变量表示没有固定值且可改变的数。但从计算机系统实现角度来看，变量是一段或多段用来存储数据的内存。  声明变量的一般形式是使用 var 关键字： 1var name type 其中，var 是声明变量的关键字，name 是变量名，type 是变量的类型。 ​">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Go语言变量">
+<meta property="og:url" content="http://example.com/2021/04/07/Go%E8%AF%AD%E8%A8%80%E5%8F%98%E9%87%8F/index.html">
+<meta property="og:site_name" content="羊皮裘老头">
+<meta property="og:description" content="变量的声明​        Go语言是静态类型语言，因此变量（variable）是有明确类型的，编译器也会检查变量类型的正确性。在数学概念中，变量表示没有固定值且可改变的数。但从计算机系统实现角度来看，变量是一段或多段用来存储数据的内存。  声明变量的一般形式是使用 var 关键字： 1var name type 其中，var 是声明变量的关键字，name 是变量名，type 是变量的类型。 ​">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2021-04-07T08:23:16.000Z">
+<meta property="article:modified_time" content="2022-04-17T09:07:33.846Z">
+<meta property="article:author" content="羊皮裘老头">
+<meta property="article:tag" content="Golang">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="http://example.com/2021/04/07/Go%E8%AF%AD%E8%A8%80%E5%8F%98%E9%87%8F/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://example.com/2021/04/07/Go%E8%AF%AD%E8%A8%80%E5%8F%98%E9%87%8F/","path":"2021/04/07/Go语言变量/","title":"Go语言变量"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>Go语言变量 | 羊皮裘老头</title>
   
-  <meta name="theme-color" content="#2f4154">
-  <meta name="description" content="">
-  <meta name="author" content="羊皮裘老头">
-  <meta name="keywords" content="">
-  <title>Go语言变量 - 羊皮裘老头</title>
-
-  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
-
-
-  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
-  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
-
-  
-    
-    
-      
-      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.4.0/styles/github-gist.min.css" />
-    
-  
-
-  
-    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
-  
 
 
 
-<!-- 主题依赖的图标库，不要自行修改 -->
-
-<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
 
 
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
 
-<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
 
-
-<link  rel="stylesheet" href="/css/main.css" />
-
-<!-- 自定义样式保持在最底部 -->
-
-
-  <script id="fluid-configs">
-    var Fluid = window.Fluid || {};
-    var CONFIG = {"hostname":"example.com","root":"/","version":"1.8.7","typing":{"enable":false,"typeSpeed":70,"cursorChar":" ","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"onlypost":false},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}}};
-  </script>
-  <script  src="/js/utils.js" ></script>
-  <script  src="/js/color-schema.js" ></script>
-<meta name="generator" content="Hexo 5.3.0"></head>
-
-
-<body>
-  <header style="height: 70vh;">
-    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
-  <div class="container">
-    <a class="navbar-brand"
-       href="/">&nbsp;<strong>羊皮裘老头</strong>&nbsp;</a>
-
-    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
-            data-target="#navbarSupportedContent"
-            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <div class="animated-icon"><span></span><span></span><span></span></div>
-    </button>
-
-    <!-- Collapsible content -->
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav ml-auto text-center">
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/">
-                <i class="iconfont icon-home-fill"></i>
-                首页
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/archives/">
-                <i class="iconfont icon-archive-fill"></i>
-                归档
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/categories/">
-                <i class="iconfont icon-category-fill"></i>
-                分类
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/tags/">
-                <i class="iconfont icon-tags-fill"></i>
-                标签
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/about/">
-                <i class="iconfont icon-user-fill"></i>
-                关于
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <i class="iconfont icon-books"></i>
-                文档
-              </a>
-              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                
-                  
-                  
-                  
-                  <a class="dropdown-item" target="_blank" rel="noopener" href="https://hexo.fluid-dev.com/">
-                    
-                    主题博客
-                  </a>
-                
-                  
-                  
-                  
-                  <a class="dropdown-item" target="_blank" rel="noopener" href="https://hexo.fluid-dev.com/docs/guide/">
-                    
-                    配置指南
-                  </a>
-                
-                  
-                  
-                  
-                  <a class="dropdown-item" target="_blank" rel="noopener" href="https://hexo.fluid-dev.com/docs/icon/">
-                    
-                    图标用法
-                  </a>
-                
-              </div>
-            </li>
-          
-        
-        
-          <li class="nav-item" id="search-btn">
-            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
-                class="iconfont icon-search"></i>&nbsp;</a>
-          </li>
-        
-        
-          <li class="nav-item" id="color-toggle-btn">
-            <a class="nav-link" href="javascript:">&nbsp;<i
-                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
-          </li>
-        
-      </ul>
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
     </div>
   </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">羊皮裘老头</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">28</span></a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">13</span></a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">116</span></a></li><li class="menu-item menu-item-schedule"><a href="/schedule/" rel="section"><i class="fa fa-calendar fa-fw"></i>日程表</a></li><li class="menu-item menu-item-sitemap"><a href="/sitemap.xml" rel="section"><i class="fa fa-sitemap fa-fw"></i>站点地图</a></li><li class="menu-item menu-item-commonweal"><a href="/404/" rel="section"><i class="fa fa-heartbeat fa-fw"></i>公益 404</a></li>
+  </ul>
 </nav>
 
-    <div class="banner" id="banner" parallax=true
-         style="background: url('/img/ss.png') no-repeat center center;
-           background-size: cover;">
-      <div class="full-bg-img">
-        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
-          <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="Go语言变量">
-              
-                Go语言变量
-              
-            </span>
 
-            
-              <div class="mt-3">
+
+
+</div>
+        
   
-  
-    <span class="post-meta">
-      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-      <time datetime="2021-04-07 16:23" pubdate>
-        2021年4月7日 下午
-      </time>
-    </span>
-  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%98%E9%87%8F%E7%9A%84%E5%A3%B0%E6%98%8E"><span class="nav-number">1.</span> <span class="nav-text">变量的声明</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A0%87%E5%87%86%E6%A0%BC%E5%BC%8F"><span class="nav-number">1.1.</span> <span class="nav-text">标准格式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%89%B9%E9%87%8F%E6%A0%BC%E5%BC%8F"><span class="nav-number">1.2.</span> <span class="nav-text">批量格式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AE%80%E7%9F%AD%E6%A0%BC%E5%BC%8F"><span class="nav-number">1.3.</span> <span class="nav-text">简短格式</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Go%E8%AF%AD%E8%A8%80%E5%8F%98%E9%87%8F%E7%9A%84%E5%88%9D%E5%A7%8B%E5%8C%96"><span class="nav-number">2.</span> <span class="nav-text">Go语言变量的初始化</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%98%E9%87%8F%E5%88%9D%E5%A7%8B%E5%8C%96%E7%9A%84%E6%A0%87%E5%87%86%E6%A0%BC%E5%BC%8F"><span class="nav-number">2.1.</span> <span class="nav-text">变量初始化的标准格式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BC%96%E8%AF%91%E5%99%A8%E6%8E%A8%E5%AF%BC%E7%B1%BB%E5%9E%8B%E7%9A%84%E6%A0%BC%E5%BC%8F"><span class="nav-number">2.2.</span> <span class="nav-text">编译器推导类型的格式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%9F%AD%E5%8F%98%E9%87%8F%E5%A3%B0%E6%98%8E%E5%B9%B6%E5%88%9D%E5%A7%8B%E5%8C%96"><span class="nav-number">2.3.</span> <span class="nav-text">短变量声明并初始化</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Go%E8%AF%AD%E8%A8%80%E5%A4%9A%E4%B8%AA%E5%8F%98%E9%87%8F%E5%90%8C%E6%97%B6%E8%B5%8B%E5%80%BC"><span class="nav-number">3.</span> <span class="nav-text">Go语言多个变量同时赋值</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Go%E8%AF%AD%E8%A8%80%E5%8C%BF%E5%90%8D%E5%8F%98%E9%87%8F"><span class="nav-number">4.</span> <span class="nav-text">Go语言匿名变量</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Go%E8%AF%AD%E8%A8%80%E5%8F%98%E9%87%8F%E7%9A%84%E4%BD%9C%E7%94%A8%E5%9F%9F"><span class="nav-number">5.</span> <span class="nav-text">Go语言变量的作用域</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B1%80%E9%83%A8%E5%8F%98%E9%87%8F"><span class="nav-number">5.1.</span> <span class="nav-text">局部变量</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%A8%E5%B1%80%E5%8F%98%E9%87%8F"><span class="nav-number">5.2.</span> <span class="nav-text">全局变量</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BD%A2%E5%BC%8F%E5%8F%82%E6%95%B0"><span class="nav-number">5.3.</span> <span class="nav-text">形式参数</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">羊皮裘老头</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">116</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">13</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">28</span>
+        <span class="site-state-item-name">标签</span>
+      </div>
+  </nav>
 </div>
 
-<div class="mt-1">
-  
-    
-    <span class="post-meta mr-2">
-      <i class="iconfont icon-chart"></i>
-      3.6k 字
-    </span>
-  
 
-  
-    
-    <span class="post-meta mr-2">
-      <i class="iconfont icon-clock-fill"></i>
-      
-      
-      42
-       分钟
-    </span>
-  
 
-  
-  
-    
-      <!-- LeanCloud 统计文章PV -->
-      <span id="leancloud-page-views-container" class="post-meta" style="display: none">
-        <i class="iconfont icon-eye" aria-hidden="true"></i>
-        <span id="leancloud-page-views"></span> 次
-      </span>
-    
-  
-</div>
-
-            
-          </div>
-
-          
         </div>
       </div>
     </div>
-  </header>
+  </aside>
+  <div class="sidebar-dimmer"></div>
 
-  <main>
+
+    </header>
+
     
-      
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
 
-<div class="container-fluid nopadding-x">
-  <div class="row nomargin-x">
-    <div class="d-none d-lg-block col-lg-2"></div>
-    <div class="col-lg-8 nopadding-x-md">
-      <div class="container nopadding-x-md" id="board-ctn">
-        <div class="py-5" id="board">
-          <article class="post-content mx-auto">
-            <!-- SEO header -->
-            <h1 style="display: none">Go语言变量</h1>
-            
-              <p class="note note-info">
-                
-                  本文最后更新于：2022年4月17日 下午
-                
-              </p>
-            
-            <div class="markdown-body">
-              <h2 id="变量的声明"><a href="#变量的声明" class="headerlink" title="变量的声明"></a>变量的声明</h2><p>​        Go语言是静态类型语言，因此变量（variable）是有明确类型的，编译器也会检查变量类型的正确性。在数学概念中，变量表示没有固定值且可改变的数。但从计算机系统实现角度来看，变量是一段或多段用来存储数据的内存。</p>
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/04/07/Go%E8%AF%AD%E8%A8%80%E5%8F%98%E9%87%8F/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="羊皮裘老头">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="羊皮裘老头">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="Go语言变量 | 羊皮裘老头">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Go语言变量
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2021-04-07 16:23:16" itemprop="dateCreated datePublished" datetime="2021-04-07T16:23:16+08:00">2021-04-07</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-04-17 17:07:33" itemprop="dateModified" datetime="2022-04-17T17:07:33+08:00">2022-04-17</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Golang/" itemprop="url" rel="index"><span itemprop="name">Golang</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h2 id="变量的声明"><a href="#变量的声明" class="headerlink" title="变量的声明"></a>变量的声明</h2><p>​        Go语言是静态类型语言，因此变量（variable）是有明确类型的，编译器也会检查变量类型的正确性。在数学概念中，变量表示没有固定值且可改变的数。但从计算机系统实现角度来看，变量是一段或多段用来存储数据的内存。</p>
 <p> 声明变量的一般形式是使用 var 关键字：</p>
-<figure class="highlight delphi"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs delphi"><span class="hljs-keyword">var</span> <span class="hljs-keyword">name</span> <span class="hljs-keyword">type</span><br></code></pre></div></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">var name type</span><br></pre></td></tr></table></figure>
 <p>其中，var 是声明变量的关键字，name 是变量名，type 是变量的类型。</p>
 <p>​         需要注意的是，Go语言和许多编程语言不同，它在声明变量时将变量的类型放在变量的名称之后。这样做的好处就是可以避免像C语言中那样含糊不清的声明形式，例如：<code>int* a, b;</code> 。其中只有 a 是指针而 b 不是。如果你想要这两个变量都是指针，则需要将它们分开书写。而在 Go 中，则可以和轻松地将它们都声明为指针类型：</p>
-<figure class="highlight stylus"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs stylus"><span class="hljs-selector-tag">var</span> <span class="hljs-selector-tag">a</span>, <span class="hljs-selector-tag">b</span> *int<br></code></pre></div></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">var a, b *int</span><br></pre></td></tr></table></figure>
 <p>Go语言的基本类型有：</p>
 <ul>
 <li>bool</li>
@@ -302,13 +256,13 @@
 <p> 当一个变量被声明之后，系统自动赋予它该类型的零值：int 为 0，float 为 0.0，bool 为 false，string 为空字符串，指针为 nil 等。所有的内存在 Go 中都是经过初始化的。</p>
 <p> 变量的命名规则遵循骆驼命名法，即首个单词小写，每个新单词的首字母大写，例如：numShips 和 startDate 。</p>
 <h3 id="标准格式"><a href="#标准格式" class="headerlink" title="标准格式"></a>标准格式</h3><p>Go语言的变量声明的标准格式为：</p>
-<figure class="highlight actionscript"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs actionscript"><span class="hljs-keyword">var</span> 变量名 变量类型<br></code></pre></div></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">var 变量名 变量类型</span><br></pre></td></tr></table></figure>
 <p>变量声明以关键字 var 开头，后置变量类型，行尾无须分号。</p>
 <h3 id="批量格式"><a href="#批量格式" class="headerlink" title="批量格式"></a>批量格式</h3><p>觉得每行都用 var 声明变量比较烦琐？没关系，还有一种为懒人提供的定义变量的方法：</p>
-<figure class="highlight go"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs go"><span class="hljs-keyword">var</span> (<br>    a <span class="hljs-keyword">int</span><br>    b <span class="hljs-keyword">string</span><br>    c []<span class="hljs-keyword">float32</span><br>    d <span class="hljs-function"><span class="hljs-keyword">func</span><span class="hljs-params">()</span> <span class="hljs-title">bool</span></span><br>    e <span class="hljs-keyword">struct</span> &#123;<br>        x <span class="hljs-keyword">int</span><br>    &#125;<br>)<br></code></pre></div></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">var (</span><br><span class="line">    a int</span><br><span class="line">    b string</span><br><span class="line">    c []float32</span><br><span class="line">    d func() bool</span><br><span class="line">    e struct &#123;</span><br><span class="line">        x int</span><br><span class="line">    &#125;</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
 <p>使用关键字 var 和括号，可以将一组变量定义放在一起。</p>
 <h3 id="简短格式"><a href="#简短格式" class="headerlink" title="简短格式"></a>简短格式</h3><p>除 var 关键字外，还可使用更加简短的变量定义和初始化语法。</p>
-<figure class="highlight fix"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs fix"><span class="hljs-attr">名字 :</span>=<span class="hljs-string"> 表达式</span><br></code></pre></div></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">名字 :&#x3D; 表达式</span><br></pre></td></tr></table></figure>
 <p>需要注意的是，简短模式（short variable declaration）有以下限制：</p>
 <ul>
 <li>定义变量，同时显式初始化。</li>
@@ -316,9 +270,9 @@
 <li>只能用在函数内部。</li>
 </ul>
 <p> 和 var 形式声明语句一样，简短变量声明语句也可以用来声明和初始化一组变量：</p>
-<figure class="highlight apache"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs apache"><span class="hljs-attribute">i</span>, j := <span class="hljs-number">0</span>, <span class="hljs-number">1</span><br></code></pre></div></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">i, j :&#x3D; 0, 1</span><br></pre></td></tr></table></figure>
 <p>下面通过一段代码来演示简短格式变量声明的基本样式。</p>
-<figure class="highlight go"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> &#123;<br>   x:=<span class="hljs-number">100</span><br>   a,s:=<span class="hljs-number">1</span>, <span class="hljs-string">&quot;abc&quot;</span><br>&#125;<br></code></pre></div></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">func main() &#123;</span><br><span class="line">   x:&#x3D;100</span><br><span class="line">   a,s:&#x3D;1, &quot;abc&quot;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>​        因为简洁和灵活的特点，简短变量声明被广泛用于大部分的局部变量的声明和初始化。var 形式的声明语句往往是用于需要显式指定变量类型地方，或者因为变量稍后会被重新赋值而初始值无关紧要的地方。</p>
 <h2 id="Go语言变量的初始化"><a href="#Go语言变量的初始化" class="headerlink" title="Go语言变量的初始化"></a>Go语言变量的初始化</h2><p>​        正如上一节《Go语言变量声明》中提到的<a target="_blank" rel="noopener" href="http://c-local.biancheng.net/golang/">Go语言</a>在声明变量时，自动对变量对应的内存区域进行初始化操作。每个变量会初始化其类型的默认值，例如：</p>
 <ul>
@@ -328,16 +282,16 @@
 <li>切片、函数、指针变量的默认为 nil。</li>
 </ul>
 <p> 当然，依然可以在变量声明时赋予变量一个初始值。</p>
-<h3 id="变量初始化的标准格式"><a href="#变量初始化的标准格式" class="headerlink" title="变量初始化的标准格式"></a>变量初始化的标准格式</h3><figure class="highlight actionscript"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs actionscript"><span class="hljs-keyword">var</span> 变量名 类型 = 表达式<br></code></pre></div></td></tr></table></figure>
+<h3 id="变量初始化的标准格式"><a href="#变量初始化的标准格式" class="headerlink" title="变量初始化的标准格式"></a>变量初始化的标准格式</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">var 变量名 类型 &#x3D; 表达式</span><br></pre></td></tr></table></figure>
 <p>例如，游戏中，玩家的血量初始值为100。可以这样写：</p>
-<figure class="highlight axapta"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs axapta"><span class="hljs-built_in">var</span> hp <span class="hljs-built_in">int</span> = <span class="hljs-number">100</span><br></code></pre></div></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">var hp int &#x3D; 100</span><br></pre></td></tr></table></figure>
 <p>这句代码中，hp 为变量名，类型为 int，hp 的初始值为 100。</p>
 <p> 上面代码中，100 和 int 同为 int 类型，int 可以认为是冗余信息，因此可以进一步简化初始化的写法。</p>
 <h3 id="编译器推导类型的格式"><a href="#编译器推导类型的格式" class="headerlink" title="编译器推导类型的格式"></a>编译器推导类型的格式</h3><p>在标准格式的基础上，将 int 省略后，编译器会尝试根据等号右边的表达式推导 hp 变量的类型。</p>
-<figure class="highlight actionscript"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs actionscript"><span class="hljs-keyword">var</span> hp = <span class="hljs-number">100</span><br></code></pre></div></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">var hp &#x3D; 100</span><br></pre></td></tr></table></figure>
 <p>等号右边的部分在编译原理里被称做右值（rvalue）。</p>
 <p> 下面是编译器根据右值推导变量类型完成初始化的例子。</p>
-<figure class="highlight apache"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs apache"><span class="hljs-attribute">var</span> attack = <span class="hljs-number">40</span><br><span class="hljs-attribute">var</span> defence = <span class="hljs-number">20</span><br><span class="hljs-attribute">var</span> damageRate float<span class="hljs-number">32</span> = <span class="hljs-number">0</span>.<span class="hljs-number">17</span><br><span class="hljs-attribute">var</span> damage = float<span class="hljs-number">32</span>(attack-defence) * damageRate<br><span class="hljs-attribute">fmt</span>.Println(damage)<br></code></pre></div></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">var attack &#x3D; 40</span><br><span class="line">var defence &#x3D; 20</span><br><span class="line">var damageRate float32 &#x3D; 0.17</span><br><span class="line">var damage &#x3D; float32(attack-defence) * damageRate</span><br><span class="line">fmt.Println(damage)</span><br></pre></td></tr></table></figure>
 <p>代码说明如下：</p>
 <ul>
 <li><p>第 1 和 2 行，右值为整型，attack 和 defence 变量的类型为 int。</p>
@@ -353,36 +307,36 @@
 </li>
 </ul>
 <p> 以上代码输出结果为：</p>
-<figure class="highlight apache"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs apache"><span class="hljs-attribute">3</span>.<span class="hljs-number">4</span><br></code></pre></div></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">3.4</span><br></pre></td></tr></table></figure>
 <h3 id="短变量声明并初始化"><a href="#短变量声明并初始化" class="headerlink" title="短变量声明并初始化"></a>短变量声明并初始化</h3><p>var 的变量声明还有一种更为精简的写法，例如：</p>
-<figure class="highlight apache"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs apache"><span class="hljs-attribute">hp</span> := <span class="hljs-number">100</span><br></code></pre></div></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hp :&#x3D; 100</span><br></pre></td></tr></table></figure>
 <p>这是Go语言的推导声明写法，编译器会自动根据右值类型推断出左值的对应类型。</p>
 <blockquote>
 <p>注意：由于使用了<code>:=</code>，而不是赋值的<code>=</code>，因此推导声明写法的左值变量必须是没有定义过的变量。若定义过，将会发生编译错误。</p>
 </blockquote>
 <p>如果 hp 已经被声明过，但依然使用<code>:=</code>时编译器会报错，代码如下：</p>
-<figure class="highlight go"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs go"><span class="hljs-comment">// 声明 hp 变量</span><br><span class="hljs-keyword">var</span> hp <span class="hljs-keyword">int</span><br><span class="hljs-comment">// 再次声明并赋值</span><br>hp := <span class="hljs-number">10</span><br></code></pre></div></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; 声明 hp 变量</span><br><span class="line">var hp int</span><br><span class="line">&#x2F;&#x2F; 再次声明并赋值</span><br><span class="line">hp :&#x3D; 10</span><br></pre></td></tr></table></figure>
 <p>编译报错如下：</p>
-<figure class="highlight vim"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs vim"><span class="hljs-keyword">no</span> <span class="hljs-keyword">new</span> variables <span class="hljs-keyword">on</span> <span class="hljs-keyword">left</span> side of :=<br></code></pre></div></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">no new variables on left side of :&#x3D;</span><br></pre></td></tr></table></figure>
 <p>意思是，在“:=”的左边没有新变量出现，意思就是“:=”的左边变量已经被声明了。</p>
 <p> 短变量声明的形式在开发中的例子较多，比如：</p>
-<figure class="highlight stata"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs stata">conn, <span class="hljs-keyword">err</span> := <span class="hljs-keyword">net</span>.Dial(<span class="hljs-string">&quot;tcp&quot;</span>,<span class="hljs-string">&quot;127.0.0.1:8080&quot;</span>)<br></code></pre></div></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">conn, err :&#x3D; net.Dial(&quot;tcp&quot;,&quot;127.0.0.1:8080&quot;)</span><br></pre></td></tr></table></figure>
 <p>​        net.Dial 提供按指定协议和地址发起网络连接，这个函数有两个返回值，一个是连接对象（conn），一个是错误对象（err）。如果是标准格式将会变成：</p>
-<figure class="highlight stata"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs stata"><span class="hljs-keyword">var</span> conn <span class="hljs-keyword">net</span>.Conn<br><span class="hljs-keyword">var</span> <span class="hljs-keyword">err</span> <span class="hljs-keyword">error</span><br>conn, <span class="hljs-keyword">err</span> = <span class="hljs-keyword">net</span>.Dial(<span class="hljs-string">&quot;tcp&quot;</span>, <span class="hljs-string">&quot;127.0.0.1:8080&quot;</span>)<br></code></pre></div></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">var conn net.Conn</span><br><span class="line">var err error</span><br><span class="line">conn, err &#x3D; net.Dial(&quot;tcp&quot;, &quot;127.0.0.1:8080&quot;)</span><br></pre></td></tr></table></figure>
 <p>因此，短变量声明并初始化的格式在开发中使用比较普遍。</p>
 <p>​         注意：在多个短变量声明和赋值中，至少有一个新声明的变量出现在左值中，即便其他变量名可能是重复声明的，编译器也不会报错，代码如下：</p>
-<figure class="highlight stata"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs stata">conn, <span class="hljs-keyword">err</span> := <span class="hljs-keyword">net</span>.Dial(<span class="hljs-string">&quot;tcp&quot;</span>, <span class="hljs-string">&quot;127.0.0.1:8080&quot;</span>)<br>conn2, <span class="hljs-keyword">err</span> := <span class="hljs-keyword">net</span>.Dial(<span class="hljs-string">&quot;tcp&quot;</span>, <span class="hljs-string">&quot;127.0.0.1:8080&quot;</span>)<br></code></pre></div></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">conn, err :&#x3D; net.Dial(&quot;tcp&quot;, &quot;127.0.0.1:8080&quot;)</span><br><span class="line">conn2, err :&#x3D; net.Dial(&quot;tcp&quot;, &quot;127.0.0.1:8080&quot;)</span><br></pre></td></tr></table></figure>
 <p>上面的代码片段，编译器不会报 err 重复定义。</p>
 <h2 id="Go语言多个变量同时赋值"><a href="#Go语言多个变量同时赋值" class="headerlink" title="Go语言多个变量同时赋值"></a>Go语言多个变量同时赋值</h2><p>​        编程最简单的算法之一，莫过于变量交换。交换变量的常见算法需要一个中间变量进行变量的临时保存。用传统方法编写变量交换代码如下：</p>
-<figure class="highlight stylus"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs stylus"><span class="hljs-selector-tag">var</span> <span class="hljs-selector-tag">a</span> int = <span class="hljs-number">100</span><br><span class="hljs-selector-tag">var</span> <span class="hljs-selector-tag">b</span> int = <span class="hljs-number">200</span><br><span class="hljs-selector-tag">var</span> t int<br><br>t = a<br><span class="hljs-selector-tag">a</span> = b<br><span class="hljs-selector-tag">b</span> = t<br><br>fmt.Println(<span class="hljs-selector-tag">a</span>, b)<br></code></pre></div></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">var a int &#x3D; 100</span><br><span class="line">var b int &#x3D; 200</span><br><span class="line">var t int</span><br><span class="line"></span><br><span class="line">t &#x3D; a</span><br><span class="line">a &#x3D; b</span><br><span class="line">b &#x3D; t</span><br><span class="line"></span><br><span class="line">fmt.Println(a, b)</span><br></pre></td></tr></table></figure>
 <p>在计算机刚发明时，内存非常“精贵”。这种变量交换往往是非常奢侈的。于是计算机“大牛”发明了一些算法来避免使用中间变量：</p>
-<figure class="highlight stylus"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs stylus"><span class="hljs-selector-tag">var</span> <span class="hljs-selector-tag">a</span> int = <span class="hljs-number">100</span><br><span class="hljs-selector-tag">var</span> <span class="hljs-selector-tag">b</span> int = <span class="hljs-number">200</span><br><br><span class="hljs-selector-tag">a</span> = <span class="hljs-selector-tag">a</span> ^ b<br><span class="hljs-selector-tag">b</span> = <span class="hljs-selector-tag">b</span> ^ a<br><span class="hljs-selector-tag">a</span> = <span class="hljs-selector-tag">a</span> ^ b<br><br>fmt.Println(<span class="hljs-selector-tag">a</span>, b)<br></code></pre></div></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">var a int &#x3D; 100</span><br><span class="line">var b int &#x3D; 200</span><br><span class="line"></span><br><span class="line">a &#x3D; a ^ b</span><br><span class="line">b &#x3D; b ^ a</span><br><span class="line">a &#x3D; a ^ b</span><br><span class="line"></span><br><span class="line">fmt.Println(a, b)</span><br></pre></td></tr></table></figure>
 <p>这样的算法很多，但是都有一定的数值范围和类型要求。</p>
 <p> 到了Go语言时，内存不再是紧缺资源，而且写法可以更简单。使用 Go 的“多重赋值”特性，可以轻松完成变量交换的任务：</p>
-<figure class="highlight stylus"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs stylus"><span class="hljs-selector-tag">var</span> <span class="hljs-selector-tag">a</span> int = <span class="hljs-number">100</span><br><span class="hljs-selector-tag">var</span> <span class="hljs-selector-tag">b</span> int = <span class="hljs-number">200</span><br><br><span class="hljs-selector-tag">b</span>, <span class="hljs-selector-tag">a</span> = <span class="hljs-selector-tag">a</span>, b<br><br>fmt.Println(<span class="hljs-selector-tag">a</span>, b)<br></code></pre></div></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">var a int &#x3D; 100</span><br><span class="line">var b int &#x3D; 200</span><br><span class="line"></span><br><span class="line">b, a &#x3D; a, b</span><br><span class="line"></span><br><span class="line">fmt.Println(a, b)</span><br></pre></td></tr></table></figure>
 <p>多重赋值时，变量的左值和右值按从左到右的顺序赋值。</p>
 <p> 多重赋值在Go语言的错误处理和函数返回值中会大量地使用。例如使用Go语言进行排序时就需要使用交换，代码如下：</p>
-<figure class="highlight go"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs go"><span class="hljs-keyword">type</span> IntSlice []<span class="hljs-keyword">int</span><br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(p IntSlice)</span> <span class="hljs-title">Len</span><span class="hljs-params">()</span> <span class="hljs-title">int</span></span>           &#123; <span class="hljs-keyword">return</span> <span class="hljs-built_in">len</span>(p) &#125;<br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(p IntSlice)</span> <span class="hljs-title">Less</span><span class="hljs-params">(i, j <span class="hljs-keyword">int</span>)</span> <span class="hljs-title">bool</span></span> &#123; <span class="hljs-keyword">return</span> p[i] &lt; p[j] &#125;<br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(p IntSlice)</span> <span class="hljs-title">Swap</span><span class="hljs-params">(i, j <span class="hljs-keyword">int</span>)</span></span>      &#123; p[i], p[j] = p[j], p[i] &#125;<br></code></pre></div></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">type IntSlice []int</span><br><span class="line"></span><br><span class="line">func (p IntSlice) Len() int           &#123; return len(p) &#125;</span><br><span class="line">func (p IntSlice) Less(i, j int) bool &#123; return p[i] &lt; p[j] &#125;</span><br><span class="line">func (p IntSlice) Swap(i, j int)      &#123; p[i], p[j] &#x3D; p[j], p[i] &#125;</span><br></pre></td></tr></table></figure>
 <p>代码说明如下：</p>
 <ul>
 <li>第 1 行，将 IntSlice 声明为 []int 类型。</li>
@@ -392,9 +346,9 @@
 </ul>
 <h2 id="Go语言匿名变量"><a href="#Go语言匿名变量" class="headerlink" title="Go语言匿名变量"></a>Go语言匿名变量</h2><p>​        在编码过程中，可能会遇到没有名称的变量、类型或方法。虽然这不是必须的，但有时候这样做可以极大地增强代码的灵活性，这些变量被统称为匿名变量。</p>
 <p>​         匿名变量的特点是一个下画线“_”，“_”本身就是一个特殊的标识符，被称为空白标识符。它可以像其他标识符那样用于变量的声明或赋值（任何类型都可以赋值给它），但任何赋给这个标识符的值都将被抛弃，因此这些值不能在后续的代码中使用，也不可以使用这个标识符作为变量对其它变量进行赋值或运算。使用匿名变量时，只需要在变量声明的地方使用下画线替换即可。例如：</p>
-<figure class="highlight go"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">GetData</span><span class="hljs-params">()</span> <span class="hljs-params">(<span class="hljs-keyword">int</span>, <span class="hljs-keyword">int</span>)</span></span> &#123;<br>    <span class="hljs-keyword">return</span> <span class="hljs-number">100</span>, <span class="hljs-number">200</span><br>&#125;<br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span>&#123;<br>    a, _ := GetData()<br>    _, b := GetData()<br>    fmt.Println(a, b)<br>&#125;<br></code></pre></div></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">func GetData() (int, int) &#123;</span><br><span class="line">    return 100, 200</span><br><span class="line">&#125;</span><br><span class="line">func main()&#123;</span><br><span class="line">    a, _ :&#x3D; GetData()</span><br><span class="line">    _, b :&#x3D; GetData()</span><br><span class="line">    fmt.Println(a, b)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>代码运行结果：</p>
-<figure class="highlight basic"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs basic"><span class="hljs-symbol">100 </span><span class="hljs-number">200</span><br></code></pre></div></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">100 200</span><br></pre></td></tr></table></figure>
 <p>GetData() 是一个函数，拥有两个整型返回值。每次调用将会返回 100 和 200 两个数值。</p>
 <p> 代码说明如下：</p>
 <ul>
@@ -415,282 +369,94 @@
 <h3 id="局部变量"><a href="#局部变量" class="headerlink" title="局部变量"></a>局部变量</h3><p>在函数体内声明的变量称之为局部变量，它们的作用域只在函数体内，函数的参数和返回值变量都属于局部变量。</p>
 <p> 局部变量不是一直存在的，它只在定义它的函数被调用后存在，函数调用结束后这个局部变量就会被销毁。</p>
 <p> 【示例】下面的 main() 函数中使用到了局部变量 a、b、c。</p>
-<figure class="highlight go"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs go"><span class="hljs-keyword">package</span> main<br><br><span class="hljs-keyword">import</span> (<br>    <span class="hljs-string">&quot;fmt&quot;</span><br>)<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> &#123;<br>    <span class="hljs-comment">//声明局部变量 a 和 b 并赋值</span><br>    <span class="hljs-keyword">var</span> a <span class="hljs-keyword">int</span> = <span class="hljs-number">3</span><br>    <span class="hljs-keyword">var</span> b <span class="hljs-keyword">int</span> = <span class="hljs-number">4</span><br>    <span class="hljs-comment">//声明局部变量 c 并计算 a 和 b 的和</span><br>    c := a + b<br>    fmt.Printf(<span class="hljs-string">&quot;a = %d, b = %d, c = %d\n&quot;</span>, a, b, c)<br>&#125;<br></code></pre></div></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">package main</span><br><span class="line"></span><br><span class="line">import (</span><br><span class="line">    &quot;fmt&quot;</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">func main() &#123;</span><br><span class="line">    &#x2F;&#x2F;声明局部变量 a 和 b 并赋值</span><br><span class="line">    var a int &#x3D; 3</span><br><span class="line">    var b int &#x3D; 4</span><br><span class="line">    &#x2F;&#x2F;声明局部变量 c 并计算 a 和 b 的和</span><br><span class="line">    c :&#x3D; a + b</span><br><span class="line">    fmt.Printf(&quot;a &#x3D; %d, b &#x3D; %d, c &#x3D; %d\n&quot;, a, b, c)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>运行结果如下所示：</p>
-<figure class="highlight apache"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs apache"><span class="hljs-attribute">a</span> = <span class="hljs-number">3</span>, b = <span class="hljs-number">4</span>, c = <span class="hljs-number">7</span><br></code></pre></div></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">a &#x3D; 3, b &#x3D; 4, c &#x3D; 7</span><br></pre></td></tr></table></figure>
 <h3 id="全局变量"><a href="#全局变量" class="headerlink" title="全局变量"></a>全局变量</h3><p>​        在函数体外声明的变量称之为全局变量，全局变量只需要在一个源文件中定义，就可以在所有源文件中使用，当然，不包含这个全局变量的源文件需要使用“import”关键字引入全局变量所在的源文件之后才能使用这个全局变量。</p>
 <p> 全局变量声明必须以 var 关键字开头，如果想要在外部包中使用全局变量的首字母必须大写。</p>
 <p> 【示例】下面代码中，第 6 行定义了全局变量 c。</p>
-<figure class="highlight stylus"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs stylus">package main<br><br>import <span class="hljs-string">&quot;fmt&quot;</span><br><br><span class="hljs-comment">//声明全局变量</span><br><span class="hljs-selector-tag">var</span> c int<br><br>func main() &#123;<br>    <span class="hljs-comment">//声明局部变量</span><br>    <span class="hljs-selector-tag">var</span> <span class="hljs-selector-tag">a</span>, <span class="hljs-selector-tag">b</span> int<br><br>    <span class="hljs-comment">//初始化参数</span><br>    <span class="hljs-selector-tag">a</span> = <span class="hljs-number">3</span><br>    <span class="hljs-selector-tag">b</span> = <span class="hljs-number">4</span><br>    c = <span class="hljs-selector-tag">a</span> + b<br><br>    fmt.Printf(<span class="hljs-string">&quot;a = %d, b = %d, c = %d\n&quot;</span>, <span class="hljs-selector-tag">a</span>, <span class="hljs-selector-tag">b</span>, c)<br>&#125;<br></code></pre></div></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">package main</span><br><span class="line"></span><br><span class="line">import &quot;fmt&quot;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;声明全局变量</span><br><span class="line">var c int</span><br><span class="line"></span><br><span class="line">func main() &#123;</span><br><span class="line">    &#x2F;&#x2F;声明局部变量</span><br><span class="line">    var a, b int</span><br><span class="line"></span><br><span class="line">    &#x2F;&#x2F;初始化参数</span><br><span class="line">    a &#x3D; 3</span><br><span class="line">    b &#x3D; 4</span><br><span class="line">    c &#x3D; a + b</span><br><span class="line"></span><br><span class="line">    fmt.Printf(&quot;a &#x3D; %d, b &#x3D; %d, c &#x3D; %d\n&quot;, a, b, c)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>运行结果如下所示：</p>
-<figure class="highlight apache"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs apache"><span class="hljs-attribute">a</span> = <span class="hljs-number">3</span>, b = <span class="hljs-number">4</span>, c = <span class="hljs-number">7</span><br></code></pre></div></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">a &#x3D; 3, b &#x3D; 4, c &#x3D; 7</span><br></pre></td></tr></table></figure>
 <p><strong>Go语言程序中全局变量与局部变量名称可以相同，但是函数体内的局部变量会被优先考虑。</strong></p>
-<figure class="highlight go"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs go"><span class="hljs-keyword">package</span> main<br><br><span class="hljs-keyword">import</span> <span class="hljs-string">&quot;fmt&quot;</span><br><br><span class="hljs-comment">//声明全局变量</span><br><span class="hljs-keyword">var</span> a <span class="hljs-keyword">float32</span> = <span class="hljs-number">3.14</span><br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> &#123;<br>    <span class="hljs-comment">//声明局部变量</span><br>    <span class="hljs-keyword">var</span> a <span class="hljs-keyword">int</span> = <span class="hljs-number">3</span><br><br>    fmt.Printf(<span class="hljs-string">&quot;a = %d\n&quot;</span>, a)<br>&#125;<br></code></pre></div></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">package main</span><br><span class="line"></span><br><span class="line">import &quot;fmt&quot;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;声明全局变量</span><br><span class="line">var a float32 &#x3D; 3.14</span><br><span class="line"></span><br><span class="line">func main() &#123;</span><br><span class="line">    &#x2F;&#x2F;声明局部变量</span><br><span class="line">    var a int &#x3D; 3</span><br><span class="line"></span><br><span class="line">    fmt.Printf(&quot;a &#x3D; %d\n&quot;, a)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>运行结果如下所示：</p>
-<figure class="highlight ini"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs ini"><span class="hljs-attr">a</span> = <span class="hljs-number">3</span><br></code></pre></div></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">a &#x3D; 3</span><br></pre></td></tr></table></figure>
 <h3 id="形式参数"><a href="#形式参数" class="headerlink" title="形式参数"></a>形式参数</h3><p>​        在定义函数时函数名后面括号中的变量叫做形式参数（简称形参）。形式参数只在函数调用时才会生效，函数调用结束后就会被销毁，在函数未被调用时，函数的形参并不占用实际的存储单元，也没有实际值。</p>
 <p> 形式参数会作为函数的局部变量来使用。</p>
 <p> 【示例】下面代码中第 21 行定义了形式参数 a 和 b。</p>
-<figure class="highlight go"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs go"><span class="hljs-keyword">package</span> main<br><br><span class="hljs-keyword">import</span> (<br>    <span class="hljs-string">&quot;fmt&quot;</span><br>)<br><br><span class="hljs-comment">//全局变量 a</span><br><span class="hljs-keyword">var</span> a <span class="hljs-keyword">int</span> = <span class="hljs-number">13</span><br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> &#123;<br>    <span class="hljs-comment">//局部变量 a 和 b</span><br>    <span class="hljs-keyword">var</span> a <span class="hljs-keyword">int</span> = <span class="hljs-number">3</span><br>    <span class="hljs-keyword">var</span> b <span class="hljs-keyword">int</span> = <span class="hljs-number">4</span><br><br>    fmt.Printf(<span class="hljs-string">&quot;main() 函数中 a = %d\n&quot;</span>, a)<br>    fmt.Printf(<span class="hljs-string">&quot;main() 函数中 b = %d\n&quot;</span>, b)<br>    c := sum(a, b)<br>    fmt.Printf(<span class="hljs-string">&quot;main() 函数中 c = %d\n&quot;</span>, c)<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">sum</span><span class="hljs-params">(a, b <span class="hljs-keyword">int</span>)</span> <span class="hljs-title">int</span></span> &#123;<br>    fmt.Printf(<span class="hljs-string">&quot;sum() 函数中 a = %d\n&quot;</span>, a)<br>    fmt.Printf(<span class="hljs-string">&quot;sum() 函数中 b = %d\n&quot;</span>, b)<br>    num := a + b<br>    <span class="hljs-keyword">return</span> num<br>&#125;<br></code></pre></div></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">package main</span><br><span class="line"></span><br><span class="line">import (</span><br><span class="line">    &quot;fmt&quot;</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;全局变量 a</span><br><span class="line">var a int &#x3D; 13</span><br><span class="line"></span><br><span class="line">func main() &#123;</span><br><span class="line">    &#x2F;&#x2F;局部变量 a 和 b</span><br><span class="line">    var a int &#x3D; 3</span><br><span class="line">    var b int &#x3D; 4</span><br><span class="line"></span><br><span class="line">    fmt.Printf(&quot;main() 函数中 a &#x3D; %d\n&quot;, a)</span><br><span class="line">    fmt.Printf(&quot;main() 函数中 b &#x3D; %d\n&quot;, b)</span><br><span class="line">    c :&#x3D; sum(a, b)</span><br><span class="line">    fmt.Printf(&quot;main() 函数中 c &#x3D; %d\n&quot;, c)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func sum(a, b int) int &#123;</span><br><span class="line">    fmt.Printf(&quot;sum() 函数中 a &#x3D; %d\n&quot;, a)</span><br><span class="line">    fmt.Printf(&quot;sum() 函数中 b &#x3D; %d\n&quot;, b)</span><br><span class="line">    num :&#x3D; a + b</span><br><span class="line">    return num</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>运行结果如下所示：</p>
-<figure class="highlight stylus"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs stylus"><span class="hljs-function"><span class="hljs-title">main</span><span class="hljs-params">()</span></span> 函数中 <span class="hljs-selector-tag">a</span> = <span class="hljs-number">3</span><br><span class="hljs-function"><span class="hljs-title">main</span><span class="hljs-params">()</span></span> 函数中 <span class="hljs-selector-tag">b</span> = <span class="hljs-number">4</span><br><span class="hljs-function"><span class="hljs-title">sum</span><span class="hljs-params">()</span></span> 函数中 <span class="hljs-selector-tag">a</span> = <span class="hljs-number">3</span><br><span class="hljs-function"><span class="hljs-title">sum</span><span class="hljs-params">()</span></span> 函数中 <span class="hljs-selector-tag">b</span> = <span class="hljs-number">4</span><br><span class="hljs-function"><span class="hljs-title">main</span><span class="hljs-params">()</span></span> 函数中 c = <span class="hljs-number">7</span><br></code></pre></div></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">main() 函数中 a &#x3D; 3</span><br><span class="line">main() 函数中 b &#x3D; 4</span><br><span class="line">sum() 函数中 a &#x3D; 3</span><br><span class="line">sum() 函数中 b &#x3D; 4</span><br><span class="line">main() 函数中 c &#x3D; 7</span><br></pre></td></tr></table></figure>
 
-            </div>
-            <hr>
-            <div>
-              <div class="post-metas mb-3">
-                
-                  <div class="post-meta mr-3">
-                    <i class="iconfont icon-category"></i>
-                    
-                      <a class="hover-with-bg" href="/categories/Golang/">Golang</a>
-                    
-                  </div>
-                
-                
-                  <div class="post-meta">
-                    <i class="iconfont icon-tags"></i>
-                    
-                      <a class="hover-with-bg" href="/tags/Golang/">Golang</a>
-                    
-                  </div>
-                
-              </div>
-              
-                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
-              
-              
-                <div class="post-prevnext">
-                  <article class="post-prev col-6">
-                    
-                    
-                      <a href="/2021/04/07/Go%E8%AF%AD%E8%A8%80%E6%8C%87%E9%92%88/">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">Go语言指针</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
-                  </article>
-                  <article class="post-next col-6">
-                    
-                    
-                      <a href="/2021/04/07/Go%E8%AF%AD%E8%A8%80%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E8%BD%AC%E6%8D%A2/">
-                        <span class="hidden-mobile">Go语言数据类型转换</span>
-                        <span class="visible-mobile">下一篇</span>
-                        <i class="iconfont icon-arrowright"></i>
-                      </a>
-                    
-                  </article>
-                </div>
-              
-            </div>
-
-            
-              <!-- Comments -->
-              <article class="comments" id="comments">
-                
-                
-  <div id="vcomments"></div>
-  <script type="text/javascript">
-    Fluid.utils.waitElementVisible('vcomments', function() {
-      Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js', function () {
-        new Valine({
-          el: "#vcomments",
-          app_id: "hPHtsN0Gt7U2zB2AllYqbucc-9Nh9j0Va",
-          app_key: "TVUER8rWijR8cD1STqzd2d4E",
-          placeholder: "你有故事，我有酒，我们一起勇闯天涯。。。",
-          path: window.location.pathname,
-          avatar: "retro",
-          meta: ["nick","mail","link"],
-          pageSize: "10",
-          lang: "zh-CN",
-          highlight: false,
-          recordIP: false,
-          serverURLs: "",
-        });
-      });
-    });
-  </script>
-  <noscript>Please enable JavaScript to view the
-    <a target="_blank" href="https://valine.js.org" rel="nofollow noopener noopener">comments powered by Valine.</a>
-  </noscript>
-
-
-              </article>
-            
-          </article>
-        </div>
-      </div>
     </div>
+
     
-      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
-        <div id="toc">
-  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
-  <div class="toc-body" id="toc-body"></div>
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Golang/" rel="tag"># Golang</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2021/04/07/Go%E8%AF%AD%E8%A8%80%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E8%BD%AC%E6%8D%A2/" rel="prev" title="Go语言数据类型转换">
+                  <i class="fa fa-chevron-left"></i> Go语言数据类型转换
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2021/04/07/Go%E8%AF%AD%E8%A8%80%E6%8C%87%E9%92%88/" rel="next" title="Go语言指针">
+                  Go语言指针 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
 </div>
 
-      </div>
-    
-  </div>
+
+
+
+
+
 </div>
-
-<!-- Custom -->
-
-
-    
-
-    
-      <a id="scroll-top-button" href="#" role="button">
-        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
-      </a>
-    
-
-    
-      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
-     aria-hidden="true">
-  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
-    <div class="modal-content">
-      <div class="modal-header text-center">
-        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
-        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body mx-3">
-        <div class="md-form mb-5">
-          <input type="text" id="local-search-input" class="form-control validate">
-          <label data-error="x" data-success="v"
-                 for="local-search-input">关键词</label>
-        </div>
-        <div class="list-group" id="local-search-result"></div>
-      </div>
-    </div>
-  </div>
-</div>
-    
-
-    
   </main>
 
-  <footer class="text-center mt-5 py-3">
-  <div class="footer-content">
-     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
-  </div>
-  
-  <div class="statistics">
-    
-    
+  <footer class="footer">
+    <div class="footer-inner">
 
-    
-      
-        <!-- 不蒜子统计PV -->
-        <span id="busuanzi_container_site_pv" style="display: none">
-            总访问量 
-            <span id="busuanzi_value_site_pv"></span>
-             次
-          </span>
-      
-      
-        <!-- 不蒜子统计UV -->
-        <span id="busuanzi_container_site_uv" style="display: none">
-            总访客数 
-            <span id="busuanzi_value_site_uv"></span>
-             人
-          </span>
-      
-    
+
+<div class="copyright">
+  &copy; 2020 – 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">羊皮裘老头</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
   </div>
 
+    </div>
+  </footer>
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
 
   
 
-  
-</footer>
 
-<!-- SCRIPTS -->
-
-  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
-  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
-
-  <script>
-    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
-    NProgress.start()
-    window.addEventListener('load', function() {
-      NProgress.done();
-    })
-  </script>
-
-
-<script  src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" ></script>
-<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" ></script>
-<script  src="/js/debouncer.js" ></script>
-<script  src="/js/events.js" ></script>
-<script  src="/js/plugins.js" ></script>
-
-<!-- Plugins -->
-
-
-  
-    <script  src="/js/lazyload.js" ></script>
-  
 
 
 
   
 
 
-
-  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.0/dist/tocbot.min.js" ></script>
-
-
-
-  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
-
-
-
-  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.0/anchor.min.js" ></script>
-
-
-
-  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js" ></script>
-
-
-
-  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
-
-
-
-
-
-
-  <script  src="/js/local-search.js" ></script>
-  <script>
-    (function () {
-      var path = "/local-search.xml";
-      var inputArea = document.querySelector("#local-search-input");
-      inputArea.onclick = function () {
-        searchFunc(path, 'local-search-input', 'local-search-result');
-        this.onclick = null
-      }
-    })()
-  </script>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<!-- 主题的启动项 保持在最底部 -->
-<script  src="/js/boot.js" ></script>
 
 
 

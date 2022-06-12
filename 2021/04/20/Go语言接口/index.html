@@ -1,302 +1,256 @@
-
-
 <!DOCTYPE html>
-<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
-
-
-
+<html lang="zh-CN">
 <head>
   <meta charset="UTF-8">
-  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
-  <link rel="icon" type="image/png" href="/img/favicon.png">
-  <meta name="viewport"
-        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
-  <meta http-equiv="x-ua-compatible" content="ie=edge">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 5.3.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.12.1","exturl":false,"sidebar":{"position":"left","width":300,"display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="Go语言不是一种 “传统” 的面向对象编程语言：它里面没有类和继承的概念。 ​         但是Go语言里有非常灵活的接口概念，通过它可以实现很多面向对象的特性。很多面向对象的语言都有相似的接口概念，但Go语言中接口类型的独特之处在于它是满足隐式实现的。也就是说，我们没有必要对于给定的具体类型定义所有满足的接口类型；简单地拥有一些必需的方法就足够了。 ​         这种设计可以让你创建一">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Go语言接口">
+<meta property="og:url" content="http://example.com/2021/04/20/Go%E8%AF%AD%E8%A8%80%E6%8E%A5%E5%8F%A3/index.html">
+<meta property="og:site_name" content="羊皮裘老头">
+<meta property="og:description" content="Go语言不是一种 “传统” 的面向对象编程语言：它里面没有类和继承的概念。 ​         但是Go语言里有非常灵活的接口概念，通过它可以实现很多面向对象的特性。很多面向对象的语言都有相似的接口概念，但Go语言中接口类型的独特之处在于它是满足隐式实现的。也就是说，我们没有必要对于给定的具体类型定义所有满足的接口类型；简单地拥有一些必需的方法就足够了。 ​         这种设计可以让你创建一">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2021-04-20T07:40:57.000Z">
+<meta property="article:modified_time" content="2022-04-17T09:07:33.884Z">
+<meta property="article:author" content="羊皮裘老头">
+<meta property="article:tag" content="Golang">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="http://example.com/2021/04/20/Go%E8%AF%AD%E8%A8%80%E6%8E%A5%E5%8F%A3/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://example.com/2021/04/20/Go%E8%AF%AD%E8%A8%80%E6%8E%A5%E5%8F%A3/","path":"2021/04/20/Go语言接口/","title":"Go语言接口"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>Go语言接口 | 羊皮裘老头</title>
   
-  <meta name="theme-color" content="#2f4154">
-  <meta name="description" content="">
-  <meta name="author" content="羊皮裘老头">
-  <meta name="keywords" content="">
-  <title>Go语言接口 - 羊皮裘老头</title>
-
-  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
-
-
-  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
-  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
-
-  
-    
-    
-      
-      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.4.0/styles/github-gist.min.css" />
-    
-  
-
-  
-    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
-  
 
 
 
-<!-- 主题依赖的图标库，不要自行修改 -->
-
-<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
 
 
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
 
-<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
 
-
-<link  rel="stylesheet" href="/css/main.css" />
-
-<!-- 自定义样式保持在最底部 -->
-
-
-  <script id="fluid-configs">
-    var Fluid = window.Fluid || {};
-    var CONFIG = {"hostname":"example.com","root":"/","version":"1.8.7","typing":{"enable":false,"typeSpeed":70,"cursorChar":" ","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"onlypost":false},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}}};
-  </script>
-  <script  src="/js/utils.js" ></script>
-  <script  src="/js/color-schema.js" ></script>
-<meta name="generator" content="Hexo 5.3.0"></head>
-
-
-<body>
-  <header style="height: 70vh;">
-    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
-  <div class="container">
-    <a class="navbar-brand"
-       href="/">&nbsp;<strong>羊皮裘老头</strong>&nbsp;</a>
-
-    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
-            data-target="#navbarSupportedContent"
-            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <div class="animated-icon"><span></span><span></span><span></span></div>
-    </button>
-
-    <!-- Collapsible content -->
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav ml-auto text-center">
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/">
-                <i class="iconfont icon-home-fill"></i>
-                首页
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/archives/">
-                <i class="iconfont icon-archive-fill"></i>
-                归档
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/categories/">
-                <i class="iconfont icon-category-fill"></i>
-                分类
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/tags/">
-                <i class="iconfont icon-tags-fill"></i>
-                标签
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/about/">
-                <i class="iconfont icon-user-fill"></i>
-                关于
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <i class="iconfont icon-books"></i>
-                文档
-              </a>
-              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                
-                  
-                  
-                  
-                  <a class="dropdown-item" target="_blank" rel="noopener" href="https://hexo.fluid-dev.com/">
-                    
-                    主题博客
-                  </a>
-                
-                  
-                  
-                  
-                  <a class="dropdown-item" target="_blank" rel="noopener" href="https://hexo.fluid-dev.com/docs/guide/">
-                    
-                    配置指南
-                  </a>
-                
-                  
-                  
-                  
-                  <a class="dropdown-item" target="_blank" rel="noopener" href="https://hexo.fluid-dev.com/docs/icon/">
-                    
-                    图标用法
-                  </a>
-                
-              </div>
-            </li>
-          
-        
-        
-          <li class="nav-item" id="search-btn">
-            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
-                class="iconfont icon-search"></i>&nbsp;</a>
-          </li>
-        
-        
-          <li class="nav-item" id="color-toggle-btn">
-            <a class="nav-link" href="javascript:">&nbsp;<i
-                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
-          </li>
-        
-      </ul>
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
     </div>
   </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">羊皮裘老头</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">28</span></a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">13</span></a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">116</span></a></li><li class="menu-item menu-item-schedule"><a href="/schedule/" rel="section"><i class="fa fa-calendar fa-fw"></i>日程表</a></li><li class="menu-item menu-item-sitemap"><a href="/sitemap.xml" rel="section"><i class="fa fa-sitemap fa-fw"></i>站点地图</a></li><li class="menu-item menu-item-commonweal"><a href="/404/" rel="section"><i class="fa fa-heartbeat fa-fw"></i>公益 404</a></li>
+  </ul>
 </nav>
 
-    <div class="banner" id="banner" parallax=true
-         style="background: url('/img/ss.png') no-repeat center center;
-           background-size: cover;">
-      <div class="full-bg-img">
-        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
-          <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="Go语言接口">
-              
-                Go语言接口
-              
-            </span>
 
-            
-              <div class="mt-3">
+
+
+</div>
+        
   
-  
-    <span class="post-meta">
-      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-      <time datetime="2021-04-20 15:40" pubdate>
-        2021年4月20日 下午
-      </time>
-    </span>
-  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8E%A5%E5%8F%A3%E5%A3%B0%E6%98%8E%E7%9A%84%E6%A0%BC%E5%BC%8F"><span class="nav-number">1.</span> <span class="nav-text">接口声明的格式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%9E%E4%BE%8B"><span class="nav-number">2.</span> <span class="nav-text">实例</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9%E5%92%8C%E7%BB%86%E8%8A%82"><span class="nav-number">3.</span> <span class="nav-text">注意事项和细节</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5"><span class="nav-number">4.</span> <span class="nav-text">最佳实践</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%9E%E7%8E%B0%E6%8E%A5%E5%8F%A3-vs-%E7%BB%A7%E6%89%BF"><span class="nav-number">4.1.</span> <span class="nav-text">实现接口 vs 继承</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8E%A5%E5%8F%A3%E5%92%8C%E7%BB%A7%E6%89%BF%E8%A7%A3%E5%86%B3%E7%9A%84%E8%A7%A3%E5%86%B3%E7%9A%84%E9%97%AE%E9%A2%98%E4%B8%8D%E5%90%8C"><span class="nav-number">4.2.</span> <span class="nav-text">接口和继承解决的解决的问题不同</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8E%A5%E5%8F%A3%E4%BD%93%E7%8E%B0%E5%A4%9A%E6%80%81"><span class="nav-number">5.</span> <span class="nav-text">接口体现多态</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A4%9A%E6%80%81%E5%8F%82%E6%95%B0"><span class="nav-number">5.1.</span> <span class="nav-text">多态参数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A4%9A%E6%80%81%E6%95%B0%E7%BB%84"><span class="nav-number">5.2.</span> <span class="nav-text">多态数组</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8E%A5%E5%8F%A3%E7%B1%BB%E5%9E%8B%E6%96%AD%E8%A8%80"><span class="nav-number">6.</span> <span class="nav-text">接口类型断言</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9F%BA%E6%9C%AC%E4%BB%8B%E7%BB%8D"><span class="nav-number">6.1.</span> <span class="nav-text">基本介绍</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%B1%BB%E5%9E%8B%E6%96%AD%E8%A8%80%E7%9A%84%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5-1"><span class="nav-number">6.2.</span> <span class="nav-text">类型断言的最佳实践 1</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%B1%BB%E5%9E%8B%E6%96%AD%E8%A8%80%E7%9A%84%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5-2"><span class="nav-number">6.3.</span> <span class="nav-text">类型断言的最佳实践 2</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">羊皮裘老头</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">116</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">13</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">28</span>
+        <span class="site-state-item-name">标签</span>
+      </div>
+  </nav>
 </div>
 
-<div class="mt-1">
-  
-    
-    <span class="post-meta mr-2">
-      <i class="iconfont icon-chart"></i>
-      3.4k 字
-    </span>
-  
 
-  
-    
-    <span class="post-meta mr-2">
-      <i class="iconfont icon-clock-fill"></i>
-      
-      
-      47
-       分钟
-    </span>
-  
 
-  
-  
-    
-      <!-- LeanCloud 统计文章PV -->
-      <span id="leancloud-page-views-container" class="post-meta" style="display: none">
-        <i class="iconfont icon-eye" aria-hidden="true"></i>
-        <span id="leancloud-page-views"></span> 次
-      </span>
-    
-  
-</div>
-
-            
-          </div>
-
-          
         </div>
       </div>
     </div>
-  </header>
+  </aside>
+  <div class="sidebar-dimmer"></div>
 
-  <main>
+
+    </header>
+
     
-      
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
 
-<div class="container-fluid nopadding-x">
-  <div class="row nomargin-x">
-    <div class="d-none d-lg-block col-lg-2"></div>
-    <div class="col-lg-8 nopadding-x-md">
-      <div class="container nopadding-x-md" id="board-ctn">
-        <div class="py-5" id="board">
-          <article class="post-content mx-auto">
-            <!-- SEO header -->
-            <h1 style="display: none">Go语言接口</h1>
-            
-              <p class="note note-info">
-                
-                  本文最后更新于：2022年4月17日 下午
-                
-              </p>
-            
-            <div class="markdown-body">
-              <p>Go语言不是一种 “传统” 的面向对象编程语言：它里面没有类和继承的概念。</p>
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/04/20/Go%E8%AF%AD%E8%A8%80%E6%8E%A5%E5%8F%A3/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="羊皮裘老头">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="羊皮裘老头">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="Go语言接口 | 羊皮裘老头">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Go语言接口
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2021-04-20 15:40:57" itemprop="dateCreated datePublished" datetime="2021-04-20T15:40:57+08:00">2021-04-20</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-04-17 17:07:33" itemprop="dateModified" datetime="2022-04-17T17:07:33+08:00">2022-04-17</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Golang/" itemprop="url" rel="index"><span itemprop="name">Golang</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <p>Go语言不是一种 “传统” 的面向对象编程语言：它里面没有类和继承的概念。</p>
 <p>​         但是Go语言里有非常灵活的接口概念，通过它可以实现很多面向对象的特性。很多面向对象的语言都有相似的接口概念，但Go语言中接口类型的独特之处在于它是满足隐式实现的。也就是说，我们没有必要对于给定的具体类型定义所有满足的接口类型；简单地拥有一些必需的方法就足够了。</p>
 <p>​         这种设计可以让你创建一个新的接口类型满足已经存在的具体类型却不会去改变这些类型的定义；当我们使用的类型来自于不受我们控制的包时这种设计尤其有用。</p>
 <p>​         接口类型是对其它类型行为的抽象和概括；因为接口类型不会和特定的实现细节绑定在一起，通过这种抽象的方式我们可以让我们的函数更加灵活和更具有适应能力。</p>
 <p>​         接口是双方约定的一种合作协议。接口实现者不需要关心接口会被怎样使用，调用者也不需要关心接口的实现细节。接口是一种类型，也是一种抽象结构，不会暴露所含数据的格式、类型及结构。</p>
 <h2 id="接口声明的格式"><a href="#接口声明的格式" class="headerlink" title="接口声明的格式"></a>接口声明的格式</h2><p>每个接口类型由数个方法组成。接口的形式代码如下：</p>
-<figure class="highlight ada"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs ada"><span class="hljs-keyword">type</span> <span class="hljs-type">接口类型名 </span><span class="hljs-keyword">interface</span>&#123;<br>    方法名<span class="hljs-number">1</span>( 参数列表<span class="hljs-number">1</span> ) 返回值列表<span class="hljs-number">1</span><br>    方法名<span class="hljs-number">2</span>( 参数列表<span class="hljs-number">2</span> ) 返回值列表<span class="hljs-number">2</span><br>    …<br>&#125;<br></code></pre></div></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">type 接口类型名 interface&#123;</span><br><span class="line">    方法名1( 参数列表1 ) 返回值列表1</span><br><span class="line">    方法名2( 参数列表2 ) 返回值列表2</span><br><span class="line">    …</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>对各个部分的说明：</p>
 <ul>
 <li>接口类型名：使用 type 将接口定义为自定义的类型名。Go语言的接口在命名时，一般会在单词后面添加 er，如有写操作的接口叫 Writer，有字符串功能的接口叫 Stringer，有关闭功能的接口叫 Closer 等。</li>
 <li>方法名：当方法名首字母是大写时，且这个接口类型名首字母也是大写时，这个方法可以被接口所在的包（package）之外的代码访问。</li>
 <li>参数列表、返回值列表：参数列表和返回值列表中的参数变量名可以被忽略，例如：</li>
 </ul>
-<figure class="highlight elm"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs elm"><span class="hljs-keyword">type</span> writer interface&#123;<br>    <span class="hljs-type">Write</span>([]byte) error<br>&#125;<br></code></pre></div></td></tr></table></figure>
-<h2 id="实例"><a href="#实例" class="headerlink" title="实例"></a>实例</h2><figure class="highlight go"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs go"><span class="hljs-keyword">package</span> main<br><br><span class="hljs-keyword">import</span> (<br>	<span class="hljs-string">&quot;fmt&quot;</span><br>)<br><br><span class="hljs-comment">//申明接口</span><br><span class="hljs-keyword">type</span> Usb <span class="hljs-keyword">interface</span> &#123;<br>	Start()<br>	Stop()<br>&#125;<br><br><span class="hljs-keyword">type</span> Phone <span class="hljs-keyword">struct</span> &#123;<br>&#125;<br><br><span class="hljs-comment">//让Phone实现Usb接口的方法</span><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(p Phone)</span> <span class="hljs-title">Start</span><span class="hljs-params">()</span></span> &#123;<br>	fmt.Println(<span class="hljs-string">&quot;手机开始工作&quot;</span>)<br>&#125;<br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(p Phone)</span> <span class="hljs-title">Stop</span><span class="hljs-params">()</span></span> &#123;<br>	fmt.Println(<span class="hljs-string">&quot;手机停止工作&quot;</span>)<br>&#125;<br><br><span class="hljs-keyword">type</span> Camera <span class="hljs-keyword">struct</span> &#123;<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(c Camera)</span> <span class="hljs-title">Start</span><span class="hljs-params">()</span></span> &#123;<br>	fmt.Println(<span class="hljs-string">&quot;相机开始工作&quot;</span>)<br>&#125;<br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(c Camera)</span> <span class="hljs-title">Stop</span><span class="hljs-params">()</span></span> &#123;<br>	fmt.Println(<span class="hljs-string">&quot;相机停止工作&quot;</span>)<br>&#125;<br><br><span class="hljs-keyword">type</span> Computer <span class="hljs-keyword">struct</span> &#123;<br>&#125;<br><br><span class="hljs-comment">//编写一个working方法，接收一个Usb接口变量</span><br><span class="hljs-comment">//变量会根据传入的实参，来判断到底是Phone，还是Camera</span><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(c Computer)</span> <span class="hljs-title">Working</span><span class="hljs-params">(usb Usb)</span></span> &#123;<br>	usb.Start()<br>	usb.Stop()<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> &#123;<br>	<span class="hljs-comment">//创建结构体变量</span><br>	computer := Computer&#123;&#125;<br>	phone := Phone&#123;&#125;<br>	camera := Camera&#123;&#125;<br><br>	computer.Working(phone)<br>	computer.Working(camera)<br>&#125;<br></code></pre></div></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">type writer interface&#123;</span><br><span class="line">    Write([]byte) error</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="实例"><a href="#实例" class="headerlink" title="实例"></a>实例</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><span class="line">package main</span><br><span class="line"></span><br><span class="line">import (</span><br><span class="line">	&quot;fmt&quot;</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;申明接口</span><br><span class="line">type Usb interface &#123;</span><br><span class="line">	Start()</span><br><span class="line">	Stop()</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">type Phone struct &#123;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;让Phone实现Usb接口的方法</span><br><span class="line">func (p Phone) Start() &#123;</span><br><span class="line">	fmt.Println(&quot;手机开始工作&quot;)</span><br><span class="line">&#125;</span><br><span class="line">func (p Phone) Stop() &#123;</span><br><span class="line">	fmt.Println(&quot;手机停止工作&quot;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">type Camera struct &#123;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func (c Camera) Start() &#123;</span><br><span class="line">	fmt.Println(&quot;相机开始工作&quot;)</span><br><span class="line">&#125;</span><br><span class="line">func (c Camera) Stop() &#123;</span><br><span class="line">	fmt.Println(&quot;相机停止工作&quot;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">type Computer struct &#123;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;编写一个working方法，接收一个Usb接口变量</span><br><span class="line">&#x2F;&#x2F;变量会根据传入的实参，来判断到底是Phone，还是Camera</span><br><span class="line">func (c Computer) Working(usb Usb) &#123;</span><br><span class="line">	usb.Start()</span><br><span class="line">	usb.Stop()</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func main() &#123;</span><br><span class="line">	&#x2F;&#x2F;创建结构体变量</span><br><span class="line">	computer :&#x3D; Computer&#123;&#125;</span><br><span class="line">	phone :&#x3D; Phone&#123;&#125;</span><br><span class="line">	camera :&#x3D; Camera&#123;&#125;</span><br><span class="line"></span><br><span class="line">	computer.Working(phone)</span><br><span class="line">	computer.Working(camera)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>小结说明:</p>
 <ol>
 <li><p>接口里的所有方法都没有<strong>方法体</strong>，即接口的方法都是没有实现的方法。接口体现了程序设计的多态和高内聚低偶合的思想。</p>
@@ -307,7 +261,7 @@
 <h2 id="注意事项和细节"><a href="#注意事项和细节" class="headerlink" title="注意事项和细节"></a>注意事项和细节</h2><ol>
 <li>接口本身不能创建实例,但是可以指向一个实现了该接口的自定义类型的变量(实例)</li>
 </ol>
-<figure class="highlight go"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs go"><span class="hljs-keyword">package</span> main<br><br><span class="hljs-keyword">import</span> (<br>	<span class="hljs-string">&quot;fmt&quot;</span><br>)<br><br><span class="hljs-keyword">type</span> AInterfacr <span class="hljs-keyword">interface</span> &#123;<br>	Say()<br>&#125;<br><br><span class="hljs-keyword">type</span> Stu <span class="hljs-keyword">struct</span> &#123;<br>	Name <span class="hljs-keyword">string</span><br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(s Stu)</span> <span class="hljs-title">Say</span><span class="hljs-params">()</span></span> &#123;<br>	fmt.Println(<span class="hljs-string">&quot;stu say&quot;</span>)<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> &#123;<br>	<span class="hljs-keyword">var</span> stu Stu<br>	<span class="hljs-keyword">var</span> a AInterfacr = stu<br>	a.Say()<br>&#125;<br></code></pre></div></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">package main</span><br><span class="line"></span><br><span class="line">import (</span><br><span class="line">	&quot;fmt&quot;</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">type AInterfacr interface &#123;</span><br><span class="line">	Say()</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">type Stu struct &#123;</span><br><span class="line">	Name string</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func (s Stu) Say() &#123;</span><br><span class="line">	fmt.Println(&quot;stu say&quot;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func main() &#123;</span><br><span class="line">	var stu Stu</span><br><span class="line">	var a AInterfacr &#x3D; stu</span><br><span class="line">	a.Say()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <ol start="2">
 <li><p>接口中所有的方法都没有方法体,即都是没有实现的方法。</p>
 </li>
@@ -316,28 +270,28 @@
 <li><p>只要是自定义数据类型，就可以实现接口，不仅仅是结构体类型。</p>
 </li>
 </ol>
-<figure class="highlight go"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs go"><span class="hljs-keyword">package</span> main<br><br><span class="hljs-keyword">import</span> (<br>	<span class="hljs-string">&quot;fmt&quot;</span><br>)<br><br><span class="hljs-keyword">type</span> AInterface <span class="hljs-keyword">interface</span> &#123;<br>	Say()<br>&#125;<br><br><span class="hljs-keyword">type</span> integer <span class="hljs-keyword">int</span><br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(i integer)</span> <span class="hljs-title">Say</span><span class="hljs-params">()</span></span> &#123;<br>	fmt.Println(<span class="hljs-string">&quot;integer say i =&quot;</span>, i)<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> &#123;<br><br>	<span class="hljs-keyword">var</span> i integer = <span class="hljs-number">20</span><br>	<span class="hljs-keyword">var</span> b AInterface = i<br>	b.Say()<br>&#125;<br></code></pre></div></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">package main</span><br><span class="line"></span><br><span class="line">import (</span><br><span class="line">	&quot;fmt&quot;</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">type AInterface interface &#123;</span><br><span class="line">	Say()</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">type integer int</span><br><span class="line"></span><br><span class="line">func (i integer) Say() &#123;</span><br><span class="line">	fmt.Println(&quot;integer say i &#x3D;&quot;, i)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func main() &#123;</span><br><span class="line"></span><br><span class="line">	var i integer &#x3D; 20</span><br><span class="line">	var b AInterface &#x3D; i</span><br><span class="line">	b.Say()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <ol start="5">
 <li>一个自定义类型可以实现多个接口</li>
 </ol>
-<figure class="highlight go"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs go"><span class="hljs-keyword">package</span> main<br><br><span class="hljs-keyword">import</span> (<br>	<span class="hljs-string">&quot;fmt&quot;</span><br>)<br><br><span class="hljs-keyword">type</span> AInterface <span class="hljs-keyword">interface</span> &#123;<br>	Say()<br>&#125;<br><br><span class="hljs-keyword">type</span> BInterface <span class="hljs-keyword">interface</span> &#123;<br>	Hello()<br>&#125;<br><br><span class="hljs-keyword">type</span> Monster <span class="hljs-keyword">struct</span> &#123;<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(m Monster)</span> <span class="hljs-title">Say</span><span class="hljs-params">()</span></span> &#123;<br>	fmt.Println(<span class="hljs-string">&quot;Monster say~&quot;</span>)<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(m Monster)</span> <span class="hljs-title">Hello</span><span class="hljs-params">()</span></span> &#123;<br>	fmt.Println(<span class="hljs-string">&quot;Monster hello~&quot;</span>)<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> &#123;<br><br>	<span class="hljs-keyword">var</span> monster Monster<br>	<span class="hljs-keyword">var</span> n1 AInterface = monster<br>	<span class="hljs-keyword">var</span> n2 BInterface = monster<br>	n1.Say()<br>	n2.Hello()<br>&#125;<br></code></pre></div></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">package main</span><br><span class="line"></span><br><span class="line">import (</span><br><span class="line">	&quot;fmt&quot;</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">type AInterface interface &#123;</span><br><span class="line">	Say()</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">type BInterface interface &#123;</span><br><span class="line">	Hello()</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">type Monster struct &#123;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func (m Monster) Say() &#123;</span><br><span class="line">	fmt.Println(&quot;Monster say~&quot;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func (m Monster) Hello() &#123;</span><br><span class="line">	fmt.Println(&quot;Monster hello~&quot;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func main() &#123;</span><br><span class="line"></span><br><span class="line">	var monster Monster</span><br><span class="line">	var n1 AInterface &#x3D; monster</span><br><span class="line">	var n2 BInterface &#x3D; monster</span><br><span class="line">	n1.Say()</span><br><span class="line">	n2.Hello()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <ol start="6">
 <li><p>Golang 接口中不能有任何变量</p>
 </li>
 <li><p>一个接口(比如 A 接口)可以继承多个别的接口(比如 B,C 接口)，这时如果要实现 A 接口，也必须将 B,C 接口的方法也全部实现。</p>
 </li>
 </ol>
-<figure class="highlight go"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs go"><span class="hljs-keyword">package</span> main<br><br><span class="hljs-keyword">type</span> BInterface <span class="hljs-keyword">interface</span> &#123;<br>	test01()<br>&#125;<br><br><span class="hljs-keyword">type</span> CInterface <span class="hljs-keyword">interface</span> &#123;<br>	test02()<br>&#125;<br><br><span class="hljs-keyword">type</span> AInterface <span class="hljs-keyword">interface</span> &#123;<br>	BInterface<br>	CInterface<br>	test03()<br>&#125;<br><br><span class="hljs-keyword">type</span> Stu <span class="hljs-keyword">struct</span> &#123;<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(s Stu)</span> <span class="hljs-title">test01</span><span class="hljs-params">()</span></span> &#123;<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(s Stu)</span> <span class="hljs-title">test02</span><span class="hljs-params">()</span></span> &#123;<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(s Stu)</span> <span class="hljs-title">test03</span><span class="hljs-params">()</span></span> &#123;<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> &#123;<br>	<span class="hljs-keyword">var</span> stu Stu<br>	<span class="hljs-keyword">var</span> a AInterface = stu<br>	a.test03()<br>&#125;<br></code></pre></div></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">package main</span><br><span class="line"></span><br><span class="line">type BInterface interface &#123;</span><br><span class="line">	test01()</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">type CInterface interface &#123;</span><br><span class="line">	test02()</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">type AInterface interface &#123;</span><br><span class="line">	BInterface</span><br><span class="line">	CInterface</span><br><span class="line">	test03()</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">type Stu struct &#123;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func (s Stu) test01() &#123;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func (s Stu) test02() &#123;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func (s Stu) test03() &#123;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func main() &#123;</span><br><span class="line">	var stu Stu</span><br><span class="line">	var a AInterface &#x3D; stu</span><br><span class="line">	a.test03()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <ol start="8">
 <li><p>interface 类型默认是一个指针(引用类型)，如果没有对 interface 初始化就使用，那么会输出 nil</p>
 </li>
 <li><p>空接口 interface{} 没有任何方法，所以所有类型都实现了空接口, 即我们可以把任何一个变量赋给空接口。</p>
 </li>
 </ol>
-<figure class="highlight go"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs go"><span class="hljs-keyword">package</span> main<br><br><span class="hljs-keyword">import</span> <span class="hljs-string">&quot;fmt&quot;</span><br><br><span class="hljs-keyword">type</span> T <span class="hljs-keyword">interface</span> &#123;<br>&#125;<br><br><span class="hljs-keyword">type</span> Stu <span class="hljs-keyword">struct</span> &#123;<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> &#123;<br>	<span class="hljs-keyword">var</span> stu Stu<br>	<span class="hljs-keyword">var</span> t T = stu<br>	fmt.Println(t)<br>	<span class="hljs-keyword">var</span> num1 <span class="hljs-keyword">float64</span> = <span class="hljs-number">9.8</span><br>	<span class="hljs-keyword">var</span> t2 <span class="hljs-keyword">interface</span>&#123;&#125; = stu<br>	t2 = num1<br>	t = num1<br>	fmt.Println(t2, t)<br>&#125;<br><br></code></pre></div></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">package main</span><br><span class="line"></span><br><span class="line">import &quot;fmt&quot;</span><br><span class="line"></span><br><span class="line">type T interface &#123;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">type Stu struct &#123;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func main() &#123;</span><br><span class="line">	var stu Stu</span><br><span class="line">	var t T &#x3D; stu</span><br><span class="line">	fmt.Println(t)</span><br><span class="line">	var num1 float64 &#x3D; 9.8</span><br><span class="line">	var t2 interface&#123;&#125; &#x3D; stu</span><br><span class="line">	t2 &#x3D; num1</span><br><span class="line">	t &#x3D; num1</span><br><span class="line">	fmt.Println(t2, t)</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 <h2 id="最佳实践"><a href="#最佳实践" class="headerlink" title="最佳实践"></a>最佳实践</h2><p>实现对 Hero 结构体切片的排序: sort.Sort(data Interface)</p>
-<figure class="highlight go"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs go"><span class="hljs-keyword">package</span> main<br><br><span class="hljs-keyword">import</span> (<br>	<span class="hljs-string">&quot;fmt&quot;</span><br>	<span class="hljs-string">&quot;math/rand&quot;</span><br>	<span class="hljs-string">&quot;sort&quot;</span><br>)<br><br><span class="hljs-comment">//声明Hero结构体</span><br><span class="hljs-keyword">type</span> Hero <span class="hljs-keyword">struct</span> &#123;<br>	Name <span class="hljs-keyword">string</span><br>	Age  <span class="hljs-keyword">int</span><br>&#125;<br><br><span class="hljs-comment">//声明一个Hero结构体切片类型</span><br><span class="hljs-keyword">type</span> HeroSlice []Hero<br><br><span class="hljs-comment">//实现Interface接口</span><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(hs HeroSlice)</span> <span class="hljs-title">Len</span><span class="hljs-params">()</span> <span class="hljs-title">int</span></span> &#123;<br>	<span class="hljs-keyword">return</span> <span class="hljs-built_in">len</span>(hs)<br>&#125;<br><br><span class="hljs-comment">//Less方法就是决定使用什么标准进行排序</span><br><span class="hljs-comment">//i &lt; j 从小到大，反之从大到小</span><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(hs HeroSlice)</span> <span class="hljs-title">Less</span><span class="hljs-params">(i, j <span class="hljs-keyword">int</span>)</span> <span class="hljs-title">bool</span></span> &#123;<br>	<span class="hljs-keyword">return</span> hs[i].Age &lt; hs[j].Age<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(hs HeroSlice)</span> <span class="hljs-title">Swap</span><span class="hljs-params">(i, j <span class="hljs-keyword">int</span>)</span></span> &#123;<br>	hs[i], hs[j] = hs[j], hs[i]<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> &#123;<br>	<span class="hljs-comment">//先定义一个数组/切片</span><br>	<span class="hljs-comment">// var intSlice = []int&#123;2, 44, 55, 66, 1, 3&#125;</span><br>	<span class="hljs-comment">// //对intSlice切片进行排序</span><br>	<span class="hljs-comment">// sort.Ints(intSlice)</span><br>	<span class="hljs-comment">// fmt.Println(intSlice)</span><br><br>	<span class="hljs-comment">//对结构体切片进行排序</span><br>	<span class="hljs-keyword">var</span> heroes HeroSlice <span class="hljs-comment">//变量heroes属于结构体切片类型</span><br>	<span class="hljs-keyword">for</span> i := <span class="hljs-number">0</span>; i &lt; <span class="hljs-number">8</span>; i++ &#123;<br>		hero := Hero&#123;<br>			Name: fmt.Sprintf(<span class="hljs-string">&quot;hello~~~%d&quot;</span>, rand.Intn(<span class="hljs-number">50</span>)),<br>			Age:  rand.Intn(<span class="hljs-number">145</span>), <span class="hljs-comment">//返回一个取值范围在[0,n)的伪随机int值，如果n&lt;=0会panic</span><br>		&#125;<br>		heroes = <span class="hljs-built_in">append</span>(heroes, hero)<br>	&#125;<br>	fmt.Println(<span class="hljs-string">&quot;-----------排序前-----------&quot;</span>)<br>	<span class="hljs-keyword">for</span> _, v := <span class="hljs-keyword">range</span> heroes &#123;<br>		fmt.Println(v)<br>	&#125;<br>	sort.Sort(heroes) <span class="hljs-comment">//调用sort进行排序</span><br><br>	fmt.Println(<span class="hljs-string">&quot;----------排序后------------&quot;</span>)<br>	<span class="hljs-keyword">for</span> _, v := <span class="hljs-keyword">range</span> heroes &#123;<br>		fmt.Println(v)<br>	&#125;<br>&#125;<br></code></pre></div></td></tr></table></figure>
-<h3 id="实现接口-vs-继承"><a href="#实现接口-vs-继承" class="headerlink" title="实现接口 vs 继承"></a>实现接口 vs 继承</h3><figure class="highlight go"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs go"><span class="hljs-keyword">package</span> main<br><br><span class="hljs-keyword">import</span> (<br>	<span class="hljs-string">&quot;fmt&quot;</span><br>)<br><br><span class="hljs-comment">//定义接口</span><br><span class="hljs-keyword">type</span> Bird <span class="hljs-keyword">interface</span> &#123;<br>	Flying()<br>&#125;<br><br><span class="hljs-keyword">type</span> Fish <span class="hljs-keyword">interface</span> &#123;<br>	Swimming()<br>&#125;<br><br><span class="hljs-comment">//Monkey结构体</span><br><span class="hljs-keyword">type</span> Monkey <span class="hljs-keyword">struct</span> &#123;<br>	Name <span class="hljs-keyword">string</span><br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(m *Monkey)</span> <span class="hljs-title">slimbing</span><span class="hljs-params">()</span></span> &#123;<br>	fmt.Println(m.Name, <span class="hljs-string">&quot;天生会爬树&quot;</span>)<br>&#125;<br><br><span class="hljs-keyword">type</span> LittleMonkey <span class="hljs-keyword">struct</span> &#123;<br>	Monkey<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(l *LittleMonkey)</span> <span class="hljs-title">Flying</span><span class="hljs-params">()</span></span> &#123;<br>	fmt.Println(l.Name, <span class="hljs-string">&quot;通过学习会飞翔、、、&quot;</span>)<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(l *LittleMonkey)</span> <span class="hljs-title">Swimming</span><span class="hljs-params">()</span></span> &#123;<br>	fmt.Println(l.Name, <span class="hljs-string">&quot;通过学习会游泳&quot;</span>)<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> &#123;<br>	<span class="hljs-keyword">var</span> monkey = LittleMonkey&#123;Monkey&#123;Name: <span class="hljs-string">&quot;wukong&quot;</span>&#125;&#125;<br>	<span class="hljs-keyword">var</span> f Fish = &amp;monkey<br>	<span class="hljs-keyword">var</span> b Bird = &amp;monkey     <span class="hljs-comment">//LittleMonkey是指针类型，这里需要取地址</span><br>	monkey.slimbing()<br>	f.Swimming()<br>	b.Flying()<br>&#125;<br></code></pre></div></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br></pre></td><td class="code"><pre><span class="line">package main</span><br><span class="line"></span><br><span class="line">import (</span><br><span class="line">	&quot;fmt&quot;</span><br><span class="line">	&quot;math&#x2F;rand&quot;</span><br><span class="line">	&quot;sort&quot;</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;声明Hero结构体</span><br><span class="line">type Hero struct &#123;</span><br><span class="line">	Name string</span><br><span class="line">	Age  int</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;声明一个Hero结构体切片类型</span><br><span class="line">type HeroSlice []Hero</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;实现Interface接口</span><br><span class="line">func (hs HeroSlice) Len() int &#123;</span><br><span class="line">	return len(hs)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;Less方法就是决定使用什么标准进行排序</span><br><span class="line">&#x2F;&#x2F;i &lt; j 从小到大，反之从大到小</span><br><span class="line">func (hs HeroSlice) Less(i, j int) bool &#123;</span><br><span class="line">	return hs[i].Age &lt; hs[j].Age</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func (hs HeroSlice) Swap(i, j int) &#123;</span><br><span class="line">	hs[i], hs[j] &#x3D; hs[j], hs[i]</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func main() &#123;</span><br><span class="line">	&#x2F;&#x2F;先定义一个数组&#x2F;切片</span><br><span class="line">	&#x2F;&#x2F; var intSlice &#x3D; []int&#123;2, 44, 55, 66, 1, 3&#125;</span><br><span class="line">	&#x2F;&#x2F; &#x2F;&#x2F;对intSlice切片进行排序</span><br><span class="line">	&#x2F;&#x2F; sort.Ints(intSlice)</span><br><span class="line">	&#x2F;&#x2F; fmt.Println(intSlice)</span><br><span class="line"></span><br><span class="line">	&#x2F;&#x2F;对结构体切片进行排序</span><br><span class="line">	var heroes HeroSlice &#x2F;&#x2F;变量heroes属于结构体切片类型</span><br><span class="line">	for i :&#x3D; 0; i &lt; 8; i++ &#123;</span><br><span class="line">		hero :&#x3D; Hero&#123;</span><br><span class="line">			Name: fmt.Sprintf(&quot;hello~~~%d&quot;, rand.Intn(50)),</span><br><span class="line">			Age:  rand.Intn(145), &#x2F;&#x2F;返回一个取值范围在[0,n)的伪随机int值，如果n&lt;&#x3D;0会panic</span><br><span class="line">		&#125;</span><br><span class="line">		heroes &#x3D; append(heroes, hero)</span><br><span class="line">	&#125;</span><br><span class="line">	fmt.Println(&quot;-----------排序前-----------&quot;)</span><br><span class="line">	for _, v :&#x3D; range heroes &#123;</span><br><span class="line">		fmt.Println(v)</span><br><span class="line">	&#125;</span><br><span class="line">	sort.Sort(heroes) &#x2F;&#x2F;调用sort进行排序</span><br><span class="line"></span><br><span class="line">	fmt.Println(&quot;----------排序后------------&quot;)</span><br><span class="line">	for _, v :&#x3D; range heroes &#123;</span><br><span class="line">		fmt.Println(v)</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="实现接口-vs-继承"><a href="#实现接口-vs-继承" class="headerlink" title="实现接口 vs 继承"></a>实现接口 vs 继承</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line">package main</span><br><span class="line"></span><br><span class="line">import (</span><br><span class="line">	&quot;fmt&quot;</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;定义接口</span><br><span class="line">type Bird interface &#123;</span><br><span class="line">	Flying()</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">type Fish interface &#123;</span><br><span class="line">	Swimming()</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;Monkey结构体</span><br><span class="line">type Monkey struct &#123;</span><br><span class="line">	Name string</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func (m *Monkey) slimbing() &#123;</span><br><span class="line">	fmt.Println(m.Name, &quot;天生会爬树&quot;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">type LittleMonkey struct &#123;</span><br><span class="line">	Monkey</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func (l *LittleMonkey) Flying() &#123;</span><br><span class="line">	fmt.Println(l.Name, &quot;通过学习会飞翔、、、&quot;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func (l *LittleMonkey) Swimming() &#123;</span><br><span class="line">	fmt.Println(l.Name, &quot;通过学习会游泳&quot;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func main() &#123;</span><br><span class="line">	var monkey &#x3D; LittleMonkey&#123;Monkey&#123;Name: &quot;wukong&quot;&#125;&#125;</span><br><span class="line">	var f Fish &#x3D; &amp;monkey</span><br><span class="line">	var b Bird &#x3D; &amp;monkey     &#x2F;&#x2F;LittleMonkey是指针类型，这里需要取地址</span><br><span class="line">	monkey.slimbing()</span><br><span class="line">	f.Swimming()</span><br><span class="line">	b.Flying()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>对上面代码的小结</p>
 <ol>
 <li><p>当 A 结构体继承了 B 结构体，那么 A 结构就自动的继承了 B 结构体的字段和方法，并且可以直接使用</p>
@@ -351,275 +305,87 @@
 <p>​    接口比继承更加灵活，继承是满足 is - a 的关系，而接口只需满足 like - a 的关系。</p>
 <p>4、接口在一定程度上实现代码解耦</p>
 <h2 id="接口体现多态"><a href="#接口体现多态" class="headerlink" title="接口体现多态"></a>接口体现多态</h2><h3 id="多态参数"><a href="#多态参数" class="headerlink" title="多态参数"></a>多态参数</h3><p>在前面的 Usb 接口案例，Usb usb ，即可以接收手机变量，又可以接收相机变量，就体现了 Usb 接口多态。</p>
-<figure class="highlight go"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs go"><span class="hljs-keyword">package</span> main<br><br><span class="hljs-keyword">import</span> (<br>	<span class="hljs-string">&quot;fmt&quot;</span><br>)<br><br><span class="hljs-comment">//申明接口</span><br><span class="hljs-keyword">type</span> Usb <span class="hljs-keyword">interface</span> &#123;<br>	Start()<br>	Stop()<br>&#125;<br><br><span class="hljs-keyword">type</span> Phone <span class="hljs-keyword">struct</span> &#123;<br>&#125;<br><br><span class="hljs-comment">//让Phone实现Usb接口的方法</span><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(p Phone)</span> <span class="hljs-title">Start</span><span class="hljs-params">()</span></span> &#123;<br>	fmt.Println(<span class="hljs-string">&quot;手机开始工作&quot;</span>)<br>&#125;<br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(p Phone)</span> <span class="hljs-title">Stop</span><span class="hljs-params">()</span></span> &#123;<br>	fmt.Println(<span class="hljs-string">&quot;手机停止工作&quot;</span>)<br>&#125;<br><br><span class="hljs-keyword">type</span> Camera <span class="hljs-keyword">struct</span> &#123;<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(c Camera)</span> <span class="hljs-title">Start</span><span class="hljs-params">()</span></span> &#123;<br>	fmt.Println(<span class="hljs-string">&quot;相机开始工作&quot;</span>)<br>&#125;<br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(c Camera)</span> <span class="hljs-title">Stop</span><span class="hljs-params">()</span></span> &#123;<br>	fmt.Println(<span class="hljs-string">&quot;相机停止工作&quot;</span>)<br>&#125;<br><br><span class="hljs-keyword">type</span> Computer <span class="hljs-keyword">struct</span> &#123;<br>&#125;<br><br><span class="hljs-comment">//编写一个working方法，接收一个Usb接口变量</span><br><span class="hljs-comment">//变量会根据传入的实参，来判断到底是Phone，还是Camera</span><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(c Computer)</span> <span class="hljs-title">Working</span><span class="hljs-params">(usb Usb)</span></span> &#123;<br>	usb.Start()<br>	usb.Stop()<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> &#123;<br>	<span class="hljs-comment">//创建结构体变量</span><br>	computer := Computer&#123;&#125;<br>	phone := Phone&#123;&#125;<br>	camera := Camera&#123;&#125;<br><br>	computer.Working(phone)<br>	computer.Working(camera)<br>&#125;<br></code></pre></div></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><span class="line">package main</span><br><span class="line"></span><br><span class="line">import (</span><br><span class="line">	&quot;fmt&quot;</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;申明接口</span><br><span class="line">type Usb interface &#123;</span><br><span class="line">	Start()</span><br><span class="line">	Stop()</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">type Phone struct &#123;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;让Phone实现Usb接口的方法</span><br><span class="line">func (p Phone) Start() &#123;</span><br><span class="line">	fmt.Println(&quot;手机开始工作&quot;)</span><br><span class="line">&#125;</span><br><span class="line">func (p Phone) Stop() &#123;</span><br><span class="line">	fmt.Println(&quot;手机停止工作&quot;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">type Camera struct &#123;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func (c Camera) Start() &#123;</span><br><span class="line">	fmt.Println(&quot;相机开始工作&quot;)</span><br><span class="line">&#125;</span><br><span class="line">func (c Camera) Stop() &#123;</span><br><span class="line">	fmt.Println(&quot;相机停止工作&quot;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">type Computer struct &#123;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;编写一个working方法，接收一个Usb接口变量</span><br><span class="line">&#x2F;&#x2F;变量会根据传入的实参，来判断到底是Phone，还是Camera</span><br><span class="line">func (c Computer) Working(usb Usb) &#123;</span><br><span class="line">	usb.Start()</span><br><span class="line">	usb.Stop()</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func main() &#123;</span><br><span class="line">	&#x2F;&#x2F;创建结构体变量</span><br><span class="line">	computer :&#x3D; Computer&#123;&#125;</span><br><span class="line">	phone :&#x3D; Phone&#123;&#125;</span><br><span class="line">	camera :&#x3D; Camera&#123;&#125;</span><br><span class="line"></span><br><span class="line">	computer.Working(phone)</span><br><span class="line">	computer.Working(camera)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h3 id="多态数组"><a href="#多态数组" class="headerlink" title="多态数组"></a>多态数组</h3><p>演示一个案例：给 Usb 数组中，存放 Phone 结构体 和 Camera 结构体变量</p>
-<figure class="highlight go"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs go"><span class="hljs-keyword">package</span> main<br><br><span class="hljs-keyword">import</span> (<br>	<span class="hljs-string">&quot;fmt&quot;</span><br>)<br><br><span class="hljs-comment">//申明接口</span><br><span class="hljs-keyword">type</span> Usb <span class="hljs-keyword">interface</span> &#123;<br>	Start()<br>	Stop()<br>&#125;<br><br><span class="hljs-keyword">type</span> Phone <span class="hljs-keyword">struct</span> &#123;<br>	name <span class="hljs-keyword">string</span><br>&#125;<br><br><span class="hljs-comment">//让Phone实现Usb接口的方法</span><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(p Phone)</span> <span class="hljs-title">Start</span><span class="hljs-params">()</span></span> &#123;<br>	fmt.Println(<span class="hljs-string">&quot;手机开始工作&quot;</span>)<br>&#125;<br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(p Phone)</span> <span class="hljs-title">Stop</span><span class="hljs-params">()</span></span> &#123;<br>	fmt.Println(<span class="hljs-string">&quot;手机停止工作&quot;</span>)<br>&#125;<br><br><span class="hljs-keyword">type</span> Camera <span class="hljs-keyword">struct</span> &#123;<br>	name <span class="hljs-keyword">string</span><br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(c Camera)</span> <span class="hljs-title">Start</span><span class="hljs-params">()</span></span> &#123;<br>	fmt.Println(<span class="hljs-string">&quot;相机开始工作&quot;</span>)<br>&#125;<br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(c Camera)</span> <span class="hljs-title">Stop</span><span class="hljs-params">()</span></span> &#123;<br>	fmt.Println(<span class="hljs-string">&quot;相机停止工作&quot;</span>)<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> &#123;<br>	<span class="hljs-comment">//定义一个 Usb 接口数组，可以存放 Phone 和 Camera 的结构体变量</span><br>	<span class="hljs-comment">//这里就体现出多态数组</span><br>	<span class="hljs-keyword">var</span> Arrusb [<span class="hljs-number">4</span>]Usb<br>	Arrusb[<span class="hljs-number">0</span>] = Phone&#123;<span class="hljs-string">&quot;xiaomi&quot;</span>&#125;<br>	Arrusb[<span class="hljs-number">1</span>] = Phone&#123;<span class="hljs-string">&quot;vivo&quot;</span>&#125;<br>	Arrusb[<span class="hljs-number">2</span>] = Phone&#123;<span class="hljs-string">&quot;huawei&quot;</span>&#125;<br>	Arrusb[<span class="hljs-number">3</span>] = Camera&#123;<span class="hljs-string">&quot;suoni&quot;</span>&#125;<br><br>	fmt.Println(Arrusb)<br>&#125;<br></code></pre></div></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line">package main</span><br><span class="line"></span><br><span class="line">import (</span><br><span class="line">	&quot;fmt&quot;</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;申明接口</span><br><span class="line">type Usb interface &#123;</span><br><span class="line">	Start()</span><br><span class="line">	Stop()</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">type Phone struct &#123;</span><br><span class="line">	name string</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;让Phone实现Usb接口的方法</span><br><span class="line">func (p Phone) Start() &#123;</span><br><span class="line">	fmt.Println(&quot;手机开始工作&quot;)</span><br><span class="line">&#125;</span><br><span class="line">func (p Phone) Stop() &#123;</span><br><span class="line">	fmt.Println(&quot;手机停止工作&quot;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">type Camera struct &#123;</span><br><span class="line">	name string</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func (c Camera) Start() &#123;</span><br><span class="line">	fmt.Println(&quot;相机开始工作&quot;)</span><br><span class="line">&#125;</span><br><span class="line">func (c Camera) Stop() &#123;</span><br><span class="line">	fmt.Println(&quot;相机停止工作&quot;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func main() &#123;</span><br><span class="line">	&#x2F;&#x2F;定义一个 Usb 接口数组，可以存放 Phone 和 Camera 的结构体变量</span><br><span class="line">	&#x2F;&#x2F;这里就体现出多态数组</span><br><span class="line">	var Arrusb [4]Usb</span><br><span class="line">	Arrusb[0] &#x3D; Phone&#123;&quot;xiaomi&quot;&#125;</span><br><span class="line">	Arrusb[1] &#x3D; Phone&#123;&quot;vivo&quot;&#125;</span><br><span class="line">	Arrusb[2] &#x3D; Phone&#123;&quot;huawei&quot;&#125;</span><br><span class="line">	Arrusb[3] &#x3D; Camera&#123;&quot;suoni&quot;&#125;</span><br><span class="line"></span><br><span class="line">	fmt.Println(Arrusb)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h2 id="接口类型断言"><a href="#接口类型断言" class="headerlink" title="接口类型断言"></a>接口类型断言</h2><h3 id="基本介绍"><a href="#基本介绍" class="headerlink" title="基本介绍"></a>基本介绍</h3><p>类型断言，由于接口是一般类型，不知道具体类型，如果要转成具体类型，就需要使用类型断言</p>
-<figure class="highlight go"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs go"><span class="hljs-keyword">package</span> main<br><br><span class="hljs-keyword">import</span> (<br>	<span class="hljs-string">&quot;fmt&quot;</span><br>)<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> &#123;<br>	<span class="hljs-keyword">var</span> x <span class="hljs-keyword">interface</span>&#123;&#125;<br>	<span class="hljs-keyword">var</span> b <span class="hljs-keyword">float64</span> = <span class="hljs-number">2.333</span><br>	x = b<br>	y := x.(<span class="hljs-keyword">float64</span>)<br>	fmt.Printf(<span class="hljs-string">&quot;y的类型是%T 值为%v\n&quot;</span>, y, y)<br>&#125;<br></code></pre></div></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">package main</span><br><span class="line"></span><br><span class="line">import (</span><br><span class="line">	&quot;fmt&quot;</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">func main() &#123;</span><br><span class="line">	var x interface&#123;&#125;</span><br><span class="line">	var b float64 &#x3D; 2.333</span><br><span class="line">	x &#x3D; b</span><br><span class="line">	y :&#x3D; x.(float64)</span><br><span class="line">	fmt.Printf(&quot;y的类型是%T 值为%v\n&quot;, y, y)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>对上面代码的说明:</p>
 <p>在进行类型断言时，如果类型不匹配，就会报 panic, 因此进行类型断言时，要确保原来的空接口指向的就是断言的类型.</p>
 <p>如何在进行断言时，带上检测机制，如果成功就 ok,否则也不要报 panic</p>
-<figure class="highlight go"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs go"><span class="hljs-keyword">package</span> main<br><br><span class="hljs-keyword">import</span> (<br>	<span class="hljs-string">&quot;fmt&quot;</span><br>)<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> &#123;<br>	<span class="hljs-keyword">var</span> x <span class="hljs-keyword">interface</span>&#123;&#125;<br>	<span class="hljs-keyword">var</span> b <span class="hljs-keyword">float64</span> = <span class="hljs-number">2.333</span><br>	x = b<br>	<span class="hljs-keyword">if</span> y, ok := x.(<span class="hljs-keyword">float32</span>); ok &#123;<br>		fmt.Printf(<span class="hljs-string">&quot;y的类型是%T 值为%v\n&quot;</span>, y, y)<br>	&#125; <span class="hljs-keyword">else</span> &#123;<br>		fmt.Println(<span class="hljs-string">&quot;error&quot;</span>)<br>	&#125;<br>	fmt.Println(<span class="hljs-string">&quot;helloworld&quot;</span>)<br>&#125;<br></code></pre></div></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">package main</span><br><span class="line"></span><br><span class="line">import (</span><br><span class="line">	&quot;fmt&quot;</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">func main() &#123;</span><br><span class="line">	var x interface&#123;&#125;</span><br><span class="line">	var b float64 &#x3D; 2.333</span><br><span class="line">	x &#x3D; b</span><br><span class="line">	if y, ok :&#x3D; x.(float32); ok &#123;</span><br><span class="line">		fmt.Printf(&quot;y的类型是%T 值为%v\n&quot;, y, y)</span><br><span class="line">	&#125; else &#123;</span><br><span class="line">		fmt.Println(&quot;error&quot;)</span><br><span class="line">	&#125;</span><br><span class="line">	fmt.Println(&quot;helloworld&quot;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h3 id="类型断言的最佳实践-1"><a href="#类型断言的最佳实践-1" class="headerlink" title="类型断言的最佳实践 1"></a>类型断言的最佳实践 1</h3><p>在前面的 Usb 接口案例做改进:给 Phone 结构体增加一个特有的方法 call(), 当 Usb 接口接收的是 Phone 变量时，还需要调用 call方法</p>
-<figure class="highlight go"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs go"><span class="hljs-keyword">package</span> main<br><br><span class="hljs-keyword">import</span> (<br>	<span class="hljs-string">&quot;fmt&quot;</span><br>)<br><br><span class="hljs-comment">//申明接口</span><br><span class="hljs-keyword">type</span> Usb <span class="hljs-keyword">interface</span> &#123;<br>	Start()<br>	Stop()<br>&#125;<br><br><span class="hljs-keyword">type</span> Phone <span class="hljs-keyword">struct</span> &#123;<br>	name <span class="hljs-keyword">string</span><br>&#125;<br><br><span class="hljs-comment">//让Phone实现Usb接口的方法</span><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(p Phone)</span> <span class="hljs-title">Start</span><span class="hljs-params">()</span></span> &#123;<br>	fmt.Println(<span class="hljs-string">&quot;手机开始工作&quot;</span>)<br>&#125;<br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(p Phone)</span> <span class="hljs-title">Stop</span><span class="hljs-params">()</span></span> &#123;<br>	fmt.Println(<span class="hljs-string">&quot;手机停止工作&quot;</span>)<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(p Phone)</span> <span class="hljs-title">Call</span><span class="hljs-params">()</span></span> &#123;<br>	fmt.Println(<span class="hljs-string">&quot;正在通话中。。。&quot;</span>)<br>&#125;<br><br><span class="hljs-keyword">type</span> Camera <span class="hljs-keyword">struct</span> &#123;<br>	name <span class="hljs-keyword">string</span><br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(c Camera)</span> <span class="hljs-title">Start</span><span class="hljs-params">()</span></span> &#123;<br>	fmt.Println(<span class="hljs-string">&quot;相机开始工作&quot;</span>)<br>&#125;<br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(c Camera)</span> <span class="hljs-title">Stop</span><span class="hljs-params">()</span></span> &#123;<br>	fmt.Println(<span class="hljs-string">&quot;相机停止工作&quot;</span>)<br>&#125;<br><br><span class="hljs-keyword">type</span> Computer <span class="hljs-keyword">struct</span> &#123;<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(c Computer)</span> <span class="hljs-title">Working</span><span class="hljs-params">(usb Usb)</span></span> &#123;<br>	usb.Start()<br>	usb.Stop()<br>	<span class="hljs-comment">//如果 usb 是指向 Phone 结构体变量，则还需要调用 Call 方法</span><br>	<span class="hljs-comment">//类型断言..</span><br>	<span class="hljs-keyword">if</span> a, ok := usb.(Phone); ok &#123;<br>		a.Call()<br>	&#125;<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> &#123;<br>	<span class="hljs-comment">//定义一个 Usb 接口数组，可以存放 Phone 和 Camera 的结构体变量</span><br>	<span class="hljs-comment">//这里就体现出多态数组</span><br>	<span class="hljs-keyword">var</span> usbArr [<span class="hljs-number">3</span>]Usb<br>	usbArr[<span class="hljs-number">0</span>] = Phone&#123;<span class="hljs-string">&quot;vivo&quot;</span>&#125;<br>	usbArr[<span class="hljs-number">1</span>] = Phone&#123;<span class="hljs-string">&quot;小米&quot;</span>&#125;<br>	usbArr[<span class="hljs-number">2</span>] = Camera&#123;<span class="hljs-string">&quot;尼康&quot;</span>&#125;<br>	<span class="hljs-comment">//遍历 usbArr</span><br>	<span class="hljs-comment">//Phone 还有一个特有的方法 call()，请遍历 Usb 数组，如果是 Phone 变量，</span><br>	<span class="hljs-comment">//除了调用 Usb 接口声明的方法外，还需要调用 Phone 特有方法 call. =》类型断言</span><br>	<span class="hljs-keyword">var</span> computer Computer<br>	<span class="hljs-keyword">for</span> _, v := <span class="hljs-keyword">range</span> usbArr &#123;<br>		computer.Working(v)<br>		fmt.Println()<br>	&#125;<br>	fmt.Println(usbArr)<br>&#125;<br></code></pre></div></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br></pre></td><td class="code"><pre><span class="line">package main</span><br><span class="line"></span><br><span class="line">import (</span><br><span class="line">	&quot;fmt&quot;</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;申明接口</span><br><span class="line">type Usb interface &#123;</span><br><span class="line">	Start()</span><br><span class="line">	Stop()</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">type Phone struct &#123;</span><br><span class="line">	name string</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;让Phone实现Usb接口的方法</span><br><span class="line">func (p Phone) Start() &#123;</span><br><span class="line">	fmt.Println(&quot;手机开始工作&quot;)</span><br><span class="line">&#125;</span><br><span class="line">func (p Phone) Stop() &#123;</span><br><span class="line">	fmt.Println(&quot;手机停止工作&quot;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func (p Phone) Call() &#123;</span><br><span class="line">	fmt.Println(&quot;正在通话中。。。&quot;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">type Camera struct &#123;</span><br><span class="line">	name string</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func (c Camera) Start() &#123;</span><br><span class="line">	fmt.Println(&quot;相机开始工作&quot;)</span><br><span class="line">&#125;</span><br><span class="line">func (c Camera) Stop() &#123;</span><br><span class="line">	fmt.Println(&quot;相机停止工作&quot;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">type Computer struct &#123;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func (c Computer) Working(usb Usb) &#123;</span><br><span class="line">	usb.Start()</span><br><span class="line">	usb.Stop()</span><br><span class="line">	&#x2F;&#x2F;如果 usb 是指向 Phone 结构体变量，则还需要调用 Call 方法</span><br><span class="line">	&#x2F;&#x2F;类型断言..</span><br><span class="line">	if a, ok :&#x3D; usb.(Phone); ok &#123;</span><br><span class="line">		a.Call()</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func main() &#123;</span><br><span class="line">	&#x2F;&#x2F;定义一个 Usb 接口数组，可以存放 Phone 和 Camera 的结构体变量</span><br><span class="line">	&#x2F;&#x2F;这里就体现出多态数组</span><br><span class="line">	var usbArr [3]Usb</span><br><span class="line">	usbArr[0] &#x3D; Phone&#123;&quot;vivo&quot;&#125;</span><br><span class="line">	usbArr[1] &#x3D; Phone&#123;&quot;小米&quot;&#125;</span><br><span class="line">	usbArr[2] &#x3D; Camera&#123;&quot;尼康&quot;&#125;</span><br><span class="line">	&#x2F;&#x2F;遍历 usbArr</span><br><span class="line">	&#x2F;&#x2F;Phone 还有一个特有的方法 call()，请遍历 Usb 数组，如果是 Phone 变量，</span><br><span class="line">	&#x2F;&#x2F;除了调用 Usb 接口声明的方法外，还需要调用 Phone 特有方法 call. &#x3D;》类型断言</span><br><span class="line">	var computer Computer</span><br><span class="line">	for _, v :&#x3D; range usbArr &#123;</span><br><span class="line">		computer.Working(v)</span><br><span class="line">		fmt.Println()</span><br><span class="line">	&#125;</span><br><span class="line">	fmt.Println(usbArr)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h3 id="类型断言的最佳实践-2"><a href="#类型断言的最佳实践-2" class="headerlink" title="类型断言的最佳实践 2"></a>类型断言的最佳实践 2</h3><p>写一函数，循环判断传入参数的类型</p>
-<figure class="highlight go"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs go"><span class="hljs-keyword">package</span> main<br><br><span class="hljs-keyword">import</span> (<br>	<span class="hljs-string">&quot;fmt&quot;</span><br>)<br><br><span class="hljs-keyword">type</span> Student <span class="hljs-keyword">struct</span> &#123;<br>&#125;<br><br><span class="hljs-comment">//编写一个函数，判断输入的参数是什么类型</span><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">typeJudge</span><span class="hljs-params">(items ...<span class="hljs-keyword">interface</span>&#123;&#125;)</span></span> &#123;<br>	<span class="hljs-keyword">for</span> index, x := <span class="hljs-keyword">range</span> items &#123;<br>		<span class="hljs-keyword">switch</span> x.(<span class="hljs-keyword">type</span>) &#123;<br>		<span class="hljs-keyword">case</span> <span class="hljs-keyword">bool</span>:<br>			fmt.Printf(<span class="hljs-string">&quot;第%v个参数是bool类型，值是%v\n&quot;</span>, index, x)<br>		<span class="hljs-keyword">case</span> <span class="hljs-keyword">float32</span>:<br>			fmt.Printf(<span class="hljs-string">&quot;第%v个参数是float32类型，值是%v\n&quot;</span>, index, x)<br>		<span class="hljs-keyword">case</span> <span class="hljs-keyword">float64</span>:<br>			fmt.Printf(<span class="hljs-string">&quot;第%v个参数是float64类型，值是%v\n&quot;</span>, index, x)<br>		<span class="hljs-keyword">case</span> <span class="hljs-keyword">int</span>:<br>			fmt.Printf(<span class="hljs-string">&quot;第%v个参数是int类型，值是%v\n&quot;</span>, index, x)<br>		<span class="hljs-keyword">case</span> <span class="hljs-keyword">string</span>:<br>			fmt.Printf(<span class="hljs-string">&quot;第%v个参数是string类型，值是%v\n&quot;</span>, index, x)<br>		<span class="hljs-keyword">case</span> Student:<br>			fmt.Printf(<span class="hljs-string">&quot;第%v个参数是Student类型，值是%v\n&quot;</span>, index, x)<br>		<span class="hljs-keyword">case</span> *Student:<br>			fmt.Printf(<span class="hljs-string">&quot;第%v个参数是*Student类型，值是%v\n&quot;</span>, index, &amp;x)<br>		<span class="hljs-keyword">default</span>:<br>			fmt.Printf(<span class="hljs-string">&quot;第%v个参数类型不确定，值是%v\n&quot;</span>, index, x)<br>		&#125;<br>	&#125;<br>&#125;<br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> &#123;<br>	<span class="hljs-keyword">var</span> n1 <span class="hljs-keyword">float32</span> = <span class="hljs-number">3.33333</span><br>	<span class="hljs-keyword">var</span> n2 <span class="hljs-keyword">float64</span> = <span class="hljs-number">4.23454556</span><br>	<span class="hljs-keyword">var</span> n3 <span class="hljs-keyword">int</span> = <span class="hljs-number">5</span><br>	<span class="hljs-keyword">var</span> n4 <span class="hljs-keyword">string</span> = <span class="hljs-string">&quot;helloworld&quot;</span><br>	n5 := <span class="hljs-string">&quot;你好&quot;</span><br>	n6 := <span class="hljs-number">400</span><br><br>	n7 := Student&#123;&#125;<br>	n8 := &amp;Student&#123;&#125;<br>	typeJudge(n1, n2, n3, n4, n5, n6, n7, n8)<br>	fmt.Println(n1, n2, n3, n4, n5, n6, n7, &amp;n8)<br>&#125;<br></code></pre></div></td></tr></table></figure>
-            </div>
-            <hr>
-            <div>
-              <div class="post-metas mb-3">
-                
-                  <div class="post-meta mr-3">
-                    <i class="iconfont icon-category"></i>
-                    
-                      <a class="hover-with-bg" href="/categories/Golang/">Golang</a>
-                    
-                  </div>
-                
-                
-                  <div class="post-meta">
-                    <i class="iconfont icon-tags"></i>
-                    
-                      <a class="hover-with-bg" href="/tags/Golang/">Golang</a>
-                    
-                  </div>
-                
-              </div>
-              
-                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
-              
-              
-                <div class="post-prevnext">
-                  <article class="post-prev col-6">
-                    
-                    
-                      <a href="/2021/04/20/Go%E8%AF%AD%E8%A8%80%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E7%BC%96%E7%A8%8B/">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">Go语言面向对象编程</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
-                  </article>
-                  <article class="post-next col-6">
-                    
-                    
-                      <a href="/2021/04/19/Go%E8%AF%AD%E8%A8%80%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8F/">
-                        <span class="hidden-mobile">Go语言工厂模式</span>
-                        <span class="visible-mobile">下一篇</span>
-                        <i class="iconfont icon-arrowright"></i>
-                      </a>
-                    
-                  </article>
-                </div>
-              
-            </div>
-
-            
-              <!-- Comments -->
-              <article class="comments" id="comments">
-                
-                
-  <div id="vcomments"></div>
-  <script type="text/javascript">
-    Fluid.utils.waitElementVisible('vcomments', function() {
-      Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js', function () {
-        new Valine({
-          el: "#vcomments",
-          app_id: "hPHtsN0Gt7U2zB2AllYqbucc-9Nh9j0Va",
-          app_key: "TVUER8rWijR8cD1STqzd2d4E",
-          placeholder: "你有故事，我有酒，我们一起勇闯天涯。。。",
-          path: window.location.pathname,
-          avatar: "retro",
-          meta: ["nick","mail","link"],
-          pageSize: "10",
-          lang: "zh-CN",
-          highlight: false,
-          recordIP: false,
-          serverURLs: "",
-        });
-      });
-    });
-  </script>
-  <noscript>Please enable JavaScript to view the
-    <a target="_blank" href="https://valine.js.org" rel="nofollow noopener noopener">comments powered by Valine.</a>
-  </noscript>
-
-
-              </article>
-            
-          </article>
-        </div>
-      </div>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line">package main</span><br><span class="line"></span><br><span class="line">import (</span><br><span class="line">	&quot;fmt&quot;</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">type Student struct &#123;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;编写一个函数，判断输入的参数是什么类型</span><br><span class="line">func typeJudge(items ...interface&#123;&#125;) &#123;</span><br><span class="line">	for index, x :&#x3D; range items &#123;</span><br><span class="line">		switch x.(type) &#123;</span><br><span class="line">		case bool:</span><br><span class="line">			fmt.Printf(&quot;第%v个参数是bool类型，值是%v\n&quot;, index, x)</span><br><span class="line">		case float32:</span><br><span class="line">			fmt.Printf(&quot;第%v个参数是float32类型，值是%v\n&quot;, index, x)</span><br><span class="line">		case float64:</span><br><span class="line">			fmt.Printf(&quot;第%v个参数是float64类型，值是%v\n&quot;, index, x)</span><br><span class="line">		case int:</span><br><span class="line">			fmt.Printf(&quot;第%v个参数是int类型，值是%v\n&quot;, index, x)</span><br><span class="line">		case string:</span><br><span class="line">			fmt.Printf(&quot;第%v个参数是string类型，值是%v\n&quot;, index, x)</span><br><span class="line">		case Student:</span><br><span class="line">			fmt.Printf(&quot;第%v个参数是Student类型，值是%v\n&quot;, index, x)</span><br><span class="line">		case *Student:</span><br><span class="line">			fmt.Printf(&quot;第%v个参数是*Student类型，值是%v\n&quot;, index, &amp;x)</span><br><span class="line">		default:</span><br><span class="line">			fmt.Printf(&quot;第%v个参数类型不确定，值是%v\n&quot;, index, x)</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line">func main() &#123;</span><br><span class="line">	var n1 float32 &#x3D; 3.33333</span><br><span class="line">	var n2 float64 &#x3D; 4.23454556</span><br><span class="line">	var n3 int &#x3D; 5</span><br><span class="line">	var n4 string &#x3D; &quot;helloworld&quot;</span><br><span class="line">	n5 :&#x3D; &quot;你好&quot;</span><br><span class="line">	n6 :&#x3D; 400</span><br><span class="line"></span><br><span class="line">	n7 :&#x3D; Student&#123;&#125;</span><br><span class="line">	n8 :&#x3D; &amp;Student&#123;&#125;</span><br><span class="line">	typeJudge(n1, n2, n3, n4, n5, n6, n7, n8)</span><br><span class="line">	fmt.Println(n1, n2, n3, n4, n5, n6, n7, &amp;n8)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
     </div>
+
     
-      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
-        <div id="toc">
-  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
-  <div class="toc-body" id="toc-body"></div>
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Golang/" rel="tag"># Golang</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2021/04/19/Go%E8%AF%AD%E8%A8%80%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8F/" rel="prev" title="Go语言工厂模式">
+                  <i class="fa fa-chevron-left"></i> Go语言工厂模式
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2021/04/20/Go%E8%AF%AD%E8%A8%80%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E7%BC%96%E7%A8%8B/" rel="next" title="Go语言面向对象编程">
+                  Go语言面向对象编程 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
 </div>
 
-      </div>
-    
-  </div>
+
+
+
+
+
 </div>
-
-<!-- Custom -->
-
-
-    
-
-    
-      <a id="scroll-top-button" href="#" role="button">
-        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
-      </a>
-    
-
-    
-      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
-     aria-hidden="true">
-  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
-    <div class="modal-content">
-      <div class="modal-header text-center">
-        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
-        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body mx-3">
-        <div class="md-form mb-5">
-          <input type="text" id="local-search-input" class="form-control validate">
-          <label data-error="x" data-success="v"
-                 for="local-search-input">关键词</label>
-        </div>
-        <div class="list-group" id="local-search-result"></div>
-      </div>
-    </div>
-  </div>
-</div>
-    
-
-    
   </main>
 
-  <footer class="text-center mt-5 py-3">
-  <div class="footer-content">
-     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
-  </div>
-  
-  <div class="statistics">
-    
-    
+  <footer class="footer">
+    <div class="footer-inner">
 
-    
-      
-        <!-- 不蒜子统计PV -->
-        <span id="busuanzi_container_site_pv" style="display: none">
-            总访问量 
-            <span id="busuanzi_value_site_pv"></span>
-             次
-          </span>
-      
-      
-        <!-- 不蒜子统计UV -->
-        <span id="busuanzi_container_site_uv" style="display: none">
-            总访客数 
-            <span id="busuanzi_value_site_uv"></span>
-             人
-          </span>
-      
-    
+
+<div class="copyright">
+  &copy; 2020 – 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">羊皮裘老头</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
   </div>
 
+    </div>
+  </footer>
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
 
   
 
-  
-</footer>
 
-<!-- SCRIPTS -->
-
-  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
-  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
-
-  <script>
-    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
-    NProgress.start()
-    window.addEventListener('load', function() {
-      NProgress.done();
-    })
-  </script>
-
-
-<script  src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" ></script>
-<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" ></script>
-<script  src="/js/debouncer.js" ></script>
-<script  src="/js/events.js" ></script>
-<script  src="/js/plugins.js" ></script>
-
-<!-- Plugins -->
-
-
-  
-    <script  src="/js/lazyload.js" ></script>
-  
 
 
 
   
 
 
-
-  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.0/dist/tocbot.min.js" ></script>
-
-
-
-  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
-
-
-
-  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.0/anchor.min.js" ></script>
-
-
-
-  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js" ></script>
-
-
-
-  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
-
-
-
-
-
-
-  <script  src="/js/local-search.js" ></script>
-  <script>
-    (function () {
-      var path = "/local-search.xml";
-      var inputArea = document.querySelector("#local-search-input");
-      inputArea.onclick = function () {
-        searchFunc(path, 'local-search-input', 'local-search-result');
-        this.onclick = null
-      }
-    })()
-  </script>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<!-- 主题的启动项 保持在最底部 -->
-<script  src="/js/boot.js" ></script>
 
 
 

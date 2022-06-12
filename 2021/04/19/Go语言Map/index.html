@@ -1,296 +1,250 @@
-
-
 <!DOCTYPE html>
-<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
-
-
-
+<html lang="zh-CN">
 <head>
   <meta charset="UTF-8">
-  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
-  <link rel="icon" type="image/png" href="/img/favicon.png">
-  <meta name="viewport"
-        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
-  <meta http-equiv="x-ua-compatible" content="ie=edge">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 5.3.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.12.1","exturl":false,"sidebar":{"position":"left","width":300,"display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="map 的基本介绍map 是 key-value 数据结构，又称为字段或者关联数组。类似其它编程语言的集合 map 的声明基本语法1var map 变量名 map[keytype]valuetype key 类型golang 中的 map，的 key 可以是很多种类型，比如 bool, 数字，string, 指针, channel , 还可以是只包含前面几个类型的 接口, 结构体, 数组 通常 k">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Go语言Map">
+<meta property="og:url" content="http://example.com/2021/04/19/Go%E8%AF%AD%E8%A8%80Map/index.html">
+<meta property="og:site_name" content="羊皮裘老头">
+<meta property="og:description" content="map 的基本介绍map 是 key-value 数据结构，又称为字段或者关联数组。类似其它编程语言的集合 map 的声明基本语法1var map 变量名 map[keytype]valuetype key 类型golang 中的 map，的 key 可以是很多种类型，比如 bool, 数字，string, 指针, channel , 还可以是只包含前面几个类型的 接口, 结构体, 数组 通常 k">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2021-04-19T07:13:55.000Z">
+<meta property="article:modified_time" content="2022-04-17T09:07:33.762Z">
+<meta property="article:author" content="羊皮裘老头">
+<meta property="article:tag" content="Golang">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="http://example.com/2021/04/19/Go%E8%AF%AD%E8%A8%80Map/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://example.com/2021/04/19/Go%E8%AF%AD%E8%A8%80Map/","path":"2021/04/19/Go语言Map/","title":"Go语言Map"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>Go语言Map | 羊皮裘老头</title>
   
-  <meta name="theme-color" content="#2f4154">
-  <meta name="description" content="">
-  <meta name="author" content="羊皮裘老头">
-  <meta name="keywords" content="">
-  <title>Go语言Map - 羊皮裘老头</title>
-
-  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
-
-
-  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
-  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
-
-  
-    
-    
-      
-      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.4.0/styles/github-gist.min.css" />
-    
-  
-
-  
-    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
-  
 
 
 
-<!-- 主题依赖的图标库，不要自行修改 -->
-
-<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
 
 
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
 
-<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
 
-
-<link  rel="stylesheet" href="/css/main.css" />
-
-<!-- 自定义样式保持在最底部 -->
-
-
-  <script id="fluid-configs">
-    var Fluid = window.Fluid || {};
-    var CONFIG = {"hostname":"example.com","root":"/","version":"1.8.7","typing":{"enable":false,"typeSpeed":70,"cursorChar":" ","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"onlypost":false},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}}};
-  </script>
-  <script  src="/js/utils.js" ></script>
-  <script  src="/js/color-schema.js" ></script>
-<meta name="generator" content="Hexo 5.3.0"></head>
-
-
-<body>
-  <header style="height: 70vh;">
-    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
-  <div class="container">
-    <a class="navbar-brand"
-       href="/">&nbsp;<strong>羊皮裘老头</strong>&nbsp;</a>
-
-    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
-            data-target="#navbarSupportedContent"
-            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <div class="animated-icon"><span></span><span></span><span></span></div>
-    </button>
-
-    <!-- Collapsible content -->
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav ml-auto text-center">
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/">
-                <i class="iconfont icon-home-fill"></i>
-                首页
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/archives/">
-                <i class="iconfont icon-archive-fill"></i>
-                归档
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/categories/">
-                <i class="iconfont icon-category-fill"></i>
-                分类
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/tags/">
-                <i class="iconfont icon-tags-fill"></i>
-                标签
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/about/">
-                <i class="iconfont icon-user-fill"></i>
-                关于
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <i class="iconfont icon-books"></i>
-                文档
-              </a>
-              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                
-                  
-                  
-                  
-                  <a class="dropdown-item" target="_blank" rel="noopener" href="https://hexo.fluid-dev.com/">
-                    
-                    主题博客
-                  </a>
-                
-                  
-                  
-                  
-                  <a class="dropdown-item" target="_blank" rel="noopener" href="https://hexo.fluid-dev.com/docs/guide/">
-                    
-                    配置指南
-                  </a>
-                
-                  
-                  
-                  
-                  <a class="dropdown-item" target="_blank" rel="noopener" href="https://hexo.fluid-dev.com/docs/icon/">
-                    
-                    图标用法
-                  </a>
-                
-              </div>
-            </li>
-          
-        
-        
-          <li class="nav-item" id="search-btn">
-            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
-                class="iconfont icon-search"></i>&nbsp;</a>
-          </li>
-        
-        
-          <li class="nav-item" id="color-toggle-btn">
-            <a class="nav-link" href="javascript:">&nbsp;<i
-                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
-          </li>
-        
-      </ul>
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
     </div>
   </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">羊皮裘老头</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">28</span></a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">13</span></a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">116</span></a></li><li class="menu-item menu-item-schedule"><a href="/schedule/" rel="section"><i class="fa fa-calendar fa-fw"></i>日程表</a></li><li class="menu-item menu-item-sitemap"><a href="/sitemap.xml" rel="section"><i class="fa fa-sitemap fa-fw"></i>站点地图</a></li><li class="menu-item menu-item-commonweal"><a href="/404/" rel="section"><i class="fa fa-heartbeat fa-fw"></i>公益 404</a></li>
+  </ul>
 </nav>
 
-    <div class="banner" id="banner" parallax=true
-         style="background: url('/img/ss.png') no-repeat center center;
-           background-size: cover;">
-      <div class="full-bg-img">
-        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
-          <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="Go语言Map">
-              
-                Go语言Map
-              
-            </span>
 
-            
-              <div class="mt-3">
+
+
+</div>
+        
   
-  
-    <span class="post-meta">
-      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-      <time datetime="2021-04-19 15:13" pubdate>
-        2021年4月19日 下午
-      </time>
-    </span>
-  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#map-%E7%9A%84%E5%9F%BA%E6%9C%AC%E4%BB%8B%E7%BB%8D"><span class="nav-number">1.</span> <span class="nav-text">map 的基本介绍</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#map-%E7%9A%84%E5%A3%B0%E6%98%8E"><span class="nav-number">2.</span> <span class="nav-text">map 的声明</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9F%BA%E6%9C%AC%E8%AF%AD%E6%B3%95"><span class="nav-number">2.1.</span> <span class="nav-text">基本语法</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#key-%E7%B1%BB%E5%9E%8B"><span class="nav-number">2.1.1.</span> <span class="nav-text">key 类型</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#valuetype-%E7%B1%BB%E5%9E%8B"><span class="nav-number">2.1.2.</span> <span class="nav-text">valuetype 类型</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#map-%E5%A3%B0%E6%98%8E%E7%9A%84%E4%B8%BE%E4%BE%8B"><span class="nav-number">2.2.</span> <span class="nav-text">map 声明的举例</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#map%E7%9A%84%E4%BD%BF%E7%94%A8"><span class="nav-number">3.</span> <span class="nav-text">map的使用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#map-%E7%9A%84%E5%A2%9E%E5%88%A0%E6%94%B9%E6%9F%A5%E6%93%8D%E4%BD%9C"><span class="nav-number">4.</span> <span class="nav-text">map 的增删改查操作</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#map-%E5%A2%9E%E5%8A%A0%E5%92%8C%E6%9B%B4%E6%96%B0"><span class="nav-number">4.0.1.</span> <span class="nav-text">map 增加和更新</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#map-%E5%88%A0%E9%99%A4"><span class="nav-number">4.0.2.</span> <span class="nav-text">map 删除</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%9F%A5%E6%89%BE"><span class="nav-number">4.0.3.</span> <span class="nav-text">查找</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#map%E9%81%8D%E5%8E%86"><span class="nav-number">5.</span> <span class="nav-text">map遍历</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#map%E9%95%BF%E5%BA%A6"><span class="nav-number">6.</span> <span class="nav-text">map长度</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#func-len"><span class="nav-number">6.1.</span> <span class="nav-text">func len</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#map-%E5%88%87%E7%89%87"><span class="nav-number">7.</span> <span class="nav-text">map 切片</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#map-%E6%8E%92%E5%BA%8F"><span class="nav-number">8.</span> <span class="nav-text">map 排序</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#map-%E4%BD%BF%E7%94%A8%E7%BB%86%E8%8A%82"><span class="nav-number">9.</span> <span class="nav-text">map 使用细节</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BA%94%E7%94%A8%E5%AE%9E%E4%BE%8B"><span class="nav-number">10.</span> <span class="nav-text">应用实例</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">羊皮裘老头</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">116</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">13</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">28</span>
+        <span class="site-state-item-name">标签</span>
+      </div>
+  </nav>
 </div>
 
-<div class="mt-1">
-  
-    
-    <span class="post-meta mr-2">
-      <i class="iconfont icon-chart"></i>
-      2.3k 字
-    </span>
-  
 
-  
-    
-    <span class="post-meta mr-2">
-      <i class="iconfont icon-clock-fill"></i>
-      
-      
-      34
-       分钟
-    </span>
-  
 
-  
-  
-    
-      <!-- LeanCloud 统计文章PV -->
-      <span id="leancloud-page-views-container" class="post-meta" style="display: none">
-        <i class="iconfont icon-eye" aria-hidden="true"></i>
-        <span id="leancloud-page-views"></span> 次
-      </span>
-    
-  
-</div>
-
-            
-          </div>
-
-          
         </div>
       </div>
     </div>
-  </header>
+  </aside>
+  <div class="sidebar-dimmer"></div>
 
-  <main>
+
+    </header>
+
     
-      
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
 
-<div class="container-fluid nopadding-x">
-  <div class="row nomargin-x">
-    <div class="d-none d-lg-block col-lg-2"></div>
-    <div class="col-lg-8 nopadding-x-md">
-      <div class="container nopadding-x-md" id="board-ctn">
-        <div class="py-5" id="board">
-          <article class="post-content mx-auto">
-            <!-- SEO header -->
-            <h1 style="display: none">Go语言Map</h1>
-            
-              <p class="note note-info">
-                
-                  本文最后更新于：2022年4月17日 下午
-                
-              </p>
-            
-            <div class="markdown-body">
-              <h2 id="map-的基本介绍"><a href="#map-的基本介绍" class="headerlink" title="map 的基本介绍"></a>map 的基本介绍</h2><p>map 是 key-value 数据结构，又称为字段或者关联数组。类似其它编程语言的集合</p>
-<h2 id="map-的声明"><a href="#map-的声明" class="headerlink" title="map 的声明"></a>map 的声明</h2><h3 id="基本语法"><a href="#基本语法" class="headerlink" title="基本语法"></a>基本语法</h3><figure class="highlight go"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs go"><span class="hljs-keyword">var</span> <span class="hljs-keyword">map</span> 变量名 <span class="hljs-keyword">map</span>[keytype]valuetype<br></code></pre></div></td></tr></table></figure>
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/04/19/Go%E8%AF%AD%E8%A8%80Map/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="羊皮裘老头">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="羊皮裘老头">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="Go语言Map | 羊皮裘老头">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Go语言Map
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2021-04-19 15:13:55" itemprop="dateCreated datePublished" datetime="2021-04-19T15:13:55+08:00">2021-04-19</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-04-17 17:07:33" itemprop="dateModified" datetime="2022-04-17T17:07:33+08:00">2022-04-17</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Golang/" itemprop="url" rel="index"><span itemprop="name">Golang</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h2 id="map-的基本介绍"><a href="#map-的基本介绍" class="headerlink" title="map 的基本介绍"></a>map 的基本介绍</h2><p>map 是 key-value 数据结构，又称为字段或者关联数组。类似其它编程语言的集合</p>
+<h2 id="map-的声明"><a href="#map-的声明" class="headerlink" title="map 的声明"></a>map 的声明</h2><h3 id="基本语法"><a href="#基本语法" class="headerlink" title="基本语法"></a>基本语法</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">var map 变量名 map[keytype]valuetype</span><br></pre></td></tr></table></figure>
 <h4 id="key-类型"><a href="#key-类型" class="headerlink" title="key 类型"></a>key 类型</h4><p>golang 中的 map，的 key 可以是很多种类型，比如 bool, 数字，string, 指针, channel , 还可以是只包含前面几个类型的 接口, 结构体, 数组</p>
 <p>通常 key 为 为 int  、string</p>
 <p>注意: slice， map 还有 function 不可以，因为这几个没法用 == 来判断</p>
 <h4 id="valuetype-类型"><a href="#valuetype-类型" class="headerlink" title="valuetype 类型"></a>valuetype 类型</h4><p>valuetype 的类型和 key 基本一样</p>
 <p>通常为: 数字(整数,浮点数),string,map,struct</p>
-<h3 id="map-声明的举例"><a href="#map-声明的举例" class="headerlink" title="map 声明的举例"></a>map 声明的举例</h3><figure class="highlight go"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs go"><span class="hljs-keyword">map</span> 声明的举例：<br><span class="hljs-keyword">var</span> a <span class="hljs-keyword">map</span>[<span class="hljs-keyword">string</span>]<span class="hljs-keyword">string</span><br><span class="hljs-keyword">var</span> a <span class="hljs-keyword">map</span>[<span class="hljs-keyword">string</span>]<span class="hljs-keyword">int</span><br><span class="hljs-keyword">var</span> a <span class="hljs-keyword">map</span>[<span class="hljs-keyword">int</span>]<span class="hljs-keyword">string</span><br><span class="hljs-keyword">var</span> a <span class="hljs-keyword">map</span>[<span class="hljs-keyword">string</span>]<span class="hljs-keyword">map</span>[<span class="hljs-keyword">string</span>]<span class="hljs-keyword">string</span><br>注意：声明是不会分配内存的，初始化需要 <span class="hljs-built_in">make</span> ，分配内存后才能赋值和使用<br></code></pre></div></td></tr></table></figure>
-<figure class="highlight go"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs go"><span class="hljs-keyword">package</span> main<br><br><span class="hljs-keyword">import</span> (<br>	<span class="hljs-string">&quot;fmt&quot;</span><br>)<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> &#123;<br><br>	<span class="hljs-keyword">var</span> a <span class="hljs-keyword">map</span>[<span class="hljs-keyword">string</span>]<span class="hljs-keyword">string</span><br>	<span class="hljs-comment">//在使用map前，需要先make，make的作用就是给map分配可用空间</span><br>	a = <span class="hljs-built_in">make</span>(<span class="hljs-keyword">map</span>[<span class="hljs-keyword">string</span>]<span class="hljs-keyword">string</span>)<br>	a[<span class="hljs-string">&quot;num1&quot;</span>] = <span class="hljs-string">&quot;h&quot;</span><br>	a[<span class="hljs-string">&quot;num2&quot;</span>] = <span class="hljs-string">&quot;e&quot;</span><br>	a[<span class="hljs-string">&quot;num1&quot;</span>] = <span class="hljs-string">&quot;k&quot;</span><br>	fmt.Println(a)<br>&#125;<br></code></pre></div></td></tr></table></figure>
+<h3 id="map-声明的举例"><a href="#map-声明的举例" class="headerlink" title="map 声明的举例"></a>map 声明的举例</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">map 声明的举例：</span><br><span class="line">var a map[string]string</span><br><span class="line">var a map[string]int</span><br><span class="line">var a map[int]string</span><br><span class="line">var a map[string]map[string]string</span><br><span class="line">注意：声明是不会分配内存的，初始化需要 make ，分配内存后才能赋值和使用</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">package main</span><br><span class="line"></span><br><span class="line">import (</span><br><span class="line">	&quot;fmt&quot;</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">func main() &#123;</span><br><span class="line"></span><br><span class="line">	var a map[string]string</span><br><span class="line">	&#x2F;&#x2F;在使用map前，需要先make，make的作用就是给map分配可用空间</span><br><span class="line">	a &#x3D; make(map[string]string)</span><br><span class="line">	a[&quot;num1&quot;] &#x3D; &quot;h&quot;</span><br><span class="line">	a[&quot;num2&quot;] &#x3D; &quot;e&quot;</span><br><span class="line">	a[&quot;num1&quot;] &#x3D; &quot;k&quot;</span><br><span class="line">	fmt.Println(a)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>对上面代码的说明</p>
 <ol>
 <li><p>map 在使用前一定要 make</p>
@@ -304,25 +258,25 @@
 <li><p>make 内置函数数目</p>
 </li>
 </ol>
-<figure class="highlight go"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">make</span></span><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">make</span><span class="hljs-params">(Type, size IntegerType)</span> <span class="hljs-title">Type</span></span><br><span class="hljs-built_in">make</span> 内建函数分配并初始化一个类型为切片、映射、或（仅仅为）信道的对象。 与 <span class="hljs-built_in">new</span> 相同的是，其第一个实参为类型，而非值。不同的是，<span class="hljs-built_in">make</span> 的返回类型 与其参数相同，而非指向它的指针。其具体结果取决于具体的类型：<br><br>切片：size 指定了其长度。该切片的容量等于其长度。第二个整数实参可用来指定<br>	不同的容量；它必须不小于其长度，因此 <span class="hljs-built_in">make</span>([]<span class="hljs-keyword">int</span>, <span class="hljs-number">0</span>, <span class="hljs-number">10</span>) 会分配一个长度为<span class="hljs-number">0</span>，<br>	容量为<span class="hljs-number">10</span>的切片。<br>映射：初始分配的创建取决于 size，但产生的映射长度为<span class="hljs-number">0</span>。size 可以省略，这种情况下<br>	就会分配一个小的起始大小。<br>信道：信道的缓存根据指定的缓存容量初始化。若 size 为零或被省略，该信道即为无缓存的<br></code></pre></div></td></tr></table></figure>
-<h2 id="map的使用"><a href="#map的使用" class="headerlink" title="map的使用"></a>map的使用</h2><figure class="highlight go"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs go"><span class="hljs-keyword">package</span> main<br><br><span class="hljs-keyword">import</span> (<br>	<span class="hljs-string">&quot;fmt&quot;</span><br>)<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> &#123;<br><br>	<span class="hljs-comment">//第一种</span><br>	<span class="hljs-keyword">var</span> a <span class="hljs-keyword">map</span>[<span class="hljs-keyword">string</span>]<span class="hljs-keyword">string</span><br>	<span class="hljs-comment">//在使用map前，需要先make，make的作用就是给map分配可用空间</span><br>	a = <span class="hljs-built_in">make</span>(<span class="hljs-keyword">map</span>[<span class="hljs-keyword">string</span>]<span class="hljs-keyword">string</span>)<br>	a[<span class="hljs-string">&quot;num1&quot;</span>] = <span class="hljs-string">&quot;h&quot;</span><br>	a[<span class="hljs-string">&quot;num2&quot;</span>] = <span class="hljs-string">&quot;e&quot;</span><br>	a[<span class="hljs-string">&quot;num1&quot;</span>] = <span class="hljs-string">&quot;k&quot;</span><br>	fmt.Println(a)<br><br>	<span class="hljs-comment">//第二种</span><br>	cities := <span class="hljs-built_in">make</span>(<span class="hljs-keyword">map</span>[<span class="hljs-keyword">string</span>]<span class="hljs-keyword">string</span>)<br>	cities[<span class="hljs-string">&quot;num1&quot;</span>] = <span class="hljs-string">&quot;成都&quot;</span><br>	cities[<span class="hljs-string">&quot;num2&quot;</span>] = <span class="hljs-string">&quot;hangzhou&quot;</span><br>	fmt.Println(cities)<br><br>	<span class="hljs-comment">//第三种</span><br>	heros := <span class="hljs-keyword">map</span>[<span class="hljs-keyword">string</span>]<span class="hljs-keyword">string</span>&#123;<br>		<span class="hljs-string">&quot;num1&quot;</span>: <span class="hljs-string">&quot;剑魂&quot;</span>,<br>		<span class="hljs-string">&quot;num2&quot;</span>: <span class="hljs-string">&quot;奶爸&quot;</span>,<br>	&#125;<br>	fmt.Println(heros)<br>&#125;<br></code></pre></div></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">func make</span><br><span class="line">func make(Type, size IntegerType) Type</span><br><span class="line">make 内建函数分配并初始化一个类型为切片、映射、或（仅仅为）信道的对象。 与 new 相同的是，其第一个实参为类型，而非值。不同的是，make 的返回类型 与其参数相同，而非指向它的指针。其具体结果取决于具体的类型：</span><br><span class="line"></span><br><span class="line">切片：size 指定了其长度。该切片的容量等于其长度。第二个整数实参可用来指定</span><br><span class="line">	不同的容量；它必须不小于其长度，因此 make([]int, 0, 10) 会分配一个长度为0，</span><br><span class="line">	容量为10的切片。</span><br><span class="line">映射：初始分配的创建取决于 size，但产生的映射长度为0。size 可以省略，这种情况下</span><br><span class="line">	就会分配一个小的起始大小。</span><br><span class="line">信道：信道的缓存根据指定的缓存容量初始化。若 size 为零或被省略，该信道即为无缓存的</span><br></pre></td></tr></table></figure>
+<h2 id="map的使用"><a href="#map的使用" class="headerlink" title="map的使用"></a>map的使用</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">package main</span><br><span class="line"></span><br><span class="line">import (</span><br><span class="line">	&quot;fmt&quot;</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">func main() &#123;</span><br><span class="line"></span><br><span class="line">	&#x2F;&#x2F;第一种</span><br><span class="line">	var a map[string]string</span><br><span class="line">	&#x2F;&#x2F;在使用map前，需要先make，make的作用就是给map分配可用空间</span><br><span class="line">	a &#x3D; make(map[string]string)</span><br><span class="line">	a[&quot;num1&quot;] &#x3D; &quot;h&quot;</span><br><span class="line">	a[&quot;num2&quot;] &#x3D; &quot;e&quot;</span><br><span class="line">	a[&quot;num1&quot;] &#x3D; &quot;k&quot;</span><br><span class="line">	fmt.Println(a)</span><br><span class="line"></span><br><span class="line">	&#x2F;&#x2F;第二种</span><br><span class="line">	cities :&#x3D; make(map[string]string)</span><br><span class="line">	cities[&quot;num1&quot;] &#x3D; &quot;成都&quot;</span><br><span class="line">	cities[&quot;num2&quot;] &#x3D; &quot;hangzhou&quot;</span><br><span class="line">	fmt.Println(cities)</span><br><span class="line"></span><br><span class="line">	&#x2F;&#x2F;第三种</span><br><span class="line">	heros :&#x3D; map[string]string&#123;</span><br><span class="line">		&quot;num1&quot;: &quot;剑魂&quot;,</span><br><span class="line">		&quot;num2&quot;: &quot;奶爸&quot;,</span><br><span class="line">	&#125;</span><br><span class="line">	fmt.Println(heros)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>map 使用的实例</p>
-<figure class="highlight prolog"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs prolog">package main<br><br>import (<br>	<span class="hljs-string">&quot;fmt&quot;</span><br>)<br><br>func main() &#123;<br><br>	//比如：我们要存放 <span class="hljs-number">3</span> 个学生信息, 每个学生有 name 和 sex 信息<br>	//思路: map[string]map[string]string<br>	students := make(map[string]map[string]string)<br><br>	students[<span class="hljs-string">&quot;stu1&quot;</span>] = make(map[string]string, <span class="hljs-number">3</span>)<br>	students[<span class="hljs-string">&quot;stu1&quot;</span>][<span class="hljs-string">&quot;name&quot;</span>] = <span class="hljs-string">&quot;hello1&quot;</span><br>	students[<span class="hljs-string">&quot;stu1&quot;</span>][<span class="hljs-string">&quot;age&quot;</span>] = <span class="hljs-string">&quot;11&quot;</span><br>	students[<span class="hljs-string">&quot;stu1&quot;</span>][<span class="hljs-string">&quot;sex&quot;</span>] = <span class="hljs-string">&quot;男&quot;</span><br><br>	students[<span class="hljs-string">&quot;stu2&quot;</span>] = make(map[string]string, <span class="hljs-number">3</span>)<br>	students[<span class="hljs-string">&quot;stu2&quot;</span>][<span class="hljs-string">&quot;name&quot;</span>] = <span class="hljs-string">&quot;hello2&quot;</span><br>	students[<span class="hljs-string">&quot;stu2&quot;</span>][<span class="hljs-string">&quot;age&quot;</span>] = <span class="hljs-string">&quot;12&quot;</span><br>	students[<span class="hljs-string">&quot;stu2&quot;</span>][<span class="hljs-string">&quot;sex&quot;</span>] = <span class="hljs-string">&quot;男&quot;</span><br><br>	students[<span class="hljs-string">&quot;stu3&quot;</span>] = make(map[string]string, <span class="hljs-number">3</span>)<br>	students[<span class="hljs-string">&quot;stu3&quot;</span>][<span class="hljs-string">&quot;name&quot;</span>] = <span class="hljs-string">&quot;hello3&quot;</span><br>	students[<span class="hljs-string">&quot;stu3&quot;</span>][<span class="hljs-string">&quot;age&quot;</span>] = <span class="hljs-string">&quot;13&quot;</span><br>	students[<span class="hljs-string">&quot;stu3&quot;</span>][<span class="hljs-string">&quot;sex&quot;</span>] = <span class="hljs-string">&quot;女&quot;</span><br><br>	fmt.<span class="hljs-symbol">Println</span>(students)<br>&#125;<br></code></pre></div></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">package main</span><br><span class="line"></span><br><span class="line">import (</span><br><span class="line">	&quot;fmt&quot;</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">func main() &#123;</span><br><span class="line"></span><br><span class="line">	&#x2F;&#x2F;比如：我们要存放 3 个学生信息, 每个学生有 name 和 sex 信息</span><br><span class="line">	&#x2F;&#x2F;思路: map[string]map[string]string</span><br><span class="line">	students :&#x3D; make(map[string]map[string]string)</span><br><span class="line"></span><br><span class="line">	students[&quot;stu1&quot;] &#x3D; make(map[string]string, 3)</span><br><span class="line">	students[&quot;stu1&quot;][&quot;name&quot;] &#x3D; &quot;hello1&quot;</span><br><span class="line">	students[&quot;stu1&quot;][&quot;age&quot;] &#x3D; &quot;11&quot;</span><br><span class="line">	students[&quot;stu1&quot;][&quot;sex&quot;] &#x3D; &quot;男&quot;</span><br><span class="line"></span><br><span class="line">	students[&quot;stu2&quot;] &#x3D; make(map[string]string, 3)</span><br><span class="line">	students[&quot;stu2&quot;][&quot;name&quot;] &#x3D; &quot;hello2&quot;</span><br><span class="line">	students[&quot;stu2&quot;][&quot;age&quot;] &#x3D; &quot;12&quot;</span><br><span class="line">	students[&quot;stu2&quot;][&quot;sex&quot;] &#x3D; &quot;男&quot;</span><br><span class="line"></span><br><span class="line">	students[&quot;stu3&quot;] &#x3D; make(map[string]string, 3)</span><br><span class="line">	students[&quot;stu3&quot;][&quot;name&quot;] &#x3D; &quot;hello3&quot;</span><br><span class="line">	students[&quot;stu3&quot;][&quot;age&quot;] &#x3D; &quot;13&quot;</span><br><span class="line">	students[&quot;stu3&quot;][&quot;sex&quot;] &#x3D; &quot;女&quot;</span><br><span class="line"></span><br><span class="line">	fmt.Println(students)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h2 id="map-的增删改查操作"><a href="#map-的增删改查操作" class="headerlink" title="map 的增删改查操作"></a>map 的增删改查操作</h2><h4 id="map-增加和更新"><a href="#map-增加和更新" class="headerlink" title="map 增加和更新"></a>map 增加和更新</h4><p>map[“key”] = value // 如果 key  还没有，就是增加，如果 key  存在就是修改</p>
 <h4 id="map-删除"><a href="#map-删除" class="headerlink" title="map 删除"></a>map 删除</h4><p>说明：</p>
 <p>delete(map，”key”) ，delete 是一个内置函数，如果 key 存在，就删除该 key-value,如果 key 不存在，不操作，但是也不会报错</p>
-<figure class="highlight go"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs go"><span class="hljs-keyword">package</span> main<br><br><span class="hljs-keyword">import</span> (<br>	<span class="hljs-string">&quot;fmt&quot;</span><br>)<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> &#123;<br><br>	cities := <span class="hljs-built_in">make</span>(<span class="hljs-keyword">map</span>[<span class="hljs-keyword">string</span>]<span class="hljs-keyword">string</span>)<br>	cities[<span class="hljs-string">&quot;num1&quot;</span>] = <span class="hljs-string">&quot;重庆&quot;</span><br>	cities[<span class="hljs-string">&quot;num2&quot;</span>] = <span class="hljs-string">&quot;浙江&quot;</span><br>	fmt.Println(cities)<br><br>	<span class="hljs-comment">//增加</span><br>	cities[<span class="hljs-string">&quot;num3&quot;</span>] = <span class="hljs-string">&quot;杭州&quot;</span><br>	fmt.Println(cities)<br><br>	<span class="hljs-comment">//修改</span><br>	cities[<span class="hljs-string">&quot;num1&quot;</span>] = <span class="hljs-string">&quot;四川&quot;</span><br>	fmt.Println(cities)<br><br>	<span class="hljs-comment">//删除</span><br>	<span class="hljs-built_in">delete</span>(cities, <span class="hljs-string">&quot;num1&quot;</span>)<br>	fmt.Println(cities)<br><br>	<span class="hljs-comment">//全部删除</span><br>	cities = <span class="hljs-built_in">make</span>(<span class="hljs-keyword">map</span>[<span class="hljs-keyword">string</span>]<span class="hljs-keyword">string</span>)<br>	fmt.Println(cities)<br><br>	<span class="hljs-comment">//查找</span><br>	val, ok := cities[<span class="hljs-string">&quot;num2&quot;</span>]<br>	<span class="hljs-keyword">if</span> ok &#123;<br>		fmt.Printf(<span class="hljs-string">&quot;找到了cities[num2]值为%v&quot;</span>, val)<br>	&#125; <span class="hljs-keyword">else</span> &#123;<br>		fmt.Println(<span class="hljs-string">&quot;没找到&quot;</span>)<br>	&#125;<br>&#125;<br></code></pre></div></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line">package main</span><br><span class="line"></span><br><span class="line">import (</span><br><span class="line">	&quot;fmt&quot;</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">func main() &#123;</span><br><span class="line"></span><br><span class="line">	cities :&#x3D; make(map[string]string)</span><br><span class="line">	cities[&quot;num1&quot;] &#x3D; &quot;重庆&quot;</span><br><span class="line">	cities[&quot;num2&quot;] &#x3D; &quot;浙江&quot;</span><br><span class="line">	fmt.Println(cities)</span><br><span class="line"></span><br><span class="line">	&#x2F;&#x2F;增加</span><br><span class="line">	cities[&quot;num3&quot;] &#x3D; &quot;杭州&quot;</span><br><span class="line">	fmt.Println(cities)</span><br><span class="line"></span><br><span class="line">	&#x2F;&#x2F;修改</span><br><span class="line">	cities[&quot;num1&quot;] &#x3D; &quot;四川&quot;</span><br><span class="line">	fmt.Println(cities)</span><br><span class="line"></span><br><span class="line">	&#x2F;&#x2F;删除</span><br><span class="line">	delete(cities, &quot;num1&quot;)</span><br><span class="line">	fmt.Println(cities)</span><br><span class="line"></span><br><span class="line">	&#x2F;&#x2F;全部删除</span><br><span class="line">	cities &#x3D; make(map[string]string)</span><br><span class="line">	fmt.Println(cities)</span><br><span class="line"></span><br><span class="line">	&#x2F;&#x2F;查找</span><br><span class="line">	val, ok :&#x3D; cities[&quot;num2&quot;]</span><br><span class="line">	if ok &#123;</span><br><span class="line">		fmt.Printf(&quot;找到了cities[num2]值为%v&quot;, val)</span><br><span class="line">	&#125; else &#123;</span><br><span class="line">		fmt.Println(&quot;没找到&quot;)</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>细节说明</p>
 <p>如果我们要删除 map 的所有 key ,没有一个专门的方法一次删除，可以遍历一下 key, 逐个删除或者 map = make(…)，make 一个新的，让原来的成为垃圾，被 gc 回收</p>
 <h4 id="查找"><a href="#查找" class="headerlink" title="查找"></a>查找</h4><p>如果 cities这个 map 中存在 “num2” ， 那么 findRes 就会返回 true,否则返回 false</p>
 <h2 id="map遍历"><a href="#map遍历" class="headerlink" title="map遍历"></a>map遍历</h2><p>说明：map 的遍历使用 for-range 的结构遍历</p>
-<figure class="highlight go"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs go"><span class="hljs-keyword">package</span> main<br><br><span class="hljs-keyword">import</span> (<br>	<span class="hljs-string">&quot;fmt&quot;</span><br>)<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> &#123;<br><br>	cities := <span class="hljs-built_in">make</span>(<span class="hljs-keyword">map</span>[<span class="hljs-keyword">string</span>]<span class="hljs-keyword">string</span>)<br>	cities[<span class="hljs-string">&quot;num1&quot;</span>] = <span class="hljs-string">&quot;重庆&quot;</span><br>	cities[<span class="hljs-string">&quot;num2&quot;</span>] = <span class="hljs-string">&quot;浙江&quot;</span><br><br>	<span class="hljs-keyword">for</span> i, v := <span class="hljs-keyword">range</span> cities &#123;<br>		fmt.Printf(<span class="hljs-string">&quot;i=%v v=%v\n&quot;</span>, i, v)<br>	&#125;<br><br>	stu := <span class="hljs-built_in">make</span>(<span class="hljs-keyword">map</span>[<span class="hljs-keyword">string</span>]<span class="hljs-keyword">map</span>[<span class="hljs-keyword">string</span>]<span class="hljs-keyword">string</span>)<br>	stu[<span class="hljs-string">&quot;num1&quot;</span>] = <span class="hljs-built_in">make</span>(<span class="hljs-keyword">map</span>[<span class="hljs-keyword">string</span>]<span class="hljs-keyword">string</span>)<br>	stu[<span class="hljs-string">&quot;num1&quot;</span>][<span class="hljs-string">&quot;name&quot;</span>] = <span class="hljs-string">&quot;金&quot;</span><br>	stu[<span class="hljs-string">&quot;num1&quot;</span>][<span class="hljs-string">&quot;age&quot;</span>] = <span class="hljs-string">&quot;11&quot;</span><br><br>	stu[<span class="hljs-string">&quot;num2&quot;</span>] = <span class="hljs-built_in">make</span>(<span class="hljs-keyword">map</span>[<span class="hljs-keyword">string</span>]<span class="hljs-keyword">string</span>)<br>	stu[<span class="hljs-string">&quot;num2&quot;</span>][<span class="hljs-string">&quot;name&quot;</span>] = <span class="hljs-string">&quot;刚&quot;</span><br>	stu[<span class="hljs-string">&quot;num2&quot;</span>][<span class="hljs-string">&quot;age&quot;</span>] = <span class="hljs-string">&quot;12&quot;</span><br><br>	<span class="hljs-keyword">for</span> i, v := <span class="hljs-keyword">range</span> stu &#123;<br>		fmt.Printf(<span class="hljs-string">&quot;i=%v\n&quot;</span>, i)<br>		<span class="hljs-keyword">for</span> i1, v1 := <span class="hljs-keyword">range</span> v &#123;<br>			fmt.Printf(<span class="hljs-string">&quot;stu=%v i1=%v v2=%v\n&quot;</span>, stu, i1, v1)<br>		&#125;<br>	&#125;<br>&#125;<br></code></pre></div></td></tr></table></figure>
-<h2 id="map长度"><a href="#map长度" class="headerlink" title="map长度"></a>map长度</h2><h3 id="func-len"><a href="#func-len" class="headerlink" title="func len"></a>func len</h3><figure class="highlight autoit"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs autoit"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">len</span><span class="hljs-params">(v Type)</span> <span class="hljs-title">int</span></span><br></code></pre></div></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">package main</span><br><span class="line"></span><br><span class="line">import (</span><br><span class="line">	&quot;fmt&quot;</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">func main() &#123;</span><br><span class="line"></span><br><span class="line">	cities :&#x3D; make(map[string]string)</span><br><span class="line">	cities[&quot;num1&quot;] &#x3D; &quot;重庆&quot;</span><br><span class="line">	cities[&quot;num2&quot;] &#x3D; &quot;浙江&quot;</span><br><span class="line"></span><br><span class="line">	for i, v :&#x3D; range cities &#123;</span><br><span class="line">		fmt.Printf(&quot;i&#x3D;%v v&#x3D;%v\n&quot;, i, v)</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	stu :&#x3D; make(map[string]map[string]string)</span><br><span class="line">	stu[&quot;num1&quot;] &#x3D; make(map[string]string)</span><br><span class="line">	stu[&quot;num1&quot;][&quot;name&quot;] &#x3D; &quot;金&quot;</span><br><span class="line">	stu[&quot;num1&quot;][&quot;age&quot;] &#x3D; &quot;11&quot;</span><br><span class="line"></span><br><span class="line">	stu[&quot;num2&quot;] &#x3D; make(map[string]string)</span><br><span class="line">	stu[&quot;num2&quot;][&quot;name&quot;] &#x3D; &quot;刚&quot;</span><br><span class="line">	stu[&quot;num2&quot;][&quot;age&quot;] &#x3D; &quot;12&quot;</span><br><span class="line"></span><br><span class="line">	for i, v :&#x3D; range stu &#123;</span><br><span class="line">		fmt.Printf(&quot;i&#x3D;%v\n&quot;, i)</span><br><span class="line">		for i1, v1 :&#x3D; range v &#123;</span><br><span class="line">			fmt.Printf(&quot;stu&#x3D;%v i1&#x3D;%v v2&#x3D;%v\n&quot;, stu, i1, v1)</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="map长度"><a href="#map长度" class="headerlink" title="map长度"></a>map长度</h2><h3 id="func-len"><a href="#func-len" class="headerlink" title="func len"></a>func len</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">func len(v Type) int</span><br></pre></td></tr></table></figure>
 <p>len 内建函数返回 v 的长度，这取决于具体类型：</p>
-<figure class="highlight go"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs go">数组：v 中元素的数量。<br>数组指针：*v 中元素的数量（即使 v 为 <span class="hljs-literal">nil</span>）。<br>切片或映射：v 中元素的数量；若 v 为 <span class="hljs-literal">nil</span>，<span class="hljs-built_in">len</span>(v) 即为零。<br>字符串：v 中字节的数量。<br>信道：信道缓存中队列（未读取）元素的数量；若 v 为 <span class="hljs-literal">nil</span>，<span class="hljs-built_in">len</span>(v) 即为零。<br><br>例如：<br>fmt.Println(<span class="hljs-string">&quot;map长度=&quot;</span>, <span class="hljs-built_in">len</span>(stu))<br></code></pre></div></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">数组：v 中元素的数量。</span><br><span class="line">数组指针：*v 中元素的数量（即使 v 为 nil）。</span><br><span class="line">切片或映射：v 中元素的数量；若 v 为 nil，len(v) 即为零。</span><br><span class="line">字符串：v 中字节的数量。</span><br><span class="line">信道：信道缓存中队列（未读取）元素的数量；若 v 为 nil，len(v) 即为零。</span><br><span class="line"></span><br><span class="line">例如：</span><br><span class="line">fmt.Println(&quot;map长度&#x3D;&quot;, len(stu))</span><br></pre></td></tr></table></figure>
 <h2 id="map-切片"><a href="#map-切片" class="headerlink" title="map 切片"></a>map 切片</h2><p>基本介绍</p>
 <p>切片的数据类型如果是 map，则我们称为 slice of map，map  切片，这样使用则 map  个数就可以动态变化了。</p>
-<figure class="highlight go"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs go"><span class="hljs-keyword">package</span> main<br><br><span class="hljs-keyword">import</span> (<br>	<span class="hljs-string">&quot;fmt&quot;</span><br>)<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> &#123;<br><br>	<span class="hljs-comment">//使用一个 map 来记录 monster 的信息 name 和 age, 也就是说一个 monster 对应一个 map,并</span><br>	<span class="hljs-comment">//且妖怪的个数可以动态的增加=&gt;map  切片</span><br><br>	<span class="hljs-comment">//声明一个切片</span><br>	<span class="hljs-keyword">var</span> monster []<span class="hljs-keyword">map</span>[<span class="hljs-keyword">string</span>]<span class="hljs-keyword">string</span><br>	monster = <span class="hljs-built_in">make</span>([]<span class="hljs-keyword">map</span>[<span class="hljs-keyword">string</span>]<span class="hljs-keyword">string</span>, <span class="hljs-number">2</span>)<br>	<span class="hljs-keyword">if</span> monster[<span class="hljs-number">0</span>] == <span class="hljs-literal">nil</span> &#123;<br>		monster[<span class="hljs-number">0</span>] = <span class="hljs-built_in">make</span>(<span class="hljs-keyword">map</span>[<span class="hljs-keyword">string</span>]<span class="hljs-keyword">string</span>)<br>		monster[<span class="hljs-number">0</span>][<span class="hljs-string">&quot;name&quot;</span>] = <span class="hljs-string">&quot;牛魔王&quot;</span><br>		monster[<span class="hljs-number">0</span>][<span class="hljs-string">&quot;age&quot;</span>] = <span class="hljs-string">&quot;12&quot;</span><br>	&#125;<br>	<span class="hljs-keyword">if</span> monster[<span class="hljs-number">1</span>] == <span class="hljs-literal">nil</span> &#123;<br>		monster[<span class="hljs-number">1</span>] = <span class="hljs-built_in">make</span>(<span class="hljs-keyword">map</span>[<span class="hljs-keyword">string</span>]<span class="hljs-keyword">string</span>)<br>		monster[<span class="hljs-number">1</span>][<span class="hljs-string">&quot;name&quot;</span>] = <span class="hljs-string">&quot;猴子&quot;</span><br>		monster[<span class="hljs-number">1</span>][<span class="hljs-string">&quot;age&quot;</span>] = <span class="hljs-string">&quot;13&quot;</span><br>	&#125;<br>	fmt.Println(monster)<br><br>	<span class="hljs-comment">//使用append函数动态增加</span><br>	newmonster := <span class="hljs-built_in">make</span>(<span class="hljs-keyword">map</span>[<span class="hljs-keyword">string</span>]<span class="hljs-keyword">string</span>)<br>	newmonster[<span class="hljs-string">&quot;name&quot;</span>] = <span class="hljs-string">&quot;猪八戒&quot;</span><br>	newmonster[<span class="hljs-string">&quot;age&quot;</span>] = <span class="hljs-string">&quot;11&quot;</span><br><br>	monster = <span class="hljs-built_in">append</span>(monster, newmonster)<br>	fmt.Println(monster)<br>&#125;<br></code></pre></div></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">package main</span><br><span class="line"></span><br><span class="line">import (</span><br><span class="line">	&quot;fmt&quot;</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">func main() &#123;</span><br><span class="line"></span><br><span class="line">	&#x2F;&#x2F;使用一个 map 来记录 monster 的信息 name 和 age, 也就是说一个 monster 对应一个 map,并</span><br><span class="line">	&#x2F;&#x2F;且妖怪的个数可以动态的增加&#x3D;&gt;map  切片</span><br><span class="line"></span><br><span class="line">	&#x2F;&#x2F;声明一个切片</span><br><span class="line">	var monster []map[string]string</span><br><span class="line">	monster &#x3D; make([]map[string]string, 2)</span><br><span class="line">	if monster[0] &#x3D;&#x3D; nil &#123;</span><br><span class="line">		monster[0] &#x3D; make(map[string]string)</span><br><span class="line">		monster[0][&quot;name&quot;] &#x3D; &quot;牛魔王&quot;</span><br><span class="line">		monster[0][&quot;age&quot;] &#x3D; &quot;12&quot;</span><br><span class="line">	&#125;</span><br><span class="line">	if monster[1] &#x3D;&#x3D; nil &#123;</span><br><span class="line">		monster[1] &#x3D; make(map[string]string)</span><br><span class="line">		monster[1][&quot;name&quot;] &#x3D; &quot;猴子&quot;</span><br><span class="line">		monster[1][&quot;age&quot;] &#x3D; &quot;13&quot;</span><br><span class="line">	&#125;</span><br><span class="line">	fmt.Println(monster)</span><br><span class="line"></span><br><span class="line">	&#x2F;&#x2F;使用append函数动态增加</span><br><span class="line">	newmonster :&#x3D; make(map[string]string)</span><br><span class="line">	newmonster[&quot;name&quot;] &#x3D; &quot;猪八戒&quot;</span><br><span class="line">	newmonster[&quot;age&quot;] &#x3D; &quot;11&quot;</span><br><span class="line"></span><br><span class="line">	monster &#x3D; append(monster, newmonster)</span><br><span class="line">	fmt.Println(monster)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h2 id="map-排序"><a href="#map-排序" class="headerlink" title="map 排序"></a>map 排序</h2><p>基本介绍     【新版本已经可以自动排序】</p>
 <ol>
 <li><p>golang 中没有一个专门的方法针对 map 的 key 进行排序</p>
@@ -332,275 +286,87 @@
 <li><p>golang 中 map 的排序，是先将 key 进行排序，然后根据 key 值遍历输出即可</p>
 </li>
 </ol>
-<figure class="highlight go"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs go"><span class="hljs-keyword">package</span> main<br><br><span class="hljs-keyword">import</span> (<br>	<span class="hljs-string">&quot;fmt&quot;</span><br>	<span class="hljs-string">&quot;sort&quot;</span><br>)<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> &#123;<br><br>	num := <span class="hljs-built_in">make</span>(<span class="hljs-keyword">map</span>[<span class="hljs-keyword">int</span>]<span class="hljs-keyword">int</span>)<br>	num[<span class="hljs-number">41</span>] = <span class="hljs-number">1</span><br>	num[<span class="hljs-number">22</span>] = <span class="hljs-number">2</span><br>	num[<span class="hljs-number">33</span>] = <span class="hljs-number">3</span><br>	fmt.Println(num)<br><br>	<span class="hljs-comment">//先将map的key放到切片中</span><br>	<span class="hljs-comment">//对切片进行排序</span><br>	<span class="hljs-comment">//遍历切片，然后按照排序来输出map值</span><br>	<span class="hljs-keyword">var</span> keys []<span class="hljs-keyword">int</span><br>	<span class="hljs-keyword">for</span> k, _ := <span class="hljs-keyword">range</span> num &#123;<br>		keys = <span class="hljs-built_in">append</span>(keys, k)<br>	&#125;<br>	sort.Ints(keys)<br>	fmt.Println(keys)<br><br>	<span class="hljs-keyword">for</span> _, k := <span class="hljs-keyword">range</span> keys &#123;<br>		fmt.Printf(<span class="hljs-string">&quot;num[%v]=%v\n&quot;</span>, k, num[k])<br>	&#125;<br>&#125;<br></code></pre></div></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">package main</span><br><span class="line"></span><br><span class="line">import (</span><br><span class="line">	&quot;fmt&quot;</span><br><span class="line">	&quot;sort&quot;</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">func main() &#123;</span><br><span class="line"></span><br><span class="line">	num :&#x3D; make(map[int]int)</span><br><span class="line">	num[41] &#x3D; 1</span><br><span class="line">	num[22] &#x3D; 2</span><br><span class="line">	num[33] &#x3D; 3</span><br><span class="line">	fmt.Println(num)</span><br><span class="line"></span><br><span class="line">	&#x2F;&#x2F;先将map的key放到切片中</span><br><span class="line">	&#x2F;&#x2F;对切片进行排序</span><br><span class="line">	&#x2F;&#x2F;遍历切片，然后按照排序来输出map值</span><br><span class="line">	var keys []int</span><br><span class="line">	for k, _ :&#x3D; range num &#123;</span><br><span class="line">		keys &#x3D; append(keys, k)</span><br><span class="line">	&#125;</span><br><span class="line">	sort.Ints(keys)</span><br><span class="line">	fmt.Println(keys)</span><br><span class="line"></span><br><span class="line">	for _, k :&#x3D; range keys &#123;</span><br><span class="line">		fmt.Printf(&quot;num[%v]&#x3D;%v\n&quot;, k, num[k])</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h2 id="map-使用细节"><a href="#map-使用细节" class="headerlink" title="map 使用细节"></a>map 使用细节</h2><ol>
 <li>map 是引用类型，遵守引用类型传递的机制，在一个函数接收 map，修改后，会直接修改原来的 map</li>
 </ol>
-<figure class="highlight go"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs go"><span class="hljs-keyword">package</span> main<br><br><span class="hljs-keyword">import</span> (<br>	<span class="hljs-string">&quot;fmt&quot;</span><br>)<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">test</span><span class="hljs-params">(num <span class="hljs-keyword">map</span>[<span class="hljs-keyword">int</span>]<span class="hljs-keyword">int</span>)</span></span> &#123;<br>	num[<span class="hljs-number">22</span>] = <span class="hljs-number">100</span><br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> &#123;<br><br>	num := <span class="hljs-built_in">make</span>(<span class="hljs-keyword">map</span>[<span class="hljs-keyword">int</span>]<span class="hljs-keyword">int</span>)<br>	num[<span class="hljs-number">41</span>] = <span class="hljs-number">1</span><br>	num[<span class="hljs-number">22</span>] = <span class="hljs-number">2</span><br>	num[<span class="hljs-number">33</span>] = <span class="hljs-number">3</span><br>	test(num)<br>	fmt.Println(num)<br>&#125;<br></code></pre></div></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">package main</span><br><span class="line"></span><br><span class="line">import (</span><br><span class="line">	&quot;fmt&quot;</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">func test(num map[int]int) &#123;</span><br><span class="line">	num[22] &#x3D; 100</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func main() &#123;</span><br><span class="line"></span><br><span class="line">	num :&#x3D; make(map[int]int)</span><br><span class="line">	num[41] &#x3D; 1</span><br><span class="line">	num[22] &#x3D; 2</span><br><span class="line">	num[33] &#x3D; 3</span><br><span class="line">	test(num)</span><br><span class="line">	fmt.Println(num)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <ol start="2">
 <li><p>map 的容量达到后，再想 map 增加元素，会自动扩容，并不会发生 panic，也就是说 map 能动态的增长 键值对(key-value)</p>
 </li>
 <li><p>map 的 value  也经常使用 struct  类型，更适合管理复杂的数据(比前面 value 是一个 map 更好)</p>
 </li>
 </ol>
-<figure class="highlight go"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs go"><span class="hljs-keyword">package</span> main<br><br><span class="hljs-keyword">import</span> (<br>	<span class="hljs-string">&quot;fmt&quot;</span><br>)<br><br><span class="hljs-keyword">type</span> Stu <span class="hljs-keyword">struct</span> &#123;<br>	Name    <span class="hljs-keyword">string</span><br>	age     <span class="hljs-keyword">int</span><br>	Address <span class="hljs-keyword">string</span><br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> &#123;<br><br>	students := <span class="hljs-built_in">make</span>(<span class="hljs-keyword">map</span>[<span class="hljs-keyword">string</span>]Stu, <span class="hljs-number">10</span>)<br>	stu1 := Stu&#123;<span class="hljs-string">&quot;tom&quot;</span>, <span class="hljs-number">11</span>, <span class="hljs-string">&quot;beijing&quot;</span>&#125;<br>	stu2 := Stu&#123;<span class="hljs-string">&quot;jack&quot;</span>, <span class="hljs-number">12</span>, <span class="hljs-string">&quot;shanghai&quot;</span>&#125;<br><br>	students[<span class="hljs-string">&quot;num1&quot;</span>] = stu1<br>	students[<span class="hljs-string">&quot;num2&quot;</span>] = stu2<br>	fmt.Println(students)<br><br>	<span class="hljs-comment">//遍历所有学生</span><br>	<span class="hljs-keyword">for</span> i, v := <span class="hljs-keyword">range</span> students &#123;<br>		fmt.Printf(<span class="hljs-string">&quot;学生编号是%v \n&quot;</span>, i)<br>		fmt.Printf(<span class="hljs-string">&quot;学生年龄=%v \n&quot;</span>, v.age)<br>		fmt.Printf(<span class="hljs-string">&quot;学生年龄=%v \n&quot;</span>, v.Name)<br>	&#125;<br>&#125;<br></code></pre></div></td></tr></table></figure>
-<h2 id="应用实例"><a href="#应用实例" class="headerlink" title="应用实例"></a>应用实例</h2><figure class="highlight xquery"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs xquery">package main<br><br><span class="hljs-keyword">import</span> (<br>	<span class="hljs-string">&quot;fmt&quot;</span><br>)<br><br>/*<br><span class="hljs-number">1</span>)使用 <span class="hljs-keyword">map</span><span class="hljs-built_in">[string</span>]<span class="hljs-keyword">map</span><span class="hljs-built_in">[string</span>]sting 的 <span class="hljs-keyword">map</span> 类型<br><span class="hljs-number">2</span><span class="hljs-built_in">)key</span>: 表示用户名，是唯一的，不可以重复<br><span class="hljs-number">3</span>)如果某个用户名存在，就将其密码修改<span class="hljs-string">&quot;888888&quot;</span>，如果不存在就增加这个用户信息,<br>（包括昵称 nickname 和 密码 pwd）。<br><span class="hljs-number">4</span>)编写一个函数 modifyUser(users <span class="hljs-keyword">map</span><span class="hljs-built_in">[string</span>]<span class="hljs-keyword">map</span><span class="hljs-built_in">[string</span>]sting,<span class="hljs-built_in"> name</span><span class="hljs-built_in"> string</span>) 完成上述功能<br>*/<br><br>func modifyUser(users <span class="hljs-keyword">map</span><span class="hljs-built_in">[string</span>]<span class="hljs-keyword">map</span><span class="hljs-built_in">[string</span><span class="hljs-built_in">]string</span>,<span class="hljs-built_in"> name</span><span class="hljs-built_in"> string</span>) &#123;<br>	//判断是否有这个用户<br>	<span class="hljs-keyword">if</span> users<span class="hljs-built_in">[name</span>] != nil &#123;<br>		users<span class="hljs-built_in">[name</span>][<span class="hljs-string">&quot;pwd&quot;</span>] = <span class="hljs-string">&quot;88888888&quot;</span><br>	&#125; <span class="hljs-keyword">else</span> &#123;<br>		users<span class="hljs-built_in">[name</span>] = make(<span class="hljs-keyword">map</span><span class="hljs-built_in">[string</span><span class="hljs-built_in">]string</span>)<br>		users<span class="hljs-built_in">[name</span>][<span class="hljs-string">&quot;pwd&quot;</span>] = <span class="hljs-string">&quot;9999999&quot;</span><br>		users<span class="hljs-built_in">[name</span>][<span class="hljs-string">&quot;nickname&quot;</span>] = <span class="hljs-string">&quot;彭大将军&quot;</span><br>	&#125;<br>&#125;<br><br>func main() &#123;<br>	users := make(<span class="hljs-keyword">map</span><span class="hljs-built_in">[string</span>]<span class="hljs-keyword">map</span><span class="hljs-built_in">[string</span><span class="hljs-built_in">]string</span>)<br>	users[<span class="hljs-string">&quot;tom&quot;</span>] = make(<span class="hljs-keyword">map</span><span class="hljs-built_in">[string</span><span class="hljs-built_in">]string</span>)<br>	users[<span class="hljs-string">&quot;tom&quot;</span>][<span class="hljs-string">&quot;pwd&quot;</span>] = <span class="hljs-string">&quot;88888888&quot;</span><br>	users[<span class="hljs-string">&quot;tom&quot;</span>][<span class="hljs-string">&quot;age&quot;</span>] = <span class="hljs-string">&quot;111&quot;</span><br><br>	modifyUser(users, <span class="hljs-string">&quot;kack&quot;</span>)<br>	fmt.Println(users)<br>&#125;<br></code></pre></div></td></tr></table></figure>
-            </div>
-            <hr>
-            <div>
-              <div class="post-metas mb-3">
-                
-                  <div class="post-meta mr-3">
-                    <i class="iconfont icon-category"></i>
-                    
-                      <a class="hover-with-bg" href="/categories/Golang/">Golang</a>
-                    
-                  </div>
-                
-                
-                  <div class="post-meta">
-                    <i class="iconfont icon-tags"></i>
-                    
-                      <a class="hover-with-bg" href="/tags/Golang/">Golang</a>
-                    
-                  </div>
-                
-              </div>
-              
-                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
-              
-              
-                <div class="post-prevnext">
-                  <article class="post-prev col-6">
-                    
-                    
-                      <a href="/2021/04/19/Go%E8%AF%AD%E8%A8%80%E7%BB%93%E6%9E%84%E4%BD%93/">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">Go语言结构体</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
-                  </article>
-                  <article class="post-next col-6">
-                    
-                    
-                      <a href="/2021/04/15/Go%E8%AF%AD%E8%A8%80%E5%88%87%E7%89%87/">
-                        <span class="hidden-mobile">Go语言切片</span>
-                        <span class="visible-mobile">下一篇</span>
-                        <i class="iconfont icon-arrowright"></i>
-                      </a>
-                    
-                  </article>
-                </div>
-              
-            </div>
-
-            
-              <!-- Comments -->
-              <article class="comments" id="comments">
-                
-                
-  <div id="vcomments"></div>
-  <script type="text/javascript">
-    Fluid.utils.waitElementVisible('vcomments', function() {
-      Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js', function () {
-        new Valine({
-          el: "#vcomments",
-          app_id: "hPHtsN0Gt7U2zB2AllYqbucc-9Nh9j0Va",
-          app_key: "TVUER8rWijR8cD1STqzd2d4E",
-          placeholder: "你有故事，我有酒，我们一起勇闯天涯。。。",
-          path: window.location.pathname,
-          avatar: "retro",
-          meta: ["nick","mail","link"],
-          pageSize: "10",
-          lang: "zh-CN",
-          highlight: false,
-          recordIP: false,
-          serverURLs: "",
-        });
-      });
-    });
-  </script>
-  <noscript>Please enable JavaScript to view the
-    <a target="_blank" href="https://valine.js.org" rel="nofollow noopener noopener">comments powered by Valine.</a>
-  </noscript>
-
-
-              </article>
-            
-          </article>
-        </div>
-      </div>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">package main</span><br><span class="line"></span><br><span class="line">import (</span><br><span class="line">	&quot;fmt&quot;</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">type Stu struct &#123;</span><br><span class="line">	Name    string</span><br><span class="line">	age     int</span><br><span class="line">	Address string</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func main() &#123;</span><br><span class="line"></span><br><span class="line">	students :&#x3D; make(map[string]Stu, 10)</span><br><span class="line">	stu1 :&#x3D; Stu&#123;&quot;tom&quot;, 11, &quot;beijing&quot;&#125;</span><br><span class="line">	stu2 :&#x3D; Stu&#123;&quot;jack&quot;, 12, &quot;shanghai&quot;&#125;</span><br><span class="line"></span><br><span class="line">	students[&quot;num1&quot;] &#x3D; stu1</span><br><span class="line">	students[&quot;num2&quot;] &#x3D; stu2</span><br><span class="line">	fmt.Println(students)</span><br><span class="line"></span><br><span class="line">	&#x2F;&#x2F;遍历所有学生</span><br><span class="line">	for i, v :&#x3D; range students &#123;</span><br><span class="line">		fmt.Printf(&quot;学生编号是%v \n&quot;, i)</span><br><span class="line">		fmt.Printf(&quot;学生年龄&#x3D;%v \n&quot;, v.age)</span><br><span class="line">		fmt.Printf(&quot;学生年龄&#x3D;%v \n&quot;, v.Name)</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="应用实例"><a href="#应用实例" class="headerlink" title="应用实例"></a>应用实例</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">package main</span><br><span class="line"></span><br><span class="line">import (</span><br><span class="line">	&quot;fmt&quot;</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">&#x2F;*</span><br><span class="line">1)使用 map[string]map[string]sting 的 map 类型</span><br><span class="line">2)key: 表示用户名，是唯一的，不可以重复</span><br><span class="line">3)如果某个用户名存在，就将其密码修改&quot;888888&quot;，如果不存在就增加这个用户信息,</span><br><span class="line">（包括昵称 nickname 和 密码 pwd）。</span><br><span class="line">4)编写一个函数 modifyUser(users map[string]map[string]sting, name string) 完成上述功能</span><br><span class="line">*&#x2F;</span><br><span class="line"></span><br><span class="line">func modifyUser(users map[string]map[string]string, name string) &#123;</span><br><span class="line">	&#x2F;&#x2F;判断是否有这个用户</span><br><span class="line">	if users[name] !&#x3D; nil &#123;</span><br><span class="line">		users[name][&quot;pwd&quot;] &#x3D; &quot;88888888&quot;</span><br><span class="line">	&#125; else &#123;</span><br><span class="line">		users[name] &#x3D; make(map[string]string)</span><br><span class="line">		users[name][&quot;pwd&quot;] &#x3D; &quot;9999999&quot;</span><br><span class="line">		users[name][&quot;nickname&quot;] &#x3D; &quot;彭大将军&quot;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func main() &#123;</span><br><span class="line">	users :&#x3D; make(map[string]map[string]string)</span><br><span class="line">	users[&quot;tom&quot;] &#x3D; make(map[string]string)</span><br><span class="line">	users[&quot;tom&quot;][&quot;pwd&quot;] &#x3D; &quot;88888888&quot;</span><br><span class="line">	users[&quot;tom&quot;][&quot;age&quot;] &#x3D; &quot;111&quot;</span><br><span class="line"></span><br><span class="line">	modifyUser(users, &quot;kack&quot;)</span><br><span class="line">	fmt.Println(users)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
     </div>
+
     
-      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
-        <div id="toc">
-  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
-  <div class="toc-body" id="toc-body"></div>
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Golang/" rel="tag"># Golang</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2021/04/15/Go%E8%AF%AD%E8%A8%80%E5%88%87%E7%89%87/" rel="prev" title="Go语言切片">
+                  <i class="fa fa-chevron-left"></i> Go语言切片
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2021/04/19/Go%E8%AF%AD%E8%A8%80%E7%BB%93%E6%9E%84%E4%BD%93/" rel="next" title="Go语言结构体">
+                  Go语言结构体 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
 </div>
 
-      </div>
-    
-  </div>
+
+
+
+
+
 </div>
-
-<!-- Custom -->
-
-
-    
-
-    
-      <a id="scroll-top-button" href="#" role="button">
-        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
-      </a>
-    
-
-    
-      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
-     aria-hidden="true">
-  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
-    <div class="modal-content">
-      <div class="modal-header text-center">
-        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
-        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body mx-3">
-        <div class="md-form mb-5">
-          <input type="text" id="local-search-input" class="form-control validate">
-          <label data-error="x" data-success="v"
-                 for="local-search-input">关键词</label>
-        </div>
-        <div class="list-group" id="local-search-result"></div>
-      </div>
-    </div>
-  </div>
-</div>
-    
-
-    
   </main>
 
-  <footer class="text-center mt-5 py-3">
-  <div class="footer-content">
-     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
-  </div>
-  
-  <div class="statistics">
-    
-    
+  <footer class="footer">
+    <div class="footer-inner">
 
-    
-      
-        <!-- 不蒜子统计PV -->
-        <span id="busuanzi_container_site_pv" style="display: none">
-            总访问量 
-            <span id="busuanzi_value_site_pv"></span>
-             次
-          </span>
-      
-      
-        <!-- 不蒜子统计UV -->
-        <span id="busuanzi_container_site_uv" style="display: none">
-            总访客数 
-            <span id="busuanzi_value_site_uv"></span>
-             人
-          </span>
-      
-    
+
+<div class="copyright">
+  &copy; 2020 – 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">羊皮裘老头</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
   </div>
 
+    </div>
+  </footer>
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
 
   
 
-  
-</footer>
 
-<!-- SCRIPTS -->
-
-  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
-  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
-
-  <script>
-    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
-    NProgress.start()
-    window.addEventListener('load', function() {
-      NProgress.done();
-    })
-  </script>
-
-
-<script  src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" ></script>
-<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" ></script>
-<script  src="/js/debouncer.js" ></script>
-<script  src="/js/events.js" ></script>
-<script  src="/js/plugins.js" ></script>
-
-<!-- Plugins -->
-
-
-  
-    <script  src="/js/lazyload.js" ></script>
-  
 
 
 
   
 
 
-
-  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.0/dist/tocbot.min.js" ></script>
-
-
-
-  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
-
-
-
-  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.0/anchor.min.js" ></script>
-
-
-
-  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js" ></script>
-
-
-
-  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
-
-
-
-
-
-
-  <script  src="/js/local-search.js" ></script>
-  <script>
-    (function () {
-      var path = "/local-search.xml";
-      var inputArea = document.querySelector("#local-search-input");
-      inputArea.onclick = function () {
-        searchFunc(path, 'local-search-input', 'local-search-result');
-        this.onclick = null
-      }
-    })()
-  </script>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<!-- 主题的启动项 保持在最底部 -->
-<script  src="/js/boot.js" ></script>
 
 
 

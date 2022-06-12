@@ -1,288 +1,242 @@
-
-
 <!DOCTYPE html>
-<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
-
-
-
+<html lang="zh-CN">
 <head>
   <meta charset="UTF-8">
-  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
-  <link rel="icon" type="image/png" href="/img/favicon.png">
-  <meta name="viewport"
-        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
-  <meta http-equiv="x-ua-compatible" content="ie=edge">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 5.3.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.12.1","exturl":false,"sidebar":{"position":"left","width":300,"display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="for 循环的基本语法1234语法格式for 循环变量初始化; 循环条件; 循环变量迭代 &amp;#123;循环操作(语句)&amp;#125; 对上面的语法格式说明  循环变量初始化  循环条件  循环操作(语句) ,有人也叫循环体。  循环变量迭代   123456for 循环执行的顺序说明：1) 执行循环变量初始化，比如 i :&#x3D; 12) 执行循环条件， 比如 i &lt;&#x3D; 103)">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Go语言for循环控制">
+<meta property="og:url" content="http://example.com/2021/04/09/Go%E8%AF%AD%E8%A8%80for%E5%BE%AA%E7%8E%AF%E6%8E%A7%E5%88%B6/index.html">
+<meta property="og:site_name" content="羊皮裘老头">
+<meta property="og:description" content="for 循环的基本语法1234语法格式for 循环变量初始化; 循环条件; 循环变量迭代 &amp;#123;循环操作(语句)&amp;#125; 对上面的语法格式说明  循环变量初始化  循环条件  循环操作(语句) ,有人也叫循环体。  循环变量迭代   123456for 循环执行的顺序说明：1) 执行循环变量初始化，比如 i :&#x3D; 12) 执行循环条件， 比如 i &lt;&#x3D; 103)">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2021-04-09T03:37:31.000Z">
+<meta property="article:modified_time" content="2022-04-17T09:07:33.745Z">
+<meta property="article:author" content="羊皮裘老头">
+<meta property="article:tag" content="Golang">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="http://example.com/2021/04/09/Go%E8%AF%AD%E8%A8%80for%E5%BE%AA%E7%8E%AF%E6%8E%A7%E5%88%B6/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://example.com/2021/04/09/Go%E8%AF%AD%E8%A8%80for%E5%BE%AA%E7%8E%AF%E6%8E%A7%E5%88%B6/","path":"2021/04/09/Go语言for循环控制/","title":"Go语言for循环控制"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>Go语言for循环控制 | 羊皮裘老头</title>
   
-  <meta name="theme-color" content="#2f4154">
-  <meta name="description" content="">
-  <meta name="author" content="羊皮裘老头">
-  <meta name="keywords" content="">
-  <title>Go语言for循环控制 - 羊皮裘老头</title>
-
-  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
-
-
-  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
-  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
-
-  
-    
-    
-      
-      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.4.0/styles/github-gist.min.css" />
-    
-  
-
-  
-    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
-  
 
 
 
-<!-- 主题依赖的图标库，不要自行修改 -->
-
-<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
 
 
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
 
-<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
 
-
-<link  rel="stylesheet" href="/css/main.css" />
-
-<!-- 自定义样式保持在最底部 -->
-
-
-  <script id="fluid-configs">
-    var Fluid = window.Fluid || {};
-    var CONFIG = {"hostname":"example.com","root":"/","version":"1.8.7","typing":{"enable":false,"typeSpeed":70,"cursorChar":" ","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"onlypost":false},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}}};
-  </script>
-  <script  src="/js/utils.js" ></script>
-  <script  src="/js/color-schema.js" ></script>
-<meta name="generator" content="Hexo 5.3.0"></head>
-
-
-<body>
-  <header style="height: 70vh;">
-    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
-  <div class="container">
-    <a class="navbar-brand"
-       href="/">&nbsp;<strong>羊皮裘老头</strong>&nbsp;</a>
-
-    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
-            data-target="#navbarSupportedContent"
-            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <div class="animated-icon"><span></span><span></span><span></span></div>
-    </button>
-
-    <!-- Collapsible content -->
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav ml-auto text-center">
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/">
-                <i class="iconfont icon-home-fill"></i>
-                首页
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/archives/">
-                <i class="iconfont icon-archive-fill"></i>
-                归档
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/categories/">
-                <i class="iconfont icon-category-fill"></i>
-                分类
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/tags/">
-                <i class="iconfont icon-tags-fill"></i>
-                标签
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/about/">
-                <i class="iconfont icon-user-fill"></i>
-                关于
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <i class="iconfont icon-books"></i>
-                文档
-              </a>
-              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                
-                  
-                  
-                  
-                  <a class="dropdown-item" target="_blank" rel="noopener" href="https://hexo.fluid-dev.com/">
-                    
-                    主题博客
-                  </a>
-                
-                  
-                  
-                  
-                  <a class="dropdown-item" target="_blank" rel="noopener" href="https://hexo.fluid-dev.com/docs/guide/">
-                    
-                    配置指南
-                  </a>
-                
-                  
-                  
-                  
-                  <a class="dropdown-item" target="_blank" rel="noopener" href="https://hexo.fluid-dev.com/docs/icon/">
-                    
-                    图标用法
-                  </a>
-                
-              </div>
-            </li>
-          
-        
-        
-          <li class="nav-item" id="search-btn">
-            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
-                class="iconfont icon-search"></i>&nbsp;</a>
-          </li>
-        
-        
-          <li class="nav-item" id="color-toggle-btn">
-            <a class="nav-link" href="javascript:">&nbsp;<i
-                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
-          </li>
-        
-      </ul>
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
     </div>
   </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">羊皮裘老头</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">28</span></a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">13</span></a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">116</span></a></li><li class="menu-item menu-item-schedule"><a href="/schedule/" rel="section"><i class="fa fa-calendar fa-fw"></i>日程表</a></li><li class="menu-item menu-item-sitemap"><a href="/sitemap.xml" rel="section"><i class="fa fa-sitemap fa-fw"></i>站点地图</a></li><li class="menu-item menu-item-commonweal"><a href="/404/" rel="section"><i class="fa fa-heartbeat fa-fw"></i>公益 404</a></li>
+  </ul>
 </nav>
 
-    <div class="banner" id="banner" parallax=true
-         style="background: url('/img/ss.png') no-repeat center center;
-           background-size: cover;">
-      <div class="full-bg-img">
-        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
-          <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="Go语言for循环控制">
-              
-                Go语言for循环控制
-              
-            </span>
 
-            
-              <div class="mt-3">
+
+
+</div>
+        
   
-  
-    <span class="post-meta">
-      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-      <time datetime="2021-04-09 11:37" pubdate>
-        2021年4月9日 中午
-      </time>
-    </span>
-  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#for-%E5%BE%AA%E7%8E%AF%E7%9A%84%E5%9F%BA%E6%9C%AC%E8%AF%AD%E6%B3%95"><span class="nav-number">1.</span> <span class="nav-text">for 循环的基本语法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#for-%E5%BE%AA%E7%8E%AF%E7%9A%84%E4%BD%BF%E7%94%A8%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9%E5%92%8C%E7%BB%86%E8%8A%82%E8%AE%A8%E8%AE%BA"><span class="nav-number">2.</span> <span class="nav-text">for 循环的使用注意事项和细节讨论</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E5%BE%AA%E7%8E%AF%E6%9D%A1%E4%BB%B6%E6%98%AF%E8%BF%94%E5%9B%9E%E4%B8%80%E4%B8%AA-%E5%B8%83%E5%B0%94%E5%80%BC%E7%9A%84%E8%A1%A8%E8%BE%BE%E5%BC%8F"><span class="nav-number">2.1.</span> <span class="nav-text">1)  循环条件是返回一个 布尔值的表达式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-for-%E5%BE%AA%E7%8E%AF%E7%9A%84%E7%AC%AC%E4%BA%8C%E7%A7%8D%E4%BD%BF%E7%94%A8%E6%96%B9%E5%BC%8F"><span class="nav-number">2.2.</span> <span class="nav-text">2) for 循环的第二种使用方式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-for-%E5%BE%AA%E7%8E%AF%E7%9A%84%E7%AC%AC%E4%B8%89%E7%A7%8D%E4%BD%BF%E7%94%A8%E6%96%B9%E5%BC%8F"><span class="nav-number">2.3.</span> <span class="nav-text">3) for 循环的第三种使用方式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-Golang-%E6%8F%90%E4%BE%9B-for-range-%E7%9A%84%E6%96%B9%E5%BC%8F%EF%BC%8C%E5%8F%AF%E4%BB%A5%E6%96%B9%E4%BE%BF%E9%81%8D%E5%8E%86%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%92%8C%E6%95%B0%E7%BB%84"><span class="nav-number">2.4.</span> <span class="nav-text">4) Golang 提供 for-range 的方式，可以方便遍历字符串和数组</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BB%83%E4%B9%A0"><span class="nav-number">2.5.</span> <span class="nav-text">练习</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8E%A7%E5%88%B6%E8%AF%AD%E5%8F%A5break"><span class="nav-number">3.</span> <span class="nav-text">控制语句break</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#break%E5%85%A5%E9%97%A8%E6%A1%88%E4%BE%8B"><span class="nav-number">3.1.</span> <span class="nav-text">break入门案例</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9F%BA%E6%9C%AC%E4%BB%8B%E7%BB%8D"><span class="nav-number">3.2.</span> <span class="nav-text">基本介绍</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9F%BA%E6%9C%AC%E8%AF%AD%E6%B3%95"><span class="nav-number">3.3.</span> <span class="nav-text">基本语法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#break-%E7%9A%84%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9%E5%92%8C%E4%BD%BF%E7%94%A8%E7%BB%86%E8%8A%82"><span class="nav-number">3.4.</span> <span class="nav-text">break 的注意事项和使用细节</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A1%88%E4%BE%8B%E6%BC%94%E7%A4%BA"><span class="nav-number">3.5.</span> <span class="nav-text">案例演示</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%B7%B3%E8%BD%AC%E6%8E%A7%E5%88%B6%E8%AF%AD%E5%8F%A5-continue"><span class="nav-number">4.</span> <span class="nav-text">跳转控制语句-continue</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9F%BA%E6%9C%AC%E4%BB%8B%E7%BB%8D%EF%BC%9A"><span class="nav-number">4.1.</span> <span class="nav-text">基本介绍：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9F%BA%E6%9C%AC%E8%AF%AD%E6%B3%95%EF%BC%9A"><span class="nav-number">4.2.</span> <span class="nav-text">基本语法：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A1%88%E4%BE%8B%E7%BB%83%E4%B9%A0"><span class="nav-number">4.3.</span> <span class="nav-text">案例练习</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#goto-%E5%9F%BA%E6%9C%AC%E4%BB%8B%E7%BB%8D"><span class="nav-number">5.</span> <span class="nav-text">goto 基本介绍</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#goto-%E5%9F%BA%E6%9C%AC%E4%BB%8B%E7%BB%8D-1"><span class="nav-number">5.1.</span> <span class="nav-text">goto 基本介绍</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A1%88%E4%BE%8B"><span class="nav-number">5.2.</span> <span class="nav-text">案例</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">羊皮裘老头</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">116</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">13</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">28</span>
+        <span class="site-state-item-name">标签</span>
+      </div>
+  </nav>
 </div>
 
-<div class="mt-1">
-  
-    
-    <span class="post-meta mr-2">
-      <i class="iconfont icon-chart"></i>
-      1.9k 字
-    </span>
-  
 
-  
-    
-    <span class="post-meta mr-2">
-      <i class="iconfont icon-clock-fill"></i>
-      
-      
-      27
-       分钟
-    </span>
-  
 
-  
-  
-    
-      <!-- LeanCloud 统计文章PV -->
-      <span id="leancloud-page-views-container" class="post-meta" style="display: none">
-        <i class="iconfont icon-eye" aria-hidden="true"></i>
-        <span id="leancloud-page-views"></span> 次
-      </span>
-    
-  
-</div>
-
-            
-          </div>
-
-          
         </div>
       </div>
     </div>
-  </header>
+  </aside>
+  <div class="sidebar-dimmer"></div>
 
-  <main>
+
+    </header>
+
     
-      
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
 
-<div class="container-fluid nopadding-x">
-  <div class="row nomargin-x">
-    <div class="d-none d-lg-block col-lg-2"></div>
-    <div class="col-lg-8 nopadding-x-md">
-      <div class="container nopadding-x-md" id="board-ctn">
-        <div class="py-5" id="board">
-          <article class="post-content mx-auto">
-            <!-- SEO header -->
-            <h1 style="display: none">Go语言for循环控制</h1>
-            
-              <p class="note note-info">
-                
-                  本文最后更新于：2022年4月17日 下午
-                
-              </p>
-            
-            <div class="markdown-body">
-              <h2 id="for-循环的基本语法"><a href="#for-循环的基本语法" class="headerlink" title="for 循环的基本语法"></a>for 循环的基本语法</h2><figure class="highlight abnf"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs abnf">语法格式<br>for 循环变量初始化<span class="hljs-comment">; 循环条件; 循环变量迭代 &#123;</span><br>循环操作(语句)<br>&#125;<br></code></pre></div></td></tr></table></figure>
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/04/09/Go%E8%AF%AD%E8%A8%80for%E5%BE%AA%E7%8E%AF%E6%8E%A7%E5%88%B6/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="羊皮裘老头">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="羊皮裘老头">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="Go语言for循环控制 | 羊皮裘老头">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Go语言for循环控制
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2021-04-09 11:37:31" itemprop="dateCreated datePublished" datetime="2021-04-09T11:37:31+08:00">2021-04-09</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-04-17 17:07:33" itemprop="dateModified" datetime="2022-04-17T17:07:33+08:00">2022-04-17</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Golang/" itemprop="url" rel="index"><span itemprop="name">Golang</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h2 id="for-循环的基本语法"><a href="#for-循环的基本语法" class="headerlink" title="for 循环的基本语法"></a>for 循环的基本语法</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">语法格式</span><br><span class="line">for 循环变量初始化; 循环条件; 循环变量迭代 &#123;</span><br><span class="line">循环操作(语句)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>对上面的语法格式说明</p>
 <ol>
 <li><p>循环变量初始化</p>
@@ -294,33 +248,33 @@
 <li><p>循环变量迭代</p>
 </li>
 </ol>
-<figure class="highlight apache"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs apache"><span class="hljs-attribute">for</span> 循环执行的顺序说明：<br><span class="hljs-attribute">1</span>) 执行循环变量初始化，比如 i := <span class="hljs-number">1</span><br><span class="hljs-attribute">2</span>) 执行循环条件， 比如 i &lt;= <span class="hljs-number">10</span><br><span class="hljs-attribute">3</span>) 如果循环条件为真，就执行循环操作 :比如 fmt.Println(“....”)<br><span class="hljs-attribute">4</span>) 执行循环变量迭代 , 比如 i++<br><span class="hljs-attribute">5</span>) 反复执行 <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span> 步骤，直到 循环条件为 False ，就退出 for 循环<br></code></pre></div></td></tr></table></figure>
-<h2 id="for-循环的使用注意事项和细节讨论"><a href="#for-循环的使用注意事项和细节讨论" class="headerlink" title="for 循环的使用注意事项和细节讨论"></a>for 循环的使用注意事项和细节讨论</h2><h3 id="1-循环条件是返回一个-布尔值的表达式"><a href="#1-循环条件是返回一个-布尔值的表达式" class="headerlink" title="1)  循环条件是返回一个 布尔值的表达式"></a>1)  循环条件是返回一个 布尔值的表达式</h3><h3 id="2-for-循环的第二种使用方式"><a href="#2-for-循环的第二种使用方式" class="headerlink" title="2) for 循环的第二种使用方式"></a>2) for 循环的第二种使用方式</h3><figure class="highlight awk"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs awk"><span class="hljs-keyword">for</span> 循环判断条件 &#123;<br><span class="hljs-regexp">//</span>循环执行语句<br>&#125;<br></code></pre></div></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">for 循环执行的顺序说明：</span><br><span class="line">1) 执行循环变量初始化，比如 i :&#x3D; 1</span><br><span class="line">2) 执行循环条件， 比如 i &lt;&#x3D; 10</span><br><span class="line">3) 如果循环条件为真，就执行循环操作 :比如 fmt.Println(“....”)</span><br><span class="line">4) 执行循环变量迭代 , 比如 i++</span><br><span class="line">5) 反复执行 2, 3, 4 步骤，直到 循环条件为 False ，就退出 for 循环</span><br></pre></td></tr></table></figure>
+<h2 id="for-循环的使用注意事项和细节讨论"><a href="#for-循环的使用注意事项和细节讨论" class="headerlink" title="for 循环的使用注意事项和细节讨论"></a>for 循环的使用注意事项和细节讨论</h2><h3 id="1-循环条件是返回一个-布尔值的表达式"><a href="#1-循环条件是返回一个-布尔值的表达式" class="headerlink" title="1)  循环条件是返回一个 布尔值的表达式"></a>1)  循环条件是返回一个 布尔值的表达式</h3><h3 id="2-for-循环的第二种使用方式"><a href="#2-for-循环的第二种使用方式" class="headerlink" title="2) for 循环的第二种使用方式"></a>2) for 循环的第二种使用方式</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">for 循环判断条件 &#123;</span><br><span class="line">&#x2F;&#x2F;循环执行语句</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>将变量初始化和变量迭代写到其它位置</p>
-<figure class="highlight css"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs css"><span class="hljs-selector-tag">package</span> <span class="hljs-selector-tag">main</span><br><br><span class="hljs-selector-tag">import</span> &quot;<span class="hljs-selector-tag">fmt</span>&quot;<br><br><span class="hljs-selector-tag">func</span> <span class="hljs-selector-tag">main</span>() &#123;<br>	<span class="hljs-attribute">i </span>:= <span class="hljs-number">5</span><br>	for i &lt;= <span class="hljs-number">10</span> &#123;<br>		fmt.<span class="hljs-built_in">Println</span>(<span class="hljs-string">&quot;hello&quot;</span>)<br>		i++<br>	&#125;<br>&#125;<br></code></pre></div></td></tr></table></figure>
-<h3 id="3-for-循环的第三种使用方式"><a href="#3-for-循环的第三种使用方式" class="headerlink" title="3) for 循环的第三种使用方式"></a>3) for 循环的第三种使用方式</h3><figure class="highlight awk"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs awk"><span class="hljs-keyword">for</span> &#123;<br><span class="hljs-regexp">//</span>循环执行语句<br>&#125;<br></code></pre></div></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">package main</span><br><span class="line"></span><br><span class="line">import &quot;fmt&quot;</span><br><span class="line"></span><br><span class="line">func main() &#123;</span><br><span class="line">	i :&#x3D; 5</span><br><span class="line">	for i &lt;&#x3D; 10 &#123;</span><br><span class="line">		fmt.Println(&quot;hello&quot;)</span><br><span class="line">		i++</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="3-for-循环的第三种使用方式"><a href="#3-for-循环的第三种使用方式" class="headerlink" title="3) for 循环的第三种使用方式"></a>3) for 循环的第三种使用方式</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">for &#123;</span><br><span class="line">&#x2F;&#x2F;循环执行语句</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>上面的写法价 等价 for ; ; {} 是一个 无限循环， 通常需要 配合 break  语句使用</p>
-<figure class="highlight go"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs go"><span class="hljs-keyword">package</span> main<br><br><span class="hljs-keyword">import</span> <span class="hljs-string">&quot;fmt&quot;</span><br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> &#123;<br>	i := <span class="hljs-number">5</span><br>	<span class="hljs-keyword">for</span> &#123;<br>		<span class="hljs-keyword">if</span> i &lt;= <span class="hljs-number">100</span> &amp;&amp; i &gt;= <span class="hljs-number">0</span> &#123;<br>			fmt.Println(<span class="hljs-string">&quot;ok&quot;</span>)<br>		&#125; <span class="hljs-keyword">else</span> &#123;<br>			<span class="hljs-keyword">break</span><br>		&#125;<br>		i++<br>	&#125;<br>	fmt.Println(<span class="hljs-string">&quot;i=&quot;</span>, i)<br>&#125;<br></code></pre></div></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">package main</span><br><span class="line"></span><br><span class="line">import &quot;fmt&quot;</span><br><span class="line"></span><br><span class="line">func main() &#123;</span><br><span class="line">	i :&#x3D; 5</span><br><span class="line">	for &#123;</span><br><span class="line">		if i &lt;&#x3D; 100 &amp;&amp; i &gt;&#x3D; 0 &#123;</span><br><span class="line">			fmt.Println(&quot;ok&quot;)</span><br><span class="line">		&#125; else &#123;</span><br><span class="line">			break</span><br><span class="line">		&#125;</span><br><span class="line">		i++</span><br><span class="line">	&#125;</span><br><span class="line">	fmt.Println(&quot;i&#x3D;&quot;, i)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h3 id="4-Golang-提供-for-range-的方式，可以方便遍历字符串和数组"><a href="#4-Golang-提供-for-range-的方式，可以方便遍历字符串和数组" class="headerlink" title="4) Golang 提供 for-range 的方式，可以方便遍历字符串和数组"></a>4) Golang 提供 for-range 的方式，可以方便遍历字符串和数组</h3><p>字符串遍历方式 1-传统方式</p>
-<figure class="highlight go"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs go"><span class="hljs-keyword">package</span> main<br><br><span class="hljs-keyword">import</span> <span class="hljs-string">&quot;fmt&quot;</span><br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> &#123;<br>	<span class="hljs-keyword">var</span> str <span class="hljs-keyword">string</span> = <span class="hljs-string">&quot;hello 明天&quot;</span><br>	str2 := []<span class="hljs-keyword">rune</span>(str)   <span class="hljs-comment">//str转成[]rune切片</span><br>	<span class="hljs-keyword">for</span> i := <span class="hljs-number">0</span>; i &lt; <span class="hljs-built_in">len</span>(str2); i++ &#123;<br>		fmt.Printf(<span class="hljs-string">&quot;%c\n&quot;</span>, str2[i])   <span class="hljs-comment">//长度为下标数</span><br>	&#125;<br>&#125;<br></code></pre></div></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">package main</span><br><span class="line"></span><br><span class="line">import &quot;fmt&quot;</span><br><span class="line"></span><br><span class="line">func main() &#123;</span><br><span class="line">	var str string &#x3D; &quot;hello 明天&quot;</span><br><span class="line">	str2 :&#x3D; []rune(str)   &#x2F;&#x2F;str转成[]rune切片</span><br><span class="line">	for i :&#x3D; 0; i &lt; len(str2); i++ &#123;</span><br><span class="line">		fmt.Printf(&quot;%c\n&quot;, str2[i])   &#x2F;&#x2F;长度为下标数</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>字符串遍历方式 2-for - range</p>
-<figure class="highlight go"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs go"><span class="hljs-keyword">package</span> main<br><br><span class="hljs-keyword">import</span> <span class="hljs-string">&quot;fmt&quot;</span><br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> &#123;<br>	<span class="hljs-keyword">var</span> str <span class="hljs-keyword">string</span> = <span class="hljs-string">&quot;hello 明天&quot;</span><br>	<span class="hljs-keyword">for</span> index, val := <span class="hljs-keyword">range</span> str &#123;<br>		fmt.Printf(<span class="hljs-string">&quot;index=%d, val=%c\n&quot;</span>, index, val)<br>	&#125;<br>&#125;<br></code></pre></div></td></tr></table></figure>
-<h3 id="练习"><a href="#练习" class="headerlink" title="练习"></a>练习</h3><figure class="highlight go"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs go"><span class="hljs-keyword">package</span> main<br><br><span class="hljs-keyword">import</span> <span class="hljs-string">&quot;fmt&quot;</span><br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> &#123;<br>	<span class="hljs-comment">//打印 1~100 之间所有是 9 的倍数的整数的个数及总和</span><br>	<span class="hljs-keyword">var</span> num <span class="hljs-keyword">int64</span> = <span class="hljs-number">100</span><br>	<span class="hljs-keyword">var</span> cun <span class="hljs-keyword">int64</span> = <span class="hljs-number">0</span><br>	<span class="hljs-keyword">var</span> sum <span class="hljs-keyword">int64</span> = <span class="hljs-number">0</span><br>	<span class="hljs-keyword">var</span> i <span class="hljs-keyword">int64</span> = <span class="hljs-number">1</span>     <span class="hljs-comment">//i和num类型必须一致</span><br>	<span class="hljs-keyword">for</span> ; i &lt;= num; i++ &#123;<br>		<span class="hljs-keyword">if</span> i%<span class="hljs-number">9</span> == <span class="hljs-number">0</span> &#123;<br>			cun++<br>			sum += i<br>		&#125;<br>	&#125;<br>	fmt.Printf(<span class="hljs-string">&quot;cun=%v\nsum=%v\n&quot;</span>, cun, sum)<br>&#125;<br></code></pre></div></td></tr></table></figure>
-<figure class="highlight go"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs go"><span class="hljs-keyword">package</span> main<br><br><span class="hljs-keyword">import</span> <span class="hljs-string">&quot;fmt&quot;</span><br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> &#123;<br>	<span class="hljs-comment">// 完成下面的表达式输出 ，6 是可变的</span><br>	<span class="hljs-keyword">var</span> n <span class="hljs-keyword">int</span> = <span class="hljs-number">6</span><br>	<span class="hljs-keyword">for</span> i := <span class="hljs-number">0</span>; i &lt;= n; i++ &#123;<br>		fmt.Printf(<span class="hljs-string">&quot;%v + %v = %v\n&quot;</span>, i, n-i, n)<br>	&#125;<br>&#125;<br></code></pre></div></td></tr></table></figure>
-<figure class="highlight awk"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs awk">package main<br><br>import <span class="hljs-string">&quot;fmt&quot;</span><br><br><span class="hljs-keyword">func</span> main() &#123;<br>	<span class="hljs-regexp">//</span> 使用 <span class="hljs-keyword">for</span> 循环完成下面的案例请编写一个程序，可以接收一个整数,表示层数，打印出金字塔<br>	<span class="hljs-regexp">//</span><span class="hljs-number">1</span>、先打印矩形<br>	<span class="hljs-regexp">//</span><span class="hljs-number">2</span>、打印半个三角形，规律每行个数和行数相等即j=i<br>	<span class="hljs-regexp">//</span><span class="hljs-number">3</span>、打印整个金字塔<span class="hljs-number">2</span>*层数-<span class="hljs-number">1</span><br>	<span class="hljs-regexp">//</span><span class="hljs-number">4</span>、打印空格，总层数-层数<br>	<span class="hljs-regexp">//</span><span class="hljs-number">5</span>、用变量表示层数<br>	<span class="hljs-regexp">//</span><span class="hljs-number">6</span>、空心金字塔只打印第一个和最后一个*,如果行数是最后一行则全部打印*<br>	var level int = <span class="hljs-number">9</span><br>	<span class="hljs-keyword">for</span> i := <span class="hljs-number">1</span>; i &lt;= level; i++ &#123; <span class="hljs-regexp">//i</span>表示层数<br>		<span class="hljs-keyword">for</span> k := <span class="hljs-number">1</span>; k &lt;= level-i; k++ &#123;<br>			fmt.Print(<span class="hljs-string">&quot; &quot;</span>)         <span class="hljs-regexp">//</span>Print 使用其操作数的默认格式进行格式化并写入到标准输出<br>		&#125;<br><br>		<span class="hljs-keyword">for</span> j := <span class="hljs-number">1</span>; j &lt;= <span class="hljs-number">2</span>*i-<span class="hljs-number">1</span>; j++ &#123; <span class="hljs-regexp">//</span>j表示每行打印几个<br>			<span class="hljs-keyword">if</span> j == <span class="hljs-number">1</span> || j == <span class="hljs-number">2</span>*i-<span class="hljs-number">1</span> || i == level &#123;<br>				fmt.Print(<span class="hljs-string">&quot;*&quot;</span>)<br>			&#125; <span class="hljs-keyword">else</span> &#123;<br>				fmt.Print(<span class="hljs-string">&quot; &quot;</span>)<br>			&#125;<br>		&#125;<br>		fmt.Println() <span class="hljs-regexp">//</span>相当于换行符<br>	&#125;<br>&#125;<br></code></pre></div></td></tr></table></figure>
-<figure class="highlight go"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs go"><span class="hljs-keyword">package</span> main<br><br><span class="hljs-keyword">import</span> <span class="hljs-string">&quot;fmt&quot;</span><br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> &#123;<br>	<span class="hljs-comment">// 打印乘九九法表</span><br>	<span class="hljs-keyword">for</span> i := <span class="hljs-number">1</span>; i &lt;= <span class="hljs-number">9</span>; i++ &#123; <span class="hljs-comment">//i表示层数</span><br>		<span class="hljs-keyword">for</span> j := <span class="hljs-number">1</span>; j &lt;= i; j++ &#123;<br>			fmt.Printf(<span class="hljs-string">&quot;%v * %v = %v \t&quot;</span>, j, i, j*i) <span class="hljs-comment">//%t制表符</span><br>		&#125;<br>		fmt.Println()<br>	&#125;<br><br>&#125;<br></code></pre></div></td></tr></table></figure>
-<h2 id="控制语句break"><a href="#控制语句break" class="headerlink" title="控制语句break"></a>控制语句break</h2><h3 id="break入门案例"><a href="#break入门案例" class="headerlink" title="break入门案例"></a>break入门案例</h3><figure class="highlight go"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs go"><span class="hljs-keyword">package</span> main<br><br><span class="hljs-keyword">import</span> (<br>	<span class="hljs-string">&quot;fmt&quot;</span><br>	<span class="hljs-string">&quot;math/rand&quot;</span><br>	<span class="hljs-string">&quot;time&quot;</span><br>)<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> &#123;<br>	<span class="hljs-comment">//随机生成 1-100 的一个数，直到生成了 99 这个数，看看你一共用了几次?</span><br>	<span class="hljs-keyword">var</span> count <span class="hljs-keyword">int</span> = <span class="hljs-number">0</span> <span class="hljs-comment">//总共使用的次数</span><br>	<span class="hljs-keyword">for</span> &#123;<br>		rand.Seed(time.Now().UnixNano()) <span class="hljs-comment">//UnixNano返回t作为Unix时间，这是自1970年1月1日UTC以来经过的纳秒数</span><br>		n := rand.Intn(<span class="hljs-number">100</span>) + <span class="hljs-number">1</span>          <span class="hljs-comment">//Intn从默认Source返回[0，n）中的非负伪随机数作为int</span><br>		fmt.Println(<span class="hljs-string">&quot;n=&quot;</span>, n)             <span class="hljs-comment">//打出随机数</span><br>		count++                          <span class="hljs-comment">//打印使用次数</span><br>		<span class="hljs-keyword">if</span> n == <span class="hljs-number">99</span> &#123;<br>			<span class="hljs-keyword">break</span><br>		&#125;<br>	&#125;<br>	fmt.Printf(<span class="hljs-string">&quot;一共使用了%v次&quot;</span>, count)<br>&#125;<br></code></pre></div></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">package main</span><br><span class="line"></span><br><span class="line">import &quot;fmt&quot;</span><br><span class="line"></span><br><span class="line">func main() &#123;</span><br><span class="line">	var str string &#x3D; &quot;hello 明天&quot;</span><br><span class="line">	for index, val :&#x3D; range str &#123;</span><br><span class="line">		fmt.Printf(&quot;index&#x3D;%d, val&#x3D;%c\n&quot;, index, val)</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="练习"><a href="#练习" class="headerlink" title="练习"></a>练习</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">package main</span><br><span class="line"></span><br><span class="line">import &quot;fmt&quot;</span><br><span class="line"></span><br><span class="line">func main() &#123;</span><br><span class="line">	&#x2F;&#x2F;打印 1~100 之间所有是 9 的倍数的整数的个数及总和</span><br><span class="line">	var num int64 &#x3D; 100</span><br><span class="line">	var cun int64 &#x3D; 0</span><br><span class="line">	var sum int64 &#x3D; 0</span><br><span class="line">	var i int64 &#x3D; 1     &#x2F;&#x2F;i和num类型必须一致</span><br><span class="line">	for ; i &lt;&#x3D; num; i++ &#123;</span><br><span class="line">		if i%9 &#x3D;&#x3D; 0 &#123;</span><br><span class="line">			cun++</span><br><span class="line">			sum +&#x3D; i</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	fmt.Printf(&quot;cun&#x3D;%v\nsum&#x3D;%v\n&quot;, cun, sum)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">package main</span><br><span class="line"></span><br><span class="line">import &quot;fmt&quot;</span><br><span class="line"></span><br><span class="line">func main() &#123;</span><br><span class="line">	&#x2F;&#x2F; 完成下面的表达式输出 ，6 是可变的</span><br><span class="line">	var n int &#x3D; 6</span><br><span class="line">	for i :&#x3D; 0; i &lt;&#x3D; n; i++ &#123;</span><br><span class="line">		fmt.Printf(&quot;%v + %v &#x3D; %v\n&quot;, i, n-i, n)</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">package main</span><br><span class="line"></span><br><span class="line">import &quot;fmt&quot;</span><br><span class="line"></span><br><span class="line">func main() &#123;</span><br><span class="line">	&#x2F;&#x2F; 使用 for 循环完成下面的案例请编写一个程序，可以接收一个整数,表示层数，打印出金字塔</span><br><span class="line">	&#x2F;&#x2F;1、先打印矩形</span><br><span class="line">	&#x2F;&#x2F;2、打印半个三角形，规律每行个数和行数相等即j&#x3D;i</span><br><span class="line">	&#x2F;&#x2F;3、打印整个金字塔2*层数-1</span><br><span class="line">	&#x2F;&#x2F;4、打印空格，总层数-层数</span><br><span class="line">	&#x2F;&#x2F;5、用变量表示层数</span><br><span class="line">	&#x2F;&#x2F;6、空心金字塔只打印第一个和最后一个*,如果行数是最后一行则全部打印*</span><br><span class="line">	var level int &#x3D; 9</span><br><span class="line">	for i :&#x3D; 1; i &lt;&#x3D; level; i++ &#123; &#x2F;&#x2F;i表示层数</span><br><span class="line">		for k :&#x3D; 1; k &lt;&#x3D; level-i; k++ &#123;</span><br><span class="line">			fmt.Print(&quot; &quot;)         &#x2F;&#x2F;Print 使用其操作数的默认格式进行格式化并写入到标准输出</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		for j :&#x3D; 1; j &lt;&#x3D; 2*i-1; j++ &#123; &#x2F;&#x2F;j表示每行打印几个</span><br><span class="line">			if j &#x3D;&#x3D; 1 || j &#x3D;&#x3D; 2*i-1 || i &#x3D;&#x3D; level &#123;</span><br><span class="line">				fmt.Print(&quot;*&quot;)</span><br><span class="line">			&#125; else &#123;</span><br><span class="line">				fmt.Print(&quot; &quot;)</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		fmt.Println() &#x2F;&#x2F;相当于换行符</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">package main</span><br><span class="line"></span><br><span class="line">import &quot;fmt&quot;</span><br><span class="line"></span><br><span class="line">func main() &#123;</span><br><span class="line">	&#x2F;&#x2F; 打印乘九九法表</span><br><span class="line">	for i :&#x3D; 1; i &lt;&#x3D; 9; i++ &#123; &#x2F;&#x2F;i表示层数</span><br><span class="line">		for j :&#x3D; 1; j &lt;&#x3D; i; j++ &#123;</span><br><span class="line">			fmt.Printf(&quot;%v * %v &#x3D; %v \t&quot;, j, i, j*i) &#x2F;&#x2F;%t制表符</span><br><span class="line">		&#125;</span><br><span class="line">		fmt.Println()</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="控制语句break"><a href="#控制语句break" class="headerlink" title="控制语句break"></a>控制语句break</h2><h3 id="break入门案例"><a href="#break入门案例" class="headerlink" title="break入门案例"></a>break入门案例</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">package main</span><br><span class="line"></span><br><span class="line">import (</span><br><span class="line">	&quot;fmt&quot;</span><br><span class="line">	&quot;math&#x2F;rand&quot;</span><br><span class="line">	&quot;time&quot;</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">func main() &#123;</span><br><span class="line">	&#x2F;&#x2F;随机生成 1-100 的一个数，直到生成了 99 这个数，看看你一共用了几次?</span><br><span class="line">	var count int &#x3D; 0 &#x2F;&#x2F;总共使用的次数</span><br><span class="line">	for &#123;</span><br><span class="line">		rand.Seed(time.Now().UnixNano()) &#x2F;&#x2F;UnixNano返回t作为Unix时间，这是自1970年1月1日UTC以来经过的纳秒数</span><br><span class="line">		n :&#x3D; rand.Intn(100) + 1          &#x2F;&#x2F;Intn从默认Source返回[0，n）中的非负伪随机数作为int</span><br><span class="line">		fmt.Println(&quot;n&#x3D;&quot;, n)             &#x2F;&#x2F;打出随机数</span><br><span class="line">		count++                          &#x2F;&#x2F;打印使用次数</span><br><span class="line">		if n &#x3D;&#x3D; 99 &#123;</span><br><span class="line">			break</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	fmt.Printf(&quot;一共使用了%v次&quot;, count)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h3 id="基本介绍"><a href="#基本介绍" class="headerlink" title="基本介绍"></a>基本介绍</h3><p>break 语句用于终止某个语句块的执行，用于中断当前 for 循环或跳出 switch 语句。</p>
-<h3 id="基本语法"><a href="#基本语法" class="headerlink" title="基本语法"></a>基本语法</h3><figure class="highlight kotlin"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs kotlin">&#123; ……<br><span class="hljs-keyword">break</span><br>……<br>&#125;<br></code></pre></div></td></tr></table></figure>
+<h3 id="基本语法"><a href="#基本语法" class="headerlink" title="基本语法"></a>基本语法</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&#123; ……</span><br><span class="line">break</span><br><span class="line">……</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h3 id="break-的注意事项和使用细节"><a href="#break-的注意事项和使用细节" class="headerlink" title="break 的注意事项和使用细节"></a>break 的注意事项和使用细节</h3><p>(1) break 默认会跳出最近的 for 循环</p>
 <p>(2) break 后面可以指定标签，跳出标签对应的 for 循环</p>
-<h3 id="案例演示"><a href="#案例演示" class="headerlink" title="案例演示"></a>案例演示</h3><figure class="highlight go"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs go"><span class="hljs-keyword">package</span> main<br><br><span class="hljs-keyword">import</span> (<br>	<span class="hljs-string">&quot;fmt&quot;</span><br>)<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> &#123;<br>	<span class="hljs-comment">//100 以内的数求和，求出 当和 第一次大于 20 的当前数</span><br>	<span class="hljs-keyword">var</span> sum <span class="hljs-keyword">int</span> <span class="hljs-comment">//定义接收和的参数</span><br>	<span class="hljs-keyword">for</span> i := <span class="hljs-number">0</span>; i &lt;= <span class="hljs-number">100</span>; i++ &#123;<br>		sum = i + i<br>		<span class="hljs-keyword">if</span> sum &gt;= <span class="hljs-number">20</span> &#123;<br>			fmt.Printf(<span class="hljs-string">&quot;第一次大于20的当前数是%v&quot;</span>, i)<br>			<span class="hljs-keyword">break</span><br>		&#125;<br>	&#125;<br>&#125;<br></code></pre></div></td></tr></table></figure>
-<figure class="highlight go"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs go"><span class="hljs-keyword">package</span> main<br><br><span class="hljs-keyword">import</span> (<br>	<span class="hljs-string">&quot;fmt&quot;</span><br>)<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> &#123;<br>	<span class="hljs-comment">//实现登录验证，有三次机会，如果用户名为”tom” ,密码”888”提示登录成功，否则提示还有几次机会</span><br>	<span class="hljs-keyword">var</span> name <span class="hljs-keyword">string</span><br>	<span class="hljs-keyword">var</span> passwd <span class="hljs-keyword">string</span><br>	<span class="hljs-keyword">var</span> login <span class="hljs-keyword">int</span> = <span class="hljs-number">3</span>    <span class="hljs-comment">//定义登陆次数接收</span><br>	<span class="hljs-keyword">for</span> i := <span class="hljs-number">1</span>; i &lt;= <span class="hljs-number">3</span>; i++ &#123;<br>		fmt.Println(<span class="hljs-string">&quot;请输入用户名&quot;</span>)<br>		fmt.Scanln(&amp;name)<br>		fmt.Println(<span class="hljs-string">&quot;请输入密码&quot;</span>)<br>		fmt.Scanln(&amp;passwd)<br>		<span class="hljs-keyword">if</span> name == <span class="hljs-string">&quot;tom&quot;</span> &amp;&amp; passwd == <span class="hljs-string">&quot;888&quot;</span> &#123;<br>			fmt.Println(<span class="hljs-string">&quot;登陆成功&quot;</span>)<br>			<span class="hljs-keyword">break</span><br>		&#125; <span class="hljs-keyword">else</span> &#123;<br>			login--<br>			fmt.Printf(<span class="hljs-string">&quot;剩余次数为%v\n&quot;</span>, login)<br>		&#125;<br>	&#125;<br>	<span class="hljs-keyword">if</span> login == <span class="hljs-number">0</span> &#123;<br>		fmt.Println(<span class="hljs-string">&quot;次数用完&quot;</span>)<br>	&#125;<br>&#125;<br></code></pre></div></td></tr></table></figure>
+<h3 id="案例演示"><a href="#案例演示" class="headerlink" title="案例演示"></a>案例演示</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">package main</span><br><span class="line"></span><br><span class="line">import (</span><br><span class="line">	&quot;fmt&quot;</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">func main() &#123;</span><br><span class="line">	&#x2F;&#x2F;100 以内的数求和，求出 当和 第一次大于 20 的当前数</span><br><span class="line">	var sum int &#x2F;&#x2F;定义接收和的参数</span><br><span class="line">	for i :&#x3D; 0; i &lt;&#x3D; 100; i++ &#123;</span><br><span class="line">		sum &#x3D; i + i</span><br><span class="line">		if sum &gt;&#x3D; 20 &#123;</span><br><span class="line">			fmt.Printf(&quot;第一次大于20的当前数是%v&quot;, i)</span><br><span class="line">			break</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">package main</span><br><span class="line"></span><br><span class="line">import (</span><br><span class="line">	&quot;fmt&quot;</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">func main() &#123;</span><br><span class="line">	&#x2F;&#x2F;实现登录验证，有三次机会，如果用户名为”tom” ,密码”888”提示登录成功，否则提示还有几次机会</span><br><span class="line">	var name string</span><br><span class="line">	var passwd string</span><br><span class="line">	var login int &#x3D; 3    &#x2F;&#x2F;定义登陆次数接收</span><br><span class="line">	for i :&#x3D; 1; i &lt;&#x3D; 3; i++ &#123;</span><br><span class="line">		fmt.Println(&quot;请输入用户名&quot;)</span><br><span class="line">		fmt.Scanln(&amp;name)</span><br><span class="line">		fmt.Println(&quot;请输入密码&quot;)</span><br><span class="line">		fmt.Scanln(&amp;passwd)</span><br><span class="line">		if name &#x3D;&#x3D; &quot;tom&quot; &amp;&amp; passwd &#x3D;&#x3D; &quot;888&quot; &#123;</span><br><span class="line">			fmt.Println(&quot;登陆成功&quot;)</span><br><span class="line">			break</span><br><span class="line">		&#125; else &#123;</span><br><span class="line">			login--</span><br><span class="line">			fmt.Printf(&quot;剩余次数为%v\n&quot;, login)</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	if login &#x3D;&#x3D; 0 &#123;</span><br><span class="line">		fmt.Println(&quot;次数用完&quot;)</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h2 id="跳转控制语句-continue"><a href="#跳转控制语句-continue" class="headerlink" title="跳转控制语句-continue"></a>跳转控制语句-continue</h2><h3 id="基本介绍："><a href="#基本介绍：" class="headerlink" title="基本介绍："></a>基本介绍：</h3><p>continue 语句用于 结束本次循环，继续 执行下一次循环。</p>
 <p>continue 语句出现在多层嵌套的循环语句体中时，环 可以通过标签指明要跳过的是哪一层循环 , 这个和前面的 break 标签的使用的规则一样.</p>
-<h3 id="基本语法："><a href="#基本语法：" class="headerlink" title="基本语法："></a>基本语法：</h3><figure class="highlight kotlin"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs kotlin">&#123; ……<br><span class="hljs-keyword">continue</span><br>……<br>&#125;<br></code></pre></div></td></tr></table></figure>
-<h3 id="案例练习"><a href="#案例练习" class="headerlink" title="案例练习"></a>案例练习</h3><figure class="highlight go"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs go"><span class="hljs-keyword">package</span> main<br><br><span class="hljs-keyword">import</span> (<br>	<span class="hljs-string">&quot;fmt&quot;</span><br>)<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> &#123;<br>	<span class="hljs-comment">//打印1--100的奇数</span><br>	<span class="hljs-keyword">for</span> i := <span class="hljs-number">1</span>; i &lt;= <span class="hljs-number">100</span>; i++ &#123;<br>		<span class="hljs-keyword">if</span> i%<span class="hljs-number">2</span> == <span class="hljs-number">0</span> &#123;<br>			<span class="hljs-keyword">continue</span><br>		&#125;<br>		fmt.Printf(<span class="hljs-string">&quot;奇数有%v\n&quot;</span>, i)<br>	&#125;<br>&#125;<br></code></pre></div></td></tr></table></figure>
-<figure class="highlight go"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs go"><span class="hljs-keyword">package</span> main<br><br><span class="hljs-keyword">import</span> (<br>	<span class="hljs-string">&quot;fmt&quot;</span><br>)<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> &#123;<br>	<span class="hljs-comment">// 某人有 100,000 元,每经过一次路口，需要交费,规则如下:</span><br>	<span class="hljs-comment">// 当现金&gt;50000 时,每次交 5%</span><br>	<span class="hljs-comment">// 当现金&lt;=50000 时,每次交 1000</span><br>	<span class="hljs-comment">// 编程计算该人可以经过多少次路口,使用 for break 方式完成</span><br><br>	<span class="hljs-keyword">var</span> a <span class="hljs-keyword">float64</span> = <span class="hljs-number">100000</span> <span class="hljs-comment">//总共有多少钱</span><br>	<span class="hljs-keyword">var</span> b <span class="hljs-keyword">float64</span>          <span class="hljs-comment">//现金大于50000还剩余多少钱</span><br>	<span class="hljs-keyword">var</span> e <span class="hljs-keyword">float64</span>          <span class="hljs-comment">//现金低于50000还剩多少钱</span><br>	<span class="hljs-keyword">var</span> c <span class="hljs-keyword">int</span>              <span class="hljs-comment">//现金大于50000时能经过的次数</span><br>	<span class="hljs-keyword">var</span> d <span class="hljs-keyword">int</span>              <span class="hljs-comment">//现金低于50000时能经过的次数</span><br>	<span class="hljs-keyword">var</span> f <span class="hljs-keyword">int</span>              <span class="hljs-comment">//总共能经过多少次</span><br>	<span class="hljs-keyword">for</span> b = a; b &gt; <span class="hljs-number">50000</span>; b -= b * <span class="hljs-number">0.05</span> &#123;<br>		c++<br>	&#125;<br>	<span class="hljs-keyword">for</span> e = b; e &lt; <span class="hljs-number">50000</span>; e -= <span class="hljs-number">1000</span> &#123;<br>		d++<br>		<span class="hljs-keyword">if</span> e &lt; <span class="hljs-number">1000</span> &#123;<br>			<span class="hljs-keyword">break</span><br>		&#125;<br>	&#125;<br>	f = c + d<br>	fmt.Println(<span class="hljs-string">&quot;c&quot;</span>, c)<br>	fmt.Println(<span class="hljs-string">&quot;d&quot;</span>, d)<br>	fmt.Printf(<span class="hljs-string">&quot;总共可以经过%v次,还剩%v钱&quot;</span>, f, e)<br>&#125;<br></code></pre></div></td></tr></table></figure>
+<h3 id="基本语法："><a href="#基本语法：" class="headerlink" title="基本语法："></a>基本语法：</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&#123; ……</span><br><span class="line">continue</span><br><span class="line">……</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="案例练习"><a href="#案例练习" class="headerlink" title="案例练习"></a>案例练习</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">package main</span><br><span class="line"></span><br><span class="line">import (</span><br><span class="line">	&quot;fmt&quot;</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">func main() &#123;</span><br><span class="line">	&#x2F;&#x2F;打印1--100的奇数</span><br><span class="line">	for i :&#x3D; 1; i &lt;&#x3D; 100; i++ &#123;</span><br><span class="line">		if i%2 &#x3D;&#x3D; 0 &#123;</span><br><span class="line">			continue</span><br><span class="line">		&#125;</span><br><span class="line">		fmt.Printf(&quot;奇数有%v\n&quot;, i)</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">package main</span><br><span class="line"></span><br><span class="line">import (</span><br><span class="line">	&quot;fmt&quot;</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">func main() &#123;</span><br><span class="line">	&#x2F;&#x2F; 某人有 100,000 元,每经过一次路口，需要交费,规则如下:</span><br><span class="line">	&#x2F;&#x2F; 当现金&gt;50000 时,每次交 5%</span><br><span class="line">	&#x2F;&#x2F; 当现金&lt;&#x3D;50000 时,每次交 1000</span><br><span class="line">	&#x2F;&#x2F; 编程计算该人可以经过多少次路口,使用 for break 方式完成</span><br><span class="line"></span><br><span class="line">	var a float64 &#x3D; 100000 &#x2F;&#x2F;总共有多少钱</span><br><span class="line">	var b float64          &#x2F;&#x2F;现金大于50000还剩余多少钱</span><br><span class="line">	var e float64          &#x2F;&#x2F;现金低于50000还剩多少钱</span><br><span class="line">	var c int              &#x2F;&#x2F;现金大于50000时能经过的次数</span><br><span class="line">	var d int              &#x2F;&#x2F;现金低于50000时能经过的次数</span><br><span class="line">	var f int              &#x2F;&#x2F;总共能经过多少次</span><br><span class="line">	for b &#x3D; a; b &gt; 50000; b -&#x3D; b * 0.05 &#123;</span><br><span class="line">		c++</span><br><span class="line">	&#125;</span><br><span class="line">	for e &#x3D; b; e &lt; 50000; e -&#x3D; 1000 &#123;</span><br><span class="line">		d++</span><br><span class="line">		if e &lt; 1000 &#123;</span><br><span class="line">			break</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	f &#x3D; c + d</span><br><span class="line">	fmt.Println(&quot;c&quot;, c)</span><br><span class="line">	fmt.Println(&quot;d&quot;, d)</span><br><span class="line">	fmt.Printf(&quot;总共可以经过%v次,还剩%v钱&quot;, f, e)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h2 id="goto-基本介绍"><a href="#goto-基本介绍" class="headerlink" title="goto 基本介绍"></a>goto 基本介绍</h2><h3 id="goto-基本介绍-1"><a href="#goto-基本介绍-1" class="headerlink" title="goto 基本介绍"></a>goto 基本介绍</h3><ol>
 <li><p>Go 语言的 goto 语句可以无条件地转移到程序中指定的行。</p>
 </li>
@@ -330,265 +284,77 @@
 </li>
 </ol>
 <p>goto 基本语法</p>
-<figure class="highlight dockerfile"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs dockerfile">goto <span class="hljs-keyword">label</span><br><span class="bash">.. .</span><br><span class="hljs-keyword">label</span><span class="bash">: statement</span><br></code></pre></div></td></tr></table></figure>
-<h3 id="案例"><a href="#案例" class="headerlink" title="案例"></a>案例</h3><figure class="highlight gradle"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs gradle"><span class="hljs-keyword">package</span> main<br><br><span class="hljs-keyword">import</span> (<br>	<span class="hljs-string">&quot;fmt&quot;</span><br>)<br><br>func main() &#123;<br><br>	var i <span class="hljs-keyword">int</span> = <span class="hljs-number">40</span><br>	fmt.<span class="hljs-keyword">Println</span>(<span class="hljs-string">&quot;d&quot;</span>)<br>	fmt.<span class="hljs-keyword">Println</span>(<span class="hljs-string">&quot;a&quot;</span>)<br>	fmt.<span class="hljs-keyword">Println</span>(<span class="hljs-string">&quot;s&quot;</span>)<br>	<span class="hljs-keyword">if</span> i &gt; <span class="hljs-number">30</span> &#123;<br>		goto label1<br>	&#125;<br>	fmt.<span class="hljs-keyword">Println</span>(<span class="hljs-string">&quot;f&quot;</span>)<br>	fmt.<span class="hljs-keyword">Println</span>(<span class="hljs-string">&quot;g&quot;</span>)<br>	fmt.<span class="hljs-keyword">Println</span>(<span class="hljs-string">&quot;h&quot;</span>)<br>	fmt.<span class="hljs-keyword">Println</span>(<span class="hljs-string">&quot;j&quot;</span>)<br>label1:<br>	fmt.<span class="hljs-keyword">Println</span>(<span class="hljs-string">&quot;k&quot;</span>)<br><br>&#125;<br></code></pre></div></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">goto label</span><br><span class="line">.. .</span><br><span class="line">label: statement</span><br></pre></td></tr></table></figure>
+<h3 id="案例"><a href="#案例" class="headerlink" title="案例"></a>案例</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">package main</span><br><span class="line"></span><br><span class="line">import (</span><br><span class="line">	&quot;fmt&quot;</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">func main() &#123;</span><br><span class="line"></span><br><span class="line">	var i int &#x3D; 40</span><br><span class="line">	fmt.Println(&quot;d&quot;)</span><br><span class="line">	fmt.Println(&quot;a&quot;)</span><br><span class="line">	fmt.Println(&quot;s&quot;)</span><br><span class="line">	if i &gt; 30 &#123;</span><br><span class="line">		goto label1</span><br><span class="line">	&#125;</span><br><span class="line">	fmt.Println(&quot;f&quot;)</span><br><span class="line">	fmt.Println(&quot;g&quot;)</span><br><span class="line">	fmt.Println(&quot;h&quot;)</span><br><span class="line">	fmt.Println(&quot;j&quot;)</span><br><span class="line">label1:</span><br><span class="line">	fmt.Println(&quot;k&quot;)</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-            </div>
-            <hr>
-            <div>
-              <div class="post-metas mb-3">
-                
-                  <div class="post-meta mr-3">
-                    <i class="iconfont icon-category"></i>
-                    
-                      <a class="hover-with-bg" href="/categories/Golang/">Golang</a>
-                    
-                  </div>
-                
-                
-                  <div class="post-meta">
-                    <i class="iconfont icon-tags"></i>
-                    
-                      <a class="hover-with-bg" href="/tags/Golang/">Golang</a>
-                    
-                  </div>
-                
-              </div>
-              
-                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
-              
-              
-                <div class="post-prevnext">
-                  <article class="post-prev col-6">
-                    
-                    
-                      <a href="/2021/04/12/Go%E8%AF%AD%E8%A8%80%E5%87%BD%E6%95%B0%E4%BD%BF%E7%94%A8/">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">Go语言函数使用</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
-                  </article>
-                  <article class="post-next col-6">
-                    
-                    
-                      <a href="/2021/04/09/Go%E8%AF%AD%E8%A8%80%E7%A8%8B%E5%BA%8F%E6%B5%81%E7%A8%8B%E6%8E%A7%E5%88%B6/">
-                        <span class="hidden-mobile">程序流程控制</span>
-                        <span class="visible-mobile">下一篇</span>
-                        <i class="iconfont icon-arrowright"></i>
-                      </a>
-                    
-                  </article>
-                </div>
-              
-            </div>
-
-            
-              <!-- Comments -->
-              <article class="comments" id="comments">
-                
-                
-  <div id="vcomments"></div>
-  <script type="text/javascript">
-    Fluid.utils.waitElementVisible('vcomments', function() {
-      Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js', function () {
-        new Valine({
-          el: "#vcomments",
-          app_id: "hPHtsN0Gt7U2zB2AllYqbucc-9Nh9j0Va",
-          app_key: "TVUER8rWijR8cD1STqzd2d4E",
-          placeholder: "你有故事，我有酒，我们一起勇闯天涯。。。",
-          path: window.location.pathname,
-          avatar: "retro",
-          meta: ["nick","mail","link"],
-          pageSize: "10",
-          lang: "zh-CN",
-          highlight: false,
-          recordIP: false,
-          serverURLs: "",
-        });
-      });
-    });
-  </script>
-  <noscript>Please enable JavaScript to view the
-    <a target="_blank" href="https://valine.js.org" rel="nofollow noopener noopener">comments powered by Valine.</a>
-  </noscript>
-
-
-              </article>
-            
-          </article>
-        </div>
-      </div>
     </div>
+
     
-      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
-        <div id="toc">
-  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
-  <div class="toc-body" id="toc-body"></div>
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Golang/" rel="tag"># Golang</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2021/04/09/Go%E8%AF%AD%E8%A8%80%E7%A8%8B%E5%BA%8F%E6%B5%81%E7%A8%8B%E6%8E%A7%E5%88%B6/" rel="prev" title="程序流程控制">
+                  <i class="fa fa-chevron-left"></i> 程序流程控制
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2021/04/12/Go%E8%AF%AD%E8%A8%80%E5%87%BD%E6%95%B0%E4%BD%BF%E7%94%A8/" rel="next" title="Go语言函数使用">
+                  Go语言函数使用 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
 </div>
 
-      </div>
-    
-  </div>
+
+
+
+
+
 </div>
-
-<!-- Custom -->
-
-
-    
-
-    
-      <a id="scroll-top-button" href="#" role="button">
-        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
-      </a>
-    
-
-    
-      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
-     aria-hidden="true">
-  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
-    <div class="modal-content">
-      <div class="modal-header text-center">
-        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
-        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body mx-3">
-        <div class="md-form mb-5">
-          <input type="text" id="local-search-input" class="form-control validate">
-          <label data-error="x" data-success="v"
-                 for="local-search-input">关键词</label>
-        </div>
-        <div class="list-group" id="local-search-result"></div>
-      </div>
-    </div>
-  </div>
-</div>
-    
-
-    
   </main>
 
-  <footer class="text-center mt-5 py-3">
-  <div class="footer-content">
-     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
-  </div>
-  
-  <div class="statistics">
-    
-    
+  <footer class="footer">
+    <div class="footer-inner">
 
-    
-      
-        <!-- 不蒜子统计PV -->
-        <span id="busuanzi_container_site_pv" style="display: none">
-            总访问量 
-            <span id="busuanzi_value_site_pv"></span>
-             次
-          </span>
-      
-      
-        <!-- 不蒜子统计UV -->
-        <span id="busuanzi_container_site_uv" style="display: none">
-            总访客数 
-            <span id="busuanzi_value_site_uv"></span>
-             人
-          </span>
-      
-    
+
+<div class="copyright">
+  &copy; 2020 – 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">羊皮裘老头</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
   </div>
 
+    </div>
+  </footer>
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
 
   
 
-  
-</footer>
 
-<!-- SCRIPTS -->
-
-  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
-  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
-
-  <script>
-    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
-    NProgress.start()
-    window.addEventListener('load', function() {
-      NProgress.done();
-    })
-  </script>
-
-
-<script  src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" ></script>
-<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" ></script>
-<script  src="/js/debouncer.js" ></script>
-<script  src="/js/events.js" ></script>
-<script  src="/js/plugins.js" ></script>
-
-<!-- Plugins -->
-
-
-  
-    <script  src="/js/lazyload.js" ></script>
-  
 
 
 
   
 
 
-
-  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.0/dist/tocbot.min.js" ></script>
-
-
-
-  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
-
-
-
-  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.0/anchor.min.js" ></script>
-
-
-
-  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js" ></script>
-
-
-
-  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
-
-
-
-
-
-
-  <script  src="/js/local-search.js" ></script>
-  <script>
-    (function () {
-      var path = "/local-search.xml";
-      var inputArea = document.querySelector("#local-search-input");
-      inputArea.onclick = function () {
-        searchFunc(path, 'local-search-input', 'local-search-result');
-        this.onclick = null
-      }
-    })()
-  </script>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<!-- 主题的启动项 保持在最底部 -->
-<script  src="/js/boot.js" ></script>
 
 
 

@@ -1,295 +1,249 @@
-
-
 <!DOCTYPE html>
-<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
-
-
-
+<html lang="zh-CN">
 <head>
   <meta charset="UTF-8">
-  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
-  <link rel="icon" type="image/png" href="/img/favicon.png">
-  <meta name="viewport"
-        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
-  <meta http-equiv="x-ua-compatible" content="ie=edge">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 5.3.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.12.1","exturl":false,"sidebar":{"position":"left","width":300,"display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="​        在必要以及可行的情况下，一个类型的值可以被转换成另一种类型的值。由于Go语言不存在隐式类型转换，因此所有的类型转换都必须显式的声明： 1valueOfTypeB &#x3D; typeB(valueOfTypeA) 类型 B 的值 &#x3D; 类型 B(类型 A 的值)  示例： 12a :&#x3D; 5.0b :&#x3D; int(a) ​        类型转换只能在定义正确的情">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Go语言数据类型转换">
+<meta property="og:url" content="http://example.com/2021/04/07/Go%E8%AF%AD%E8%A8%80%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E8%BD%AC%E6%8D%A2/index.html">
+<meta property="og:site_name" content="羊皮裘老头">
+<meta property="og:description" content="​        在必要以及可行的情况下，一个类型的值可以被转换成另一种类型的值。由于Go语言不存在隐式类型转换，因此所有的类型转换都必须显式的声明： 1valueOfTypeB &#x3D; typeB(valueOfTypeA) 类型 B 的值 &#x3D; 类型 B(类型 A 的值)  示例： 12a :&#x3D; 5.0b :&#x3D; int(a) ​        类型转换只能在定义正确的情">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2021-04-07T08:21:17.000Z">
+<meta property="article:modified_time" content="2022-04-17T09:07:33.911Z">
+<meta property="article:author" content="羊皮裘老头">
+<meta property="article:tag" content="Golang">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="http://example.com/2021/04/07/Go%E8%AF%AD%E8%A8%80%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E8%BD%AC%E6%8D%A2/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://example.com/2021/04/07/Go%E8%AF%AD%E8%A8%80%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E8%BD%AC%E6%8D%A2/","path":"2021/04/07/Go语言数据类型转换/","title":"Go语言数据类型转换"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>Go语言数据类型转换 | 羊皮裘老头</title>
   
-  <meta name="theme-color" content="#2f4154">
-  <meta name="description" content="">
-  <meta name="author" content="羊皮裘老头">
-  <meta name="keywords" content="">
-  <title>Go语言数据类型转换 - 羊皮裘老头</title>
-
-  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
-
-
-  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
-  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
-
-  
-    
-    
-      
-      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.4.0/styles/github-gist.min.css" />
-    
-  
-
-  
-    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
-  
 
 
 
-<!-- 主题依赖的图标库，不要自行修改 -->
-
-<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
 
 
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
 
-<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
 
-
-<link  rel="stylesheet" href="/css/main.css" />
-
-<!-- 自定义样式保持在最底部 -->
-
-
-  <script id="fluid-configs">
-    var Fluid = window.Fluid || {};
-    var CONFIG = {"hostname":"example.com","root":"/","version":"1.8.7","typing":{"enable":false,"typeSpeed":70,"cursorChar":" ","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"onlypost":false},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}}};
-  </script>
-  <script  src="/js/utils.js" ></script>
-  <script  src="/js/color-schema.js" ></script>
-<meta name="generator" content="Hexo 5.3.0"></head>
-
-
-<body>
-  <header style="height: 70vh;">
-    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
-  <div class="container">
-    <a class="navbar-brand"
-       href="/">&nbsp;<strong>羊皮裘老头</strong>&nbsp;</a>
-
-    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
-            data-target="#navbarSupportedContent"
-            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <div class="animated-icon"><span></span><span></span><span></span></div>
-    </button>
-
-    <!-- Collapsible content -->
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav ml-auto text-center">
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/">
-                <i class="iconfont icon-home-fill"></i>
-                首页
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/archives/">
-                <i class="iconfont icon-archive-fill"></i>
-                归档
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/categories/">
-                <i class="iconfont icon-category-fill"></i>
-                分类
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/tags/">
-                <i class="iconfont icon-tags-fill"></i>
-                标签
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/about/">
-                <i class="iconfont icon-user-fill"></i>
-                关于
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <i class="iconfont icon-books"></i>
-                文档
-              </a>
-              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                
-                  
-                  
-                  
-                  <a class="dropdown-item" target="_blank" rel="noopener" href="https://hexo.fluid-dev.com/">
-                    
-                    主题博客
-                  </a>
-                
-                  
-                  
-                  
-                  <a class="dropdown-item" target="_blank" rel="noopener" href="https://hexo.fluid-dev.com/docs/guide/">
-                    
-                    配置指南
-                  </a>
-                
-                  
-                  
-                  
-                  <a class="dropdown-item" target="_blank" rel="noopener" href="https://hexo.fluid-dev.com/docs/icon/">
-                    
-                    图标用法
-                  </a>
-                
-              </div>
-            </li>
-          
-        
-        
-          <li class="nav-item" id="search-btn">
-            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
-                class="iconfont icon-search"></i>&nbsp;</a>
-          </li>
-        
-        
-          <li class="nav-item" id="color-toggle-btn">
-            <a class="nav-link" href="javascript:">&nbsp;<i
-                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
-          </li>
-        
-      </ul>
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
     </div>
   </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">羊皮裘老头</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">28</span></a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">13</span></a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">116</span></a></li><li class="menu-item menu-item-schedule"><a href="/schedule/" rel="section"><i class="fa fa-calendar fa-fw"></i>日程表</a></li><li class="menu-item menu-item-sitemap"><a href="/sitemap.xml" rel="section"><i class="fa fa-sitemap fa-fw"></i>站点地图</a></li><li class="menu-item menu-item-commonweal"><a href="/404/" rel="section"><i class="fa fa-heartbeat fa-fw"></i>公益 404</a></li>
+  </ul>
 </nav>
 
-    <div class="banner" id="banner" parallax=true
-         style="background: url('/img/ss.png') no-repeat center center;
-           background-size: cover;">
-      <div class="full-bg-img">
-        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
-          <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="Go语言数据类型转换">
-              
-                Go语言数据类型转换
-              
-            </span>
 
-            
-              <div class="mt-3">
+
+
+</div>
+        
   
-  
-    <span class="post-meta">
-      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-      <time datetime="2021-04-07 16:21" pubdate>
-        2021年4月7日 下午
-      </time>
-    </span>
-  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9F%BA%E6%9C%AC%E7%B1%BB%E5%9E%8B%E8%BD%AC-string-%E7%B1%BB%E5%9E%8B"><span class="nav-number">1.</span> <span class="nav-text">基本类型转 string 类型</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%96%B9%E5%BC%8F-1%EF%BC%9Afmt-Sprintf-%E2%80%9C-%E5%8F%82%E6%95%B0%E2%80%9D-%E8%A1%A8%E8%BE%BE%E5%BC%8F"><span class="nav-number">1.1.</span> <span class="nav-text">方式 1：fmt.Sprintf(“%参数”, 表达式)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%96%B9%E5%BC%8F-2%EF%BC%9A%E4%BD%BF%E7%94%A8-strconv-%E5%8C%85%E7%9A%84%E5%87%BD%E6%95%B0"><span class="nav-number">1.2.</span> <span class="nav-text">方式 2：使用 strconv 包的函数</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#string-%E7%B1%BB%E5%9E%8B%E8%BD%AC%E5%9F%BA%E6%9C%AC%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B"><span class="nav-number">2.</span> <span class="nav-text">string 类型转基本数据类型</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8%E6%97%B6-strconv-%E5%8C%85%E7%9A%84%E5%87%BD%E6%95%B0"><span class="nav-number">2.1.</span> <span class="nav-text">使用时 strconv 包的函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#string-%E8%BD%AC%E5%9F%BA%E6%9C%AC%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E7%9A%84%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9"><span class="nav-number">2.2.</span> <span class="nav-text">string 转基本数据类型的注意事项</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">羊皮裘老头</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">116</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">13</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">28</span>
+        <span class="site-state-item-name">标签</span>
+      </div>
+  </nav>
 </div>
 
-<div class="mt-1">
-  
-    
-    <span class="post-meta mr-2">
-      <i class="iconfont icon-chart"></i>
-      2.2k 字
-    </span>
-  
 
-  
-    
-    <span class="post-meta mr-2">
-      <i class="iconfont icon-clock-fill"></i>
-      
-      
-      30
-       分钟
-    </span>
-  
 
-  
-  
-    
-      <!-- LeanCloud 统计文章PV -->
-      <span id="leancloud-page-views-container" class="post-meta" style="display: none">
-        <i class="iconfont icon-eye" aria-hidden="true"></i>
-        <span id="leancloud-page-views"></span> 次
-      </span>
-    
-  
-</div>
-
-            
-          </div>
-
-          
         </div>
       </div>
     </div>
-  </header>
+  </aside>
+  <div class="sidebar-dimmer"></div>
 
-  <main>
+
+    </header>
+
     
-      
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
 
-<div class="container-fluid nopadding-x">
-  <div class="row nomargin-x">
-    <div class="d-none d-lg-block col-lg-2"></div>
-    <div class="col-lg-8 nopadding-x-md">
-      <div class="container nopadding-x-md" id="board-ctn">
-        <div class="py-5" id="board">
-          <article class="post-content mx-auto">
-            <!-- SEO header -->
-            <h1 style="display: none">Go语言数据类型转换</h1>
-            
-              <p class="note note-info">
-                
-                  本文最后更新于：2022年4月17日 下午
-                
-              </p>
-            
-            <div class="markdown-body">
-              <p>​        在必要以及可行的情况下，一个类型的值可以被转换成另一种类型的值。由于Go语言不存在隐式类型转换，因此所有的类型转换都必须显式的声明：</p>
-<figure class="highlight reasonml"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs reasonml">valueOfTypeB = <span class="hljs-keyword">type</span><span class="hljs-constructor">B(<span class="hljs-params">valueOfTypeA</span>)</span><br></code></pre></div></td></tr></table></figure>
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/04/07/Go%E8%AF%AD%E8%A8%80%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E8%BD%AC%E6%8D%A2/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="羊皮裘老头">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="羊皮裘老头">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="Go语言数据类型转换 | 羊皮裘老头">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Go语言数据类型转换
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2021-04-07 16:21:17" itemprop="dateCreated datePublished" datetime="2021-04-07T16:21:17+08:00">2021-04-07</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-04-17 17:07:33" itemprop="dateModified" datetime="2022-04-17T17:07:33+08:00">2022-04-17</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Golang/" itemprop="url" rel="index"><span itemprop="name">Golang</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <p>​        在必要以及可行的情况下，一个类型的值可以被转换成另一种类型的值。由于Go语言不存在隐式类型转换，因此所有的类型转换都必须显式的声明：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">valueOfTypeB &#x3D; typeB(valueOfTypeA)</span><br></pre></td></tr></table></figure>
 <p>类型 B 的值 = 类型 B(类型 A 的值)</p>
 <p> 示例：</p>
-<figure class="highlight go"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs go">a := <span class="hljs-number">5.0</span><br>b := <span class="hljs-keyword">int</span>(a)<br></code></pre></div></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">a :&#x3D; 5.0</span><br><span class="line">b :&#x3D; int(a)</span><br></pre></td></tr></table></figure>
 <p>​        类型转换只能在定义正确的情况下转换成功，例如从一个取值范围较小的类型转换到一个取值范围较大的类型（将 int16 转换为  int32）。当从一个取值范围较大的类型转换到取值范围较小的类型时（将 int32 转换为 int16 或将 float32 转换为  int），会发生精度丢失（截断）的情况。</p>
 <p>​         只有相同底层类型的变量之间可以进行相互转换（如将 int16 类型转换成 int32 类型），不同底层类型的变量相互转换时会引发编译错误（如将 bool 类型转换为 int 类型）：</p>
-<figure class="highlight go"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs go"><span class="hljs-keyword">package</span> main<br><br><span class="hljs-keyword">import</span> (<br>        <span class="hljs-string">&quot;fmt&quot;</span><br>        <span class="hljs-string">&quot;math&quot;</span><br>)<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> &#123;<br><br>        <span class="hljs-comment">// 输出各数值范围</span><br>        fmt.Println(<span class="hljs-string">&quot;int8 range:&quot;</span>, math.MinInt8, math.MaxInt8)<br>        fmt.Println(<span class="hljs-string">&quot;int16 range:&quot;</span>, math.MinInt16, math.MaxInt16)<br>        fmt.Println(<span class="hljs-string">&quot;int32 range:&quot;</span>, math.MinInt32, math.MaxInt32)<br>        fmt.Println(<span class="hljs-string">&quot;int64 range:&quot;</span>, math.MinInt64, math.MaxInt64)<br><br>        <span class="hljs-comment">// 初始化一个32位整型值</span><br>        <span class="hljs-keyword">var</span> a <span class="hljs-keyword">int32</span> = <span class="hljs-number">1047483647</span><br>        <span class="hljs-comment">// 输出变量的十六进制形式和十进制值</span><br>        fmt.Printf(<span class="hljs-string">&quot;int32: 0x%x %d\n&quot;</span>, a, a)<br><br>        <span class="hljs-comment">// 将a变量数值转换为十六进制, 发生数值截断</span><br>        b := <span class="hljs-keyword">int16</span>(a)<br>        <span class="hljs-comment">// 输出变量的十六进制形式和十进制值</span><br>        fmt.Printf(<span class="hljs-string">&quot;int16: 0x%x %d\n&quot;</span>, b, b)<br><br>        <span class="hljs-comment">// 将常量保存为float32类型</span><br>        <span class="hljs-keyword">var</span> c <span class="hljs-keyword">float32</span> = math.Pi<br>        <span class="hljs-comment">// 转换为int类型, 浮点发生精度丢失</span><br>        fmt.Println(<span class="hljs-keyword">int</span>(c))<br>&#125;<br></code></pre></div></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">package main</span><br><span class="line"></span><br><span class="line">import (</span><br><span class="line">        &quot;fmt&quot;</span><br><span class="line">        &quot;math&quot;</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">func main() &#123;</span><br><span class="line"></span><br><span class="line">        &#x2F;&#x2F; 输出各数值范围</span><br><span class="line">        fmt.Println(&quot;int8 range:&quot;, math.MinInt8, math.MaxInt8)</span><br><span class="line">        fmt.Println(&quot;int16 range:&quot;, math.MinInt16, math.MaxInt16)</span><br><span class="line">        fmt.Println(&quot;int32 range:&quot;, math.MinInt32, math.MaxInt32)</span><br><span class="line">        fmt.Println(&quot;int64 range:&quot;, math.MinInt64, math.MaxInt64)</span><br><span class="line"></span><br><span class="line">        &#x2F;&#x2F; 初始化一个32位整型值</span><br><span class="line">        var a int32 &#x3D; 1047483647</span><br><span class="line">        &#x2F;&#x2F; 输出变量的十六进制形式和十进制值</span><br><span class="line">        fmt.Printf(&quot;int32: 0x%x %d\n&quot;, a, a)</span><br><span class="line"></span><br><span class="line">        &#x2F;&#x2F; 将a变量数值转换为十六进制, 发生数值截断</span><br><span class="line">        b :&#x3D; int16(a)</span><br><span class="line">        &#x2F;&#x2F; 输出变量的十六进制形式和十进制值</span><br><span class="line">        fmt.Printf(&quot;int16: 0x%x %d\n&quot;, b, b)</span><br><span class="line"></span><br><span class="line">        &#x2F;&#x2F; 将常量保存为float32类型</span><br><span class="line">        var c float32 &#x3D; math.Pi</span><br><span class="line">        &#x2F;&#x2F; 转换为int类型, 浮点发生精度丢失</span><br><span class="line">        fmt.Println(int(c))</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>代码说明如下：</p>
 <ul>
 <li>第 11～14 行，输出几个常见整型类型的数值范围。</li>
@@ -301,279 +255,91 @@
 <li>第 29 行，将 float32 转换为 int 类型并输出。</li>
 </ul>
 <p> 代码输出如下：</p>
-<figure class="highlight apache"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs apache"><span class="hljs-attribute">int8</span> range: -<span class="hljs-number">128</span> <span class="hljs-number">127</span><br><span class="hljs-attribute">int16</span> range: -<span class="hljs-number">32768</span> <span class="hljs-number">32767</span><br><span class="hljs-attribute">int32</span> range: -<span class="hljs-number">2147483648</span> <span class="hljs-number">2147483647</span><br><span class="hljs-attribute">int64</span> range: -<span class="hljs-number">9223372036854775808</span> <span class="hljs-number">9223372036854775807</span><br><span class="hljs-attribute">int32</span>: <span class="hljs-number">0</span>x<span class="hljs-number">3</span>e<span class="hljs-number">6</span>f<span class="hljs-number">54</span>ff <span class="hljs-number">1047483647</span><br><span class="hljs-attribute">int16</span>: <span class="hljs-number">0</span>x<span class="hljs-number">54</span>ff <span class="hljs-number">21759</span><br><span class="hljs-attribute">3</span><br></code></pre></div></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">int8 range: -128 127</span><br><span class="line">int16 range: -32768 32767</span><br><span class="line">int32 range: -2147483648 2147483647</span><br><span class="line">int64 range: -9223372036854775808 9223372036854775807</span><br><span class="line">int32: 0x3e6f54ff 1047483647</span><br><span class="line">int16: 0x54ff 21759</span><br><span class="line">3</span><br></pre></td></tr></table></figure>
 <p>​        根据输出结果，16 位有符号整型的范围是 -32768～32767，而变量 a 的值 1047483647 不在这个范围内。1047483647 对应的十六进制为 0x3e6f54ff，转为 int16 类型后，长度缩短一半，也就是在十六进制上砍掉一半，变成  0x54ff，对应的十进制值为 21759。</p>
 <p>​         浮点数在转换为整型时，会将小数部分去掉，只保留整数部分。</p>
 <h2 id="基本类型转-string-类型"><a href="#基本类型转-string-类型" class="headerlink" title="基本类型转 string 类型"></a>基本类型转 string 类型</h2><h3 id="方式-1：fmt-Sprintf-“-参数”-表达式"><a href="#方式-1：fmt-Sprintf-“-参数”-表达式" class="headerlink" title="方式 1：fmt.Sprintf(“%参数”, 表达式)"></a>方式 1：fmt.Sprintf(“%参数”, 表达式)</h3><p>函数的介绍：</p>
-<figure class="highlight go"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">Sprintf</span></span><br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">Sprintf</span><span class="hljs-params">(format <span class="hljs-keyword">string</span>, a ...<span class="hljs-keyword">interface</span>&#123;&#125;)</span> <span class="hljs-title">string</span></span><br><br>Sprintf 根据于格式说明符进行格式化并返回其结果字符串。<br></code></pre></div></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">func Sprintf</span><br><span class="line"></span><br><span class="line">func Sprintf(format string, a ...interface&#123;&#125;) string</span><br><span class="line"></span><br><span class="line">Sprintf 根据于格式说明符进行格式化并返回其结果字符串。</span><br></pre></td></tr></table></figure>
 <p>参数需要和表达式的数据类型相匹配，fmt.Sprintf().. 会返回转换后的字符串</p>
 <p>示例如下：</p>
-<figure class="highlight reasonml"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs reasonml">package main<br><br>import (<br>	<span class="hljs-string">&quot;fmt&quot;</span><br>	_ <span class="hljs-string">&quot;strconv&quot;</span><br>)<br><br>func main<span class="hljs-literal">()</span> &#123;<br>	var n1 <span class="hljs-built_in">int</span> = <span class="hljs-number">99</span><br>	var n2 float32 = <span class="hljs-number">22.3333</span><br>	var n3 <span class="hljs-built_in">bool</span> = <span class="hljs-literal">true</span><br>	var n4 <span class="hljs-built_in">string</span><br><br>    <span class="hljs-comment">//整数%d表示十进制输出</span><br>	n4 = fmt.<span class="hljs-constructor">Sprintf(<span class="hljs-string">&quot;%d&quot;</span>, <span class="hljs-params">n1</span>)</span><br>	fmt.<span class="hljs-constructor">Printf(<span class="hljs-string">&quot;n4 type is %T n4=%q\n&quot;</span>, <span class="hljs-params">n4</span>, <span class="hljs-params">n4</span>)</span><br><br>    <span class="hljs-comment">//浮点型%f表示有小数点而无指数</span><br>	n4 = fmt.<span class="hljs-constructor">Sprintf(<span class="hljs-string">&quot;%f&quot;</span>, <span class="hljs-params">n2</span>)</span><br>	fmt.<span class="hljs-constructor">Printf(<span class="hljs-string">&quot;n4 type is %T n4=%q\n&quot;</span>, <span class="hljs-params">n4</span>, <span class="hljs-params">n4</span>)</span><br><br>    <span class="hljs-comment">//布尔型%t表示单词 true 或 false</span><br>	n4 = fmt.<span class="hljs-constructor">Sprintf(<span class="hljs-string">&quot;%t&quot;</span>, <span class="hljs-params">n3</span>)</span><br>	fmt.<span class="hljs-constructor">Printf(<span class="hljs-string">&quot;n4 type is %T n4=%q\n&quot;</span>, <span class="hljs-params">n4</span>, <span class="hljs-params">n4</span>)</span><br>&#125;<br></code></pre></div></td></tr></table></figure>
-<h3 id="方式-2：使用-strconv-包的函数"><a href="#方式-2：使用-strconv-包的函数" class="headerlink" title="方式 2：使用 strconv 包的函数"></a>方式 2：使用 strconv 包的函数</h3><figure class="highlight reasonml"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs reasonml">func <span class="hljs-constructor">FormatBool(<span class="hljs-params">b</span> <span class="hljs-params">bool</span>)</span> <span class="hljs-built_in">string</span><br>func <span class="hljs-constructor">FormatFloat(<span class="hljs-params">f</span> <span class="hljs-params">float64</span>, <span class="hljs-params">fmt</span> <span class="hljs-params">byte</span>, <span class="hljs-params">prec</span>, <span class="hljs-params">bitSize</span> <span class="hljs-params">int</span>)</span> <span class="hljs-built_in">string</span><br>func <span class="hljs-constructor">FormatInt(<span class="hljs-params">i</span> <span class="hljs-params">int64</span>, <span class="hljs-params">base</span> <span class="hljs-params">int</span>)</span> <span class="hljs-built_in">string</span><br>func <span class="hljs-constructor">FormatUint(<span class="hljs-params">i</span> <span class="hljs-params">uint64</span>, <span class="hljs-params">base</span> <span class="hljs-params">int</span>)</span> <span class="hljs-built_in">string</span><br>func <span class="hljs-constructor">Itoa(<span class="hljs-params">i</span> <span class="hljs-params">int</span>)</span> <span class="hljs-built_in">string</span><br></code></pre></div></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">package main</span><br><span class="line"></span><br><span class="line">import (</span><br><span class="line">	&quot;fmt&quot;</span><br><span class="line">	_ &quot;strconv&quot;</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">func main() &#123;</span><br><span class="line">	var n1 int &#x3D; 99</span><br><span class="line">	var n2 float32 &#x3D; 22.3333</span><br><span class="line">	var n3 bool &#x3D; true</span><br><span class="line">	var n4 string</span><br><span class="line"></span><br><span class="line">    &#x2F;&#x2F;整数%d表示十进制输出</span><br><span class="line">	n4 &#x3D; fmt.Sprintf(&quot;%d&quot;, n1)</span><br><span class="line">	fmt.Printf(&quot;n4 type is %T n4&#x3D;%q\n&quot;, n4, n4)</span><br><span class="line"></span><br><span class="line">    &#x2F;&#x2F;浮点型%f表示有小数点而无指数</span><br><span class="line">	n4 &#x3D; fmt.Sprintf(&quot;%f&quot;, n2)</span><br><span class="line">	fmt.Printf(&quot;n4 type is %T n4&#x3D;%q\n&quot;, n4, n4)</span><br><span class="line"></span><br><span class="line">    &#x2F;&#x2F;布尔型%t表示单词 true 或 false</span><br><span class="line">	n4 &#x3D; fmt.Sprintf(&quot;%t&quot;, n3)</span><br><span class="line">	fmt.Printf(&quot;n4 type is %T n4&#x3D;%q\n&quot;, n4, n4)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="方式-2：使用-strconv-包的函数"><a href="#方式-2：使用-strconv-包的函数" class="headerlink" title="方式 2：使用 strconv 包的函数"></a>方式 2：使用 strconv 包的函数</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">func FormatBool(b bool) string</span><br><span class="line">func FormatFloat(f float64, fmt byte, prec, bitSize int) string</span><br><span class="line">func FormatInt(i int64, base int) string</span><br><span class="line">func FormatUint(i uint64, base int) string</span><br><span class="line">func Itoa(i int) string</span><br></pre></td></tr></table></figure>
 <p>示例如下：</p>
-<figure class="highlight awk"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs awk">package main<br><br>import (<br>	<span class="hljs-string">&quot;fmt&quot;</span><br>	<span class="hljs-string">&quot;strconv&quot;</span><br>)<br><br><span class="hljs-keyword">func</span> main() &#123;<br>	var num1 int = <span class="hljs-number">88</span><br>	var num2 float64 = <span class="hljs-number">333.444</span><br>	var num3 bool<br>	var num4 string<br><br>	<span class="hljs-regexp">//</span><span class="hljs-keyword">func</span> FormatInt（i int64，base int）字符串<br>	<span class="hljs-regexp">//</span>FormatInt返回给定基数中i的字符串表示形式，表示<span class="hljs-number">2</span> &lt;= base &lt;=<span class="hljs-number">36</span><br>	<span class="hljs-regexp">//</span>结果使用小写字母<span class="hljs-string">&#x27;a&#x27;</span>至<span class="hljs-string">&#x27;z&#x27;</span>表示数字值&gt; = <span class="hljs-number">10</span>。<br>	num4 = strconv.FormatInt(int64(num1), <span class="hljs-number">10</span>)<br>	fmt.Printf(<span class="hljs-string">&quot;num4 type is %T num4=%q\n&quot;</span>, num4, num4)<br><br>	<span class="hljs-regexp">//</span><span class="hljs-keyword">func</span> FormatFloat（f float64，fmt byte，prec，bitSize int）字符串<br>	<span class="hljs-regexp">//</span>FormatFloat根据格式fmt和precision prec将浮点数f转换为字符串。假设原始结果是从bitSize位的浮点值（float32为<span class="hljs-number">32</span>，float64为<span class="hljs-number">64</span>）获得的，则对结果进行四舍五入。<br>	<span class="hljs-regexp">//</span>格式fmt是<span class="hljs-string">&#x27;b&#x27;</span>（-ddddp±ddd，二进制指数），<span class="hljs-string">&#x27;e&#x27;</span>（-d.dddde±dd，十进制指数），<span class="hljs-string">&#x27;E&#x27;</span>（-d.ddddE±dd，十进制指数）之一），<span class="hljs-string">&#x27;f&#x27;</span>（-ddd.dddd，无指数），<span class="hljs-string">&#x27;g&#x27;</span>（大指数为<span class="hljs-string">&#x27;e&#x27;</span>，否则为<span class="hljs-string">&#x27;f&#x27;</span>）或<span class="hljs-string">&#x27;G&#x27;</span>（大指数为<span class="hljs-string">&#x27;E&#x27;</span>，否则为<span class="hljs-string">&#x27;f&#x27;</span>）。<br>	<span class="hljs-regexp">//</span>精度精度控制以“ e”，“ E”，“ f”，“ g”和“ G”格式打印的位数（不包括指数）。对于“ e”，“ E”和“ f”，它是小数点后的位数。对于“ g”和“ G”，它是数字的总数。特殊精度-<span class="hljs-number">1</span>使用必要的最小位数，以使ParseFloat准确返回f。<br>	num4 = strconv.FormatFloat(num2, <span class="hljs-string">&#x27;f&#x27;</span>, <span class="hljs-number">10</span>, <span class="hljs-number">64</span>)<br>	fmt.Printf(<span class="hljs-string">&quot;num4 type is %T num4=%q\n&quot;</span>, num4, num4)<br><br>	<span class="hljs-regexp">//</span><span class="hljs-keyword">func</span> FormatBool（b bool）字符串<br>	<span class="hljs-regexp">//</span>FormatBool根据b的值返回“ true”或“ false”<br>	num4 = strconv.FormatBool(num3)<br>	fmt.Printf(<span class="hljs-string">&quot;num4 type is %T num4=%q\n&quot;</span>, num4, num4)<br><br>	<span class="hljs-regexp">//</span><span class="hljs-keyword">func</span> Itoa（i int）字符串<br>	<span class="hljs-regexp">//</span>Itoa是FormatInt（i，<span class="hljs-number">10</span>）的简写<br>	var num5 int64 = <span class="hljs-number">35454</span><br>	num4 = strconv.Itoa(int(num5))<br>	fmt.Printf(<span class="hljs-string">&quot;num4 type is %T num4=%q\n&quot;</span>, num4, num4)<br><br>&#125;<br></code></pre></div></td></tr></table></figure>
-<h2 id="string-类型转基本数据类型"><a href="#string-类型转基本数据类型" class="headerlink" title="string 类型转基本数据类型"></a>string 类型转基本数据类型</h2><h3 id="使用时-strconv-包的函数"><a href="#使用时-strconv-包的函数" class="headerlink" title="使用时 strconv 包的函数"></a>使用时 strconv 包的函数</h3><figure class="highlight go"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">ParseBool</span><span class="hljs-params">(str <span class="hljs-keyword">string</span>)</span> <span class="hljs-params">(value <span class="hljs-keyword">bool</span>, err error)</span></span><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">ParseFloat</span><span class="hljs-params">(s <span class="hljs-keyword">string</span>, bitSize <span class="hljs-keyword">int</span>)</span> <span class="hljs-params">(f <span class="hljs-keyword">float64</span>, err error)</span></span><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">ParseInt</span><span class="hljs-params">(s <span class="hljs-keyword">string</span>, base <span class="hljs-keyword">int</span>, bitSize <span class="hljs-keyword">int</span>)</span> <span class="hljs-params">(i <span class="hljs-keyword">int64</span>, err error)</span></span><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">ParseUint</span><span class="hljs-params">(s <span class="hljs-keyword">string</span>, base <span class="hljs-keyword">int</span>, bitSize <span class="hljs-keyword">int</span>)</span> <span class="hljs-params">(n <span class="hljs-keyword">uint64</span>, err error)</span></span><br></code></pre></div></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line">package main</span><br><span class="line"></span><br><span class="line">import (</span><br><span class="line">	&quot;fmt&quot;</span><br><span class="line">	&quot;strconv&quot;</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">func main() &#123;</span><br><span class="line">	var num1 int &#x3D; 88</span><br><span class="line">	var num2 float64 &#x3D; 333.444</span><br><span class="line">	var num3 bool</span><br><span class="line">	var num4 string</span><br><span class="line"></span><br><span class="line">	&#x2F;&#x2F;func FormatInt（i int64，base int）字符串</span><br><span class="line">	&#x2F;&#x2F;FormatInt返回给定基数中i的字符串表示形式，表示2 &lt;&#x3D; base &lt;&#x3D;36</span><br><span class="line">	&#x2F;&#x2F;结果使用小写字母&#39;a&#39;至&#39;z&#39;表示数字值&gt; &#x3D; 10。</span><br><span class="line">	num4 &#x3D; strconv.FormatInt(int64(num1), 10)</span><br><span class="line">	fmt.Printf(&quot;num4 type is %T num4&#x3D;%q\n&quot;, num4, num4)</span><br><span class="line"></span><br><span class="line">	&#x2F;&#x2F;func FormatFloat（f float64，fmt byte，prec，bitSize int）字符串</span><br><span class="line">	&#x2F;&#x2F;FormatFloat根据格式fmt和precision prec将浮点数f转换为字符串。假设原始结果是从bitSize位的浮点值（float32为32，float64为64）获得的，则对结果进行四舍五入。</span><br><span class="line">	&#x2F;&#x2F;格式fmt是&#39;b&#39;（-ddddp±ddd，二进制指数），&#39;e&#39;（-d.dddde±dd，十进制指数），&#39;E&#39;（-d.ddddE±dd，十进制指数）之一），&#39;f&#39;（-ddd.dddd，无指数），&#39;g&#39;（大指数为&#39;e&#39;，否则为&#39;f&#39;）或&#39;G&#39;（大指数为&#39;E&#39;，否则为&#39;f&#39;）。</span><br><span class="line">	&#x2F;&#x2F;精度精度控制以“ e”，“ E”，“ f”，“ g”和“ G”格式打印的位数（不包括指数）。对于“ e”，“ E”和“ f”，它是小数点后的位数。对于“ g”和“ G”，它是数字的总数。特殊精度-1使用必要的最小位数，以使ParseFloat准确返回f。</span><br><span class="line">	num4 &#x3D; strconv.FormatFloat(num2, &#39;f&#39;, 10, 64)</span><br><span class="line">	fmt.Printf(&quot;num4 type is %T num4&#x3D;%q\n&quot;, num4, num4)</span><br><span class="line"></span><br><span class="line">	&#x2F;&#x2F;func FormatBool（b bool）字符串</span><br><span class="line">	&#x2F;&#x2F;FormatBool根据b的值返回“ true”或“ false”</span><br><span class="line">	num4 &#x3D; strconv.FormatBool(num3)</span><br><span class="line">	fmt.Printf(&quot;num4 type is %T num4&#x3D;%q\n&quot;, num4, num4)</span><br><span class="line"></span><br><span class="line">	&#x2F;&#x2F;func Itoa（i int）字符串</span><br><span class="line">	&#x2F;&#x2F;Itoa是FormatInt（i，10）的简写</span><br><span class="line">	var num5 int64 &#x3D; 35454</span><br><span class="line">	num4 &#x3D; strconv.Itoa(int(num5))</span><br><span class="line">	fmt.Printf(&quot;num4 type is %T num4&#x3D;%q\n&quot;, num4, num4)</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="string-类型转基本数据类型"><a href="#string-类型转基本数据类型" class="headerlink" title="string 类型转基本数据类型"></a>string 类型转基本数据类型</h2><h3 id="使用时-strconv-包的函数"><a href="#使用时-strconv-包的函数" class="headerlink" title="使用时 strconv 包的函数"></a>使用时 strconv 包的函数</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">func ParseBool(str string) (value bool, err error)</span><br><span class="line">func ParseFloat(s string, bitSize int) (f float64, err error)</span><br><span class="line">func ParseInt(s string, base int, bitSize int) (i int64, err error)</span><br><span class="line">func ParseUint(s string, base int, bitSize int) (n uint64, err error)</span><br></pre></td></tr></table></figure>
 <p>示例如下</p>
-<figure class="highlight nim"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs nim">package main<br><br><span class="hljs-keyword">import</span> (<br>	<span class="hljs-string">&quot;fmt&quot;</span><br>	<span class="hljs-string">&quot;strconv&quot;</span><br>)<br><br><span class="hljs-keyword">func</span> main() &#123;<br>	<span class="hljs-keyword">var</span> num1 <span class="hljs-built_in">string</span> = <span class="hljs-string">&quot;true&quot;</span><br>	<span class="hljs-keyword">var</span> num2 <span class="hljs-built_in">bool</span><br>	//<span class="hljs-keyword">func</span> <span class="hljs-type">ParseBool</span>(str <span class="hljs-built_in">string</span>) (value <span class="hljs-built_in">bool</span>, err error)<br>	//<span class="hljs-type">ParseBool</span>返回由字符串表示的布尔值。它接受<span class="hljs-number">1</span>，t，T，<span class="hljs-type">TRUE</span>，<span class="hljs-literal">true</span>，<span class="hljs-type">True</span>，<span class="hljs-number">0</span>，f，F，<span class="hljs-type">FALSE</span>，<span class="hljs-literal">false</span>，<span class="hljs-type">False</span>。其他任何值都将返回错误<br>	num2, _ = strconv.<span class="hljs-type">ParseBool</span>(num1)<br>	fmt.<span class="hljs-type">Printf</span>(<span class="hljs-string">&quot;num2 type is %T num2=%v\n&quot;</span>, num2, num2)<br>	//说明：函数会返回两个值，只想取value <span class="hljs-built_in">bool</span>，而不想要err，所以使用<span class="hljs-string">&quot;_&quot;</span>忽略<br>	//%v按照原值输出<br><br>	<span class="hljs-keyword">var</span> num3 <span class="hljs-built_in">string</span> = <span class="hljs-string">&quot;123432432&quot;</span><br>	<span class="hljs-keyword">var</span> num4 <span class="hljs-built_in">int64</span><br>	<span class="hljs-keyword">var</span> num5 <span class="hljs-built_in">int</span><br>	//<span class="hljs-keyword">func</span> <span class="hljs-type">ParseInt</span>（s <span class="hljs-built_in">string</span>，base <span class="hljs-built_in">int</span>，bitSize <span class="hljs-built_in">int</span>）（i <span class="hljs-built_in">int64</span>，err error）<br>	//<span class="hljs-type">ParseInt</span>解释给定基数（<span class="hljs-number">2</span>到<span class="hljs-number">36</span>）中的字符串s并返回对应的值i。如果base == <span class="hljs-number">0</span>，则字符串的前缀隐含基数：“ <span class="hljs-number">0</span>x”的基数为<span class="hljs-number">16</span>，“ <span class="hljs-number">0</span>”的基数为<span class="hljs-number">8</span>，否则为<span class="hljs-number">10</span>。<br>	//bitSize参数指定结果必须适合的整数类型。位大小<span class="hljs-number">0</span>、<span class="hljs-number">8</span>、<span class="hljs-number">16</span>、<span class="hljs-number">32</span>和<span class="hljs-number">64</span>分别对应于<span class="hljs-built_in">int</span>，<span class="hljs-built_in">int8</span>，<span class="hljs-built_in">int16</span>，<span class="hljs-built_in">int32</span>和<span class="hljs-built_in">int64</span><br>	//<span class="hljs-type">ParseInt</span>返回的错误的具体类型为* <span class="hljs-type">NumError</span>，其中包括err.<span class="hljs-type">Num</span> = s。如果s为空或包含无效数字，则err.<span class="hljs-type">Err</span> = <span class="hljs-type">ErrSyntax</span>，返回值为<span class="hljs-number">0</span>；否则，返回<span class="hljs-number">0</span><br>	//如果与s对应的值不能用给定大小的有符号整数表示，则err.<span class="hljs-type">Err</span> = <span class="hljs-type">ErrRange</span>，并且返回的值是适当的bitSize和sign的最大大小整数。<br>	num4, _ = strconv.<span class="hljs-type">ParseInt</span>(num3, <span class="hljs-number">10</span>, <span class="hljs-number">64</span>)<br>	num5 = <span class="hljs-built_in">int</span>(num4)<br>	fmt.<span class="hljs-type">Printf</span>(<span class="hljs-string">&quot;num4 type is %T num4=%v\n&quot;</span>, num4, num4)<br>	fmt.<span class="hljs-type">Printf</span>(<span class="hljs-string">&quot;num5 type is %T num5=%v\n&quot;</span>, num5, num5)<br><br>	<span class="hljs-keyword">var</span> num6 <span class="hljs-built_in">string</span> = <span class="hljs-string">&quot;1243.324&quot;</span><br>	<span class="hljs-keyword">var</span> num7 <span class="hljs-built_in">float64</span><br>	//<span class="hljs-keyword">func</span> <span class="hljs-type">ParseFloat</span>（s <span class="hljs-built_in">string</span>，bitSize <span class="hljs-built_in">int</span>）（f <span class="hljs-built_in">float64</span>，err error）<br>	//<span class="hljs-type">ParseFloat</span>将字符串s转换为由bitSize指定的精度的浮点数：<span class="hljs-built_in">float32</span>为<span class="hljs-number">32</span>或<span class="hljs-built_in">float64</span>为<span class="hljs-number">64</span>。当bitSize = <span class="hljs-number">32</span>时，结果仍为<span class="hljs-built_in">float64</span>类型，但可以将其转换为<span class="hljs-built_in">float32</span>而无需更改其值<br>	//如果s格式正确且在有效的浮点数附近，则<span class="hljs-type">ParseFloat</span>返回使用<span class="hljs-type">IEEE754</span>无偏舍入舍入的最近的浮点数<br>	//<span class="hljs-type">ParseFloat</span>返回的错误的具体类型为* <span class="hljs-type">NumError</span>，其中包括err.<span class="hljs-type">Num</span> = s<br>	//如果s在语法上不正确，则<span class="hljs-type">ParseFloat</span>返回err.<span class="hljs-type">Err</span> = <span class="hljs-type">ErrSyntax</span><br>	//如果s在语法上格式正确，但与给定大小的最大浮点数相差超过<span class="hljs-number">1</span>/<span class="hljs-number">2</span> <span class="hljs-type">ULP</span>，则<span class="hljs-type">ParseFloat</span>返回f =±<span class="hljs-type">Inf</span>，err.<span class="hljs-type">Err</span> = <span class="hljs-type">ErrRange</span><br>	num7, _ = strconv.<span class="hljs-type">ParseFloat</span>(num6, <span class="hljs-number">64</span>)<br>	fmt.<span class="hljs-type">Printf</span>(<span class="hljs-string">&quot;num7 type is %T num7=%v\n&quot;</span>, num7, num7)<br>&#125;<br></code></pre></div></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line">package main</span><br><span class="line"></span><br><span class="line">import (</span><br><span class="line">	&quot;fmt&quot;</span><br><span class="line">	&quot;strconv&quot;</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">func main() &#123;</span><br><span class="line">	var num1 string &#x3D; &quot;true&quot;</span><br><span class="line">	var num2 bool</span><br><span class="line">	&#x2F;&#x2F;func ParseBool(str string) (value bool, err error)</span><br><span class="line">	&#x2F;&#x2F;ParseBool返回由字符串表示的布尔值。它接受1，t，T，TRUE，true，True，0，f，F，FALSE，false，False。其他任何值都将返回错误</span><br><span class="line">	num2, _ &#x3D; strconv.ParseBool(num1)</span><br><span class="line">	fmt.Printf(&quot;num2 type is %T num2&#x3D;%v\n&quot;, num2, num2)</span><br><span class="line">	&#x2F;&#x2F;说明：函数会返回两个值，只想取value bool，而不想要err，所以使用&quot;_&quot;忽略</span><br><span class="line">	&#x2F;&#x2F;%v按照原值输出</span><br><span class="line"></span><br><span class="line">	var num3 string &#x3D; &quot;123432432&quot;</span><br><span class="line">	var num4 int64</span><br><span class="line">	var num5 int</span><br><span class="line">	&#x2F;&#x2F;func ParseInt（s string，base int，bitSize int）（i int64，err error）</span><br><span class="line">	&#x2F;&#x2F;ParseInt解释给定基数（2到36）中的字符串s并返回对应的值i。如果base &#x3D;&#x3D; 0，则字符串的前缀隐含基数：“ 0x”的基数为16，“ 0”的基数为8，否则为10。</span><br><span class="line">	&#x2F;&#x2F;bitSize参数指定结果必须适合的整数类型。位大小0、8、16、32和64分别对应于int，int8，int16，int32和int64</span><br><span class="line">	&#x2F;&#x2F;ParseInt返回的错误的具体类型为* NumError，其中包括err.Num &#x3D; s。如果s为空或包含无效数字，则err.Err &#x3D; ErrSyntax，返回值为0；否则，返回0</span><br><span class="line">	&#x2F;&#x2F;如果与s对应的值不能用给定大小的有符号整数表示，则err.Err &#x3D; ErrRange，并且返回的值是适当的bitSize和sign的最大大小整数。</span><br><span class="line">	num4, _ &#x3D; strconv.ParseInt(num3, 10, 64)</span><br><span class="line">	num5 &#x3D; int(num4)</span><br><span class="line">	fmt.Printf(&quot;num4 type is %T num4&#x3D;%v\n&quot;, num4, num4)</span><br><span class="line">	fmt.Printf(&quot;num5 type is %T num5&#x3D;%v\n&quot;, num5, num5)</span><br><span class="line"></span><br><span class="line">	var num6 string &#x3D; &quot;1243.324&quot;</span><br><span class="line">	var num7 float64</span><br><span class="line">	&#x2F;&#x2F;func ParseFloat（s string，bitSize int）（f float64，err error）</span><br><span class="line">	&#x2F;&#x2F;ParseFloat将字符串s转换为由bitSize指定的精度的浮点数：float32为32或float64为64。当bitSize &#x3D; 32时，结果仍为float64类型，但可以将其转换为float32而无需更改其值</span><br><span class="line">	&#x2F;&#x2F;如果s格式正确且在有效的浮点数附近，则ParseFloat返回使用IEEE754无偏舍入舍入的最近的浮点数</span><br><span class="line">	&#x2F;&#x2F;ParseFloat返回的错误的具体类型为* NumError，其中包括err.Num &#x3D; s</span><br><span class="line">	&#x2F;&#x2F;如果s在语法上不正确，则ParseFloat返回err.Err &#x3D; ErrSyntax</span><br><span class="line">	&#x2F;&#x2F;如果s在语法上格式正确，但与给定大小的最大浮点数相差超过1&#x2F;2 ULP，则ParseFloat返回f &#x3D;±Inf，err.Err &#x3D; ErrRange</span><br><span class="line">	num7, _ &#x3D; strconv.ParseFloat(num6, 64)</span><br><span class="line">	fmt.Printf(&quot;num7 type is %T num7&#x3D;%v\n&quot;, num7, num7)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>说明：因为返回值是int64或者float64，如果希望得到int或者float32则需要转换</p>
 <h3 id="string-转基本数据类型的注意事项"><a href="#string-转基本数据类型的注意事项" class="headerlink" title="string 转基本数据类型的注意事项"></a>string 转基本数据类型的注意事项</h3><p>​    在将 String 类型转成 基本数据类型时， 要确保 String  类型能够转成有效的数据，比如 我们可以把 “123” , 转成一个整数，但是不能把 “hello” 转成一个整数，如果这样做，Golang 直接将其转成 0 ，其它类型也是一样的道理. float =&gt; 0 bool =&gt; false</p>
 
-            </div>
-            <hr>
-            <div>
-              <div class="post-metas mb-3">
-                
-                  <div class="post-meta mr-3">
-                    <i class="iconfont icon-category"></i>
-                    
-                      <a class="hover-with-bg" href="/categories/Golang/">Golang</a>
-                    
-                  </div>
-                
-                
-                  <div class="post-meta">
-                    <i class="iconfont icon-tags"></i>
-                    
-                      <a class="hover-with-bg" href="/tags/Golang/">Golang</a>
-                    
-                  </div>
-                
-              </div>
-              
-                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
-              
-              
-                <div class="post-prevnext">
-                  <article class="post-prev col-6">
-                    
-                    
-                      <a href="/2021/04/07/Go%E8%AF%AD%E8%A8%80%E5%8F%98%E9%87%8F/">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">Go语言变量</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
-                  </article>
-                  <article class="post-next col-6">
-                    
-                    
-                      <a href="/2021/04/07/Go%E8%AF%AD%E8%A8%80%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/">
-                        <span class="hidden-mobile">Go语言数据类型</span>
-                        <span class="visible-mobile">下一篇</span>
-                        <i class="iconfont icon-arrowright"></i>
-                      </a>
-                    
-                  </article>
-                </div>
-              
-            </div>
-
-            
-              <!-- Comments -->
-              <article class="comments" id="comments">
-                
-                
-  <div id="vcomments"></div>
-  <script type="text/javascript">
-    Fluid.utils.waitElementVisible('vcomments', function() {
-      Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js', function () {
-        new Valine({
-          el: "#vcomments",
-          app_id: "hPHtsN0Gt7U2zB2AllYqbucc-9Nh9j0Va",
-          app_key: "TVUER8rWijR8cD1STqzd2d4E",
-          placeholder: "你有故事，我有酒，我们一起勇闯天涯。。。",
-          path: window.location.pathname,
-          avatar: "retro",
-          meta: ["nick","mail","link"],
-          pageSize: "10",
-          lang: "zh-CN",
-          highlight: false,
-          recordIP: false,
-          serverURLs: "",
-        });
-      });
-    });
-  </script>
-  <noscript>Please enable JavaScript to view the
-    <a target="_blank" href="https://valine.js.org" rel="nofollow noopener noopener">comments powered by Valine.</a>
-  </noscript>
-
-
-              </article>
-            
-          </article>
-        </div>
-      </div>
     </div>
+
     
-      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
-        <div id="toc">
-  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
-  <div class="toc-body" id="toc-body"></div>
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Golang/" rel="tag"># Golang</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2021/04/07/Go%E8%AF%AD%E8%A8%80%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/" rel="prev" title="Go语言数据类型">
+                  <i class="fa fa-chevron-left"></i> Go语言数据类型
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2021/04/07/Go%E8%AF%AD%E8%A8%80%E5%8F%98%E9%87%8F/" rel="next" title="Go语言变量">
+                  Go语言变量 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
 </div>
 
-      </div>
-    
-  </div>
+
+
+
+
+
 </div>
-
-<!-- Custom -->
-
-
-    
-
-    
-      <a id="scroll-top-button" href="#" role="button">
-        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
-      </a>
-    
-
-    
-      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
-     aria-hidden="true">
-  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
-    <div class="modal-content">
-      <div class="modal-header text-center">
-        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
-        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body mx-3">
-        <div class="md-form mb-5">
-          <input type="text" id="local-search-input" class="form-control validate">
-          <label data-error="x" data-success="v"
-                 for="local-search-input">关键词</label>
-        </div>
-        <div class="list-group" id="local-search-result"></div>
-      </div>
-    </div>
-  </div>
-</div>
-    
-
-    
   </main>
 
-  <footer class="text-center mt-5 py-3">
-  <div class="footer-content">
-     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
-  </div>
-  
-  <div class="statistics">
-    
-    
+  <footer class="footer">
+    <div class="footer-inner">
 
-    
-      
-        <!-- 不蒜子统计PV -->
-        <span id="busuanzi_container_site_pv" style="display: none">
-            总访问量 
-            <span id="busuanzi_value_site_pv"></span>
-             次
-          </span>
-      
-      
-        <!-- 不蒜子统计UV -->
-        <span id="busuanzi_container_site_uv" style="display: none">
-            总访客数 
-            <span id="busuanzi_value_site_uv"></span>
-             人
-          </span>
-      
-    
+
+<div class="copyright">
+  &copy; 2020 – 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">羊皮裘老头</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
   </div>
 
+    </div>
+  </footer>
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
 
   
 
-  
-</footer>
 
-<!-- SCRIPTS -->
-
-  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
-  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
-
-  <script>
-    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
-    NProgress.start()
-    window.addEventListener('load', function() {
-      NProgress.done();
-    })
-  </script>
-
-
-<script  src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" ></script>
-<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" ></script>
-<script  src="/js/debouncer.js" ></script>
-<script  src="/js/events.js" ></script>
-<script  src="/js/plugins.js" ></script>
-
-<!-- Plugins -->
-
-
-  
-    <script  src="/js/lazyload.js" ></script>
-  
 
 
 
   
 
 
-
-  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.0/dist/tocbot.min.js" ></script>
-
-
-
-  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
-
-
-
-  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.0/anchor.min.js" ></script>
-
-
-
-  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js" ></script>
-
-
-
-  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
-
-
-
-
-
-
-  <script  src="/js/local-search.js" ></script>
-  <script>
-    (function () {
-      var path = "/local-search.xml";
-      var inputArea = document.querySelector("#local-search-input");
-      inputArea.onclick = function () {
-        searchFunc(path, 'local-search-input', 'local-search-result');
-        this.onclick = null
-      }
-    })()
-  </script>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<!-- 主题的启动项 保持在最底部 -->
-<script  src="/js/boot.js" ></script>
 
 
 

@@ -1,567 +1,335 @@
-
-
 <!DOCTYPE html>
-<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
-
-
-
+<html lang="zh-CN">
 <head>
   <meta charset="UTF-8">
-  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
-  <link rel="icon" type="image/png" href="/img/favicon.png">
-  <meta name="viewport"
-        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
-  <meta http-equiv="x-ua-compatible" content="ie=edge">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 5.3.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.12.1","exturl":false,"sidebar":{"position":"left","width":300,"display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="官网地址：https:&#x2F;&#x2F;mariadb.com&#x2F;downloads 1、安装MariaDB12345tar xvf mariadb-10.4.12-linux-x86_64.tar.gz -C &#x2F;usr&#x2F;local&#x2F;cd &#x2F;usr&#x2F;localln -s mariadb-10.4.12-linux-x86_64 mysqlgroupadd mysq">
+<meta property="og:type" content="article">
+<meta property="og:title" content="二进制安装mariadb主从复制">
+<meta property="og:url" content="http://example.com/2021/01/05/%E4%BA%8C%E8%BF%9B%E5%88%B6%E5%AE%89%E8%A3%85mariadb%E4%B8%BB%E4%BB%8E%E5%A4%8D%E5%88%B6/index.html">
+<meta property="og:site_name" content="羊皮裘老头">
+<meta property="og:description" content="官网地址：https:&#x2F;&#x2F;mariadb.com&#x2F;downloads 1、安装MariaDB12345tar xvf mariadb-10.4.12-linux-x86_64.tar.gz -C &#x2F;usr&#x2F;local&#x2F;cd &#x2F;usr&#x2F;localln -s mariadb-10.4.12-linux-x86_64 mysqlgroupadd mysq">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://yangpiqiulaotou.oss-cn-hangzhou.aliyuncs.com/images/image-20200408164002241.png">
+<meta property="article:published_time" content="2021-01-05T03:44:50.000Z">
+<meta property="article:modified_time" content="2022-04-17T09:07:34.617Z">
+<meta property="article:author" content="羊皮裘老头">
+<meta property="article:tag" content="Mariadb">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://yangpiqiulaotou.oss-cn-hangzhou.aliyuncs.com/images/image-20200408164002241.png">
+
+
+<link rel="canonical" href="http://example.com/2021/01/05/%E4%BA%8C%E8%BF%9B%E5%88%B6%E5%AE%89%E8%A3%85mariadb%E4%B8%BB%E4%BB%8E%E5%A4%8D%E5%88%B6/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://example.com/2021/01/05/%E4%BA%8C%E8%BF%9B%E5%88%B6%E5%AE%89%E8%A3%85mariadb%E4%B8%BB%E4%BB%8E%E5%A4%8D%E5%88%B6/","path":"2021/01/05/二进制安装mariadb主从复制/","title":"二进制安装mariadb主从复制"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>二进制安装mariadb主从复制 | 羊皮裘老头</title>
   
-  <meta name="theme-color" content="#2f4154">
-  <meta name="description" content="">
-  <meta name="author" content="羊皮裘老头">
-  <meta name="keywords" content="">
-  <title>二进制安装mariadb主从复制 - 羊皮裘老头</title>
-
-  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
-
-
-  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
-  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
-
-  
-    
-    
-      
-      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.4.0/styles/github-gist.min.css" />
-    
-  
-
-  
-    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
-  
 
 
 
-<!-- 主题依赖的图标库，不要自行修改 -->
-
-<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
 
 
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
 
-<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
 
-
-<link  rel="stylesheet" href="/css/main.css" />
-
-<!-- 自定义样式保持在最底部 -->
-
-
-  <script id="fluid-configs">
-    var Fluid = window.Fluid || {};
-    var CONFIG = {"hostname":"example.com","root":"/","version":"1.8.7","typing":{"enable":false,"typeSpeed":70,"cursorChar":" ","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"onlypost":false},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}}};
-  </script>
-  <script  src="/js/utils.js" ></script>
-  <script  src="/js/color-schema.js" ></script>
-<meta name="generator" content="Hexo 5.3.0"></head>
-
-
-<body>
-  <header style="height: 70vh;">
-    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
-  <div class="container">
-    <a class="navbar-brand"
-       href="/">&nbsp;<strong>羊皮裘老头</strong>&nbsp;</a>
-
-    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
-            data-target="#navbarSupportedContent"
-            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <div class="animated-icon"><span></span><span></span><span></span></div>
-    </button>
-
-    <!-- Collapsible content -->
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav ml-auto text-center">
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/">
-                <i class="iconfont icon-home-fill"></i>
-                首页
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/archives/">
-                <i class="iconfont icon-archive-fill"></i>
-                归档
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/categories/">
-                <i class="iconfont icon-category-fill"></i>
-                分类
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/tags/">
-                <i class="iconfont icon-tags-fill"></i>
-                标签
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/about/">
-                <i class="iconfont icon-user-fill"></i>
-                关于
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <i class="iconfont icon-books"></i>
-                文档
-              </a>
-              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                
-                  
-                  
-                  
-                  <a class="dropdown-item" target="_blank" rel="noopener" href="https://hexo.fluid-dev.com/">
-                    
-                    主题博客
-                  </a>
-                
-                  
-                  
-                  
-                  <a class="dropdown-item" target="_blank" rel="noopener" href="https://hexo.fluid-dev.com/docs/guide/">
-                    
-                    配置指南
-                  </a>
-                
-                  
-                  
-                  
-                  <a class="dropdown-item" target="_blank" rel="noopener" href="https://hexo.fluid-dev.com/docs/icon/">
-                    
-                    图标用法
-                  </a>
-                
-              </div>
-            </li>
-          
-        
-        
-          <li class="nav-item" id="search-btn">
-            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
-                class="iconfont icon-search"></i>&nbsp;</a>
-          </li>
-        
-        
-          <li class="nav-item" id="color-toggle-btn">
-            <a class="nav-link" href="javascript:">&nbsp;<i
-                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
-          </li>
-        
-      </ul>
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
     </div>
   </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">羊皮裘老头</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">28</span></a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">13</span></a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">116</span></a></li><li class="menu-item menu-item-schedule"><a href="/schedule/" rel="section"><i class="fa fa-calendar fa-fw"></i>日程表</a></li><li class="menu-item menu-item-sitemap"><a href="/sitemap.xml" rel="section"><i class="fa fa-sitemap fa-fw"></i>站点地图</a></li><li class="menu-item menu-item-commonweal"><a href="/404/" rel="section"><i class="fa fa-heartbeat fa-fw"></i>公益 404</a></li>
+  </ul>
 </nav>
 
-    <div class="banner" id="banner" parallax=true
-         style="background: url('/img/ss.png') no-repeat center center;
-           background-size: cover;">
-      <div class="full-bg-img">
-        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
-          <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="二进制安装mariadb主从复制">
-              
-                二进制安装mariadb主从复制
-              
-            </span>
 
-            
-              <div class="mt-3">
+
+
+</div>
+        
   
-  
-    <span class="post-meta">
-      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-      <time datetime="2021-01-05 11:44" pubdate>
-        2021年1月5日 中午
-      </time>
-    </span>
-  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#1%E3%80%81%E5%AE%89%E8%A3%85MariaDB"><span class="nav-number">1.</span> <span class="nav-text">1、安装MariaDB</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2%E3%80%81%E5%AE%89%E8%A3%85%E9%85%8D%E7%BD%AE"><span class="nav-number">2.</span> <span class="nav-text">2、安装配置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3%E3%80%81%E5%90%AF%E5%8A%A8%E6%95%B0%E6%8D%AE%E5%BA%93"><span class="nav-number">3.</span> <span class="nav-text">3、启动数据库</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4%E3%80%81%E6%95%B0%E6%8D%AE%E5%BA%93%E8%BF%9E%E6%8E%A5%E3%80%81%E6%9F%A5%E8%AF%A2"><span class="nav-number">4.</span> <span class="nav-text">4、数据库连接、查询</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5%E3%80%81%E5%88%9B%E5%BB%BA%E4%B8%BB%E4%BB%8E%E8%BF%9E%E6%8E%A5%E7%9A%84%E7%94%A8%E6%88%B7"><span class="nav-number">5.</span> <span class="nav-text">5、创建主从连接的用户</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6%E3%80%81%E8%BF%9B%E8%A1%8C%E5%85%B3%E8%81%94master%E8%8A%82%E7%82%B9"><span class="nav-number">6.</span> <span class="nav-text">6、进行关联master节点</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">羊皮裘老头</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">116</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">13</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">28</span>
+        <span class="site-state-item-name">标签</span>
+      </div>
+  </nav>
 </div>
 
-<div class="mt-1">
-  
-    
-    <span class="post-meta mr-2">
-      <i class="iconfont icon-chart"></i>
-      667 字
-    </span>
-  
 
-  
-    
-    <span class="post-meta mr-2">
-      <i class="iconfont icon-clock-fill"></i>
-      
-      
-      10
-       分钟
-    </span>
-  
 
-  
-  
-    
-      <!-- LeanCloud 统计文章PV -->
-      <span id="leancloud-page-views-container" class="post-meta" style="display: none">
-        <i class="iconfont icon-eye" aria-hidden="true"></i>
-        <span id="leancloud-page-views"></span> 次
-      </span>
-    
-  
-</div>
-
-            
-          </div>
-
-          
         </div>
       </div>
     </div>
-  </header>
+  </aside>
+  <div class="sidebar-dimmer"></div>
 
-  <main>
+
+    </header>
+
     
-      
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
 
-<div class="container-fluid nopadding-x">
-  <div class="row nomargin-x">
-    <div class="d-none d-lg-block col-lg-2"></div>
-    <div class="col-lg-8 nopadding-x-md">
-      <div class="container nopadding-x-md" id="board-ctn">
-        <div class="py-5" id="board">
-          <article class="post-content mx-auto">
-            <!-- SEO header -->
-            <h1 style="display: none">二进制安装mariadb主从复制</h1>
-            
-              <p class="note note-info">
-                
-                  本文最后更新于：2022年4月17日 下午
-                
-              </p>
-            
-            <div class="markdown-body">
-              <p>官网地址：<a target="_blank" rel="noopener" href="https://mariadb.com/downloads">https://mariadb.com/downloads</a></p>
-<h3 id="1、安装MariaDB"><a href="#1、安装MariaDB" class="headerlink" title="1、安装MariaDB"></a>1、安装MariaDB</h3><figure class="highlight apache"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs apache"><span class="hljs-attribute">tar</span> xvf mariadb-<span class="hljs-number">10</span>.<span class="hljs-number">4</span>.<span class="hljs-number">12</span>-linux-x<span class="hljs-number">86</span>_<span class="hljs-number">64</span>.tar.gz -C /usr/local/<br><span class="hljs-attribute">cd</span> /usr/local<br><span class="hljs-attribute">ln</span> -s mariadb-<span class="hljs-number">10</span>.<span class="hljs-number">4</span>.<span class="hljs-number">12</span>-linux-x<span class="hljs-number">86</span>_<span class="hljs-number">64</span> mysql<br><span class="hljs-attribute">groupadd</span> mysql<br><span class="hljs-attribute">useradd</span> -g mysql mysql<br></code></pre></div></td></tr></table></figure>
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/01/05/%E4%BA%8C%E8%BF%9B%E5%88%B6%E5%AE%89%E8%A3%85mariadb%E4%B8%BB%E4%BB%8E%E5%A4%8D%E5%88%B6/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="羊皮裘老头">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="羊皮裘老头">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="二进制安装mariadb主从复制 | 羊皮裘老头">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          二进制安装mariadb主从复制
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2021-01-05 11:44:50" itemprop="dateCreated datePublished" datetime="2021-01-05T11:44:50+08:00">2021-01-05</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-04-17 17:07:34" itemprop="dateModified" datetime="2022-04-17T17:07:34+08:00">2022-04-17</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E5%85%B3%E7%B3%BB%E5%9E%8B%E6%95%B0%E6%8D%AE%E5%BA%93/" itemprop="url" rel="index"><span itemprop="name">关系型数据库</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <p>官网地址：<a target="_blank" rel="noopener" href="https://mariadb.com/downloads">https://mariadb.com/downloads</a></p>
+<h3 id="1、安装MariaDB"><a href="#1、安装MariaDB" class="headerlink" title="1、安装MariaDB"></a>1、安装MariaDB</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">tar xvf mariadb-10.4.12-linux-x86_64.tar.gz -C &#x2F;usr&#x2F;local&#x2F;</span><br><span class="line">cd &#x2F;usr&#x2F;local</span><br><span class="line">ln -s mariadb-10.4.12-linux-x86_64 mysql</span><br><span class="line">groupadd mysql</span><br><span class="line">useradd -g mysql mysql</span><br></pre></td></tr></table></figure>
 <p>创建数据目录</p>
-<figure class="highlight awk"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs awk">mkdir -p <span class="hljs-regexp">/data/my</span>sql/data<br>chown -R mysql.mysql <span class="hljs-regexp">/data/</span><br>chown -R mysql.mysql <span class="hljs-regexp">/usr/</span>local/mysql<br></code></pre></div></td></tr></table></figure>
-<h3 id="2、安装配置"><a href="#2、安装配置" class="headerlink" title="2、安装配置"></a>2、安装配置</h3><figure class="highlight awk"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs awk">cd <span class="hljs-regexp">/usr/</span>local/mysql<br>.<span class="hljs-regexp">/scripts/my</span>sql_install_db --user=mysql --datadir=<span class="hljs-regexp">/data/my</span>sql/data    <span class="hljs-comment">#执行配置脚本</span><br></code></pre></div></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">mkdir -p &#x2F;data&#x2F;mysql&#x2F;data</span><br><span class="line">chown -R mysql.mysql &#x2F;data&#x2F;</span><br><span class="line">chown -R mysql.mysql &#x2F;usr&#x2F;local&#x2F;mysql</span><br></pre></td></tr></table></figure>
+<h3 id="2、安装配置"><a href="#2、安装配置" class="headerlink" title="2、安装配置"></a>2、安装配置</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd &#x2F;usr&#x2F;local&#x2F;mysql</span><br><span class="line">.&#x2F;scripts&#x2F;mysql_install_db --user&#x3D;mysql --datadir&#x3D;&#x2F;data&#x2F;mysql&#x2F;data    #执行配置脚本</span><br></pre></td></tr></table></figure>
 <p>修改/etc/my.cnf中的配置<master></p>
-<figure class="highlight routeros"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs routeros">[mysqld]<br>slow_query_log = 1       #开启慢日志<br>slow_query_log_file = <span class="hljs-string">&quot;/data/log/mariadb/mariadb-slow.log&quot;</span>     #慢日志存放目录<br>long_query_time = 2      #查询时间超过 2 秒则定义为慢查询<br><span class="hljs-attribute">bind-address</span>=0.0.0.0     #一般建议全部绑定，因为 mysql 和 mariadb 不允许手动绑定指定<span class="hljs-built_in"> IP </span>地址<br>port = 3306<br>datadir = <span class="hljs-string">&quot;/data/mysql/data&quot;</span>     #后期同步的二进制修改信息会放在这里<br>log_error = <span class="hljs-string">&quot;/data/log/mariadb/error.log&quot;</span><br>socket = <span class="hljs-string">&quot;/var/lib/mysql/mysql.sock&quot;</span>         #用于支持本地访问的 socket 文件<br><span class="hljs-attribute">server-id</span>=1              #配置本机 mysql 的唯一 ID，多台 mysql 不能存在相同的 ID<br><span class="hljs-attribute">log-bin</span>=master-bin        #设置”主服务器需要同步的二进制日志”文件名前缀<br><span class="hljs-attribute">relay-log</span>=mysql-relay-bin   #设置”从服务器需要执行的中继日志”文件名前缀<br><span class="hljs-attribute">binlog_format</span>=row           #修改了复制格式为 mixed，mysql 一共有三种格式 mixed 和 statement 和 row ，默认是 row<br>expire_logs_days = 3        #设置”二进制修改信息”的保存时间，过期（三天后）清理<br><span class="hljs-attribute">autocommit</span>=0<br><span class="hljs-attribute">character_set_server</span>=utf8mb4<br><span class="hljs-attribute">collation_server</span>=utf8mb4_bin<br><span class="hljs-attribute">explicit_defaults_for_timestamp</span>=1<br><span class="hljs-attribute">transaction_isolation</span>=READ-COMMITTED<br><span class="hljs-attribute">tmp_table_size</span>=64M<br><span class="hljs-attribute">interactive_timeout</span>=1800<br><span class="hljs-attribute">wait_timeout</span>=1800<br><span class="hljs-attribute">max_connections</span>=200<br><span class="hljs-attribute">max_allowed_packet</span>=32M<br><span class="hljs-attribute">read_rnd_buffer_size</span>=8M<br><span class="hljs-attribute">sort_buffer_size</span>=8M<br><span class="hljs-attribute">join_buffer_size</span>=8M<br><span class="hljs-attribute">binlog_cache_size</span>=4M<br><span class="hljs-attribute">innodb_log_buffer_size</span>=16M<br><span class="hljs-attribute">innodb_flush_log_at_trx_commit</span>=1<br><span class="hljs-attribute">innodb_sort_buffer_size</span>=64M<br><span class="hljs-attribute">innodb_log_file_size</span>=512M<br><span class="hljs-attribute">innodb_print_all_deadlocks</span>=1<br><span class="hljs-attribute">innodb_buffer_pool_size</span>=【物理内存*0.6】<br><span class="hljs-attribute">lower_case_table_names</span>=1            #关闭大小写敏感<br>default-time_zone = <span class="hljs-string">&#x27;+8:00&#x27;</span><br><span class="hljs-attribute">slave_parallel_mode</span>=conservative    #开启并行复制<br><span class="hljs-attribute">log-bin-trust-function-creators</span>=1    #开启function<br><br><br>并添加如下配置：<br>[client]<br><span class="hljs-attribute">default-character-set</span>=utf8mb4<br></code></pre></div></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line">[mysqld]</span><br><span class="line">slow_query_log &#x3D; 1       #开启慢日志</span><br><span class="line">slow_query_log_file &#x3D; &quot;&#x2F;data&#x2F;log&#x2F;mariadb&#x2F;mariadb-slow.log&quot;     #慢日志存放目录</span><br><span class="line">long_query_time &#x3D; 2      #查询时间超过 2 秒则定义为慢查询</span><br><span class="line">bind-address&#x3D;0.0.0.0     #一般建议全部绑定，因为 mysql 和 mariadb 不允许手动绑定指定 IP 地址</span><br><span class="line">port &#x3D; 3306</span><br><span class="line">datadir &#x3D; &quot;&#x2F;data&#x2F;mysql&#x2F;data&quot;     #后期同步的二进制修改信息会放在这里</span><br><span class="line">log_error &#x3D; &quot;&#x2F;data&#x2F;log&#x2F;mariadb&#x2F;error.log&quot;</span><br><span class="line">socket &#x3D; &quot;&#x2F;var&#x2F;lib&#x2F;mysql&#x2F;mysql.sock&quot;         #用于支持本地访问的 socket 文件</span><br><span class="line">server-id&#x3D;1              #配置本机 mysql 的唯一 ID，多台 mysql 不能存在相同的 ID</span><br><span class="line">log-bin&#x3D;master-bin        #设置”主服务器需要同步的二进制日志”文件名前缀</span><br><span class="line">relay-log&#x3D;mysql-relay-bin   #设置”从服务器需要执行的中继日志”文件名前缀</span><br><span class="line">binlog_format&#x3D;row           #修改了复制格式为 mixed，mysql 一共有三种格式 mixed 和 statement 和 row ，默认是 row</span><br><span class="line">expire_logs_days &#x3D; 3        #设置”二进制修改信息”的保存时间，过期（三天后）清理</span><br><span class="line">autocommit&#x3D;0</span><br><span class="line">character_set_server&#x3D;utf8mb4</span><br><span class="line">collation_server&#x3D;utf8mb4_bin</span><br><span class="line">explicit_defaults_for_timestamp&#x3D;1</span><br><span class="line">transaction_isolation&#x3D;READ-COMMITTED</span><br><span class="line">tmp_table_size&#x3D;64M</span><br><span class="line">interactive_timeout&#x3D;1800</span><br><span class="line">wait_timeout&#x3D;1800</span><br><span class="line">max_connections&#x3D;200</span><br><span class="line">max_allowed_packet&#x3D;32M</span><br><span class="line">read_rnd_buffer_size&#x3D;8M</span><br><span class="line">sort_buffer_size&#x3D;8M</span><br><span class="line">join_buffer_size&#x3D;8M</span><br><span class="line">binlog_cache_size&#x3D;4M</span><br><span class="line">innodb_log_buffer_size&#x3D;16M</span><br><span class="line">innodb_flush_log_at_trx_commit&#x3D;1</span><br><span class="line">innodb_sort_buffer_size&#x3D;64M</span><br><span class="line">innodb_log_file_size&#x3D;512M</span><br><span class="line">innodb_print_all_deadlocks&#x3D;1</span><br><span class="line">innodb_buffer_pool_size&#x3D;【物理内存*0.6】</span><br><span class="line">lower_case_table_names&#x3D;1            #关闭大小写敏感</span><br><span class="line">default-time_zone &#x3D; &#39;+8:00&#39;</span><br><span class="line">slave_parallel_mode&#x3D;conservative    #开启并行复制</span><br><span class="line">log-bin-trust-function-creators&#x3D;1    #开启function</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">并添加如下配置：</span><br><span class="line">[client]</span><br><span class="line">default-character-set&#x3D;utf8mb4</span><br></pre></td></tr></table></figure>
 <p>修改/etc/my.cnf中的配置<slave></p>
-<figure class="highlight ini"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs ini"><span class="hljs-section">[mysqld]</span><br><span class="hljs-attr">port</span> = <span class="hljs-number">3306</span><br><span class="hljs-attr">server-id</span>=<span class="hljs-number">2</span><br><span class="hljs-attr">log-bin</span>=slave-bin<br><span class="hljs-attr">log-bin-trust-function-creators</span>=<span class="hljs-number">1</span><br><span class="hljs-attr">sync_binlog</span> = <span class="hljs-number">1</span><br><span class="hljs-attr">master_info_repository</span> = TABLE<br><span class="hljs-attr">relay_log_info_repository</span> = TABLE<br><span class="hljs-attr">log_slave_updates</span>=<span class="hljs-literal">off</span><br><span class="hljs-attr">slave_parallel_threads</span>=<span class="hljs-number">12</span><br></code></pre></div></td></tr></table></figure>
-<h3 id="3、启动数据库"><a href="#3、启动数据库" class="headerlink" title="3、启动数据库"></a>3、启动数据库</h3><figure class="highlight awk"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs awk">.<span class="hljs-regexp">/bin/my</span>sqld_safe --user=mysql --datadir=<span class="hljs-regexp">/data/my</span>sql/data &amp;<br>ln -s <span class="hljs-regexp">/var/</span>lib<span class="hljs-regexp">/mysql/my</span>sql.sock <span class="hljs-regexp">/tmp/my</span>sql.sock<br></code></pre></div></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">[mysqld]</span><br><span class="line">port &#x3D; 3306</span><br><span class="line">server-id&#x3D;2</span><br><span class="line">log-bin&#x3D;slave-bin</span><br><span class="line">log-bin-trust-function-creators&#x3D;1</span><br><span class="line">sync_binlog &#x3D; 1</span><br><span class="line">master_info_repository &#x3D; TABLE</span><br><span class="line">relay_log_info_repository &#x3D; TABLE</span><br><span class="line">log_slave_updates&#x3D;off</span><br><span class="line">slave_parallel_threads&#x3D;12</span><br></pre></td></tr></table></figure>
+<h3 id="3、启动数据库"><a href="#3、启动数据库" class="headerlink" title="3、启动数据库"></a>3、启动数据库</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">.&#x2F;bin&#x2F;mysqld_safe --user&#x3D;mysql --datadir&#x3D;&#x2F;data&#x2F;mysql&#x2F;data &amp;</span><br><span class="line">ln -s &#x2F;var&#x2F;lib&#x2F;mysql&#x2F;mysql.sock &#x2F;tmp&#x2F;mysql.sock</span><br></pre></td></tr></table></figure>
 <p>设置数据库root用户密码</p>
-<figure class="highlight awk"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs awk">.<span class="hljs-regexp">/bin/my</span>sqladmin -u root password <span class="hljs-string">&#x27;123456&#x27;</span>       <span class="hljs-comment">#设置root用户密码</span><br></code></pre></div></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">.&#x2F;bin&#x2F;mysqladmin -u root password &#39;123456&#39;       #设置root用户密码</span><br></pre></td></tr></table></figure>
 <p>关闭数据库</p>
-<figure class="highlight awk"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs awk">.<span class="hljs-regexp">/bin/my</span>sqladmin -uroot -p shutdown<br></code></pre></div></td></tr></table></figure>
-<h3 id="4、数据库连接、查询"><a href="#4、数据库连接、查询" class="headerlink" title="4、数据库连接、查询"></a>4、数据库连接、查询</h3><figure class="highlight pgsql"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs pgsql">./bin/mysql -uroot -p<br><span class="hljs-keyword">select</span> host,<span class="hljs-keyword">user</span>,<span class="hljs-keyword">password</span> <span class="hljs-keyword">from</span> <span class="hljs-keyword">user</span>;<br><span class="hljs-keyword">GRANT</span> <span class="hljs-keyword">ALL</span> <span class="hljs-keyword">PRIVILEGES</span> <span class="hljs-keyword">ON</span> *.* <span class="hljs-keyword">TO</span> <span class="hljs-string">&#x27;root&#x27;</span>@<span class="hljs-string">&#x27;%&#x27;</span> IDENTIFIED <span class="hljs-keyword">BY</span> <span class="hljs-string">&#x27;econage123&#x27;</span> <span class="hljs-keyword">WITH</span> <span class="hljs-keyword">GRANT</span> <span class="hljs-keyword">OPTION</span>;<br>FLUSH <span class="hljs-keyword">PRIVILEGES</span>;<br></code></pre></div></td></tr></table></figure>
-<h3 id="5、创建主从连接的用户"><a href="#5、创建主从连接的用户" class="headerlink" title="5、创建主从连接的用户"></a>5、创建主从连接的用户<master></h3><figure class="highlight pgsql"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs pgsql"><span class="hljs-keyword">create</span> <span class="hljs-keyword">user</span> <span class="hljs-string">&#x27;admin&#x27;</span>@<span class="hljs-string">&#x27;%&#x27;</span> identified <span class="hljs-keyword">by</span> <span class="hljs-string">&#x27;admin123&#x27;</span>;<br><span class="hljs-keyword">grant</span> <span class="hljs-keyword">replication</span> slave <span class="hljs-keyword">on</span> *.* <span class="hljs-keyword">to</span> <span class="hljs-string">&#x27;admin&#x27;</span>@<span class="hljs-string">&#x27;%&#x27;</span>;<br>FLUSH <span class="hljs-keyword">PRIVILEGES</span>;<br><span class="hljs-keyword">show</span> master status;<br></code></pre></div></td></tr></table></figure>
-<h3 id="6、进行关联master节点"><a href="#6、进行关联master节点" class="headerlink" title="6、进行关联master节点"></a>6、进行关联master节点<slave></h3><figure class="highlight routeros"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs routeros">CHANGE MASTER <span class="hljs-keyword">TO</span><br>  <span class="hljs-attribute">MASTER_HOST</span>=<span class="hljs-string">&#x27;172.18.103.211&#x27;</span>,<br>  <span class="hljs-attribute">MASTER_USER</span>=<span class="hljs-string">&#x27;econage&#x27;</span>,<br>  <span class="hljs-attribute">MASTER_PASSWORD</span>=<span class="hljs-string">&#x27;econage&#x27;</span>,<br>  <span class="hljs-attribute">MASTER_PORT</span>=3306,<br>  <span class="hljs-attribute">MASTER_LOG_FILE</span>=<span class="hljs-string">&#x27;mysql-bin.000003&#x27;</span>,<br>  <span class="hljs-attribute">MASTER_LOG_POS</span>=1552;<br></code></pre></div></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">.&#x2F;bin&#x2F;mysqladmin -uroot -p shutdown</span><br></pre></td></tr></table></figure>
+<h3 id="4、数据库连接、查询"><a href="#4、数据库连接、查询" class="headerlink" title="4、数据库连接、查询"></a>4、数据库连接、查询</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">.&#x2F;bin&#x2F;mysql -uroot -p</span><br><span class="line">select host,user,password from user;</span><br><span class="line">GRANT ALL PRIVILEGES ON *.* TO &#39;root&#39;@&#39;%&#39; IDENTIFIED BY &#39;econage123&#39; WITH GRANT OPTION;</span><br><span class="line">FLUSH PRIVILEGES;</span><br></pre></td></tr></table></figure>
+<h3 id="5、创建主从连接的用户"><a href="#5、创建主从连接的用户" class="headerlink" title="5、创建主从连接的用户"></a>5、创建主从连接的用户<master></h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">create user &#39;admin&#39;@&#39;%&#39; identified by &#39;admin123&#39;;</span><br><span class="line">grant replication slave on *.* to &#39;admin&#39;@&#39;%&#39;;</span><br><span class="line">FLUSH PRIVILEGES;</span><br><span class="line">show master status;</span><br></pre></td></tr></table></figure>
+<h3 id="6、进行关联master节点"><a href="#6、进行关联master节点" class="headerlink" title="6、进行关联master节点"></a>6、进行关联master节点<slave></h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">CHANGE MASTER TO</span><br><span class="line">  MASTER_HOST&#x3D;&#39;172.18.103.211&#39;,</span><br><span class="line">  MASTER_USER&#x3D;&#39;econage&#39;,</span><br><span class="line">  MASTER_PASSWORD&#x3D;&#39;econage&#39;,</span><br><span class="line">  MASTER_PORT&#x3D;3306,</span><br><span class="line">  MASTER_LOG_FILE&#x3D;&#39;mysql-bin.000003&#39;,</span><br><span class="line">  MASTER_LOG_POS&#x3D;1552;</span><br></pre></td></tr></table></figure>
 <p>最后输入命令 show slave status\G 查看状态。（写 \G 是换行）</p>
-<p><img src="https://yangpiqiulaotou.oss-cn-hangzhou.aliyuncs.com/images/image-20200408164002241.png" srcset="/img/loading.gif" alt="image-20200408164002241"></p>
+<p><img src="https://yangpiqiulaotou.oss-cn-hangzhou.aliyuncs.com/images/image-20200408164002241.png" alt="image-20200408164002241"></p>
 <p>如果状态没有同步</p>
-<figure class="highlight crmsh"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs crmsh"><span class="hljs-literal">stop</span>  <span class="hljs-literal">slave</span>;<br><span class="hljs-literal">start</span>  <span class="hljs-literal">slave</span>;<br>show <span class="hljs-literal">slave</span> status\G<br></code></pre></div></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">stop  slave;</span><br><span class="line">start  slave;</span><br><span class="line">show slave status\G</span><br></pre></td></tr></table></figure>
 <p>参考文章：<a target="_blank" rel="noopener" href="https://www.landui.com/help/show-9902.html">https://www.landui.com/help/show-9902.html</a></p>
 <p>​                    <a target="_blank" rel="noopener" href="https://blog.csdn.net/yhld456/article/details/89020979">https://blog.csdn.net/yhld456/article/details/89020979</a></p>
 
-            </div>
-            <hr>
-            <div>
-              <div class="post-metas mb-3">
-                
-                  <div class="post-meta mr-3">
-                    <i class="iconfont icon-category"></i>
-                    
-                      <a class="hover-with-bg" href="/categories/%E5%85%B3%E7%B3%BB%E5%9E%8B%E6%95%B0%E6%8D%AE%E5%BA%93/">关系型数据库</a>
-                    
-                  </div>
-                
-                
-                  <div class="post-meta">
-                    <i class="iconfont icon-tags"></i>
-                    
-                      <a class="hover-with-bg" href="/tags/Mariadb/">Mariadb</a>
-                    
-                  </div>
-                
-              </div>
-              
-                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
-              
-              
-                <div class="post-prevnext">
-                  <article class="post-prev col-6">
-                    
-                    
-                      <a href="/2021/01/05/Linux%EF%BC%88centos%EF%BC%89%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%8E%AF%E5%A2%83%E9%80%9A%E7%94%A8%E4%BC%98%E5%8C%96/">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">Linux（centos）服务器环境通用优化</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
-                  </article>
-                  <article class="post-next col-6">
-                    
-                    
-                      <a href="/2021/01/05/Linux%E4%BA%8C%E8%BF%9B%E5%88%B6%E8%BD%AF%E4%BB%B6%E5%8C%85%E5%AE%89%E8%A3%85Mysql8%E4%B8%BB%E4%BB%8E%E5%A4%8D%E5%88%B6/">
-                        <span class="hidden-mobile">Linux二进制软件包安装Mysql8主从复制</span>
-                        <span class="visible-mobile">下一篇</span>
-                        <i class="iconfont icon-arrowright"></i>
-                      </a>
-                    
-                  </article>
-                </div>
-              
-            </div>
-
-            
-              <!-- Comments -->
-              <article class="comments" id="comments">
-                
-                
-  <div id="vcomments"></div>
-  <script type="text/javascript">
-    Fluid.utils.waitElementVisible('vcomments', function() {
-      Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js', function () {
-        new Valine({
-          el: "#vcomments",
-          app_id: "hPHtsN0Gt7U2zB2AllYqbucc-9Nh9j0Va",
-          app_key: "TVUER8rWijR8cD1STqzd2d4E",
-          placeholder: "你有故事，我有酒，我们一起勇闯天涯。。。",
-          path: window.location.pathname,
-          avatar: "retro",
-          meta: ["nick","mail","link"],
-          pageSize: "10",
-          lang: "zh-CN",
-          highlight: false,
-          recordIP: false,
-          serverURLs: "",
-        });
-      });
-    });
-  </script>
-  <noscript>Please enable JavaScript to view the
-    <a target="_blank" href="https://valine.js.org" rel="nofollow noopener noopener">comments powered by Valine.</a>
-  </noscript>
-
-
-              </article>
-            
-          </article>
-        </div>
-      </div>
     </div>
+
     
-      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
-        <div id="toc">
-  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
-  <div class="toc-body" id="toc-body"></div>
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Mariadb/" rel="tag"># Mariadb</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2021/01/05/Linux%E4%BA%8C%E8%BF%9B%E5%88%B6%E8%BD%AF%E4%BB%B6%E5%8C%85%E5%AE%89%E8%A3%85Mysql8%E4%B8%BB%E4%BB%8E%E5%A4%8D%E5%88%B6/" rel="prev" title="Linux二进制软件包安装Mysql8主从复制">
+                  <i class="fa fa-chevron-left"></i> Linux二进制软件包安装Mysql8主从复制
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2021/01/05/Linux%EF%BC%88centos%EF%BC%89%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%8E%AF%E5%A2%83%E9%80%9A%E7%94%A8%E4%BC%98%E5%8C%96/" rel="next" title="Linux（centos）服务器环境通用优化">
+                  Linux（centos）服务器环境通用优化 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
 </div>
 
-      </div>
-    
-  </div>
+
+
+
+
+
 </div>
-
-<!-- Custom -->
-
-
-    
-
-    
-      <a id="scroll-top-button" href="#" role="button">
-        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
-      </a>
-    
-
-    
-      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
-     aria-hidden="true">
-  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
-    <div class="modal-content">
-      <div class="modal-header text-center">
-        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
-        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body mx-3">
-        <div class="md-form mb-5">
-          <input type="text" id="local-search-input" class="form-control validate">
-          <label data-error="x" data-success="v"
-                 for="local-search-input">关键词</label>
-        </div>
-        <div class="list-group" id="local-search-result"></div>
-      </div>
-    </div>
-  </div>
-</div>
-    
-
-    
   </main>
 
-  <footer class="text-center mt-5 py-3">
-  <div class="footer-content">
-     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
-  </div>
-  
-  <div class="statistics">
-    
-    
+  <footer class="footer">
+    <div class="footer-inner">
 
-    
-      
-        <!-- 不蒜子统计PV -->
-        <span id="busuanzi_container_site_pv" style="display: none">
-            总访问量 
-            <span id="busuanzi_value_site_pv"></span>
-             次
-          </span>
-      
-      
-        <!-- 不蒜子统计UV -->
-        <span id="busuanzi_container_site_uv" style="display: none">
-            总访客数 
-            <span id="busuanzi_value_site_uv"></span>
-             人
-          </span>
-      
-    
+
+<div class="copyright">
+  &copy; 2020 – 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">羊皮裘老头</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
   </div>
 
+    </div>
+  </footer>
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
 
   
 
-  
-</footer>
 
-<!-- SCRIPTS -->
-
-  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
-  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
-
-  <script>
-    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
-    NProgress.start()
-    window.addEventListener('load', function() {
-      NProgress.done();
-    })
-  </script>
-
-
-<script  src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" ></script>
-<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" ></script>
-<script  src="/js/debouncer.js" ></script>
-<script  src="/js/events.js" ></script>
-<script  src="/js/plugins.js" ></script>
-
-<!-- Plugins -->
-
-
-  
-    <script  src="/js/lazyload.js" ></script>
-  
 
 
 
   
 
 
-
-  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.0/dist/tocbot.min.js" ></script>
-
-
-
-  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
-
-
-
-  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.0/anchor.min.js" ></script>
-
-
-
-  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js" ></script>
-
-
-
-  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
-
-
-
-
-
-
-  <script  src="/js/local-search.js" ></script>
-  <script>
-    (function () {
-      var path = "/local-search.xml";
-      var inputArea = document.querySelector("#local-search-input");
-      inputArea.onclick = function () {
-        searchFunc(path, 'local-search-input', 'local-search-result');
-        this.onclick = null
-      }
-    })()
-  </script>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<!-- 主题的启动项 保持在最底部 -->
-<script  src="/js/boot.js" ></script>
 
 
 

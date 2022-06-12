@@ -1,289 +1,264 @@
-
-
 <!DOCTYPE html>
-<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
-
-
-
+<html lang="zh-CN">
 <head>
   <meta charset="UTF-8">
-  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
-  <link rel="icon" type="image/png" href="/img/favicon.png">
-  <meta name="viewport"
-        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
-  <meta http-equiv="x-ua-compatible" content="ie=edge">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 5.3.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.12.1","exturl":false,"sidebar":{"position":"left","width":300,"display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="1、rancher介绍每个团队都可以在他们选择的公共云或私有云上部署应用程序，Rancher 在 IT 和 DevOps 组织中扮演的角色如下：  同时具备多种功能：  内置 CI&#x2F;CD 流水线 告警和日志收集功能 多集群管理功能 集成 Rancher Kubernetes Engine (RKE) 与各云 Kubernetes 服务(如 GKE、EKS、AKS) 集成  2、安装要求2.1操作系">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Rancher:v2.3安装创建K8s集群">
+<meta property="og:url" content="http://example.com/2021/01/04/rancher-v2-3%E5%AE%89%E8%A3%85%E5%88%9B%E5%BB%BAK8s%E9%9B%86%E7%BE%A4/index.html">
+<meta property="og:site_name" content="羊皮裘老头">
+<meta property="og:description" content="1、rancher介绍每个团队都可以在他们选择的公共云或私有云上部署应用程序，Rancher 在 IT 和 DevOps 组织中扮演的角色如下：  同时具备多种功能：  内置 CI&#x2F;CD 流水线 告警和日志收集功能 多集群管理功能 集成 Rancher Kubernetes Engine (RKE) 与各云 Kubernetes 服务(如 GKE、EKS、AKS) 集成  2、安装要求2.1操作系">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://yangpiqiulaotou.oss-cn-hangzhou.aliyuncs.com/images/image-20191125105835491.png">
+<meta property="og:image" content="https://yangpiqiulaotou.oss-cn-hangzhou.aliyuncs.com/images/image-20191125104210860.png">
+<meta property="og:image" content="https://yangpiqiulaotou.oss-cn-hangzhou.aliyuncs.com/images/image-20191125104545019.png">
+<meta property="og:image" content="https://yangpiqiulaotou.oss-cn-hangzhou.aliyuncs.com/images/image-20191125104610584.png">
+<meta property="og:image" content="https://yangpiqiulaotou.oss-cn-hangzhou.aliyuncs.com/images/image-20191125104812067.png">
+<meta property="og:image" content="https://yangpiqiulaotou.oss-cn-hangzhou.aliyuncs.com/images/image-20191125110853326.png">
+<meta property="og:image" content="https://yangpiqiulaotou.oss-cn-hangzhou.aliyuncs.com/images/image-20191125110956934.png">
+<meta property="og:image" content="https://yangpiqiulaotou.oss-cn-hangzhou.aliyuncs.com/images/image-20191125111044885.png">
+<meta property="og:image" content="https://yangpiqiulaotou.oss-cn-hangzhou.aliyuncs.com/images/image-20191125111137103.png">
+<meta property="og:image" content="https://yangpiqiulaotou.oss-cn-hangzhou.aliyuncs.com/images/image-20191125111225387.png">
+<meta property="og:image" content="https://yangpiqiulaotou.oss-cn-hangzhou.aliyuncs.com/images/image-20191125111408862.png">
+<meta property="og:image" content="https://yangpiqiulaotou.oss-cn-hangzhou.aliyuncs.com/images/image-20191125111607904.png">
+<meta property="og:image" content="https://yangpiqiulaotou.oss-cn-hangzhou.aliyuncs.com/images/image-20191125111641275.png">
+<meta property="og:image" content="https://yangpiqiulaotou.oss-cn-hangzhou.aliyuncs.com/images/image-20191125111756334.png">
+<meta property="og:image" content="https://yangpiqiulaotou.oss-cn-hangzhou.aliyuncs.com/images/image-20191125111943481.png">
+<meta property="og:image" content="https://yangpiqiulaotou.oss-cn-hangzhou.aliyuncs.com/images/image-20191125112055397.png">
+<meta property="og:image" content="https://yangpiqiulaotou.oss-cn-hangzhou.aliyuncs.com/images/image-20191125112358230.png">
+<meta property="og:image" content="https://yangpiqiulaotou.oss-cn-hangzhou.aliyuncs.com/images/image-20191125113210838.png">
+<meta property="og:image" content="https://yangpiqiulaotou.oss-cn-hangzhou.aliyuncs.com/images/image-20191125113405043.png">
+<meta property="og:image" content="https://yangpiqiulaotou.oss-cn-hangzhou.aliyuncs.com/images/image-20191125113631090.png">
+<meta property="article:published_time" content="2021-01-04T02:31:15.000Z">
+<meta property="article:modified_time" content="2022-04-17T09:07:34.555Z">
+<meta property="article:author" content="羊皮裘老头">
+<meta property="article:tag" content="Rancher">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://yangpiqiulaotou.oss-cn-hangzhou.aliyuncs.com/images/image-20191125105835491.png">
+
+
+<link rel="canonical" href="http://example.com/2021/01/04/rancher-v2-3%E5%AE%89%E8%A3%85%E5%88%9B%E5%BB%BAK8s%E9%9B%86%E7%BE%A4/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://example.com/2021/01/04/rancher-v2-3%E5%AE%89%E8%A3%85%E5%88%9B%E5%BB%BAK8s%E9%9B%86%E7%BE%A4/","path":"2021/01/04/rancher-v2-3安装创建K8s集群/","title":"Rancher:v2.3安装创建K8s集群"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>Rancher:v2.3安装创建K8s集群 | 羊皮裘老头</title>
   
-  <meta name="theme-color" content="#2f4154">
-  <meta name="description" content="">
-  <meta name="author" content="羊皮裘老头">
-  <meta name="keywords" content="">
-  <title>Rancher:v2.3安装创建K8s集群 - 羊皮裘老头</title>
-
-  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
-
-
-  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
-  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
-
-  
-    
-    
-      
-      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.4.0/styles/github-gist.min.css" />
-    
-  
-
-  
-    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
-  
 
 
 
-<!-- 主题依赖的图标库，不要自行修改 -->
-
-<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
 
 
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
 
-<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
 
-
-<link  rel="stylesheet" href="/css/main.css" />
-
-<!-- 自定义样式保持在最底部 -->
-
-
-  <script id="fluid-configs">
-    var Fluid = window.Fluid || {};
-    var CONFIG = {"hostname":"example.com","root":"/","version":"1.8.7","typing":{"enable":false,"typeSpeed":70,"cursorChar":" ","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"onlypost":false},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}}};
-  </script>
-  <script  src="/js/utils.js" ></script>
-  <script  src="/js/color-schema.js" ></script>
-<meta name="generator" content="Hexo 5.3.0"></head>
-
-
-<body>
-  <header style="height: 70vh;">
-    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
-  <div class="container">
-    <a class="navbar-brand"
-       href="/">&nbsp;<strong>羊皮裘老头</strong>&nbsp;</a>
-
-    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
-            data-target="#navbarSupportedContent"
-            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <div class="animated-icon"><span></span><span></span><span></span></div>
-    </button>
-
-    <!-- Collapsible content -->
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav ml-auto text-center">
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/">
-                <i class="iconfont icon-home-fill"></i>
-                首页
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/archives/">
-                <i class="iconfont icon-archive-fill"></i>
-                归档
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/categories/">
-                <i class="iconfont icon-category-fill"></i>
-                分类
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/tags/">
-                <i class="iconfont icon-tags-fill"></i>
-                标签
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/about/">
-                <i class="iconfont icon-user-fill"></i>
-                关于
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <i class="iconfont icon-books"></i>
-                文档
-              </a>
-              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                
-                  
-                  
-                  
-                  <a class="dropdown-item" target="_blank" rel="noopener" href="https://hexo.fluid-dev.com/">
-                    
-                    主题博客
-                  </a>
-                
-                  
-                  
-                  
-                  <a class="dropdown-item" target="_blank" rel="noopener" href="https://hexo.fluid-dev.com/docs/guide/">
-                    
-                    配置指南
-                  </a>
-                
-                  
-                  
-                  
-                  <a class="dropdown-item" target="_blank" rel="noopener" href="https://hexo.fluid-dev.com/docs/icon/">
-                    
-                    图标用法
-                  </a>
-                
-              </div>
-            </li>
-          
-        
-        
-          <li class="nav-item" id="search-btn">
-            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
-                class="iconfont icon-search"></i>&nbsp;</a>
-          </li>
-        
-        
-          <li class="nav-item" id="color-toggle-btn">
-            <a class="nav-link" href="javascript:">&nbsp;<i
-                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
-          </li>
-        
-      </ul>
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
     </div>
   </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">羊皮裘老头</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">28</span></a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">13</span></a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">116</span></a></li><li class="menu-item menu-item-schedule"><a href="/schedule/" rel="section"><i class="fa fa-calendar fa-fw"></i>日程表</a></li><li class="menu-item menu-item-sitemap"><a href="/sitemap.xml" rel="section"><i class="fa fa-sitemap fa-fw"></i>站点地图</a></li><li class="menu-item menu-item-commonweal"><a href="/404/" rel="section"><i class="fa fa-heartbeat fa-fw"></i>公益 404</a></li>
+  </ul>
 </nav>
 
-    <div class="banner" id="banner" parallax=true
-         style="background: url('/img/ss.png') no-repeat center center;
-           background-size: cover;">
-      <div class="full-bg-img">
-        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
-          <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="Rancher:v2.3安装创建K8s集群">
-              
-                Rancher:v2.3安装创建K8s集群
-              
-            </span>
 
-            
-              <div class="mt-3">
+
+
+</div>
+        
   
-  
-    <span class="post-meta">
-      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-      <time datetime="2021-01-04 10:31" pubdate>
-        2021年1月4日 上午
-      </time>
-    </span>
-  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#1%E3%80%81rancher%E4%BB%8B%E7%BB%8D"><span class="nav-number">1.</span> <span class="nav-text">1、rancher介绍</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2%E3%80%81%E5%AE%89%E8%A3%85%E8%A6%81%E6%B1%82"><span class="nav-number">2.</span> <span class="nav-text">2、安装要求</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#2-1%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E5%92%8CDocker%E8%A6%81%E6%B1%82"><span class="nav-number">2.1.</span> <span class="nav-text">2.1操作系统和Docker要求</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-2%E7%A1%AC%E4%BB%B6%E9%9C%80%E6%B1%82"><span class="nav-number">2.2.</span> <span class="nav-text">2.2硬件需求</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-3Rancher%E4%B8%8E%E7%94%A8%E6%88%B7%E7%BE%A4%E9%9B%86%E9%80%9A%E4%BF%A1%E7%9A%84%E7%AB%AF%E5%8F%A3%E8%A6%81%E6%B1%82"><span class="nav-number">2.3.</span> <span class="nav-text">2.3Rancher与用户群集通信的端口要求</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3%E3%80%81%E5%8D%95%E8%8A%82%E7%82%B9%E5%AE%89%E8%A3%85"><span class="nav-number">3.</span> <span class="nav-text">3、单节点安装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4%E3%80%81rancher%E7%9A%84web%E7%95%8C%E9%9D%A2"><span class="nav-number">4.</span> <span class="nav-text">4、rancher的web界面</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#4-1%E8%87%AA%E5%AE%9A%E4%B9%89%E9%9B%86%E7%BE%A4"><span class="nav-number">4.1.</span> <span class="nav-text">4.1自定义集群</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-2%E5%AF%BC%E5%85%A5%E9%9B%86%E7%BE%A4"><span class="nav-number">4.2.</span> <span class="nav-text">4.2导入集群</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">羊皮裘老头</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">116</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">13</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">28</span>
+        <span class="site-state-item-name">标签</span>
+      </div>
+  </nav>
 </div>
 
-<div class="mt-1">
-  
-    
-    <span class="post-meta mr-2">
-      <i class="iconfont icon-chart"></i>
-      557 字
-    </span>
-  
 
-  
-    
-    <span class="post-meta mr-2">
-      <i class="iconfont icon-clock-fill"></i>
-      
-      
-      6
-       分钟
-    </span>
-  
 
-  
-  
-    
-      <!-- LeanCloud 统计文章PV -->
-      <span id="leancloud-page-views-container" class="post-meta" style="display: none">
-        <i class="iconfont icon-eye" aria-hidden="true"></i>
-        <span id="leancloud-page-views"></span> 次
-      </span>
-    
-  
-</div>
-
-            
-          </div>
-
-          
         </div>
       </div>
     </div>
-  </header>
+  </aside>
+  <div class="sidebar-dimmer"></div>
 
-  <main>
+
+    </header>
+
     
-      
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
 
-<div class="container-fluid nopadding-x">
-  <div class="row nomargin-x">
-    <div class="d-none d-lg-block col-lg-2"></div>
-    <div class="col-lg-8 nopadding-x-md">
-      <div class="container nopadding-x-md" id="board-ctn">
-        <div class="py-5" id="board">
-          <article class="post-content mx-auto">
-            <!-- SEO header -->
-            <h1 style="display: none">Rancher:v2.3安装创建K8s集群</h1>
-            
-              <p class="note note-info">
-                
-                  本文最后更新于：2022年4月17日 下午
-                
-              </p>
-            
-            <div class="markdown-body">
-              <h3 id="1、rancher介绍"><a href="#1、rancher介绍" class="headerlink" title="1、rancher介绍"></a>1、rancher介绍</h3><p>每个团队都可以在他们选择的公共云或私有云上部署应用程序，Rancher 在 IT 和 DevOps 组织中扮演的角色如下：</p>
-<p><img src="https://yangpiqiulaotou.oss-cn-hangzhou.aliyuncs.com/images/image-20191125105835491.png" srcset="/img/loading.gif" alt="image-20191125105835491"></p>
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/01/04/rancher-v2-3%E5%AE%89%E8%A3%85%E5%88%9B%E5%BB%BAK8s%E9%9B%86%E7%BE%A4/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="羊皮裘老头">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="羊皮裘老头">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="Rancher:v2.3安装创建K8s集群 | 羊皮裘老头">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Rancher:v2.3安装创建K8s集群
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2021-01-04 10:31:15" itemprop="dateCreated datePublished" datetime="2021-01-04T10:31:15+08:00">2021-01-04</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-04-17 17:07:34" itemprop="dateModified" datetime="2022-04-17T17:07:34+08:00">2022-04-17</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Rancher/" itemprop="url" rel="index"><span itemprop="name">Rancher</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h3 id="1、rancher介绍"><a href="#1、rancher介绍" class="headerlink" title="1、rancher介绍"></a>1、rancher介绍</h3><p>每个团队都可以在他们选择的公共云或私有云上部署应用程序，Rancher 在 IT 和 DevOps 组织中扮演的角色如下：</p>
+<p><img src="https://yangpiqiulaotou.oss-cn-hangzhou.aliyuncs.com/images/image-20191125105835491.png" alt="image-20191125105835491"></p>
 <p>同时具备多种功能：</p>
 <ul>
 <li>内置 CI/CD 流水线</li>
@@ -292,306 +267,118 @@
 <li>集成 Rancher Kubernetes Engine (RKE)</li>
 <li>与各云 Kubernetes 服务(如 GKE、EKS、AKS) 集成</li>
 </ul>
-<h3 id="2、安装要求"><a href="#2、安装要求" class="headerlink" title="2、安装要求"></a>2、安装要求</h3><h4 id="2-1操作系统和Docker要求"><a href="#2-1操作系统和Docker要求" class="headerlink" title="2.1操作系统和Docker要求"></a>2.1操作系统和Docker要求</h4><p><img src="https://yangpiqiulaotou.oss-cn-hangzhou.aliyuncs.com/images/image-20191125104210860.png" srcset="/img/loading.gif" alt="image-20191125104210860"></p>
+<h3 id="2、安装要求"><a href="#2、安装要求" class="headerlink" title="2、安装要求"></a>2、安装要求</h3><h4 id="2-1操作系统和Docker要求"><a href="#2-1操作系统和Docker要求" class="headerlink" title="2.1操作系统和Docker要求"></a>2.1操作系统和Docker要求</h4><p><img src="https://yangpiqiulaotou.oss-cn-hangzhou.aliyuncs.com/images/image-20191125104210860.png" alt="image-20191125104210860"></p>
 <h4 id="2-2硬件需求"><a href="#2-2硬件需求" class="headerlink" title="2.2硬件需求"></a>2.2硬件需求</h4><p>HA集群</p>
-<p><img src="https://yangpiqiulaotou.oss-cn-hangzhou.aliyuncs.com/images/image-20191125104545019.png" srcset="/img/loading.gif" alt="image-20191125104545019"></p>
+<p><img src="https://yangpiqiulaotou.oss-cn-hangzhou.aliyuncs.com/images/image-20191125104545019.png" alt="image-20191125104545019"></p>
 <p>单节点</p>
-<p><img src="https://yangpiqiulaotou.oss-cn-hangzhou.aliyuncs.com/images/image-20191125104610584.png" srcset="/img/loading.gif" alt="image-20191125104610584"></p>
-<h4 id="2-3Rancher与用户群集通信的端口要求"><a href="#2-3Rancher与用户群集通信的端口要求" class="headerlink" title="2.3Rancher与用户群集通信的端口要求"></a>2.3Rancher与用户群集通信的端口要求</h4><p><img src="https://yangpiqiulaotou.oss-cn-hangzhou.aliyuncs.com/images/image-20191125104812067.png" srcset="/img/loading.gif" alt="image-20191125104812067"></p>
-<h3 id="3、单节点安装"><a href="#3、单节点安装" class="headerlink" title="3、单节点安装"></a>3、单节点安装</h3><figure class="highlight awk"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs awk">docker run -d --restart=unless-stopped \<br>  -p <span class="hljs-number">80</span>:<span class="hljs-number">80</span> -p <span class="hljs-number">443</span>:<span class="hljs-number">443</span> \<br>  -v <span class="hljs-regexp">/usr/</span>local<span class="hljs-regexp">/rancher:/u</span>sr<span class="hljs-regexp">/local/</span>rancher \<br>  rancher/rancher:latest<br></code></pre></div></td></tr></table></figure>
+<p><img src="https://yangpiqiulaotou.oss-cn-hangzhou.aliyuncs.com/images/image-20191125104610584.png" alt="image-20191125104610584"></p>
+<h4 id="2-3Rancher与用户群集通信的端口要求"><a href="#2-3Rancher与用户群集通信的端口要求" class="headerlink" title="2.3Rancher与用户群集通信的端口要求"></a>2.3Rancher与用户群集通信的端口要求</h4><p><img src="https://yangpiqiulaotou.oss-cn-hangzhou.aliyuncs.com/images/image-20191125104812067.png" alt="image-20191125104812067"></p>
+<h3 id="3、单节点安装"><a href="#3、单节点安装" class="headerlink" title="3、单节点安装"></a>3、单节点安装</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">docker run -d --restart&#x3D;unless-stopped \</span><br><span class="line">  -p 80:80 -p 443:443 \</span><br><span class="line">  -v &#x2F;usr&#x2F;local&#x2F;rancher:&#x2F;usr&#x2F;local&#x2F;rancher \</span><br><span class="line">  rancher&#x2F;rancher:latest</span><br></pre></td></tr></table></figure>
 <h3 id="4、rancher的web界面"><a href="#4、rancher的web界面" class="headerlink" title="4、rancher的web界面"></a>4、rancher的web界面</h3><h4 id="4-1自定义集群"><a href="#4-1自定义集群" class="headerlink" title="4.1自定义集群"></a>4.1自定义集群</h4><p>通过宿主机的IP登录</p>
-<p><img src="https://yangpiqiulaotou.oss-cn-hangzhou.aliyuncs.com/images/image-20191125110853326.png" srcset="/img/loading.gif" alt="image-20191125110853326"></p>
+<p><img src="https://yangpiqiulaotou.oss-cn-hangzhou.aliyuncs.com/images/image-20191125110853326.png" alt="image-20191125110853326"></p>
 <p>设置需要访问的URL地址</p>
-<p><img src="https://yangpiqiulaotou.oss-cn-hangzhou.aliyuncs.com/images/image-20191125110956934.png" srcset="/img/loading.gif" alt="image-20191125110956934"></p>
+<p><img src="https://yangpiqiulaotou.oss-cn-hangzhou.aliyuncs.com/images/image-20191125110956934.png" alt="image-20191125110956934"></p>
 <p>设置中文字体</p>
-<p><img src="https://yangpiqiulaotou.oss-cn-hangzhou.aliyuncs.com/images/image-20191125111044885.png" srcset="/img/loading.gif" alt="image-20191125111044885"></p>
+<p><img src="https://yangpiqiulaotou.oss-cn-hangzhou.aliyuncs.com/images/image-20191125111044885.png" alt="image-20191125111044885"></p>
 <p>添加集群</p>
-<p><img src="https://yangpiqiulaotou.oss-cn-hangzhou.aliyuncs.com/images/image-20191125111137103.png" srcset="/img/loading.gif" alt="image-20191125111137103"></p>
+<p><img src="https://yangpiqiulaotou.oss-cn-hangzhou.aliyuncs.com/images/image-20191125111137103.png" alt="image-20191125111137103"></p>
 <p>生成自己的集群</p>
-<p><img src="https://yangpiqiulaotou.oss-cn-hangzhou.aliyuncs.com/images/image-20191125111225387.png" srcset="/img/loading.gif" alt="image-20191125111225387"></p>
+<p><img src="https://yangpiqiulaotou.oss-cn-hangzhou.aliyuncs.com/images/image-20191125111225387.png" alt="image-20191125111225387"></p>
 <p>可以自定义RKE集群，也可以导入自己已经建好的集群。</p>
-<p><img src="https://yangpiqiulaotou.oss-cn-hangzhou.aliyuncs.com/images/image-20191125111408862.png" srcset="/img/loading.gif" alt="image-20191125111408862"></p>
+<p><img src="https://yangpiqiulaotou.oss-cn-hangzhou.aliyuncs.com/images/image-20191125111408862.png" alt="image-20191125111408862"></p>
 <p>设置自定义集群的名字 ，选择需要安装的集群的版本。</p>
-<p><img src="https://yangpiqiulaotou.oss-cn-hangzhou.aliyuncs.com/images/image-20191125111607904.png" srcset="/img/loading.gif" alt="image-20191125111607904"></p>
+<p><img src="https://yangpiqiulaotou.oss-cn-hangzhou.aliyuncs.com/images/image-20191125111607904.png" alt="image-20191125111607904"></p>
 <p>选择需要的网络策略。</p>
-<p><img src="https://yangpiqiulaotou.oss-cn-hangzhou.aliyuncs.com/images/image-20191125111641275.png" srcset="/img/loading.gif" alt="image-20191125111641275"></p>
+<p><img src="https://yangpiqiulaotou.oss-cn-hangzhou.aliyuncs.com/images/image-20191125111641275.png" alt="image-20191125111641275"></p>
 <p>自己私有仓库地址，以及账密。</p>
-<p><img src="https://yangpiqiulaotou.oss-cn-hangzhou.aliyuncs.com/images/image-20191125111756334.png" srcset="/img/loading.gif" alt="image-20191125111756334"></p>
+<p><img src="https://yangpiqiulaotou.oss-cn-hangzhou.aliyuncs.com/images/image-20191125111756334.png" alt="image-20191125111756334"></p>
 <p>根据自己需求设置。</p>
-<p><img src="https://yangpiqiulaotou.oss-cn-hangzhou.aliyuncs.com/images/image-20191125111943481.png" srcset="/img/loading.gif" alt="image-20191125111943481"></p>
+<p><img src="https://yangpiqiulaotou.oss-cn-hangzhou.aliyuncs.com/images/image-20191125111943481.png" alt="image-20191125111943481"></p>
 <p>master节点选择后在你需要安装成master节点运行下面的命令</p>
-<p><img src="https://yangpiqiulaotou.oss-cn-hangzhou.aliyuncs.com/images/image-20191125112055397.png" srcset="/img/loading.gif" alt="image-20191125112055397"></p>
+<p><img src="https://yangpiqiulaotou.oss-cn-hangzhou.aliyuncs.com/images/image-20191125112055397.png" alt="image-20191125112055397"></p>
 <p>在工作节点运行以下命令。</p>
 <p>运行过程会去拉取所需镜像，时间视自己网络情况而定。</p>
 <p>所有容器运行好之后可以看到以下界面，表示你的集群已经好了</p>
-<p><img src="https://yangpiqiulaotou.oss-cn-hangzhou.aliyuncs.com/images/image-20191125112358230.png" srcset="/img/loading.gif" alt="image-20191125112358230"></p>
+<p><img src="https://yangpiqiulaotou.oss-cn-hangzhou.aliyuncs.com/images/image-20191125112358230.png" alt="image-20191125112358230"></p>
 <p>复制kubeconfig文件在master节点下执行</p>
-<figure class="highlight elixir"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs elixir"><span class="hljs-comment"># 添加Kubernetes的yum源</span><br><span class="hljs-variable">$ </span>cat &gt;&gt; <span class="hljs-regexp">/etc/yum</span>.repos.d/kubernetes.repo &lt;&lt;EOF<br>[kubernetes]<br>name=Kubernetes<br>baseurl=<span class="hljs-symbol">https:</span>/<span class="hljs-regexp">/mirrors.aliyun.com/kubernetes</span><span class="hljs-regexp">/yum/repos</span><span class="hljs-regexp">/kubernetes-el7-x86_64/</span><br>enabled=<span class="hljs-number">1</span><br>gpgcheck=0<br>EOF<br><br><span class="hljs-comment"># 查看可安装的版本</span><br><span class="hljs-variable">$ </span>yum list kubectl –showduplicates<br><br><span class="hljs-comment"># yum方式安装kubectl</span><br><span class="hljs-variable">$ </span>yum install -y kubectl.x86_64<br><br>[root<span class="hljs-variable">@node1</span> ~]<span class="hljs-comment"># mkdir -p .kube</span><br>[root<span class="hljs-variable">@node1</span> ~]<span class="hljs-comment"># vim .kube/config</span><br></code></pre></div></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"># 添加Kubernetes的yum源</span><br><span class="line">$ cat &gt;&gt; &#x2F;etc&#x2F;yum.repos.d&#x2F;kubernetes.repo &lt;&lt;EOF</span><br><span class="line">[kubernetes]</span><br><span class="line">name&#x3D;Kubernetes</span><br><span class="line">baseurl&#x3D;https:&#x2F;&#x2F;mirrors.aliyun.com&#x2F;kubernetes&#x2F;yum&#x2F;repos&#x2F;kubernetes-el7-x86_64&#x2F;</span><br><span class="line">enabled&#x3D;1</span><br><span class="line">gpgcheck&#x3D;0</span><br><span class="line">EOF</span><br><span class="line"></span><br><span class="line"># 查看可安装的版本</span><br><span class="line">$ yum list kubectl –showduplicates</span><br><span class="line"></span><br><span class="line"># yum方式安装kubectl</span><br><span class="line">$ yum install -y kubectl.x86_64</span><br><span class="line"></span><br><span class="line">[root@node1 ~]# mkdir -p .kube</span><br><span class="line">[root@node1 ~]# vim .kube&#x2F;config</span><br></pre></td></tr></table></figure>
 <p>即可在master节点通过命令行查看整个集群信息。</p>
-<h4 id="4-2导入集群"><a href="#4-2导入集群" class="headerlink" title="4.2导入集群"></a>4.2导入集群</h4><p><img src="https://yangpiqiulaotou.oss-cn-hangzhou.aliyuncs.com/images/image-20191125113210838.png" srcset="/img/loading.gif" alt="image-20191125113210838"></p>
+<h4 id="4-2导入集群"><a href="#4-2导入集群" class="headerlink" title="4.2导入集群"></a>4.2导入集群</h4><p><img src="https://yangpiqiulaotou.oss-cn-hangzhou.aliyuncs.com/images/image-20191125113210838.png" alt="image-20191125113210838"></p>
 <p>随便定义一个集群名。</p>
-<p><img src="https://yangpiqiulaotou.oss-cn-hangzhou.aliyuncs.com/images/image-20191125113405043.png" srcset="/img/loading.gif" alt="image-20191125113405043"></p>
+<p><img src="https://yangpiqiulaotou.oss-cn-hangzhou.aliyuncs.com/images/image-20191125113405043.png" alt="image-20191125113405043"></p>
 <p>复制下面两条命令在master节点运行，运行第一条命令时，由于是自签证书会报x509错误，在执行下面一条命令跳过错误就好。</p>
 <p>当在master节点看到</p>
-<p><img src="https://yangpiqiulaotou.oss-cn-hangzhou.aliyuncs.com/images/image-20191125113631090.png" srcset="/img/loading.gif" alt="image-20191125113631090"></p>
+<p><img src="https://yangpiqiulaotou.oss-cn-hangzhou.aliyuncs.com/images/image-20191125113631090.png" alt="image-20191125113631090"></p>
 <p>则表示集群导入成功，如果pod状态报错，根据报错信息处理即可。</p>
 
-            </div>
-            <hr>
-            <div>
-              <div class="post-metas mb-3">
-                
-                  <div class="post-meta mr-3">
-                    <i class="iconfont icon-category"></i>
-                    
-                      <a class="hover-with-bg" href="/categories/Rancher/">Rancher</a>
-                    
-                  </div>
-                
-                
-                  <div class="post-meta">
-                    <i class="iconfont icon-tags"></i>
-                    
-                      <a class="hover-with-bg" href="/tags/Rancher/">Rancher</a>
-                    
-                  </div>
-                
-              </div>
-              
-                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
-              
-              
-                <div class="post-prevnext">
-                  <article class="post-prev col-6">
-                    
-                    
-                      <a href="/2021/01/04/rancher%E6%B5%81%E6%B0%B4%E7%BA%BF-%E5%90%8E%E7%AB%AF/">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">Rancher流水线<后端></span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
-                  </article>
-                  <article class="post-next col-6">
-                    
-                    
-                      <a href="/2020/12/30/Hexo%E9%9B%86%E6%88%90Valine%E8%AF%84%E8%AE%BA%E7%B3%BB%E7%BB%9F/">
-                        <span class="hidden-mobile">Hexo集成Valine评论系统</span>
-                        <span class="visible-mobile">下一篇</span>
-                        <i class="iconfont icon-arrowright"></i>
-                      </a>
-                    
-                  </article>
-                </div>
-              
-            </div>
-
-            
-              <!-- Comments -->
-              <article class="comments" id="comments">
-                
-                
-  <div id="vcomments"></div>
-  <script type="text/javascript">
-    Fluid.utils.waitElementVisible('vcomments', function() {
-      Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js', function () {
-        new Valine({
-          el: "#vcomments",
-          app_id: "hPHtsN0Gt7U2zB2AllYqbucc-9Nh9j0Va",
-          app_key: "TVUER8rWijR8cD1STqzd2d4E",
-          placeholder: "你有故事，我有酒，我们一起勇闯天涯。。。",
-          path: window.location.pathname,
-          avatar: "retro",
-          meta: ["nick","mail","link"],
-          pageSize: "10",
-          lang: "zh-CN",
-          highlight: false,
-          recordIP: false,
-          serverURLs: "",
-        });
-      });
-    });
-  </script>
-  <noscript>Please enable JavaScript to view the
-    <a target="_blank" href="https://valine.js.org" rel="nofollow noopener noopener">comments powered by Valine.</a>
-  </noscript>
-
-
-              </article>
-            
-          </article>
-        </div>
-      </div>
     </div>
+
     
-      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
-        <div id="toc">
-  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
-  <div class="toc-body" id="toc-body"></div>
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Rancher/" rel="tag"># Rancher</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2020/12/30/Hexo%E9%9B%86%E6%88%90Valine%E8%AF%84%E8%AE%BA%E7%B3%BB%E7%BB%9F/" rel="prev" title="Hexo集成Valine评论系统">
+                  <i class="fa fa-chevron-left"></i> Hexo集成Valine评论系统
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2021/01/04/rancher%E6%B5%81%E6%B0%B4%E7%BA%BF-%E5%90%8E%E7%AB%AF/" rel="next" title="Rancher流水线<后端>">
+                  Rancher流水线<后端> <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
 </div>
 
-      </div>
-    
-  </div>
+
+
+
+
+
 </div>
-
-<!-- Custom -->
-
-
-    
-
-    
-      <a id="scroll-top-button" href="#" role="button">
-        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
-      </a>
-    
-
-    
-      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
-     aria-hidden="true">
-  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
-    <div class="modal-content">
-      <div class="modal-header text-center">
-        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
-        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body mx-3">
-        <div class="md-form mb-5">
-          <input type="text" id="local-search-input" class="form-control validate">
-          <label data-error="x" data-success="v"
-                 for="local-search-input">关键词</label>
-        </div>
-        <div class="list-group" id="local-search-result"></div>
-      </div>
-    </div>
-  </div>
-</div>
-    
-
-    
   </main>
 
-  <footer class="text-center mt-5 py-3">
-  <div class="footer-content">
-     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
-  </div>
-  
-  <div class="statistics">
-    
-    
+  <footer class="footer">
+    <div class="footer-inner">
 
-    
-      
-        <!-- 不蒜子统计PV -->
-        <span id="busuanzi_container_site_pv" style="display: none">
-            总访问量 
-            <span id="busuanzi_value_site_pv"></span>
-             次
-          </span>
-      
-      
-        <!-- 不蒜子统计UV -->
-        <span id="busuanzi_container_site_uv" style="display: none">
-            总访客数 
-            <span id="busuanzi_value_site_uv"></span>
-             人
-          </span>
-      
-    
+
+<div class="copyright">
+  &copy; 2020 – 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">羊皮裘老头</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
   </div>
 
+    </div>
+  </footer>
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
 
   
 
-  
-</footer>
 
-<!-- SCRIPTS -->
-
-  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
-  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
-
-  <script>
-    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
-    NProgress.start()
-    window.addEventListener('load', function() {
-      NProgress.done();
-    })
-  </script>
-
-
-<script  src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" ></script>
-<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" ></script>
-<script  src="/js/debouncer.js" ></script>
-<script  src="/js/events.js" ></script>
-<script  src="/js/plugins.js" ></script>
-
-<!-- Plugins -->
-
-
-  
-    <script  src="/js/lazyload.js" ></script>
-  
 
 
 
   
 
 
-
-  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.0/dist/tocbot.min.js" ></script>
-
-
-
-  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
-
-
-
-  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.0/anchor.min.js" ></script>
-
-
-
-  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js" ></script>
-
-
-
-  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
-
-
-
-
-
-
-  <script  src="/js/local-search.js" ></script>
-  <script>
-    (function () {
-      var path = "/local-search.xml";
-      var inputArea = document.querySelector("#local-search-input");
-      inputArea.onclick = function () {
-        searchFunc(path, 'local-search-input', 'local-search-result');
-        this.onclick = null
-      }
-    })()
-  </script>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<!-- 主题的启动项 保持在最底部 -->
-<script  src="/js/boot.js" ></script>
 
 
 

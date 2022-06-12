@@ -1,294 +1,248 @@
-
-
 <!DOCTYPE html>
-<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
-
-
-
+<html lang="zh-CN">
 <head>
   <meta charset="UTF-8">
-  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
-  <link rel="icon" type="image/png" href="/img/favicon.png">
-  <meta name="viewport"
-        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
-  <meta http-equiv="x-ua-compatible" content="ie=edge">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 5.3.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.12.1","exturl":false,"sidebar":{"position":"left","width":300,"display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="数组介绍数组可以存放多个同一类型数据。数组也是一种数据类型，在 Go 中，数组是值类型。 12345678910111213141516171819202122232425262728293031323334package mainimport (	&quot;fmt&quot;)&#x2F;&#x2F;一个养鸡场有 6 只鸡，它们的体重分别是 3kg,5kg,1kg,3.4kg,2kg,50kg">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Go语言数组">
+<meta property="og:url" content="http://example.com/2021/04/14/Go%E8%AF%AD%E8%A8%80%E6%95%B0%E7%BB%84/index.html">
+<meta property="og:site_name" content="羊皮裘老头">
+<meta property="og:description" content="数组介绍数组可以存放多个同一类型数据。数组也是一种数据类型，在 Go 中，数组是值类型。 12345678910111213141516171819202122232425262728293031323334package mainimport (	&quot;fmt&quot;)&#x2F;&#x2F;一个养鸡场有 6 只鸡，它们的体重分别是 3kg,5kg,1kg,3.4kg,2kg,50kg">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2021-04-14T06:49:09.000Z">
+<meta property="article:modified_time" content="2022-04-17T09:07:33.929Z">
+<meta property="article:author" content="羊皮裘老头">
+<meta property="article:tag" content="Golang">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="http://example.com/2021/04/14/Go%E8%AF%AD%E8%A8%80%E6%95%B0%E7%BB%84/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://example.com/2021/04/14/Go%E8%AF%AD%E8%A8%80%E6%95%B0%E7%BB%84/","path":"2021/04/14/Go语言数组/","title":"Go语言数组"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>Go语言数组 | 羊皮裘老头</title>
   
-  <meta name="theme-color" content="#2f4154">
-  <meta name="description" content="">
-  <meta name="author" content="羊皮裘老头">
-  <meta name="keywords" content="">
-  <title>Go语言数组 - 羊皮裘老头</title>
-
-  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
-
-
-  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
-  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
-
-  
-    
-    
-      
-      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.4.0/styles/github-gist.min.css" />
-    
-  
-
-  
-    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
-  
 
 
 
-<!-- 主题依赖的图标库，不要自行修改 -->
-
-<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
 
 
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
 
-<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
 
-
-<link  rel="stylesheet" href="/css/main.css" />
-
-<!-- 自定义样式保持在最底部 -->
-
-
-  <script id="fluid-configs">
-    var Fluid = window.Fluid || {};
-    var CONFIG = {"hostname":"example.com","root":"/","version":"1.8.7","typing":{"enable":false,"typeSpeed":70,"cursorChar":" ","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"onlypost":false},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}}};
-  </script>
-  <script  src="/js/utils.js" ></script>
-  <script  src="/js/color-schema.js" ></script>
-<meta name="generator" content="Hexo 5.3.0"></head>
-
-
-<body>
-  <header style="height: 70vh;">
-    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
-  <div class="container">
-    <a class="navbar-brand"
-       href="/">&nbsp;<strong>羊皮裘老头</strong>&nbsp;</a>
-
-    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
-            data-target="#navbarSupportedContent"
-            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <div class="animated-icon"><span></span><span></span><span></span></div>
-    </button>
-
-    <!-- Collapsible content -->
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav ml-auto text-center">
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/">
-                <i class="iconfont icon-home-fill"></i>
-                首页
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/archives/">
-                <i class="iconfont icon-archive-fill"></i>
-                归档
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/categories/">
-                <i class="iconfont icon-category-fill"></i>
-                分类
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/tags/">
-                <i class="iconfont icon-tags-fill"></i>
-                标签
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/about/">
-                <i class="iconfont icon-user-fill"></i>
-                关于
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <i class="iconfont icon-books"></i>
-                文档
-              </a>
-              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                
-                  
-                  
-                  
-                  <a class="dropdown-item" target="_blank" rel="noopener" href="https://hexo.fluid-dev.com/">
-                    
-                    主题博客
-                  </a>
-                
-                  
-                  
-                  
-                  <a class="dropdown-item" target="_blank" rel="noopener" href="https://hexo.fluid-dev.com/docs/guide/">
-                    
-                    配置指南
-                  </a>
-                
-                  
-                  
-                  
-                  <a class="dropdown-item" target="_blank" rel="noopener" href="https://hexo.fluid-dev.com/docs/icon/">
-                    
-                    图标用法
-                  </a>
-                
-              </div>
-            </li>
-          
-        
-        
-          <li class="nav-item" id="search-btn">
-            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
-                class="iconfont icon-search"></i>&nbsp;</a>
-          </li>
-        
-        
-          <li class="nav-item" id="color-toggle-btn">
-            <a class="nav-link" href="javascript:">&nbsp;<i
-                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
-          </li>
-        
-      </ul>
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
     </div>
   </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">羊皮裘老头</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">28</span></a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">13</span></a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">116</span></a></li><li class="menu-item menu-item-schedule"><a href="/schedule/" rel="section"><i class="fa fa-calendar fa-fw"></i>日程表</a></li><li class="menu-item menu-item-sitemap"><a href="/sitemap.xml" rel="section"><i class="fa fa-sitemap fa-fw"></i>站点地图</a></li><li class="menu-item menu-item-commonweal"><a href="/404/" rel="section"><i class="fa fa-heartbeat fa-fw"></i>公益 404</a></li>
+  </ul>
 </nav>
 
-    <div class="banner" id="banner" parallax=true
-         style="background: url('/img/ss.png') no-repeat center center;
-           background-size: cover;">
-      <div class="full-bg-img">
-        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
-          <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="Go语言数组">
-              
-                Go语言数组
-              
-            </span>
 
-            
-              <div class="mt-3">
+
+
+</div>
+        
   
-  
-    <span class="post-meta">
-      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-      <time datetime="2021-04-14 14:49" pubdate>
-        2021年4月14日 下午
-      </time>
-    </span>
-  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%95%B0%E7%BB%84%E4%BB%8B%E7%BB%8D"><span class="nav-number">1.</span> <span class="nav-text">数组介绍</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%95%B0%E7%BB%84%E5%AE%9A%E4%B9%89%E5%92%8C%E5%86%85%E5%AD%98%E5%B8%83%E5%B1%80"><span class="nav-number">2.</span> <span class="nav-text">数组定义和内存布局</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%95%B0%E7%BB%84%E7%9A%84%E5%AE%9A%E4%B9%89"><span class="nav-number">2.1.</span> <span class="nav-text">数组的定义</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%95%B0%E7%BB%84%E5%9C%A8%E5%86%85%E5%AD%98%E5%B8%83%E5%B1%80"><span class="nav-number">2.2.</span> <span class="nav-text">数组在内存布局</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%95%B0%E7%BB%84%E7%9A%84%E4%BD%BF%E7%94%A8"><span class="nav-number">2.3.</span> <span class="nav-text">数组的使用</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%AE%BF%E9%97%AE%E6%95%B0%E7%BB%84%E5%85%83%E7%B4%A0"><span class="nav-number">2.3.1.</span> <span class="nav-text">访问数组元素</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%9B%9B%E7%A7%8D%E5%88%9D%E5%A7%8B%E5%8C%96%E6%95%B0%E7%BB%84%E7%9A%84%E6%96%B9%E5%BC%8F"><span class="nav-number">2.3.2.</span> <span class="nav-text">四种初始化数组的方式</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#for-range-%E7%BB%93%E6%9E%84%E9%81%8D%E5%8E%86"><span class="nav-number">3.</span> <span class="nav-text">for-range 结构遍历</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%95%B0%E7%BB%84%E4%BD%BF%E7%94%A8%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9%E5%92%8C%E7%BB%86%E8%8A%82"><span class="nav-number">4.</span> <span class="nav-text">数组使用注意事项和细节</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%95%B0%E7%BB%84%E7%9A%84%E5%BA%94%E7%94%A8%E6%A1%88%E4%BE%8B"><span class="nav-number">5.</span> <span class="nav-text">数组的应用案例</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%8C%E7%BB%B4%E6%95%B0%E7%BB%84"><span class="nav-number">6.</span> <span class="nav-text">二维数组</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8%E6%96%B9%E5%BC%8F-1"><span class="nav-number">6.1.</span> <span class="nav-text">使用方式 1</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8%E6%96%B9%E5%BC%8F-2"><span class="nav-number">6.2.</span> <span class="nav-text">使用方式 2</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%8C%E7%BB%B4%E6%95%B0%E7%BB%84%E7%9A%84%E9%81%8D%E5%8E%86"><span class="nav-number">6.3.</span> <span class="nav-text">二维数组的遍历</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%95%B0%E7%BB%84%E6%8E%92%E5%BA%8F"><span class="nav-number">7.</span> <span class="nav-text">数组排序</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9F%BA%E6%9C%AC%E4%BB%8B%E7%BB%8D"><span class="nav-number">7.1.</span> <span class="nav-text">基本介绍</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8E%92%E5%BA%8F%E7%9A%84%E5%88%86%E7%B1%BB"><span class="nav-number">7.2.</span> <span class="nav-text">排序的分类</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%86%92%E6%B3%A1%E6%8E%92%E5%BA%8F%E4%BB%8B%E7%BB%8D"><span class="nav-number">7.3.</span> <span class="nav-text">冒泡排序介绍</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%95%B0%E7%BB%84%E6%9F%A5%E6%89%BE"><span class="nav-number">8.</span> <span class="nav-text">数组查找</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E9%A1%BA%E5%BA%8F%E6%9F%A5%E6%89%BE"><span class="nav-number">8.1.</span> <span class="nav-text">1)  顺序查找</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE-%E8%AF%A5%E6%95%B0%E7%BB%84%E6%98%AF%E6%9C%89%E5%BA%8F"><span class="nav-number">8.2.</span> <span class="nav-text">2)  二分查找(该数组是有序)</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">羊皮裘老头</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">116</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">13</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">28</span>
+        <span class="site-state-item-name">标签</span>
+      </div>
+  </nav>
 </div>
 
-<div class="mt-1">
-  
-    
-    <span class="post-meta mr-2">
-      <i class="iconfont icon-chart"></i>
-      4.1k 字
-    </span>
-  
 
-  
-    
-    <span class="post-meta mr-2">
-      <i class="iconfont icon-clock-fill"></i>
-      
-      
-      58
-       分钟
-    </span>
-  
 
-  
-  
-    
-      <!-- LeanCloud 统计文章PV -->
-      <span id="leancloud-page-views-container" class="post-meta" style="display: none">
-        <i class="iconfont icon-eye" aria-hidden="true"></i>
-        <span id="leancloud-page-views"></span> 次
-      </span>
-    
-  
-</div>
-
-            
-          </div>
-
-          
         </div>
       </div>
     </div>
-  </header>
+  </aside>
+  <div class="sidebar-dimmer"></div>
 
-  <main>
+
+    </header>
+
     
-      
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
 
-<div class="container-fluid nopadding-x">
-  <div class="row nomargin-x">
-    <div class="d-none d-lg-block col-lg-2"></div>
-    <div class="col-lg-8 nopadding-x-md">
-      <div class="container nopadding-x-md" id="board-ctn">
-        <div class="py-5" id="board">
-          <article class="post-content mx-auto">
-            <!-- SEO header -->
-            <h1 style="display: none">Go语言数组</h1>
-            
-              <p class="note note-info">
-                
-                  本文最后更新于：2022年4月17日 下午
-                
-              </p>
-            
-            <div class="markdown-body">
-              <h2 id="数组介绍"><a href="#数组介绍" class="headerlink" title="数组介绍"></a>数组介绍</h2><p>数组可以存放多个同一类型数据。数组也是一种数据类型，在 Go 中，数组是值类型。</p>
-<figure class="highlight go"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs go"><span class="hljs-keyword">package</span> main<br><br><span class="hljs-keyword">import</span> (<br>	<span class="hljs-string">&quot;fmt&quot;</span><br>)<br><br><span class="hljs-comment">//一个养鸡场有 6 只鸡，它们的体重分别是 3kg,5kg,1kg,3.4kg,2kg,50kg 。请问这六只鸡的总体重是多少?平均体重是多少?</span><br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> &#123;<br>	hens1 := <span class="hljs-number">3.0</span><br>	hens2 := <span class="hljs-number">5.0</span><br>	hens3 := <span class="hljs-number">1.0</span><br>	hens4 := <span class="hljs-number">3.4</span><br>	hens5 := <span class="hljs-number">2.0</span><br>	hens6 := <span class="hljs-number">50.0</span><br>	totolWeight := hens1 + hens2 + hens3 + hens4 + hens5 + hens6<br>	avgWeight := fmt.Sprintf(<span class="hljs-string">&quot;%.2f&quot;</span>, totolWeight/<span class="hljs-number">6</span>)<br>	fmt.Printf(<span class="hljs-string">&quot;avgWeight=%v\n&quot;</span>, avgWeight)<br><br>	<span class="hljs-comment">//使用数组表示</span><br>	<span class="hljs-keyword">var</span> hens [<span class="hljs-number">6</span>]<span class="hljs-keyword">float64</span><br>	hens[<span class="hljs-number">0</span>] = <span class="hljs-number">3</span><br>	hens[<span class="hljs-number">1</span>] = <span class="hljs-number">5</span><br>	hens[<span class="hljs-number">2</span>] = <span class="hljs-number">1</span><br>	hens[<span class="hljs-number">3</span>] = <span class="hljs-number">3.4</span><br>	hens[<span class="hljs-number">4</span>] = <span class="hljs-number">2</span><br>	hens[<span class="hljs-number">5</span>] = <span class="hljs-number">50</span><br>	totolWeight2 := <span class="hljs-number">0.0</span><br>	<span class="hljs-keyword">for</span> i := <span class="hljs-number">0</span>; i &lt; <span class="hljs-built_in">len</span>(hens); i++ &#123;<br>		totolWeight2 += hens[i]<br>	&#125;<br>	avgWeight2 := fmt.Sprintf(<span class="hljs-string">&quot;%.2f&quot;</span>, totolWeight2/<span class="hljs-keyword">float64</span>(<span class="hljs-built_in">len</span>(hens)))<br>	fmt.Printf(<span class="hljs-string">&quot;avgWeight=%v\n&quot;</span>, avgWeight2)<br>&#125;<br></code></pre></div></td></tr></table></figure>
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/04/14/Go%E8%AF%AD%E8%A8%80%E6%95%B0%E7%BB%84/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="羊皮裘老头">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="羊皮裘老头">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="Go语言数组 | 羊皮裘老头">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Go语言数组
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2021-04-14 14:49:09" itemprop="dateCreated datePublished" datetime="2021-04-14T14:49:09+08:00">2021-04-14</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-04-17 17:07:33" itemprop="dateModified" datetime="2022-04-17T17:07:33+08:00">2022-04-17</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Golang/" itemprop="url" rel="index"><span itemprop="name">Golang</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h2 id="数组介绍"><a href="#数组介绍" class="headerlink" title="数组介绍"></a>数组介绍</h2><p>数组可以存放多个同一类型数据。数组也是一种数据类型，在 Go 中，数组是值类型。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">package main</span><br><span class="line"></span><br><span class="line">import (</span><br><span class="line">	&quot;fmt&quot;</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;一个养鸡场有 6 只鸡，它们的体重分别是 3kg,5kg,1kg,3.4kg,2kg,50kg 。请问这六只鸡的总体重是多少?平均体重是多少?</span><br><span class="line"></span><br><span class="line">func main() &#123;</span><br><span class="line">	hens1 :&#x3D; 3.0</span><br><span class="line">	hens2 :&#x3D; 5.0</span><br><span class="line">	hens3 :&#x3D; 1.0</span><br><span class="line">	hens4 :&#x3D; 3.4</span><br><span class="line">	hens5 :&#x3D; 2.0</span><br><span class="line">	hens6 :&#x3D; 50.0</span><br><span class="line">	totolWeight :&#x3D; hens1 + hens2 + hens3 + hens4 + hens5 + hens6</span><br><span class="line">	avgWeight :&#x3D; fmt.Sprintf(&quot;%.2f&quot;, totolWeight&#x2F;6)</span><br><span class="line">	fmt.Printf(&quot;avgWeight&#x3D;%v\n&quot;, avgWeight)</span><br><span class="line"></span><br><span class="line">	&#x2F;&#x2F;使用数组表示</span><br><span class="line">	var hens [6]float64</span><br><span class="line">	hens[0] &#x3D; 3</span><br><span class="line">	hens[1] &#x3D; 5</span><br><span class="line">	hens[2] &#x3D; 1</span><br><span class="line">	hens[3] &#x3D; 3.4</span><br><span class="line">	hens[4] &#x3D; 2</span><br><span class="line">	hens[5] &#x3D; 50</span><br><span class="line">	totolWeight2 :&#x3D; 0.0</span><br><span class="line">	for i :&#x3D; 0; i &lt; len(hens); i++ &#123;</span><br><span class="line">		totolWeight2 +&#x3D; hens[i]</span><br><span class="line">	&#125;</span><br><span class="line">	avgWeight2 :&#x3D; fmt.Sprintf(&quot;%.2f&quot;, totolWeight2&#x2F;float64(len(hens)))</span><br><span class="line">	fmt.Printf(&quot;avgWeight&#x3D;%v\n&quot;, avgWeight2)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>对上面代码的总结</p>
 <p>1）使用数组来解决问题，程序的可维护性增加</p>
 <p>2）而且方法代码更加清晰，也容易扩展</p>
-<h2 id="数组定义和内存布局"><a href="#数组定义和内存布局" class="headerlink" title="数组定义和内存布局"></a>数组定义和内存布局</h2><h3 id="数组的定义"><a href="#数组的定义" class="headerlink" title="数组的定义"></a>数组的定义</h3><figure class="highlight prolog"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs prolog">var 数组名 [数组大小]数据类型<br>var a [<span class="hljs-number">5</span>]int<br>赋初值 a[<span class="hljs-number">0</span>] = <span class="hljs-number">1</span> a[<span class="hljs-number">1</span>] = <span class="hljs-number">30</span> ....<br></code></pre></div></td></tr></table></figure>
-<h3 id="数组在内存布局"><a href="#数组在内存布局" class="headerlink" title="数组在内存布局"></a>数组在内存布局</h3><figure class="highlight angelscript"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs angelscript">package main<br><br><span class="hljs-keyword">import</span> (<br>	<span class="hljs-string">&quot;fmt&quot;</span><br>)<br><br>func main() &#123;<br>	var <span class="hljs-built_in">int</span>Arr [<span class="hljs-number">3</span>]<span class="hljs-built_in">int</span><br><br>	<span class="hljs-built_in">int</span>Arr[<span class="hljs-number">0</span>] = <span class="hljs-number">10</span><br>	<span class="hljs-built_in">int</span>Arr[<span class="hljs-number">1</span>] = <span class="hljs-number">20</span><br>	<span class="hljs-built_in">int</span>Arr[<span class="hljs-number">2</span>] = <span class="hljs-number">30</span><br><br>	fmt.Printf(<span class="hljs-string">&quot;intArr地址是%p\n&quot;</span>, &amp;<span class="hljs-built_in">int</span>Arr)<br>	fmt.Printf(<span class="hljs-string">&quot;intArr[0]=%v地址是%p\nintArr[1]=%v地址是%p\nintArr[2]=%v地址是%p\n&quot;</span>,<br>		<span class="hljs-built_in">int</span>Arr[<span class="hljs-number">0</span>], &amp;<span class="hljs-built_in">int</span>Arr[<span class="hljs-number">0</span>], <span class="hljs-built_in">int</span>Arr[<span class="hljs-number">1</span>], &amp;<span class="hljs-built_in">int</span>Arr[<span class="hljs-number">1</span>], <span class="hljs-built_in">int</span>Arr[<span class="hljs-number">2</span>], &amp;<span class="hljs-built_in">int</span>Arr[<span class="hljs-number">2</span>])<br>&#125;<br></code></pre></div></td></tr></table></figure>
+<h2 id="数组定义和内存布局"><a href="#数组定义和内存布局" class="headerlink" title="数组定义和内存布局"></a>数组定义和内存布局</h2><h3 id="数组的定义"><a href="#数组的定义" class="headerlink" title="数组的定义"></a>数组的定义</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">var 数组名 [数组大小]数据类型</span><br><span class="line">var a [5]int</span><br><span class="line">赋初值 a[0] &#x3D; 1 a[1] &#x3D; 30 ....</span><br></pre></td></tr></table></figure>
+<h3 id="数组在内存布局"><a href="#数组在内存布局" class="headerlink" title="数组在内存布局"></a>数组在内存布局</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">package main</span><br><span class="line"></span><br><span class="line">import (</span><br><span class="line">	&quot;fmt&quot;</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">func main() &#123;</span><br><span class="line">	var intArr [3]int</span><br><span class="line"></span><br><span class="line">	intArr[0] &#x3D; 10</span><br><span class="line">	intArr[1] &#x3D; 20</span><br><span class="line">	intArr[2] &#x3D; 30</span><br><span class="line"></span><br><span class="line">	fmt.Printf(&quot;intArr地址是%p\n&quot;, &amp;intArr)</span><br><span class="line">	fmt.Printf(&quot;intArr[0]&#x3D;%v地址是%p\nintArr[1]&#x3D;%v地址是%p\nintArr[2]&#x3D;%v地址是%p\n&quot;,</span><br><span class="line">		intArr[0], &amp;intArr[0], intArr[1], &amp;intArr[1], intArr[2], &amp;intArr[2])</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <ol>
 <li><p>数组的地址可以通过数组名来获取 &amp;intArr</p>
 </li>
@@ -297,19 +251,19 @@
 <li><p>数组的各个元素的地址间隔是依据数组的类型决定，比如 int64 -&gt; 8  ； int32-&gt;4…</p>
 </li>
 </ol>
-<h3 id="数组的使用"><a href="#数组的使用" class="headerlink" title="数组的使用"></a>数组的使用</h3><h4 id="访问数组元素"><a href="#访问数组元素" class="headerlink" title="访问数组元素"></a>访问数组元素</h4><figure class="highlight css"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs css">数组名<span class="hljs-selector-attr">[ 下标]</span> 比如：你要使用 <span class="hljs-selector-tag">a</span> 数组的第三个元素 <span class="hljs-selector-tag">a</span><span class="hljs-selector-attr">[2]</span><br></code></pre></div></td></tr></table></figure>
-<figure class="highlight go"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs go"><span class="hljs-keyword">package</span> main<br><br><span class="hljs-keyword">import</span> (<br>	<span class="hljs-string">&quot;fmt&quot;</span><br>)<br><br><span class="hljs-comment">//从终端循环输入 5 个成绩，保存到 float64 数组,并输出</span><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> &#123;<br>	<span class="hljs-keyword">var</span> score [<span class="hljs-number">5</span>]<span class="hljs-keyword">float64</span><br>	<span class="hljs-keyword">for</span> i := <span class="hljs-number">0</span>; i &lt; <span class="hljs-built_in">len</span>(score); i++ &#123;<br>		fmt.Printf(<span class="hljs-string">&quot;请输入第%d个值的成绩\n&quot;</span>, i+<span class="hljs-number">1</span>)    <span class="hljs-comment">//%d十进制表示</span><br>		fmt.Scanln(&amp;score[i])<br>	&#125;<br>	<span class="hljs-keyword">for</span> i := <span class="hljs-number">0</span>; i &lt; <span class="hljs-built_in">len</span>(score); i++ &#123;<br>		fmt.Printf(<span class="hljs-string">&quot;score[%d]=%v\n&quot;</span>, i, score[i])<br>	&#125;<br>&#125;<br></code></pre></div></td></tr></table></figure>
-<h4 id="四种初始化数组的方式"><a href="#四种初始化数组的方式" class="headerlink" title="四种初始化数组的方式"></a>四种初始化数组的方式</h4><figure class="highlight go"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs go"><span class="hljs-keyword">package</span> main<br><br><span class="hljs-keyword">import</span> (<br>	<span class="hljs-string">&quot;fmt&quot;</span><br>)<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> &#123;<br>	<span class="hljs-keyword">var</span> numArr1 [<span class="hljs-number">3</span>]<span class="hljs-keyword">int</span> = [<span class="hljs-number">3</span>]<span class="hljs-keyword">int</span>&#123;<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>&#125;<br>	fmt.Println(<span class="hljs-string">&quot;numArr1=&quot;</span>, numArr1)<br><br>	<span class="hljs-keyword">var</span> numArr2 = [<span class="hljs-number">3</span>]<span class="hljs-keyword">int</span>&#123;<span class="hljs-number">4</span>, <span class="hljs-number">5</span>, <span class="hljs-number">6</span>&#125;<br>	fmt.Println(<span class="hljs-string">&quot;numArr2=&quot;</span>, numArr2)<br><br>	<span class="hljs-keyword">var</span> numArr3 = [...]<span class="hljs-keyword">int</span>&#123;<span class="hljs-number">7</span>, <span class="hljs-number">8</span>, <span class="hljs-number">9</span>&#125;<br>	fmt.Println(<span class="hljs-string">&quot;numArr3=&quot;</span>, numArr3)<br><br>	<span class="hljs-keyword">var</span> numArr4 = [...]<span class="hljs-keyword">int</span>&#123;<span class="hljs-number">1</span>: <span class="hljs-number">10</span>, <span class="hljs-number">0</span>: <span class="hljs-number">20</span>, <span class="hljs-number">2</span>: <span class="hljs-number">30</span>&#125;<br>	fmt.Println(<span class="hljs-string">&quot;numArr4=&quot;</span>, numArr4)<br><br>	<span class="hljs-comment">//类型推导</span><br>	<span class="hljs-keyword">var</span> numArr5 = [...]<span class="hljs-keyword">string</span>&#123;<span class="hljs-number">1</span>: <span class="hljs-string">&quot;tom&quot;</span>, <span class="hljs-number">0</span>: <span class="hljs-string">&quot;jack&quot;</span>, <span class="hljs-number">2</span>: <span class="hljs-string">&quot;lucy&quot;</span>&#125;<br>	fmt.Println(<span class="hljs-string">&quot;numArr5=&quot;</span>, numArr5)<br>&#125;<br></code></pre></div></td></tr></table></figure>
+<h3 id="数组的使用"><a href="#数组的使用" class="headerlink" title="数组的使用"></a>数组的使用</h3><h4 id="访问数组元素"><a href="#访问数组元素" class="headerlink" title="访问数组元素"></a>访问数组元素</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">数组名[ 下标] 比如：你要使用 a 数组的第三个元素 a[2]</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">package main</span><br><span class="line"></span><br><span class="line">import (</span><br><span class="line">	&quot;fmt&quot;</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;从终端循环输入 5 个成绩，保存到 float64 数组,并输出</span><br><span class="line">func main() &#123;</span><br><span class="line">	var score [5]float64</span><br><span class="line">	for i :&#x3D; 0; i &lt; len(score); i++ &#123;</span><br><span class="line">		fmt.Printf(&quot;请输入第%d个值的成绩\n&quot;, i+1)    &#x2F;&#x2F;%d十进制表示</span><br><span class="line">		fmt.Scanln(&amp;score[i])</span><br><span class="line">	&#125;</span><br><span class="line">	for i :&#x3D; 0; i &lt; len(score); i++ &#123;</span><br><span class="line">		fmt.Printf(&quot;score[%d]&#x3D;%v\n&quot;, i, score[i])</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="四种初始化数组的方式"><a href="#四种初始化数组的方式" class="headerlink" title="四种初始化数组的方式"></a>四种初始化数组的方式</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">package main</span><br><span class="line"></span><br><span class="line">import (</span><br><span class="line">	&quot;fmt&quot;</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">func main() &#123;</span><br><span class="line">	var numArr1 [3]int &#x3D; [3]int&#123;1, 2, 3&#125;</span><br><span class="line">	fmt.Println(&quot;numArr1&#x3D;&quot;, numArr1)</span><br><span class="line"></span><br><span class="line">	var numArr2 &#x3D; [3]int&#123;4, 5, 6&#125;</span><br><span class="line">	fmt.Println(&quot;numArr2&#x3D;&quot;, numArr2)</span><br><span class="line"></span><br><span class="line">	var numArr3 &#x3D; [...]int&#123;7, 8, 9&#125;</span><br><span class="line">	fmt.Println(&quot;numArr3&#x3D;&quot;, numArr3)</span><br><span class="line"></span><br><span class="line">	var numArr4 &#x3D; [...]int&#123;1: 10, 0: 20, 2: 30&#125;</span><br><span class="line">	fmt.Println(&quot;numArr4&#x3D;&quot;, numArr4)</span><br><span class="line"></span><br><span class="line">	&#x2F;&#x2F;类型推导</span><br><span class="line">	var numArr5 &#x3D; [...]string&#123;1: &quot;tom&quot;, 0: &quot;jack&quot;, 2: &quot;lucy&quot;&#125;</span><br><span class="line">	fmt.Println(&quot;numArr5&#x3D;&quot;, numArr5)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h2 id="for-range-结构遍历"><a href="#for-range-结构遍历" class="headerlink" title="for-range 结构遍历"></a>for-range 结构遍历</h2><p>这是 Go 语言一种独有的结构，可以用来遍历访问数组的元素。</p>
 <p>for–range基本语法</p>
-<figure class="highlight fortran"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs fortran">for  <span class="hljs-built_in">index</span>, <span class="hljs-keyword">value</span> := <span class="hljs-built_in">range</span> array01 &#123;<br>...<br>&#125;<br></code></pre></div></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">for  index, value :&#x3D; range array01 &#123;</span><br><span class="line">...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>说明：</p>
 <p>1、第一个返回值index是数组的下标</p>
 <p>2、第二个value是在该下标位置的值</p>
 <p>3、都是仅在for循环内部可见的局部标量</p>
 <p>4、遍历数组元素的时候，如果不想使用下标index，可以直接把下标index标位下划线_</p>
 <p>5、index和value的名称不是固定的，即程序员可以自行制定，一般命名为index和value</p>
-<figure class="highlight perl"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs perl"><span class="hljs-keyword">package</span> main<br><br>import (<br>	<span class="hljs-string">&quot;fmt&quot;</span><br>)<br><br>func main() &#123;<br>	var num = [...]string&#123;<span class="hljs-string">&quot;a&quot;</span>, <span class="hljs-string">&quot;b&quot;</span>, <span class="hljs-string">&quot;c&quot;</span>, <span class="hljs-string">&quot;d&quot;</span>&#125;<br>	<span class="hljs-keyword">for</span> <span class="hljs-keyword">index</span>, value := range num &#123;<br>		fmt.Printf(<span class="hljs-string">&quot;index=%v\nvalue=%v\n&quot;</span>, <span class="hljs-keyword">index</span>, value)<br>		fmt.Printf(<span class="hljs-string">&quot;num[%d]=%v\n&quot;</span>, <span class="hljs-keyword">index</span>, num[<span class="hljs-keyword">index</span>])<br>	&#125;<br>	<span class="hljs-keyword">for</span> <span class="hljs-keyword">index</span>, <span class="hljs-number">_</span> := range num &#123;<br>		fmt.Printf(<span class="hljs-string">&quot;num[%d]=%v\n&quot;</span>, <span class="hljs-keyword">index</span>, num[<span class="hljs-keyword">index</span>])<br>	&#125;<br>&#125;<br></code></pre></div></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">package main</span><br><span class="line"></span><br><span class="line">import (</span><br><span class="line">	&quot;fmt&quot;</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">func main() &#123;</span><br><span class="line">	var num &#x3D; [...]string&#123;&quot;a&quot;, &quot;b&quot;, &quot;c&quot;, &quot;d&quot;&#125;</span><br><span class="line">	for index, value :&#x3D; range num &#123;</span><br><span class="line">		fmt.Printf(&quot;index&#x3D;%v\nvalue&#x3D;%v\n&quot;, index, value)</span><br><span class="line">		fmt.Printf(&quot;num[%d]&#x3D;%v\n&quot;, index, num[index])</span><br><span class="line">	&#125;</span><br><span class="line">	for index, _ :&#x3D; range num &#123;</span><br><span class="line">		fmt.Printf(&quot;num[%d]&#x3D;%v\n&quot;, index, num[index])</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h2 id="数组使用注意事项和细节"><a href="#数组使用注意事项和细节" class="headerlink" title="数组使用注意事项和细节"></a>数组使用注意事项和细节</h2><ol>
 <li><p>数组是多个相同类型数据的组合,一个数组一旦声明/定义了,其长度是固定的, 不能动态变化</p>
 </li>
@@ -320,7 +274,7 @@
 <li><p>数组创建后，如果没有赋值，有默认值(零值)</p>
 </li>
 </ol>
-<figure class="highlight cpp"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs cpp">数值类型数组：默认值为 <span class="hljs-number">0</span><br>字符串数组： 默认值为 <span class="hljs-string">&quot;&quot;</span><br><span class="hljs-keyword">bool</span> 数组： 默认值为 <span class="hljs-literal">false</span><br></code></pre></div></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">数值类型数组：默认值为 0</span><br><span class="line">字符串数组： 默认值为 &quot;&quot;</span><br><span class="line">bool 数组： 默认值为 false</span><br></pre></td></tr></table></figure>
 <ol start="5">
 <li>使用数组的步骤</li>
 </ol>
@@ -335,306 +289,118 @@
 <li><p>数组下标必须在指定范围内使用，否则报 panic：数组越界，比如</p>
 </li>
 </ol>
-<figure class="highlight axapta"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs axapta"><span class="hljs-built_in">var</span> arr [<span class="hljs-number">5</span>]<span class="hljs-built_in">int</span> 则有效下标为 <span class="hljs-number">0</span><span class="hljs-number">-4</span><br></code></pre></div></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">var arr [5]int 则有效下标为 0-4</span><br></pre></td></tr></table></figure>
 <ol start="8">
 <li>Go 的数组属值类型， 在默认情况下是值传递， 因此会进行值拷贝。数组间不会相互影响</li>
 </ol>
-<figure class="highlight go"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs go"><span class="hljs-keyword">package</span> main<br><br><span class="hljs-keyword">import</span> (<br>	<span class="hljs-string">&quot;fmt&quot;</span><br>)<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">test01</span><span class="hljs-params">(arr [3]<span class="hljs-keyword">int</span>)</span></span> &#123;<br>	arr[<span class="hljs-number">0</span>] = <span class="hljs-number">33</span><br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> &#123;<br>	<span class="hljs-keyword">var</span> arr [<span class="hljs-number">3</span>]<span class="hljs-keyword">int</span> = [<span class="hljs-number">3</span>]<span class="hljs-keyword">int</span>&#123;<span class="hljs-number">2</span>, <span class="hljs-number">44</span>, <span class="hljs-number">55</span>&#125;<br>	test01(arr)<br>	fmt.Println(<span class="hljs-string">&quot;arr=&quot;</span>, arr)<br>&#125;<br></code></pre></div></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">package main</span><br><span class="line"></span><br><span class="line">import (</span><br><span class="line">	&quot;fmt&quot;</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">func test01(arr [3]int) &#123;</span><br><span class="line">	arr[0] &#x3D; 33</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func main() &#123;</span><br><span class="line">	var arr [3]int &#x3D; [3]int&#123;2, 44, 55&#125;</span><br><span class="line">	test01(arr)</span><br><span class="line">	fmt.Println(&quot;arr&#x3D;&quot;, arr)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <ol start="9">
 <li>如想在其它函数中，去修改原来的数组，可以使用引用传递(指针方式)</li>
 </ol>
-<figure class="highlight go"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs go"><span class="hljs-keyword">package</span> main<br><br><span class="hljs-keyword">import</span> (<br>	<span class="hljs-string">&quot;fmt&quot;</span><br>)<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">test02</span><span class="hljs-params">(arr *[3]<span class="hljs-keyword">int</span>)</span></span> &#123;<br>	(*arr)[<span class="hljs-number">0</span>] = <span class="hljs-number">33</span><br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> &#123;<br>	<span class="hljs-keyword">var</span> arr [<span class="hljs-number">3</span>]<span class="hljs-keyword">int</span> = [<span class="hljs-number">3</span>]<span class="hljs-keyword">int</span>&#123;<span class="hljs-number">2</span>, <span class="hljs-number">44</span>, <span class="hljs-number">55</span>&#125;<br>	test02(&amp;arr)<br>	fmt.Println(<span class="hljs-string">&quot;arr=&quot;</span>, arr)<br>&#125;<br></code></pre></div></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">package main</span><br><span class="line"></span><br><span class="line">import (</span><br><span class="line">	&quot;fmt&quot;</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">func test02(arr *[3]int) &#123;</span><br><span class="line">	(*arr)[0] &#x3D; 33</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func main() &#123;</span><br><span class="line">	var arr [3]int &#x3D; [3]int&#123;2, 44, 55&#125;</span><br><span class="line">	test02(&amp;arr)</span><br><span class="line">	fmt.Println(&quot;arr&#x3D;&quot;, arr)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <ol start="10">
 <li>长度是数组类型的一部分，在传递函数参数时 需要考虑数组的长度</li>
 </ol>
-<h2 id="数组的应用案例"><a href="#数组的应用案例" class="headerlink" title="数组的应用案例"></a>数组的应用案例</h2><figure class="highlight go"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs go"><span class="hljs-keyword">package</span> main<br><br><span class="hljs-keyword">import</span> (<br>	<span class="hljs-string">&quot;fmt&quot;</span><br>)<br><br><span class="hljs-comment">//创建一个 byte 类型的 26 个元素的数组，分别 放置&#x27;A&#x27;-&#x27;Z‘。使用 for 循环访问所有元素并打印</span><br><span class="hljs-comment">//出来。提示：字符数据运算 &#x27;A&#x27;+1 -&gt; &#x27;B&#x27;</span><br><span class="hljs-comment">//思路：</span><br><span class="hljs-comment">//定义一个byte类型的数组 var num [26]byte</span><br><span class="hljs-comment">//使用for循环打印运算 &#x27;A&#x27;+1 -&gt; &#x27;B&#x27;</span><br><span class="hljs-comment">//使用for打印</span><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> &#123;<br>	<span class="hljs-keyword">var</span> num [<span class="hljs-number">26</span>]<span class="hljs-keyword">byte</span><br>	<span class="hljs-keyword">for</span> i := <span class="hljs-number">0</span>; i &lt; <span class="hljs-built_in">len</span>(num); i++ &#123;<br>		num[i] = <span class="hljs-string">&#x27;A&#x27;</span> + <span class="hljs-keyword">byte</span>(i) <span class="hljs-comment">//i是int类型，需要转换成byte类型</span><br>	&#125;<br><br>	<span class="hljs-keyword">for</span> i := <span class="hljs-number">0</span>; i &lt; <span class="hljs-built_in">len</span>(num); i++ &#123;<br>		fmt.Printf(<span class="hljs-string">&quot;%c &quot;</span>, num[i])<br>	&#125;<br>&#125;<br></code></pre></div></td></tr></table></figure>
-<figure class="highlight go"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs go"><span class="hljs-keyword">package</span> main<br><br><span class="hljs-keyword">import</span> (<br>	<span class="hljs-string">&quot;fmt&quot;</span><br>)<br><br><span class="hljs-comment">// 请求出一个数组的最大值，并得到对应的下标</span><br><span class="hljs-comment">//思路</span><br><span class="hljs-comment">//先定义一个数组，假定第一个数最大，然后和每个数进行对比，比第一个大的数就替换</span><br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> &#123;<br>	<span class="hljs-keyword">var</span> num [<span class="hljs-number">5</span>]<span class="hljs-keyword">int</span> = [<span class="hljs-number">5</span>]<span class="hljs-keyword">int</span>&#123;<span class="hljs-number">3</span>, <span class="hljs-number">5543</span>, <span class="hljs-number">676</span>, <span class="hljs-number">66</span>, <span class="hljs-number">22</span>&#125;<br>	maxnum := num[<span class="hljs-number">0</span>] <span class="hljs-comment">//假定第一个数最大</span><br>	value := <span class="hljs-number">0</span>       <span class="hljs-comment">//第一个数的下标为0</span><br>	<span class="hljs-keyword">for</span> i := <span class="hljs-number">0</span>; i &lt; <span class="hljs-built_in">len</span>(num); i++ &#123;<br>		<span class="hljs-keyword">if</span> maxnum &lt; num[i] &#123;<br>			maxnum = num[i]<br>			value = i<br>		&#125;<br>	&#125;<br>	fmt.Printf(<span class="hljs-string">&quot;maxnum=%v\nvalue=%v\n&quot;</span>, maxnum, value)<br>&#125;<br></code></pre></div></td></tr></table></figure>
-<figure class="highlight go"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs go"><span class="hljs-keyword">package</span> main<br><br><span class="hljs-keyword">import</span> (<br>	<span class="hljs-string">&quot;fmt&quot;</span><br>)<br><br><span class="hljs-comment">// 请求出一个数组的和和平均值。for-range</span><br><span class="hljs-comment">//思路</span><br><span class="hljs-comment">//先声明一个数组，先求出和，再求出平均值</span><br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> &#123;<br>	<span class="hljs-keyword">var</span> num = [...]<span class="hljs-keyword">int</span>&#123;<span class="hljs-number">33</span>, <span class="hljs-number">44</span>, <span class="hljs-number">55</span>, <span class="hljs-number">67</span>, <span class="hljs-number">77</span>&#125;<br>	totolnum := <span class="hljs-number">0</span><br>	<span class="hljs-keyword">for</span> _, value := <span class="hljs-keyword">range</span> num &#123;<br>		totolnum += value<br>	&#125;<br>	fmt.Printf(<span class="hljs-string">&quot;和=%v\n平均值是=%v\n&quot;</span>, totolnum, <span class="hljs-keyword">float64</span>(totolnum)/<span class="hljs-keyword">float64</span>(<span class="hljs-number">5</span>)) <span class="hljs-comment">//整除后未保留小数点后，需要转换类型</span><br>&#125;<br></code></pre></div></td></tr></table></figure>
-<figure class="highlight go"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs go"><span class="hljs-keyword">package</span> main<br><br><span class="hljs-keyword">import</span> (<br>	<span class="hljs-string">&quot;fmt&quot;</span><br>	<span class="hljs-string">&quot;math/rand&quot;</span><br>	<span class="hljs-string">&quot;time&quot;</span><br>)<br><br><span class="hljs-comment">// 要求：随机生成五个数，并将其反转打印 , 复杂应用.</span><br><span class="hljs-comment">//思路</span><br><span class="hljs-comment">//1、随机生成五个数，rand.Intn()函数</span><br><span class="hljs-comment">//2、当得到随机数后，就放到一个数组</span><br><span class="hljs-comment">//3、反转打印，交换的次数len / 2,倒数第一个和第一个交换，倒数第二个和第二个交换</span><br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> &#123;<br>	<span class="hljs-keyword">var</span> num [<span class="hljs-number">5</span>]<span class="hljs-keyword">int</span><br>	<span class="hljs-built_in">len</span> := <span class="hljs-built_in">len</span>(num)   <span class="hljs-comment">//使用变量替换更加简洁</span><br>	rand.Seed(time.Now().UnixNano()) <span class="hljs-comment">//需要使用Seed让每次生成的值不一样</span><br>	<span class="hljs-comment">//UnixNano精确到纳秒，随机数不会相同，每秒的话可能会重复</span><br>	<span class="hljs-keyword">for</span> i := <span class="hljs-number">0</span>; i &lt; <span class="hljs-built_in">len</span>; i++ &#123;<br>		num[i] = rand.Intn(<span class="hljs-number">100</span>) <span class="hljs-comment">// 0 &lt;= i &lt; 100</span><br>	&#125;<br>	fmt.Println(<span class="hljs-string">&quot;交换前=&quot;</span>, num)<br><br>	temp := <span class="hljs-number">0</span> <span class="hljs-comment">//临时变量</span><br>	<span class="hljs-keyword">for</span> i := <span class="hljs-number">0</span>; i &lt; <span class="hljs-built_in">len</span>/<span class="hljs-number">2</span>; i++ &#123;<br>		temp = num[<span class="hljs-built_in">len</span><span class="hljs-number">-1</span>-i]  <span class="hljs-comment">//倒数的数保存到一个变量</span><br>		num[<span class="hljs-built_in">len</span><span class="hljs-number">-1</span>-i] = num[i]   <span class="hljs-comment">//再将正数的第n个数赋值到倒数的第n个数</span><br>		num[i] = temp    <span class="hljs-comment">//将倒数的值给相对应正数的值</span><br>	&#125;<br>	fmt.Println(<span class="hljs-string">&quot;交换后=&quot;</span>, num)<br>&#125;<br></code></pre></div></td></tr></table></figure>
+<h2 id="数组的应用案例"><a href="#数组的应用案例" class="headerlink" title="数组的应用案例"></a>数组的应用案例</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">package main</span><br><span class="line"></span><br><span class="line">import (</span><br><span class="line">	&quot;fmt&quot;</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;创建一个 byte 类型的 26 个元素的数组，分别 放置&#39;A&#39;-&#39;Z‘。使用 for 循环访问所有元素并打印</span><br><span class="line">&#x2F;&#x2F;出来。提示：字符数据运算 &#39;A&#39;+1 -&gt; &#39;B&#39;</span><br><span class="line">&#x2F;&#x2F;思路：</span><br><span class="line">&#x2F;&#x2F;定义一个byte类型的数组 var num [26]byte</span><br><span class="line">&#x2F;&#x2F;使用for循环打印运算 &#39;A&#39;+1 -&gt; &#39;B&#39;</span><br><span class="line">&#x2F;&#x2F;使用for打印</span><br><span class="line">func main() &#123;</span><br><span class="line">	var num [26]byte</span><br><span class="line">	for i :&#x3D; 0; i &lt; len(num); i++ &#123;</span><br><span class="line">		num[i] &#x3D; &#39;A&#39; + byte(i) &#x2F;&#x2F;i是int类型，需要转换成byte类型</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	for i :&#x3D; 0; i &lt; len(num); i++ &#123;</span><br><span class="line">		fmt.Printf(&quot;%c &quot;, num[i])</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">package main</span><br><span class="line"></span><br><span class="line">import (</span><br><span class="line">	&quot;fmt&quot;</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; 请求出一个数组的最大值，并得到对应的下标</span><br><span class="line">&#x2F;&#x2F;思路</span><br><span class="line">&#x2F;&#x2F;先定义一个数组，假定第一个数最大，然后和每个数进行对比，比第一个大的数就替换</span><br><span class="line"></span><br><span class="line">func main() &#123;</span><br><span class="line">	var num [5]int &#x3D; [5]int&#123;3, 5543, 676, 66, 22&#125;</span><br><span class="line">	maxnum :&#x3D; num[0] &#x2F;&#x2F;假定第一个数最大</span><br><span class="line">	value :&#x3D; 0       &#x2F;&#x2F;第一个数的下标为0</span><br><span class="line">	for i :&#x3D; 0; i &lt; len(num); i++ &#123;</span><br><span class="line">		if maxnum &lt; num[i] &#123;</span><br><span class="line">			maxnum &#x3D; num[i]</span><br><span class="line">			value &#x3D; i</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	fmt.Printf(&quot;maxnum&#x3D;%v\nvalue&#x3D;%v\n&quot;, maxnum, value)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">package main</span><br><span class="line"></span><br><span class="line">import (</span><br><span class="line">	&quot;fmt&quot;</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; 请求出一个数组的和和平均值。for-range</span><br><span class="line">&#x2F;&#x2F;思路</span><br><span class="line">&#x2F;&#x2F;先声明一个数组，先求出和，再求出平均值</span><br><span class="line"></span><br><span class="line">func main() &#123;</span><br><span class="line">	var num &#x3D; [...]int&#123;33, 44, 55, 67, 77&#125;</span><br><span class="line">	totolnum :&#x3D; 0</span><br><span class="line">	for _, value :&#x3D; range num &#123;</span><br><span class="line">		totolnum +&#x3D; value</span><br><span class="line">	&#125;</span><br><span class="line">	fmt.Printf(&quot;和&#x3D;%v\n平均值是&#x3D;%v\n&quot;, totolnum, float64(totolnum)&#x2F;float64(5)) &#x2F;&#x2F;整除后未保留小数点后，需要转换类型</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">package main</span><br><span class="line"></span><br><span class="line">import (</span><br><span class="line">	&quot;fmt&quot;</span><br><span class="line">	&quot;math&#x2F;rand&quot;</span><br><span class="line">	&quot;time&quot;</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; 要求：随机生成五个数，并将其反转打印 , 复杂应用.</span><br><span class="line">&#x2F;&#x2F;思路</span><br><span class="line">&#x2F;&#x2F;1、随机生成五个数，rand.Intn()函数</span><br><span class="line">&#x2F;&#x2F;2、当得到随机数后，就放到一个数组</span><br><span class="line">&#x2F;&#x2F;3、反转打印，交换的次数len &#x2F; 2,倒数第一个和第一个交换，倒数第二个和第二个交换</span><br><span class="line"></span><br><span class="line">func main() &#123;</span><br><span class="line">	var num [5]int</span><br><span class="line">	len :&#x3D; len(num)   &#x2F;&#x2F;使用变量替换更加简洁</span><br><span class="line">	rand.Seed(time.Now().UnixNano()) &#x2F;&#x2F;需要使用Seed让每次生成的值不一样</span><br><span class="line">	&#x2F;&#x2F;UnixNano精确到纳秒，随机数不会相同，每秒的话可能会重复</span><br><span class="line">	for i :&#x3D; 0; i &lt; len; i++ &#123;</span><br><span class="line">		num[i] &#x3D; rand.Intn(100) &#x2F;&#x2F; 0 &lt;&#x3D; i &lt; 100</span><br><span class="line">	&#125;</span><br><span class="line">	fmt.Println(&quot;交换前&#x3D;&quot;, num)</span><br><span class="line"></span><br><span class="line">	temp :&#x3D; 0 &#x2F;&#x2F;临时变量</span><br><span class="line">	for i :&#x3D; 0; i &lt; len&#x2F;2; i++ &#123;</span><br><span class="line">		temp &#x3D; num[len-1-i]  &#x2F;&#x2F;倒数的数保存到一个变量</span><br><span class="line">		num[len-1-i] &#x3D; num[i]   &#x2F;&#x2F;再将正数的第n个数赋值到倒数的第n个数</span><br><span class="line">		num[i] &#x3D; temp    &#x2F;&#x2F;将倒数的值给相对应正数的值</span><br><span class="line">	&#125;</span><br><span class="line">	fmt.Println(&quot;交换后&#x3D;&quot;, num)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h2 id="二维数组"><a href="#二维数组" class="headerlink" title="二维数组"></a>二维数组</h2><h3 id="使用方式-1"><a href="#使用方式-1" class="headerlink" title="使用方式 1"></a>使用方式 1</h3><p>先声明/定义,再赋值</p>
-<figure class="highlight css"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs css">语法: <span class="hljs-selector-tag">var</span> 数组名 <span class="hljs-selector-attr">[大小]</span><span class="hljs-selector-attr">[大小]</span>类型<br><br>比如: <span class="hljs-selector-tag">var</span> <span class="hljs-selector-tag">arr</span> <span class="hljs-selector-attr">[2]</span><span class="hljs-selector-attr">[3]</span><span class="hljs-selector-tag">int</span> ， 再赋值。<br></code></pre></div></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">语法: var 数组名 [大小][大小]类型</span><br><span class="line"></span><br><span class="line">比如: var arr [2][3]int ， 再赋值。</span><br></pre></td></tr></table></figure>
 <p>使用演示</p>
-<figure class="highlight go"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs go"><span class="hljs-keyword">package</span> main<br><br><span class="hljs-keyword">import</span> (<br>	<span class="hljs-string">&quot;fmt&quot;</span><br>)<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> &#123;<br>	<span class="hljs-keyword">var</span> arr [<span class="hljs-number">4</span>][<span class="hljs-number">6</span>]<span class="hljs-keyword">int</span><br>	arr[<span class="hljs-number">0</span>][<span class="hljs-number">3</span>] = <span class="hljs-number">1</span><br>	arr[<span class="hljs-number">2</span>][<span class="hljs-number">2</span>] = <span class="hljs-number">2</span><br>	arr[<span class="hljs-number">3</span>][<span class="hljs-number">5</span>] = <span class="hljs-number">3</span><br><br>	<span class="hljs-keyword">for</span> i := <span class="hljs-number">0</span>; i &lt; <span class="hljs-built_in">len</span>(arr); i++ &#123;<br>		<span class="hljs-keyword">for</span> j := <span class="hljs-number">0</span>; j &lt; <span class="hljs-built_in">len</span>(arr[i]); j++ &#123;<br>			fmt.Print(arr[i][j], <span class="hljs-string">&quot; &quot;</span>)<br>		&#125;<br>		fmt.Println()<br>	&#125;<br>&#125;<br></code></pre></div></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">package main</span><br><span class="line"></span><br><span class="line">import (</span><br><span class="line">	&quot;fmt&quot;</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">func main() &#123;</span><br><span class="line">	var arr [4][6]int</span><br><span class="line">	arr[0][3] &#x3D; 1</span><br><span class="line">	arr[2][2] &#x3D; 2</span><br><span class="line">	arr[3][5] &#x3D; 3</span><br><span class="line"></span><br><span class="line">	for i :&#x3D; 0; i &lt; len(arr); i++ &#123;</span><br><span class="line">		for j :&#x3D; 0; j &lt; len(arr[i]); j++ &#123;</span><br><span class="line">			fmt.Print(arr[i][j], &quot; &quot;)</span><br><span class="line">		&#125;</span><br><span class="line">		fmt.Println()</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>二维数组在内存的存在形式</p>
-<figure class="highlight inform7"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs inform7">package main<br><br>import (<br>	<span class="hljs-string">&quot;fmt&quot;</span><br>)<br><br>func main() &#123;<br>	var arr <span class="hljs-comment">[2]</span><span class="hljs-comment">[3]</span>int<br>	arr<span class="hljs-comment">[1]</span><span class="hljs-comment">[1]</span> = 10<br>	fmt.Println(arr)<br><br>	//arr<span class="hljs-comment">[0]</span>和arr<span class="hljs-comment">[1]</span>相差24个字节，刚好是三个int的长度，一个int8字节(十六进制)<br>	fmt.Printf(<span class="hljs-string">&quot;arr<span class="hljs-subst">[0]</span>地址是%p\n&quot;</span>, &amp;arr<span class="hljs-comment">[0]</span>)<br>	fmt.Printf(<span class="hljs-string">&quot;arr<span class="hljs-subst">[1]</span>地址是%p\n&quot;</span>, &amp;arr<span class="hljs-comment">[1]</span>)<br><br>	fmt.Printf(<span class="hljs-string">&quot;arr<span class="hljs-subst">[0]</span><span class="hljs-subst">[0]</span>地址是%p\n&quot;</span>, &amp;arr<span class="hljs-comment">[0]</span><span class="hljs-comment">[0]</span>)<br>	fmt.Printf(<span class="hljs-string">&quot;arr<span class="hljs-subst">[1]</span><span class="hljs-subst">[0]</span>地址是%p\n&quot;</span>, &amp;arr<span class="hljs-comment">[1]</span><span class="hljs-comment">[0]</span>)<br>&#125;<br></code></pre></div></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">package main</span><br><span class="line"></span><br><span class="line">import (</span><br><span class="line">	&quot;fmt&quot;</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">func main() &#123;</span><br><span class="line">	var arr [2][3]int</span><br><span class="line">	arr[1][1] &#x3D; 10</span><br><span class="line">	fmt.Println(arr)</span><br><span class="line"></span><br><span class="line">	&#x2F;&#x2F;arr[0]和arr[1]相差24个字节，刚好是三个int的长度，一个int8字节(十六进制)</span><br><span class="line">	fmt.Printf(&quot;arr[0]地址是%p\n&quot;, &amp;arr[0])</span><br><span class="line">	fmt.Printf(&quot;arr[1]地址是%p\n&quot;, &amp;arr[1])</span><br><span class="line"></span><br><span class="line">	fmt.Printf(&quot;arr[0][0]地址是%p\n&quot;, &amp;arr[0][0])</span><br><span class="line">	fmt.Printf(&quot;arr[1][0]地址是%p\n&quot;, &amp;arr[1][0])</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h3 id="使用方式-2"><a href="#使用方式-2" class="headerlink" title="使用方式 2"></a>使用方式 2</h3><p>直接初始化</p>
-<figure class="highlight handlebars"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs handlebars"><span class="xml">声明：var 数组名 [大小][大小]类型 = [大小][大小]类型</span><span class="hljs-template-variable">&#123;&#123;<span class="hljs-name">初值</span>..&#125;,&#123;初值..&#125;&#125;</span><br><br><span class="xml">赋值(有默认值，比如 int 类型的就是 0)</span><br></code></pre></div></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">声明：var 数组名 [大小][大小]类型 &#x3D; [大小][大小]类型&#123;&#123;初值..&#125;,&#123;初值..&#125;&#125;</span><br><span class="line"></span><br><span class="line">赋值(有默认值，比如 int 类型的就是 0)</span><br></pre></td></tr></table></figure>
 <p>使用演示</p>
-<figure class="highlight go"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs go"><span class="hljs-keyword">package</span> main<br><br><span class="hljs-keyword">import</span> (<br>	<span class="hljs-string">&quot;fmt&quot;</span><br>)<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> &#123;<br>	<span class="hljs-keyword">var</span> arr [<span class="hljs-number">2</span>][<span class="hljs-number">3</span>]<span class="hljs-keyword">int</span> = [<span class="hljs-number">2</span>][<span class="hljs-number">3</span>]<span class="hljs-keyword">int</span>&#123;&#123;<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>&#125;, &#123;<span class="hljs-number">4</span>, <span class="hljs-number">5</span>, <span class="hljs-number">6</span>&#125;&#125;<br>	fmt.Println(arr)<br>&#125;<br></code></pre></div></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">package main</span><br><span class="line"></span><br><span class="line">import (</span><br><span class="line">	&quot;fmt&quot;</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">func main() &#123;</span><br><span class="line">	var arr [2][3]int &#x3D; [2][3]int&#123;&#123;1, 2, 3&#125;, &#123;4, 5, 6&#125;&#125;</span><br><span class="line">	fmt.Println(arr)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>说明：二维数组在声明/定义时也对应有四种写法[和一维数组类似]</p>
-<figure class="highlight handlebars"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs handlebars"><span class="xml">var 数组名 [大小][大小]类型 = [...][大小]类型</span><span class="hljs-template-variable">&#123;&#123;<span class="hljs-name">初值</span>..&#125;,&#123;初值..&#125;&#125;</span><br><br><span class="xml">var 数组名 = [大小][大小]类型</span><span class="hljs-template-variable">&#123;&#123;<span class="hljs-name">初值</span>..&#125;,&#123;初值..&#125;&#125;</span><br><br><span class="xml">var 数组名 = [...][大小]类型</span><span class="hljs-template-variable">&#123;&#123;<span class="hljs-name">初值</span>..&#125;,&#123;初值..&#125;&#125;</span><br></code></pre></div></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">var 数组名 [大小][大小]类型 &#x3D; [...][大小]类型&#123;&#123;初值..&#125;,&#123;初值..&#125;&#125;</span><br><span class="line"></span><br><span class="line">var 数组名 &#x3D; [大小][大小]类型&#123;&#123;初值..&#125;,&#123;初值..&#125;&#125;</span><br><span class="line"></span><br><span class="line">var 数组名 &#x3D; [...][大小]类型&#123;&#123;初值..&#125;,&#123;初值..&#125;&#125;</span><br></pre></td></tr></table></figure>
 <h3 id="二维数组的遍历"><a href="#二维数组的遍历" class="headerlink" title="二维数组的遍历"></a>二维数组的遍历</h3><p>双层 for 循环完成遍历</p>
 <p>for-range 方式完成遍历</p>
 <p>案例演示</p>
-<figure class="highlight go"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs go"><span class="hljs-keyword">package</span> main<br><br><span class="hljs-keyword">import</span> (<br>	<span class="hljs-string">&quot;fmt&quot;</span><br>)<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> &#123;<br>	<span class="hljs-keyword">var</span> arr [<span class="hljs-number">2</span>][<span class="hljs-number">3</span>]<span class="hljs-keyword">int</span> = [<span class="hljs-number">2</span>][<span class="hljs-number">3</span>]<span class="hljs-keyword">int</span>&#123;&#123;<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>&#125;, &#123;<span class="hljs-number">4</span>, <span class="hljs-number">5</span>, <span class="hljs-number">6</span>&#125;&#125;<br><br>	<span class="hljs-keyword">for</span> i := <span class="hljs-number">0</span>; i &lt; <span class="hljs-built_in">len</span>(arr); i++ &#123;<br>		<span class="hljs-keyword">for</span> j := <span class="hljs-number">0</span>; j &lt; <span class="hljs-built_in">len</span>(arr[i]); j++ &#123;<br>			fmt.Printf(<span class="hljs-string">&quot;%v\t&quot;</span>, arr[i][j])<br>		&#125;<br>		fmt.Println()<br>	&#125;<br><br>	<span class="hljs-keyword">for</span> i, v := <span class="hljs-keyword">range</span> arr &#123;   <span class="hljs-comment">//v是一个一维数组，不是一个具体的值</span><br>		<span class="hljs-keyword">for</span> i2, v2 := <span class="hljs-keyword">range</span> v &#123;<br>			fmt.Printf(<span class="hljs-string">&quot;arr[%v][%v]=%v\n&quot;</span>, i, i2, v2)<br>		&#125;<br>		fmt.Println()<br>	&#125;<br>&#125;<br></code></pre></div></td></tr></table></figure>
-<figure class="highlight go"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs go"><span class="hljs-keyword">package</span> main<br><br><span class="hljs-keyword">import</span> (<br>	<span class="hljs-string">&quot;fmt&quot;</span><br>)<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> &#123;<br>	<span class="hljs-comment">//定义二维数组，用于保存三个班，每个班五名同学成绩，</span><br>	<span class="hljs-comment">//并求出每个班级平均分、以及所有班级平均分</span><br>	<span class="hljs-keyword">var</span> arr [<span class="hljs-number">3</span>][<span class="hljs-number">3</span>]<span class="hljs-keyword">float64</span><br>	<span class="hljs-keyword">for</span> i := <span class="hljs-number">0</span>; i &lt; <span class="hljs-built_in">len</span>(arr); i++ &#123;<br>		<span class="hljs-keyword">for</span> j := <span class="hljs-number">0</span>; j &lt; <span class="hljs-built_in">len</span>(arr[i]); j++ &#123;<br>			fmt.Printf(<span class="hljs-string">&quot;请输入第%v个班的第%v个学生的成绩\n&quot;</span>, i+<span class="hljs-number">1</span>, j+<span class="hljs-number">1</span>) <span class="hljs-comment">//不能是第0个班和第0个学生</span><br>			fmt.Scanln(&amp;arr[i][j])<br>		&#125;<br>	&#125;<br><br>	totolsum := <span class="hljs-number">0.0</span> <span class="hljs-comment">//接收总成绩</span><br>	<span class="hljs-keyword">for</span> i := <span class="hljs-number">0</span>; i &lt; <span class="hljs-built_in">len</span>(arr); i++ &#123;<br>		sum := <span class="hljs-number">0.0</span>    <span class="hljs-comment">//接收每个班的总成绩</span><br>		<span class="hljs-keyword">for</span> j := <span class="hljs-number">0</span>; j &lt; <span class="hljs-built_in">len</span>(arr[i]); j++ &#123;<br>			sum += arr[i][j]<br>		&#125;<br>		totolsum += sum<br>		fmt.Printf(<span class="hljs-string">&quot;第%v个班的总成绩为%v,平均分为%v\n&quot;</span>, i+<span class="hljs-number">1</span>, sum, sum/<span class="hljs-keyword">float64</span>(<span class="hljs-built_in">len</span>(arr[i])))<br>	&#125;<br>	fmt.Printf(<span class="hljs-string">&quot;所有班得总成绩为%v,所有班得平均分为%v\n&quot;</span>, totolsum, totolsum/<span class="hljs-keyword">float64</span>(<span class="hljs-number">3</span>))<br>&#125;<br></code></pre></div></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">package main</span><br><span class="line"></span><br><span class="line">import (</span><br><span class="line">	&quot;fmt&quot;</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">func main() &#123;</span><br><span class="line">	var arr [2][3]int &#x3D; [2][3]int&#123;&#123;1, 2, 3&#125;, &#123;4, 5, 6&#125;&#125;</span><br><span class="line"></span><br><span class="line">	for i :&#x3D; 0; i &lt; len(arr); i++ &#123;</span><br><span class="line">		for j :&#x3D; 0; j &lt; len(arr[i]); j++ &#123;</span><br><span class="line">			fmt.Printf(&quot;%v\t&quot;, arr[i][j])</span><br><span class="line">		&#125;</span><br><span class="line">		fmt.Println()</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	for i, v :&#x3D; range arr &#123;   &#x2F;&#x2F;v是一个一维数组，不是一个具体的值</span><br><span class="line">		for i2, v2 :&#x3D; range v &#123;</span><br><span class="line">			fmt.Printf(&quot;arr[%v][%v]&#x3D;%v\n&quot;, i, i2, v2)</span><br><span class="line">		&#125;</span><br><span class="line">		fmt.Println()</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">package main</span><br><span class="line"></span><br><span class="line">import (</span><br><span class="line">	&quot;fmt&quot;</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">func main() &#123;</span><br><span class="line">	&#x2F;&#x2F;定义二维数组，用于保存三个班，每个班五名同学成绩，</span><br><span class="line">	&#x2F;&#x2F;并求出每个班级平均分、以及所有班级平均分</span><br><span class="line">	var arr [3][3]float64</span><br><span class="line">	for i :&#x3D; 0; i &lt; len(arr); i++ &#123;</span><br><span class="line">		for j :&#x3D; 0; j &lt; len(arr[i]); j++ &#123;</span><br><span class="line">			fmt.Printf(&quot;请输入第%v个班的第%v个学生的成绩\n&quot;, i+1, j+1) &#x2F;&#x2F;不能是第0个班和第0个学生</span><br><span class="line">			fmt.Scanln(&amp;arr[i][j])</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	totolsum :&#x3D; 0.0 &#x2F;&#x2F;接收总成绩</span><br><span class="line">	for i :&#x3D; 0; i &lt; len(arr); i++ &#123;</span><br><span class="line">		sum :&#x3D; 0.0    &#x2F;&#x2F;接收每个班的总成绩</span><br><span class="line">		for j :&#x3D; 0; j &lt; len(arr[i]); j++ &#123;</span><br><span class="line">			sum +&#x3D; arr[i][j]</span><br><span class="line">		&#125;</span><br><span class="line">		totolsum +&#x3D; sum</span><br><span class="line">		fmt.Printf(&quot;第%v个班的总成绩为%v,平均分为%v\n&quot;, i+1, sum, sum&#x2F;float64(len(arr[i])))</span><br><span class="line">	&#125;</span><br><span class="line">	fmt.Printf(&quot;所有班得总成绩为%v,所有班得平均分为%v\n&quot;, totolsum, totolsum&#x2F;float64(3))</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h2 id="数组排序"><a href="#数组排序" class="headerlink" title="数组排序"></a>数组排序</h2><h3 id="基本介绍"><a href="#基本介绍" class="headerlink" title="基本介绍"></a>基本介绍</h3><p>​    排序是将一组数据，依指定的顺序进行排列的过程</p>
 <h3 id="排序的分类"><a href="#排序的分类" class="headerlink" title="排序的分类"></a>排序的分类</h3><p>1、内部排序：指将需要进行出理的所有数据都加载到内部存储器中进行排序（交换式排序法、选则式排序法、插入式排序法）</p>
 <p>2、外部排序法：数据量过大，无法全部加载到内存中，需要借助外部存储进行排序（合并排序法、直接合并排序法）</p>
 <h3 id="冒泡排序介绍"><a href="#冒泡排序介绍" class="headerlink" title="冒泡排序介绍"></a>冒泡排序介绍</h3><p>​    通过对待排序序列从后向前（从下标较大的元素开始），依次比较相邻元素的顺序码，若发现逆序则交换，使排序码较小的元素逐渐从后部移向前部（从下标较大的单元移向下标较小的单元），就像水底下的气泡一样逐渐向上冒。</p>
 <p>​    因为排序的过程中，各元素不断接近自己的位置，如果一趟比较下来没有进行过交换，就说明序列有序，因此要在排序过程中设置一个标志flag判断元素是否进行过交换，从而减少不必要的比较。</p>
-<figure class="highlight go"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs go"><span class="hljs-keyword">package</span> main<br><br><span class="hljs-keyword">import</span> (<br>	<span class="hljs-string">&quot;fmt&quot;</span><br>)<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">bubb</span><span class="hljs-params">(arr *[5]<span class="hljs-keyword">int</span>)</span></span> &#123;<br>	fmt.Println(<span class="hljs-string">&quot;排序前=&quot;</span>, (*arr))<br><br>	<span class="hljs-comment">//定义一个变量进行交换</span><br>	<span class="hljs-comment">//temp := 0</span><br>	<span class="hljs-comment">//需要进行四轮比较，则为函数个数-1</span><br>	<span class="hljs-keyword">for</span> i := <span class="hljs-number">0</span>; i &lt; <span class="hljs-built_in">len</span>(*arr)<span class="hljs-number">-1</span>; i++ &#123;<br>		<span class="hljs-comment">//每次比较次数为函数个数-1-进行了比较的轮次</span><br>		<span class="hljs-keyword">for</span> j := <span class="hljs-number">0</span>; j &lt; <span class="hljs-built_in">len</span>(*arr)-i<span class="hljs-number">-1</span>; j++ &#123;<br>			<span class="hljs-keyword">if</span> (*arr)[j] &gt; (*arr)[j+<span class="hljs-number">1</span>] &#123;<br>				<span class="hljs-comment">//将数据交换</span><br>				(*arr)[j], (*arr)[j+<span class="hljs-number">1</span>] = (*arr)[j+<span class="hljs-number">1</span>], (*arr)[j]<br><br>			&#125;<br>		&#125;<br>	&#125;<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> &#123;<br>	<span class="hljs-comment">//定义一个数组</span><br>	<span class="hljs-keyword">var</span> arr [<span class="hljs-number">5</span>]<span class="hljs-keyword">int</span> = [<span class="hljs-number">5</span>]<span class="hljs-keyword">int</span>&#123;<span class="hljs-number">24</span>, <span class="hljs-number">69</span>, <span class="hljs-number">80</span>, <span class="hljs-number">57</span>, <span class="hljs-number">13</span>&#125;<br>	bubb(&amp;arr)<br>	fmt.Println(<span class="hljs-string">&quot;排序后=&quot;</span>, arr)<br>&#125;<br></code></pre></div></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">package main</span><br><span class="line"></span><br><span class="line">import (</span><br><span class="line">	&quot;fmt&quot;</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">func bubb(arr *[5]int) &#123;</span><br><span class="line">	fmt.Println(&quot;排序前&#x3D;&quot;, (*arr))</span><br><span class="line"></span><br><span class="line">	&#x2F;&#x2F;定义一个变量进行交换</span><br><span class="line">	&#x2F;&#x2F;temp :&#x3D; 0</span><br><span class="line">	&#x2F;&#x2F;需要进行四轮比较，则为函数个数-1</span><br><span class="line">	for i :&#x3D; 0; i &lt; len(*arr)-1; i++ &#123;</span><br><span class="line">		&#x2F;&#x2F;每次比较次数为函数个数-1-进行了比较的轮次</span><br><span class="line">		for j :&#x3D; 0; j &lt; len(*arr)-i-1; j++ &#123;</span><br><span class="line">			if (*arr)[j] &gt; (*arr)[j+1] &#123;</span><br><span class="line">				&#x2F;&#x2F;将数据交换</span><br><span class="line">				(*arr)[j], (*arr)[j+1] &#x3D; (*arr)[j+1], (*arr)[j]</span><br><span class="line"></span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func main() &#123;</span><br><span class="line">	&#x2F;&#x2F;定义一个数组</span><br><span class="line">	var arr [5]int &#x3D; [5]int&#123;24, 69, 80, 57, 13&#125;</span><br><span class="line">	bubb(&amp;arr)</span><br><span class="line">	fmt.Println(&quot;排序后&#x3D;&quot;, arr)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h2 id="数组查找"><a href="#数组查找" class="headerlink" title="数组查找"></a>数组查找</h2><p>在 Golang 中，我们常用的查找有两种:</p>
-<h3 id="1-顺序查找"><a href="#1-顺序查找" class="headerlink" title="1)  顺序查找"></a>1)  顺序查找</h3><figure class="highlight go"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs go"><span class="hljs-keyword">package</span> main<br><br><span class="hljs-keyword">import</span> (<br>	<span class="hljs-string">&quot;fmt&quot;</span><br>)<br><br><span class="hljs-comment">//有一个数列：白眉鹰王、金毛狮王、紫衫龙王、青翼蝠王</span><br><span class="hljs-comment">//猜数游戏：从键盘中任意输入一个名称，判断数列中是否包含此名称</span><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> &#123;<br>	<span class="hljs-comment">//思路：定义一个字符串数组，依次进行比较</span><br>	<span class="hljs-keyword">var</span> names [<span class="hljs-number">4</span>]<span class="hljs-keyword">string</span> = [<span class="hljs-number">4</span>]<span class="hljs-keyword">string</span>&#123;<span class="hljs-string">&quot;白眉鹰王&quot;</span>, <span class="hljs-string">&quot;金毛狮王&quot;</span>, <span class="hljs-string">&quot;紫衫龙王&quot;</span>, <span class="hljs-string">&quot;青翼蝠王&quot;</span>&#125;<br>	<span class="hljs-keyword">var</span> heroname = <span class="hljs-string">&quot;&quot;</span><br>	fmt.Println(<span class="hljs-string">&quot;请输入名字:&quot;</span>, heroname)<br>	fmt.Scanln(&amp;heroname)<br><br>	<span class="hljs-keyword">for</span> i := <span class="hljs-number">0</span>; i &lt; <span class="hljs-built_in">len</span>(names); i++ &#123;<br>		<span class="hljs-keyword">if</span> heroname == names[i] &#123;<br>			fmt.Printf(<span class="hljs-string">&quot;找到名字为%v\n下标为%v\n&quot;</span>, heroname, i)<br>			<span class="hljs-keyword">break</span><br>		&#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> i == (<span class="hljs-built_in">len</span>(names) - <span class="hljs-number">1</span>) &#123;<br>			fmt.Println(<span class="hljs-string">&quot;没有找到&quot;</span>)<br>		&#125;<br>	&#125;<br>&#125;<br></code></pre></div></td></tr></table></figure>
-<figure class="highlight go"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs go"><span class="hljs-keyword">package</span> main<br><br><span class="hljs-keyword">import</span> (<br>	<span class="hljs-string">&quot;fmt&quot;</span><br>)<br><br><span class="hljs-comment">//有一个数列：白眉鹰王、金毛狮王、紫衫龙王、青翼蝠王</span><br><span class="hljs-comment">//猜数游戏：从键盘中任意输入一个名称，判断数列中是否包含此名称</span><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> &#123;<br>	<span class="hljs-comment">//思路：定义一个字符串数组，依次进行比较</span><br>	<span class="hljs-keyword">var</span> names [<span class="hljs-number">4</span>]<span class="hljs-keyword">string</span> = [<span class="hljs-number">4</span>]<span class="hljs-keyword">string</span>&#123;<span class="hljs-string">&quot;白眉鹰王&quot;</span>, <span class="hljs-string">&quot;金毛狮王&quot;</span>, <span class="hljs-string">&quot;紫衫龙王&quot;</span>, <span class="hljs-string">&quot;青翼蝠王&quot;</span>&#125;<br>	<span class="hljs-keyword">var</span> heroname = <span class="hljs-string">&quot;&quot;</span><br>	fmt.Println(<span class="hljs-string">&quot;请输入名字:&quot;</span>, heroname)<br>	fmt.Scanln(&amp;heroname)<br><br>	index := <span class="hljs-number">-1</span><br>	<span class="hljs-keyword">for</span> i := <span class="hljs-number">0</span>; i &lt; <span class="hljs-built_in">len</span>(names); i++ &#123;<br>		<span class="hljs-keyword">if</span> heroname == names[i] &#123;<br>			index = i<br>			<span class="hljs-keyword">break</span><br>		&#125;<br>	&#125;<br>	<span class="hljs-keyword">if</span> index != <span class="hljs-number">-1</span> &#123;<br>		fmt.Printf(<span class="hljs-string">&quot;找到了名字为%v 下标为%v&quot;</span>, heroname, index)<br>	&#125; <span class="hljs-keyword">else</span> &#123;<br>		fmt.Println(<span class="hljs-string">&quot;没有找到&quot;</span>)<br>	&#125;<br>&#125;<br></code></pre></div></td></tr></table></figure>
-<h3 id="2-二分查找-该数组是有序"><a href="#2-二分查找-该数组是有序" class="headerlink" title="2)  二分查找(该数组是有序)"></a>2)  二分查找(该数组是有序)</h3><figure class="highlight go"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs go"><span class="hljs-keyword">package</span> main<br><br><span class="hljs-keyword">import</span> (<br>	<span class="hljs-string">&quot;fmt&quot;</span><br>)<br><br><span class="hljs-comment">/*</span><br><span class="hljs-comment">二分查找的思路: 比如我们要查找的数是 findVal</span><br><span class="hljs-comment">1. arr 是一个有序数组，并且是从小到大排序</span><br><span class="hljs-comment">2. 先找到 中间的下标 middle := ((leftIndex + rightIndex) + 1) / 2, 然后让 中间下标的值和 findVal 进行</span><br><span class="hljs-comment">比较</span><br><span class="hljs-comment">2.1 如果 arr[middle] &gt; findVal , 就应该向 leftIndex ---- middle</span><br><span class="hljs-comment">2.2 如果 arr[middle] &lt; findVal , 就应该向 middel---- rightIndex</span><br><span class="hljs-comment">2.3 如果 arr[middle] == findVal ， 就找到</span><br><span class="hljs-comment">2.4 上面的 2.1 2.2 2.3 的逻辑会递归执行</span><br><span class="hljs-comment">3. 想一下，怎么样的情况下，就说明找不到[分析出退出递归的条件!!]</span><br><span class="hljs-comment">if leftIndex &gt; rightIndex &#123;</span><br><span class="hljs-comment">// 找不到..</span><br><span class="hljs-comment">return ..</span><br><span class="hljs-comment">&#125;</span><br><span class="hljs-comment">*/</span><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">BinaryFind</span><span class="hljs-params">(arr *[7]<span class="hljs-keyword">int</span>, leftIndex <span class="hljs-keyword">int</span>, rightIndex <span class="hljs-keyword">int</span>, findVal <span class="hljs-keyword">int</span>)</span></span> &#123;<br>	<span class="hljs-comment">//判断leftIndex是否大于rightIndex</span><br>	<span class="hljs-keyword">if</span> leftIndex &gt; rightIndex &#123;<br>		fmt.Println(<span class="hljs-string">&quot;找不到&quot;</span>)<br>		<span class="hljs-keyword">return</span><br>	&#125;<br>	middle := ((leftIndex + rightIndex) + <span class="hljs-number">1</span>) / <span class="hljs-number">2</span><br>	<span class="hljs-keyword">if</span> arr[middle] &gt; findVal &#123;<br>		BinaryFind(arr, leftIndex, middle, findVal)<br>	&#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> arr[middle] &lt; findVal &#123;<br>		BinaryFind(arr, middle, leftIndex, findVal)<br>	&#125; <span class="hljs-keyword">else</span> &#123;<br>		fmt.Printf(<span class="hljs-string">&quot;找到了=%v  下标为%v&quot;</span>, findVal, middle)<br>	&#125;<br>&#125;<br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> &#123;<br>	arr := [<span class="hljs-number">7</span>]<span class="hljs-keyword">int</span>&#123;<span class="hljs-number">1</span>, <span class="hljs-number">8</span>, <span class="hljs-number">10</span>, <span class="hljs-number">89</span>, <span class="hljs-number">1000</span>, <span class="hljs-number">1234</span>, <span class="hljs-number">3234</span>&#125;<br>	BinaryFind(&amp;arr, <span class="hljs-number">0</span>, <span class="hljs-built_in">len</span>(arr)<span class="hljs-number">-1</span>, <span class="hljs-number">10</span>)<br>&#125;<br></code></pre></div></td></tr></table></figure>
-<figure class="highlight go"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs go"><span class="hljs-keyword">package</span> main<br><br><span class="hljs-keyword">import</span> (<br>	<span class="hljs-string">&quot;fmt&quot;</span><br>)<br><br><span class="hljs-comment">/*</span><br><span class="hljs-comment">二分查找的思路: 比如我们要查找的数是 findVal</span><br><span class="hljs-comment">1. arr 是一个有序数组，并且是从小到大排序</span><br><span class="hljs-comment">2. 先找到 中间的下标 middle = (leftIndex + rightIndex) / 2, 然后让 中间下标的值和 findVal 进行</span><br><span class="hljs-comment">比较</span><br><span class="hljs-comment">2.1 如果 arr[middle] &gt; findVal , 就应该向 leftIndex ---- (middle - 1)</span><br><span class="hljs-comment">2.2 如果 arr[middle] &lt; findVal , 就应该向 middel+1---- rightIndex</span><br><span class="hljs-comment">2.3 如果 arr[middle] == findVal ， 就找到</span><br><span class="hljs-comment">2.4 上面的 2.1 2.2 2.3 的逻辑会递归执行</span><br><span class="hljs-comment">3. 想一下，怎么样的情况下，就说明找不到[分析出退出递归的条件!!]</span><br><span class="hljs-comment">if leftIndex &gt; rightIndex &#123;</span><br><span class="hljs-comment">// 找不到..</span><br><span class="hljs-comment">return ..</span><br><span class="hljs-comment">&#125;</span><br><span class="hljs-comment">*/</span><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">BinaryFind</span><span class="hljs-params">(arr *[6]<span class="hljs-keyword">int</span>, leftIndex <span class="hljs-keyword">int</span>, rightIndex <span class="hljs-keyword">int</span>, findVal <span class="hljs-keyword">int</span>)</span></span> &#123;<br>	<span class="hljs-comment">//判断leftIndex是否大于rightIndex</span><br>	<span class="hljs-keyword">if</span> leftIndex &gt; rightIndex &#123;<br>		fmt.Println(<span class="hljs-string">&quot;找不到&quot;</span>)<br>		<span class="hljs-keyword">return</span><br>	&#125;<br>	middle := (leftIndex + rightIndex) / <span class="hljs-number">2</span><br>	<span class="hljs-keyword">if</span> arr[middle] &gt; findVal &#123;<br>		BinaryFind(arr, leftIndex, middle<span class="hljs-number">-1</span>, findVal)<br>	&#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> arr[middle] &lt; findVal &#123;<br>		BinaryFind(arr, middle, leftIndex+<span class="hljs-number">1</span>, findVal)<br>	&#125; <span class="hljs-keyword">else</span> &#123;<br>		fmt.Printf(<span class="hljs-string">&quot;找到了=%v  下标为%v&quot;</span>, findVal, middle)<br>	&#125;<br>&#125;<br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> &#123;<br>	arr := [<span class="hljs-number">6</span>]<span class="hljs-keyword">int</span>&#123;<span class="hljs-number">1</span>, <span class="hljs-number">8</span>, <span class="hljs-number">10</span>, <span class="hljs-number">89</span>, <span class="hljs-number">1000</span>, <span class="hljs-number">1234</span>&#125;<br>	BinaryFind(&amp;arr, <span class="hljs-number">0</span>, <span class="hljs-built_in">len</span>(arr)<span class="hljs-number">-1</span>, <span class="hljs-number">10</span>)<br>&#125;<br></code></pre></div></td></tr></table></figure>
-            </div>
-            <hr>
-            <div>
-              <div class="post-metas mb-3">
-                
-                  <div class="post-meta mr-3">
-                    <i class="iconfont icon-category"></i>
-                    
-                      <a class="hover-with-bg" href="/categories/Golang/">Golang</a>
-                    
-                  </div>
-                
-                
-                  <div class="post-meta">
-                    <i class="iconfont icon-tags"></i>
-                    
-                      <a class="hover-with-bg" href="/tags/Golang/">Golang</a>
-                    
-                  </div>
-                
-              </div>
-              
-                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
-              
-              
-                <div class="post-prevnext">
-                  <article class="post-prev col-6">
-                    
-                    
-                      <a href="/2021/04/15/Go%E8%AF%AD%E8%A8%80%E5%88%87%E7%89%87/">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">Go语言切片</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
-                  </article>
-                  <article class="post-next col-6">
-                    
-                    
-                      <a href="/2021/04/14/Jenkins%E9%9B%86%E6%88%90%E9%92%89%E9%92%89/">
-                        <span class="hidden-mobile">Jenkins集成钉钉</span>
-                        <span class="visible-mobile">下一篇</span>
-                        <i class="iconfont icon-arrowright"></i>
-                      </a>
-                    
-                  </article>
-                </div>
-              
-            </div>
-
-            
-              <!-- Comments -->
-              <article class="comments" id="comments">
-                
-                
-  <div id="vcomments"></div>
-  <script type="text/javascript">
-    Fluid.utils.waitElementVisible('vcomments', function() {
-      Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js', function () {
-        new Valine({
-          el: "#vcomments",
-          app_id: "hPHtsN0Gt7U2zB2AllYqbucc-9Nh9j0Va",
-          app_key: "TVUER8rWijR8cD1STqzd2d4E",
-          placeholder: "你有故事，我有酒，我们一起勇闯天涯。。。",
-          path: window.location.pathname,
-          avatar: "retro",
-          meta: ["nick","mail","link"],
-          pageSize: "10",
-          lang: "zh-CN",
-          highlight: false,
-          recordIP: false,
-          serverURLs: "",
-        });
-      });
-    });
-  </script>
-  <noscript>Please enable JavaScript to view the
-    <a target="_blank" href="https://valine.js.org" rel="nofollow noopener noopener">comments powered by Valine.</a>
-  </noscript>
-
-
-              </article>
-            
-          </article>
-        </div>
-      </div>
+<h3 id="1-顺序查找"><a href="#1-顺序查找" class="headerlink" title="1)  顺序查找"></a>1)  顺序查找</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">package main</span><br><span class="line"></span><br><span class="line">import (</span><br><span class="line">	&quot;fmt&quot;</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;有一个数列：白眉鹰王、金毛狮王、紫衫龙王、青翼蝠王</span><br><span class="line">&#x2F;&#x2F;猜数游戏：从键盘中任意输入一个名称，判断数列中是否包含此名称</span><br><span class="line">func main() &#123;</span><br><span class="line">	&#x2F;&#x2F;思路：定义一个字符串数组，依次进行比较</span><br><span class="line">	var names [4]string &#x3D; [4]string&#123;&quot;白眉鹰王&quot;, &quot;金毛狮王&quot;, &quot;紫衫龙王&quot;, &quot;青翼蝠王&quot;&#125;</span><br><span class="line">	var heroname &#x3D; &quot;&quot;</span><br><span class="line">	fmt.Println(&quot;请输入名字:&quot;, heroname)</span><br><span class="line">	fmt.Scanln(&amp;heroname)</span><br><span class="line"></span><br><span class="line">	for i :&#x3D; 0; i &lt; len(names); i++ &#123;</span><br><span class="line">		if heroname &#x3D;&#x3D; names[i] &#123;</span><br><span class="line">			fmt.Printf(&quot;找到名字为%v\n下标为%v\n&quot;, heroname, i)</span><br><span class="line">			break</span><br><span class="line">		&#125; else if i &#x3D;&#x3D; (len(names) - 1) &#123;</span><br><span class="line">			fmt.Println(&quot;没有找到&quot;)</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">package main</span><br><span class="line"></span><br><span class="line">import (</span><br><span class="line">	&quot;fmt&quot;</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;有一个数列：白眉鹰王、金毛狮王、紫衫龙王、青翼蝠王</span><br><span class="line">&#x2F;&#x2F;猜数游戏：从键盘中任意输入一个名称，判断数列中是否包含此名称</span><br><span class="line">func main() &#123;</span><br><span class="line">	&#x2F;&#x2F;思路：定义一个字符串数组，依次进行比较</span><br><span class="line">	var names [4]string &#x3D; [4]string&#123;&quot;白眉鹰王&quot;, &quot;金毛狮王&quot;, &quot;紫衫龙王&quot;, &quot;青翼蝠王&quot;&#125;</span><br><span class="line">	var heroname &#x3D; &quot;&quot;</span><br><span class="line">	fmt.Println(&quot;请输入名字:&quot;, heroname)</span><br><span class="line">	fmt.Scanln(&amp;heroname)</span><br><span class="line"></span><br><span class="line">	index :&#x3D; -1</span><br><span class="line">	for i :&#x3D; 0; i &lt; len(names); i++ &#123;</span><br><span class="line">		if heroname &#x3D;&#x3D; names[i] &#123;</span><br><span class="line">			index &#x3D; i</span><br><span class="line">			break</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	if index !&#x3D; -1 &#123;</span><br><span class="line">		fmt.Printf(&quot;找到了名字为%v 下标为%v&quot;, heroname, index)</span><br><span class="line">	&#125; else &#123;</span><br><span class="line">		fmt.Println(&quot;没有找到&quot;)</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="2-二分查找-该数组是有序"><a href="#2-二分查找-该数组是有序" class="headerlink" title="2)  二分查找(该数组是有序)"></a>2)  二分查找(该数组是有序)</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line">package main</span><br><span class="line"></span><br><span class="line">import (</span><br><span class="line">	&quot;fmt&quot;</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">&#x2F;*</span><br><span class="line">二分查找的思路: 比如我们要查找的数是 findVal</span><br><span class="line">1. arr 是一个有序数组，并且是从小到大排序</span><br><span class="line">2. 先找到 中间的下标 middle :&#x3D; ((leftIndex + rightIndex) + 1) &#x2F; 2, 然后让 中间下标的值和 findVal 进行</span><br><span class="line">比较</span><br><span class="line">2.1 如果 arr[middle] &gt; findVal , 就应该向 leftIndex ---- middle</span><br><span class="line">2.2 如果 arr[middle] &lt; findVal , 就应该向 middel---- rightIndex</span><br><span class="line">2.3 如果 arr[middle] &#x3D;&#x3D; findVal ， 就找到</span><br><span class="line">2.4 上面的 2.1 2.2 2.3 的逻辑会递归执行</span><br><span class="line">3. 想一下，怎么样的情况下，就说明找不到[分析出退出递归的条件!!]</span><br><span class="line">if leftIndex &gt; rightIndex &#123;</span><br><span class="line">&#x2F;&#x2F; 找不到..</span><br><span class="line">return ..</span><br><span class="line">&#125;</span><br><span class="line">*&#x2F;</span><br><span class="line">func BinaryFind(arr *[7]int, leftIndex int, rightIndex int, findVal int) &#123;</span><br><span class="line">	&#x2F;&#x2F;判断leftIndex是否大于rightIndex</span><br><span class="line">	if leftIndex &gt; rightIndex &#123;</span><br><span class="line">		fmt.Println(&quot;找不到&quot;)</span><br><span class="line">		return</span><br><span class="line">	&#125;</span><br><span class="line">	middle :&#x3D; ((leftIndex + rightIndex) + 1) &#x2F; 2</span><br><span class="line">	if arr[middle] &gt; findVal &#123;</span><br><span class="line">		BinaryFind(arr, leftIndex, middle, findVal)</span><br><span class="line">	&#125; else if arr[middle] &lt; findVal &#123;</span><br><span class="line">		BinaryFind(arr, middle, leftIndex, findVal)</span><br><span class="line">	&#125; else &#123;</span><br><span class="line">		fmt.Printf(&quot;找到了&#x3D;%v  下标为%v&quot;, findVal, middle)</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line">func main() &#123;</span><br><span class="line">	arr :&#x3D; [7]int&#123;1, 8, 10, 89, 1000, 1234, 3234&#125;</span><br><span class="line">	BinaryFind(&amp;arr, 0, len(arr)-1, 10)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line">package main</span><br><span class="line"></span><br><span class="line">import (</span><br><span class="line">	&quot;fmt&quot;</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">&#x2F;*</span><br><span class="line">二分查找的思路: 比如我们要查找的数是 findVal</span><br><span class="line">1. arr 是一个有序数组，并且是从小到大排序</span><br><span class="line">2. 先找到 中间的下标 middle &#x3D; (leftIndex + rightIndex) &#x2F; 2, 然后让 中间下标的值和 findVal 进行</span><br><span class="line">比较</span><br><span class="line">2.1 如果 arr[middle] &gt; findVal , 就应该向 leftIndex ---- (middle - 1)</span><br><span class="line">2.2 如果 arr[middle] &lt; findVal , 就应该向 middel+1---- rightIndex</span><br><span class="line">2.3 如果 arr[middle] &#x3D;&#x3D; findVal ， 就找到</span><br><span class="line">2.4 上面的 2.1 2.2 2.3 的逻辑会递归执行</span><br><span class="line">3. 想一下，怎么样的情况下，就说明找不到[分析出退出递归的条件!!]</span><br><span class="line">if leftIndex &gt; rightIndex &#123;</span><br><span class="line">&#x2F;&#x2F; 找不到..</span><br><span class="line">return ..</span><br><span class="line">&#125;</span><br><span class="line">*&#x2F;</span><br><span class="line">func BinaryFind(arr *[6]int, leftIndex int, rightIndex int, findVal int) &#123;</span><br><span class="line">	&#x2F;&#x2F;判断leftIndex是否大于rightIndex</span><br><span class="line">	if leftIndex &gt; rightIndex &#123;</span><br><span class="line">		fmt.Println(&quot;找不到&quot;)</span><br><span class="line">		return</span><br><span class="line">	&#125;</span><br><span class="line">	middle :&#x3D; (leftIndex + rightIndex) &#x2F; 2</span><br><span class="line">	if arr[middle] &gt; findVal &#123;</span><br><span class="line">		BinaryFind(arr, leftIndex, middle-1, findVal)</span><br><span class="line">	&#125; else if arr[middle] &lt; findVal &#123;</span><br><span class="line">		BinaryFind(arr, middle, leftIndex+1, findVal)</span><br><span class="line">	&#125; else &#123;</span><br><span class="line">		fmt.Printf(&quot;找到了&#x3D;%v  下标为%v&quot;, findVal, middle)</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line">func main() &#123;</span><br><span class="line">	arr :&#x3D; [6]int&#123;1, 8, 10, 89, 1000, 1234&#125;</span><br><span class="line">	BinaryFind(&amp;arr, 0, len(arr)-1, 10)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
     </div>
+
     
-      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
-        <div id="toc">
-  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
-  <div class="toc-body" id="toc-body"></div>
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Golang/" rel="tag"># Golang</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2021/04/14/Jenkins%E9%9B%86%E6%88%90%E9%92%89%E9%92%89/" rel="prev" title="Jenkins集成钉钉">
+                  <i class="fa fa-chevron-left"></i> Jenkins集成钉钉
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2021/04/15/Go%E8%AF%AD%E8%A8%80%E5%88%87%E7%89%87/" rel="next" title="Go语言切片">
+                  Go语言切片 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
 </div>
 
-      </div>
-    
-  </div>
+
+
+
+
+
 </div>
-
-<!-- Custom -->
-
-
-    
-
-    
-      <a id="scroll-top-button" href="#" role="button">
-        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
-      </a>
-    
-
-    
-      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
-     aria-hidden="true">
-  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
-    <div class="modal-content">
-      <div class="modal-header text-center">
-        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
-        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body mx-3">
-        <div class="md-form mb-5">
-          <input type="text" id="local-search-input" class="form-control validate">
-          <label data-error="x" data-success="v"
-                 for="local-search-input">关键词</label>
-        </div>
-        <div class="list-group" id="local-search-result"></div>
-      </div>
-    </div>
-  </div>
-</div>
-    
-
-    
   </main>
 
-  <footer class="text-center mt-5 py-3">
-  <div class="footer-content">
-     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
-  </div>
-  
-  <div class="statistics">
-    
-    
+  <footer class="footer">
+    <div class="footer-inner">
 
-    
-      
-        <!-- 不蒜子统计PV -->
-        <span id="busuanzi_container_site_pv" style="display: none">
-            总访问量 
-            <span id="busuanzi_value_site_pv"></span>
-             次
-          </span>
-      
-      
-        <!-- 不蒜子统计UV -->
-        <span id="busuanzi_container_site_uv" style="display: none">
-            总访客数 
-            <span id="busuanzi_value_site_uv"></span>
-             人
-          </span>
-      
-    
+
+<div class="copyright">
+  &copy; 2020 – 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">羊皮裘老头</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
   </div>
 
+    </div>
+  </footer>
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
 
   
 
-  
-</footer>
 
-<!-- SCRIPTS -->
-
-  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
-  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
-
-  <script>
-    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
-    NProgress.start()
-    window.addEventListener('load', function() {
-      NProgress.done();
-    })
-  </script>
-
-
-<script  src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" ></script>
-<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" ></script>
-<script  src="/js/debouncer.js" ></script>
-<script  src="/js/events.js" ></script>
-<script  src="/js/plugins.js" ></script>
-
-<!-- Plugins -->
-
-
-  
-    <script  src="/js/lazyload.js" ></script>
-  
 
 
 
   
 
 
-
-  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.0/dist/tocbot.min.js" ></script>
-
-
-
-  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
-
-
-
-  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.0/anchor.min.js" ></script>
-
-
-
-  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js" ></script>
-
-
-
-  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
-
-
-
-
-
-
-  <script  src="/js/local-search.js" ></script>
-  <script>
-    (function () {
-      var path = "/local-search.xml";
-      var inputArea = document.querySelector("#local-search-input");
-      inputArea.onclick = function () {
-        searchFunc(path, 'local-search-input', 'local-search-result');
-        this.onclick = null
-      }
-    })()
-  </script>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<!-- 主题的启动项 保持在最底部 -->
-<script  src="/js/boot.js" ></script>
 
 
 
