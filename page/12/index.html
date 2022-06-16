@@ -200,6 +200,50 @@
 
     <div class="main-inner index posts-expand">
 
+
+	<div class="tag-cloud">
+	  <div class="tag-cloud-tags" id="tags">
+		<a href="/tags/Calico/" style="font-size: 16px; color: #fff">Calico</a> <a href="/tags/Containerd/" style="font-size: 16px; color: #fff">Containerd</a> <a href="/tags/Docker/" style="font-size: 16px; color: #fff">Docker</a> <a href="/tags/Drone/" style="font-size: 16px; color: #fff">Drone</a> <a href="/tags/Elasticsearch/" style="font-size: 16px; color: #fff">Elasticsearch</a> <a href="/tags/Filebeat/" style="font-size: 16px; color: #fff">Filebeat</a> <a href="/tags/Gitlab/" style="font-size: 16px; color: #fff">Gitlab</a> <a href="/tags/Golang/" style="font-size: 16px; color: #fff">Golang</a> <a href="/tags/Harbor/" style="font-size: 16px; color: #fff">Harbor</a> <a href="/tags/Helm/" style="font-size: 16px; color: #fff">Helm</a> <a href="/tags/Hexo/" style="font-size: 16px; color: #fff">Hexo</a> <a href="/tags/Istio/" style="font-size: 16px; color: #fff">Istio</a> <a href="/tags/Jenkins/" style="font-size: 16px; color: #fff">Jenkins</a> <a href="/tags/Kubernetes/" style="font-size: 16px; color: #fff">Kubernetes</a> <a href="/tags/Linux/" style="font-size: 16px; color: #fff">Linux</a> <a href="/tags/Logstash/" style="font-size: 16px; color: #fff">Logstash</a> <a href="/tags/Mariadb/" style="font-size: 16px; color: #fff">Mariadb</a> <a href="/tags/MetalLB/" style="font-size: 16px; color: #fff">MetalLB</a> <a href="/tags/Minio/" style="font-size: 16px; color: #fff">Minio</a> <a href="/tags/Mysql/" style="font-size: 16px; color: #fff">Mysql</a> <a href="/tags/Nexus/" style="font-size: 16px; color: #fff">Nexus</a> <a href="/tags/PostgreSQL/" style="font-size: 16px; color: #fff">PostgreSQL</a> <a href="/tags/Prometheus/" style="font-size: 16px; color: #fff">Prometheus</a> <a href="/tags/Rancher/" style="font-size: 16px; color: #fff">Rancher</a> <a href="/tags/Redis/" style="font-size: 16px; color: #fff">Redis</a> <a href="/tags/Shell/" style="font-size: 16px; color: #fff">Shell</a> <a href="/tags/Sonarqube/" style="font-size: 16px; color: #fff">Sonarqube</a> <a href="/tags/VMware/" style="font-size: 16px; color: #fff">VMware</a>
+	  </div>
+	</div>
+	<br>
+
+	<script type="text/javascript">
+     var alltags = document.getElementsByClassName('tag-cloud-tags');
+     var tags = alltags[0].getElementsByTagName('a');
+     for (var i = tags.length - 1; i >= 0; i--) {
+       var r=Math.floor(Math.random()*75+130);
+       var g=Math.floor(Math.random()*75+100);
+       var b=Math.floor(Math.random()*75+80);
+       tags[i].style.background = "rgb("+r+","+g+","+b+")";
+     }
+</script>
+
+<style>
+  .tag-cloud-tags{
+    /*font-family: Helvetica, Tahoma, Arial;*/
+    /*font-weight: 100;*/
+    text-align: center;
+    counter-reset: tags;
+  }
+  .tag-cloud-tags a{
+    border-radius: 6px;
+    padding-right: 5px;
+    padding-left: 5px;
+    margin: 8px 5px 0px 0px;
+  }
+  .tag-cloud-tags a:before{
+    content: "?";
+  }
+
+  .tag-cloud-tags a:hover{
+     box-shadow: 0px 5px 15px 0px rgba(0,0,0,.4);
+     transform: scale(1.1);
+     /*box-shadow: 10px 10px 15px 2px rgba(0,0,0,.12), 0 0 6px 0 rgba(104, 104, 105, 0.1);*/
+     transition-duration: 0.15s;
+  }
+</style>
+
     
 
 
@@ -1050,6 +1094,8 @@
       </span>
     </span>
 </div>
+<!--
+-->
 
     </div>
   </footer>
