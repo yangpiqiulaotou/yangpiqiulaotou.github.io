@@ -241,7 +241,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-06-18 22:47:18" itemprop="dateModified" datetime="2022-06-18T22:47:18+08:00">2022-06-18</time>
+      <time title="修改时间：2022-06-19 15:54:07" itemprop="dateModified" datetime="2022-06-19T15:54:07+08:00">2022-06-19</time>
     </span>
 
   
@@ -276,44 +276,17 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <a id="more"></a>
-
-<h2 id="方法一：忽略错误后，继续同步"><a href="#方法一：忽略错误后，继续同步" class="headerlink" title="方法一：忽略错误后，继续同步"></a>方法一：忽略错误后，继续同步</h2><blockquote>
+          <h2 id="方法一：忽略错误后，继续同步"><a href="#方法一：忽略错误后，继续同步" class="headerlink" title="方法一：忽略错误后，继续同步"></a>方法一：忽略错误后，继续同步</h2><blockquote>
 <p>备注：适用于主从数据库相差不大的情况</p>
 </blockquote>
-<p>1、master端执行命令，将数据库设置为全局读锁，不允许写入新数据。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">MariaDB [(none)]&gt;flush tables with read lock;</span><br></pre></td></tr></table></figure>
-<p>2、slave端停止slave的I/O及SQL线程。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">MariaDB [(none)]&gt;stop  slave;</span><br></pre></td></tr></table></figure>
-<p>3、slave端将同步错误的sql跳过一次（跳过操作会导致主从数据不一致）。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">MariaDB [(none)]&gt;set  global  sql_slave_skip_counter&#x3D;1;</span><br></pre></td></tr></table></figure>
-<p>4、slave端启动slave，恢复同步状态。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">MariaDB [(none)]&gt;start   slave;</span><br></pre></td></tr></table></figure>
-<p>5、master端解除数据库全局读锁。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">MariaDB [(none)]&gt;unlock tables;</span><br></pre></td></tr></table></figure>
-<h2 id="方法二：重新做主从同步，使数据完全同步"><a href="#方法二：重新做主从同步，使数据完全同步" class="headerlink" title="方法二：重新做主从同步，使数据完全同步"></a>方法二：重新做主从同步，使数据完全同步</h2><blockquote>
-<p>备注：适用于主从数据库相差很大的情况</p>
-</blockquote>
-<p>1、master端执行命令，将数据库设置为全局读锁，不允许写入新数据。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">MariaDB [(none)]&gt; flush tables with read lock;</span><br></pre></td></tr></table></figure>
-<p>2、master端查看master状态。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">MariaDB [(none)]&gt; show master status\G</span><br></pre></td></tr></table></figure>
-<p>3、master端对数据库进行完整备份。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysqldump -uroot -pserver8 --databases  newdb &gt; &#x2F;root&#x2F;newdb.sql;</span><br></pre></td></tr></table></figure>
-<p>4、master端使用scp命令传输数据库文件newdb.sql到从服务器/root根目录。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">scp &#x2F;root&#x2F;newdb.sql root@192.168.1.210:&#x2F;root</span><br></pre></td></tr></table></figure>
-<p>5、slave端导入master端复制过来的数据库。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql  -uroot  -pclient8a  &lt;  &#x2F;root&#x2F;newdb.sql</span><br></pre></td></tr></table></figure>
-<p>6、slave端登录数据库，停止slave的I/O及SQL线程。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mysql -uroot -p</span><br><span class="line">MariaDB [(none)]&gt;stop   slave;</span><br></pre></td></tr></table></figure>
-<p>7、slave端重新配置主从关系(master_log_file与master_log_pos是主服务器master状态下的File与Position)。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">MariaDB [(none)]&gt; use mysql; #切换数据库</span><br><span class="line">MariaDB [mysql]&gt; change master to</span><br><span class="line">master_host&#x3D;&#39;192.168.1.200&#39;,</span><br><span class="line">master_user&#x3D;&#39;new&#39;,</span><br><span class="line">master_password&#x3D;&#39;new&#39;,</span><br><span class="line">master_log_file&#x3D;&#39;mysql-bin.000001&#39;,</span><br><span class="line">master_log_pos&#x3D;653; #配置主从同步参数</span><br></pre></td></tr></table></figure>
-<p>8、slave端启动slave。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">MariaDB [mysql]&gt;start   slave;</span><br></pre></td></tr></table></figure>
-<p>9、slave端查看slave状态，确认slave端I/O线程和SQL线程均为yes。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">MariaDB [mysql]&gt;show slave status\G</span><br></pre></td></tr></table></figure>
-<p>10、master端解除数据库全局读锁。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">MariaDB [(none)]&gt;unlock tables;</span><br></pre></td></tr></table></figure>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2021/06/09/%E6%95%B0%E6%8D%AE%E5%BA%93%E4%B8%BB%E4%BB%8E%E5%90%8C%E6%AD%A5%E9%94%99%E8%AF%AF%E6%81%A2%E5%A4%8D/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
